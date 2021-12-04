@@ -1,2 +1,2 @@
 # Website
-Our public website
+The public part of our website.
