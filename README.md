@@ -1,1 +1,2 @@
-# scoutslebbeke.be
+# Website
+Our public website
