@@ -22,6 +22,8 @@ window.onload = function () {
             window.location.replace("https://www.scoutslebbeke.be/leidingsplatform/front.php");
         }
     });
+
+    $('#curr_year').text(new Date().getFullYear())
 };
 
 // handles background fading on window resize
