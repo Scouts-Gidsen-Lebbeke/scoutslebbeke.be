@@ -1,0 +1,121 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: lightgray;
+}
+html, body {
+    height: 100%;
+}
+#loginbody {
+    background: url("../images/login_background.JPG") no-repeat;
+    background-size: cover;
+}
+span {
+    color: darkred;
+}
+#main {
+    width: 300px;
+    height: 100%;
+    float: left;
+    font-weight: bold;
+    color: white;
+    padding: 0 30px 0;
+    background-color: rgba(0, 0, 0, 0.4);;
+    position: relative;
+}
+#login {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+input[id=name],input[id=password] {
+    width: 85%;
+    padding: 10px 10px 10px 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size:16px;
+}
+input[id=loginbutton] {
+    background: url("../images/button_icon.png") no-repeat;
+    background-size: cover;
+    width:40px;
+    height:40px;
+    margin: 5px auto;
+    border: 0;
+    cursor: pointer;
+}
+#profile {
+    padding: 30px;
+    font-size: 20px;
+    background-color: black;
+    color: white;
+}
+#logout {
+    border: solid 4px transparent;
+    border-radius: 5px;
+    float: right;
+    margin: -4px;
+    color: white;
+}
+a {
+    text-decoration: none;
+    color: white;
+    font-weight: normal;
+}
+#menu {
+    font-size: 10px;
+    background-color: black;
+    width: 300px;
+    float: left;
+    height: 100%;
+}
+.menubaritem {
+    width: 280px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    font-size: 20px;
+    color: white
+}
+.menubaritem:hover, #logout:hover {
+    background-color: #343536;
+    cursor: pointer;
+}
+#content {
+    padding: 15px 30px;
+    overflow: hidden;
+    width: auto;
+}
+#content h1 {
+    font-size: 20px;
+}
+#content p {
+    font-size: 15px;
+}
+input[type=text], input[type=email], input[type=tel], input[type=password], input[type=number], select, button, #picToUpload {
+    margin: 8px auto;
+}
+input[type=file] {
+    margin: -25px auto 8px;
+}
+#profilepic {
+    max-width: 300px;
+    float:right;
+    margin-right: 40px;
+    border: solid 3px #37342B;
+    border-radius: 5px;
+}
+.itembutton {
+    width: 10px;
+}
+#itemtitle {
+    width: 250px;
+}
+#calendar {
+    border: 0;
+    width: 800px;
+    height: 600px;
+    border: none;
+}
