@@ -191,6 +191,20 @@ hr {
     height: 1500px;
 }
 
+#form-wrapper {
+    text-align: left;
+    width: 300px;
+    margin: 0 auto;
+}
+
+#form-wrapper button, label, input {
+    margin: 5px auto;
+}
+
+#form-wrapper input {
+    width: 250px;
+}
+
 /*map 'contact'*/
 #map {
     height: 500px;

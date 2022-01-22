@@ -201,6 +201,12 @@ function setPeriod() {
     $("#period").html(title);
 }
 
-function test() {
-
+function post60YearData() {
+    const form = new FormData(document.querySelector('#SixtyYearData'));
+    const request = new Request('60jaar/handleSubmit.php', {method: 'POST', body: form});
+    fetch(request).then(response => response.json()).then(data => {
+        const error = $('#error');
+        error.css('color', data["error"] ? 'red' : 'black');
+        error.html(data["message"]);
+    });
 }
