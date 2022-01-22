@@ -1,5 +1,17 @@
 <?php
 include '../connect.php';
+function reCaptcha($recaptcha){
+    $secret = parse_ini_file('../db.ini')['captcha_secret_key'];
+    $postvars = array("secret" => $secret, "response" => $recaptcha, "remoteip" => $_SERVER['REMOTE_ADDR']);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $postvars);
+    $data = curl_exec($ch);
+    curl_close($ch);
+    return json_decode($data, true);
+}
 try {
     $firstname = $_POST['firstname'];
     if ($firstname == null) {
@@ -20,18 +32,6 @@ try {
     $captcha = reCaptcha($_POST['g-recaptcha-response']);
     if (!$captcha['success']) {
         throw new RuntimeException('Geen geldige Captcha!');
-    }
-    function reCaptcha($recaptcha){
-        $secret = parse_ini_file('db.ini')['captcha_secret_key'];
-        $postvars = array("secret" => $secret, "response" => $recaptcha, "remoteip" => $_SERVER['REMOTE_ADDR']);
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postvars);
-        $data = curl_exec($ch);
-        curl_close($ch);
-        return json_decode($data, true);
     }
     mysqli_query($connection, "insert into 60_year_contact values ('$email', '$firstname', '$lastname')");
     echo json_encode(array("status" => "success", "error" => false, "message" => "Upload succesvol!"));

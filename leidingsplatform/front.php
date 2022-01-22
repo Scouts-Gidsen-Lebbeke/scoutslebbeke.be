@@ -12,12 +12,12 @@ if (isset($_SESSION['login_user'])){
     <link href="style.css" rel="stylesheet" type="text/css">
     <meta name="author" content="">
     <link rel="icon" href="../images/loginim.png">
-    <script src="../jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script>
         //shortcut to website
         document.addEventListener('keydown', ev => {
             if (ev.code === 'KeyE' && ev.ctrlKey && ev.altKey) {
-                window.location.replace("https://www.scoutslebbeke.be/?q=nieuwtjes/nieuwtjes.html");
+                window.location.href = '/index.html';
             }
         });
     </script>

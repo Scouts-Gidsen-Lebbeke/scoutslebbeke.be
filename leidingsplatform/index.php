@@ -12,8 +12,8 @@ if (!isset($_SESSION['login_user'])) {
     <title>Leidingplatform</title>
     <link href="style.css" rel="stylesheet" type="text/css">
     <meta name="author" content="Robin Keppens">
-    <link rel="icon" href="../images/loginim.png">
-    <script src="../jquery-3.3.1.min.js"></script>
+    <link rel="icon" href="/images/loginim.png">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="shared.js"></script>
     <script src="https://cdn.tiny.cloud/1/3zke4762j1cnv5l70ctyfbpncqoc7ztulh9sri9haivlajkw/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 </head>

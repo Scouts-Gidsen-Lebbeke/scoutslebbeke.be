@@ -19,7 +19,7 @@ window.onload = function () {
 
     document.addEventListener('keydown', ev => {
         if (ev.code === 'KeyE' && ev.ctrlKey && ev.altKey) {
-            window.location.replace("https://www.scoutslebbeke.be/leidingsplatform/front.php");
+            window.location.href = '/leidingsplatform/index.php';
         }
     });
 
