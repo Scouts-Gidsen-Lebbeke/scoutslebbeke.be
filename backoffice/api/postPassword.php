@@ -2,16 +2,16 @@
 include $_SERVER['DOCUMENT_ROOT'] . '/api/connect.php';
 try {
     $oldpass = $_POST['oldpass'];
-    $newpass = $_POST['newpass'];
+    $newpass = $_POST['newpass1'];
     $newpass2 = $_POST['newpass2'];
-    $username = $_SESSION['login_user'];
+    $username = "robink";//$_SESSION['login_user'];
     if (empty($oldpass)) {
         throw new RuntimeException("Oud wachtwoord kan niet leeg zijn!");
     }
     if (empty($newpass) || empty($newpass2)) {
         throw new RuntimeException("Nieuw wachtwoord kan niet leeg zijn!");
     }
-    if (!strcmp($newpass, $newpass2)) {
+    if (strcmp($newpass, $newpass2) !== 0) {
         throw new RuntimeException("Niewe wachtwoorden komen niet overeen!");
     }
     if (strlen($newpass) < 8 || !preg_match('/[A-Z]/', $newpass) || !preg_match('/[0-9]/', $newpass) || !preg_match('/[a-z]/', $newpass)) {

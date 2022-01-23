@@ -88,7 +88,7 @@ a {
 #content h1 {
     font-size: 20px;
 }
-#content p {
+#content p, #content label {
     font-size: 15px;
 }
 input[type=text], input[type=email], input[type=tel], input[type=password], input[type=number], select, button, #picToUpload {
@@ -115,4 +115,7 @@ input[type=file] {
     width: 800px;
     height: 600px;
     border: none;
+}
+#username_span {
+    cursor: pointer;
 }

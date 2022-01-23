@@ -120,6 +120,7 @@ hr {
     text-decoration: none;
     font-weight: bold;
     color: black;
+    cursor: pointer;
 }
 
 /*div with credits*/

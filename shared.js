@@ -57,7 +57,7 @@ function getGroepsleiding() {
                 "<b>Gsm:</b> " + formatGsm(item["Gsm"]) + "<br>" +
                 "<b>Email:</b> groepsleiding@scoutslebbeke.be<br>");
         });
-    }).catch((error) => console.log(error))
+    });
 }
 
 function getLeiding(tak) {
@@ -71,7 +71,7 @@ function getLeiding(tak) {
                 "<b>Gsm:</b> " + formatGsm(item["Gsm"]) + "<br>" +
                 "<b>Email:</b> " + item["Email"] + "<br>");
         });
-    }).catch((error) => console.log(error));
+    });
 }
 
 function formatGsm(str) {
@@ -86,7 +86,7 @@ function getGrlContact() {
         Object.values(data).forEach((item) => {
             $("#grlnumbers").append("<p>" + formatGsm(item["Gsm"]) + " (" + item["Voornaam"] + " " + item["Achternaam"] + ")</p>");
         });
-    }).catch((error) => console.log(error))
+    });
 }
 
 function initMap() {
@@ -109,7 +109,7 @@ function openNav() {
 
 function closeNav() {
     for (let el of document.getElementsByClassName("mobilemenu")) {
-        el.style.width = "0"
+        el.style.width = "0";
     }
     document.body.style.overflow = "visible";
     $("#overlay").hide();
@@ -131,7 +131,7 @@ function getNavigation() {
     fetch("/api/getNavigation.php").then((res) => res.json()).then((data) => {
         $('#nav').html(getBrowserNav(data));
         $('#mobilenav').html(getMobileNav(data));
-    }).catch((error) => console.log(error));
+    });
 }
 
 function getBrowserNav(data) {
@@ -171,25 +171,18 @@ function getMobileNav(data) {
     return "<div id=\"mobilemenuspan\"><a onclick=\"openNav()\">☰</a></div>" + subitems + result + "<div id=\"overlay\"></div>";
 }
 
-function setPeriod() {
-    const month = new Date().getMonth();
-    let title;
-    if (month <= 3) {
-        title = "Sprokkel januari - april";
-    } else if (month <= 7) {
-        title = "Sprokkel april - juni";
-    } else {
-        title = "Sprokkel september - december";
-    }
-    $("#period").html(title);
-}
-
 function post60YearData() {
     const form = new FormData(document.querySelector('#SixtyYearData'));
     fetch(new Request('/api/postSixtyYear.php', {method: 'POST', body: form}))
         .then(response => response.json()).then(data => {
-            const error = $('#error');
+            const error = $('#60year_error');
             error.css('color', data["error"] ? 'red' : 'black');
             error.html(data["message"]);
         });
+}
+
+function getSetting(settingId, settingSpanId) {
+    fetch("/api/getSetting.php?q=" + settingId).then(res => res.json()).then(data => {
+        $('#' + settingSpanId).html(data["setting_value"]);
+    });
 }
