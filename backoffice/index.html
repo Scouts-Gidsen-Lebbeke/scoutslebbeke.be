@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="nl_BE">
+<head>
+    <meta charset="UTF-8">
+    <title>Leidingplatform</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <meta name="author" content="Robin Keppens">
+    <link rel="icon" href="/backoffice/images/loginim.png">
+    <script src="shared.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.tiny.cloud/1/3zke4762j1cnv5l70ctyfbpncqoc7ztulh9sri9haivlajkw/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+</head>
+<body>
+    <div id="profile">
+        <b id="welcome">Welkom, <span onclick="load('profile')" id="username_span"></span>!</b>
+        <a onclick="logout()"><b id="logout">Afmelden</b></a>
+    </div>
+    <div id="menu">
+        <div onclick="load('home')" class="menubaritem">Home</div>
+        <div onclick="load('news')" class="menubaritem">Nieuwtjes</div>
+        <div onclick="load('calendar')" class="menubaritem">Kalender</div>
+        <div onclick="load('sprokkel')" class="menubaritem">Sprokkel</div>
+        <div onclick="load('users')" class="menubaritem">Leiding</div>
+        <div onclick="load('pages')" class="menubaritem">Pagina's</div>
+        <div onclick="load('menu')" class="menubaritem">Menu</div>
+        <div onclick="load('settings')" class="menubaritem">Instellingen</div>
+    </div>
+    <div id="content"></div>
+</body>
+</html>

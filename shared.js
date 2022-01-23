@@ -1,10 +1,11 @@
 let width, images = 13, previousPhoto = 0, intervalID;
+const BACKGROUND_FADING_LIMIT = 1200;
 
 window.onload = function() {
-    load(history.state === null || history.state.content === undefined ? 'nieuwtjes' : history.state.content)
+    load(history.state === null ? 'nieuwtjes' : history.state.content);
     getNavigation();
     width = window.innerWidth > 0 ? window.innerWidth : screen.width;
-    if (width > 1200) {
+    if (width > BACKGROUND_FADING_LIMIT) {
         changeImage();
         intervalID = setInterval(changeImage, 5000);
     }
@@ -23,30 +24,27 @@ window.onpopstate = function() {
 function load(page) {
     history.pushState({content: page}, "", "/");
     $('#content').load('/pages/' + page + '.html');
-    if (width <= 1200) {
+    if (width <= BACKGROUND_FADING_LIMIT) {
         closeNav();
     }
 }
 
-// handles background fading on window resize
 window.onresize = function () {
-    let newwidth = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-    if (width <= 1200 && newwidth > 1200){
-        changeImage();
+    let newwidth = window.innerWidth > 0 ? window.innerWidth : screen.width;
+    if (width <= BACKGROUND_FADING_LIMIT && newwidth > BACKGROUND_FADING_LIMIT) {
         intervalID = setInterval(changeImage, 5000);
-    } else if (width > 1200 && newwidth <= 1200) {
+    } else if (width > BACKGROUND_FADING_LIMIT && newwidth <= BACKGROUND_FADING_LIMIT) {
         clearInterval(intervalID);
     }
     width = newwidth;
 };
 
-// changes background of wrapper
 function changeImage() {
     let i = Math.floor(Math.random() * images) + 1;
     if (i === previousPhoto) {
         i = (i + 1) % images + 1;
     }
-    $("#wrapper1").css("background-image", "url(background/" + i + ".jpg)");
+    $("#wrapper1").css("background-image", "url(/background/" + i + ".jpg)");
     previousPhoto = i;
 }
 
@@ -103,14 +101,12 @@ function initMap() {
     });
 }
 
-//open mobile navigation bar
 function openNav() {
     $("#mobilemenu").css("width", "60%");
     document.body.style.overflow = "hidden";
     $("#overlay").show();
 }
 
-//close mobile navigation bar
 function closeNav() {
     for (let el of document.getElementsByClassName("mobilemenu")) {
         el.style.width = "0"
