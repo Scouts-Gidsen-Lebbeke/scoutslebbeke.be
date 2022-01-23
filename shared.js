@@ -1,30 +1,32 @@
-let width, images = 13, previousPhoto = 0, intervalID, content;
+let width, images = 13, previousPhoto = 0, intervalID;
 
-window.onload = function () {
-    const q = (new URL(window.location.href)).searchParams.get('q');
-    if (q) {
-        window.history.replaceState(null, "", "/");
-    }
-    const q2 = q ? q : localStorage.getItem("content");
-    content = q2 ? q2 : 'nieuwtjes/nieuwtjes.html';
-    $('#content').load(content);
+window.onload = function() {
+    load(history.state === null || history.state.content === undefined ? 'nieuwtjes' : history.state.content)
     getNavigation();
-
     width = window.innerWidth > 0 ? window.innerWidth : screen.width;
-    if (width > 1200){
-        // start background fading
+    if (width > 1200) {
         changeImage();
         intervalID = setInterval(changeImage, 5000);
     }
-
     document.addEventListener('keydown', ev => {
         if (ev.code === 'KeyE' && ev.ctrlKey && ev.altKey) {
-            window.location.href = '/leidingsplatform/index.php';
+            window.location.href = '/backoffice';
         }
     });
-
     $('#curr_year').text(new Date().getFullYear())
 };
+
+window.onpopstate = function() {
+    $('#content').load(history.state.content);
+}
+
+function load(page) {
+    history.pushState({content: page}, "", "/");
+    $('#content').load('/pages/' + page + '.html');
+    if (width <= 1200) {
+        closeNav();
+    }
+}
 
 // handles background fading on window resize
 window.onresize = function () {
@@ -38,25 +40,20 @@ window.onresize = function () {
     width = newwidth;
 };
 
-// remember the current page for a possible reload
-window.onbeforeunload = function() {
-    localStorage.setItem("content", content);
-};
-
 // changes background of wrapper
 function changeImage() {
     let i = Math.floor(Math.random() * images) + 1;
     if (i === previousPhoto) {
         i = (i + 1) % images + 1;
     }
-    $("#wrapper1").css("background-image", "url(backgroundimages/" + i + ".jpg)");
+    $("#wrapper1").css("background-image", "url(background/" + i + ".jpg)");
     previousPhoto = i;
 }
 
 function getGroepsleiding() {
-    fetch("getGroepsleiding.php").then((res) => res.json()).then((data) => {
+    fetch("/api/getGroepsleiding.php").then((res) => res.json()).then((data) => {
         Object.values(data).forEach((item) => {
-            $("#leiding").append("<img src='../images/" + item["Foto"] + "' alt='groepsleiding' class='fotoLeiding'/><br>" +
+            $("#leiding").append("<img src='/images/profile/" + item["Foto"] + "' alt='groepsleiding' class='fotoLeiding'/><br>" +
                 "<b>Naam:</b> " + item["Voornaam"] + " " + item["Achternaam"] + "<br>" +
                 "<b>Totem:</b> " + item["Totem"] + "<br>" +
                 "<b>Gsm:</b> " + formatGsm(item["Gsm"]) + "<br>" +
@@ -66,11 +63,11 @@ function getGroepsleiding() {
 }
 
 function getLeiding(tak) {
-    fetch("getLeiding.php?q="+tak).then((res) => res.json()).then((data) => {
+    fetch("/api/getLeiding.php?q="+tak).then((res) => res.json()).then((data) => {
         Object.values(data).forEach((item) => {
             const bijnaam = tak === 'Kapoenenleiding' || tak === 'Welpenleiding' ? ' &bull; ' + item['Bijnaam'] : '';
             const takleiding = item['Takleiding'] === '1' ? " (takleiding)" : '';
-            $("#leiding").append("<img src='../images/" + item["Foto"] + "' alt='" + tak + "' class='fotoLeiding'/><br>" +
+            $("#leiding").append("<img src='/images/profile/" + item["Foto"] + "' alt='" + tak + "' class='fotoLeiding'/><br>" +
                 "<b>Naam:</b> " + item["Voornaam"] + " " + item["Achternaam"] + bijnaam + takleiding + "<br>" +
                 "<b>Totem:</b> " + item["Totem"] + "<br>" +
                 "<b>Gsm:</b> " + formatGsm(item["Gsm"]) + "<br>" +
@@ -87,7 +84,7 @@ function formatGsm(str) {
 }
 
 function getGrlContact() {
-    fetch("getGroepsleidingContact.php").then((res) => res.json()).then((data) => {
+    fetch("/api/getGroepsleidingContact.php").then((res) => res.json()).then((data) => {
         Object.values(data).forEach((item) => {
             $("#grlnumbers").append("<p>" + formatGsm(item["Gsm"]) + " (" + item["Voornaam"] + " " + item["Achternaam"] + ")</p>");
         });
@@ -104,14 +101,6 @@ function initMap() {
         position: adres,
         map: map
     });
-}
-
-function load(path) {
-    content = path;
-    $('#content').load(content);
-    if (width <= 1200) {
-        closeNav();
-    }
 }
 
 //open mobile navigation bar
@@ -132,20 +121,18 @@ function closeNav() {
 
 //load submenu in mobile navigation bar
 function loadsub(sub) {
-    let subname = '#' + sub + 'mobilemenu';
-    $(subname).css("width","60%");
+    $('#' + sub + 'mobilemenu').css("width","60%");
     $("#mobilemenu").css("width","0");
 }
 
 //return to main menu in mobile navigation bar
 function returnside(sub) {
-    let subname = '#' + sub + 'mobilemenu';
     $('#mobilemenu').css("width","60%");
-    $(subname).css("width","0");
+    $('#' + sub + 'mobilemenu').css("width","0");
 }
 
 function getNavigation() {
-    fetch("getNavigation.php").then((res) => res.json()).then((data) => {
+    fetch("/api/getNavigation.php").then((res) => res.json()).then((data) => {
         $('#nav').html(getBrowserNav(data));
         $('#mobilenav').html(getMobileNav(data));
     }).catch((error) => console.log(error));
@@ -203,10 +190,10 @@ function setPeriod() {
 
 function post60YearData() {
     const form = new FormData(document.querySelector('#SixtyYearData'));
-    const request = new Request('60jaar/handleSubmit.php', {method: 'POST', body: form});
-    fetch(request).then(response => response.json()).then(data => {
-        const error = $('#error');
-        error.css('color', data["error"] ? 'red' : 'black');
-        error.html(data["message"]);
-    });
+    fetch(new Request('/api/postSixtyYear.php', {method: 'POST', body: form}))
+        .then(response => response.json()).then(data => {
+            const error = $('#error');
+            error.css('color', data["error"] ? 'red' : 'black');
+            error.html(data["message"]);
+        });
 }
