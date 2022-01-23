@@ -17,7 +17,7 @@ window.onload = function() {
 };
 
 window.onpopstate = function() {
-    $('#content').load(history.state.content);
+    $('#content').load('/pages/' + history.state.content + '.html');
 }
 
 function load(page) {
