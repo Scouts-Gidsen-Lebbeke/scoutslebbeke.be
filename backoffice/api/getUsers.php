@@ -1,5 +1,5 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/connect.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/api/connect.php';
 $result = '';
 $userlistquery = mysqli_query($connection, "select Voornaam, Achternaam from profiel");
 while ($user = mysqli_fetch_assoc($userlistquery)) {

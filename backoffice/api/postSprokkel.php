@@ -15,15 +15,15 @@ try {
         default:
             throw new RuntimeException('Geen geldig bestand!');
     }
-    if ($_FILES['upfile']['size'] > 10000000) {
-        throw new RuntimeException('Te groot bestand! Maximaal 10MB.');
+    if ($_FILES['upfile']['size'] > 20000000) {
+        throw new RuntimeException('Te groot bestand! Maximaal 20MB.');
     }
     $finfo = new finfo(FILEINFO_MIME_TYPE);
     if (false === $ext = array_search($finfo->file($_FILES['upfile']['tmp_name']), array('pdf' => 'application/pdf'), true)) {
         throw new RuntimeException('Enkel pdf-bestanden toegelaten!');
     }
-    $target_file = "../../sprokkel/" . basename($_FILES["upfile"]["name"]);
-    $oldfile = '../../sprokkel/sprokkel.pdf';
+    $target_file = $_SERVER['DOCUMENT_ROOT'] . "/uploads/" . basename($_FILES["upfile"]["name"]);
+    $oldfile = $_SERVER['DOCUMENT_ROOT'] . '/uploads/sprokkel.pdf';
     if (unlink($oldfile) && move_uploaded_file($_FILES["upfile"]["tmp_name"], $target_file)) {
         rename($target_file, $oldfile);
     } else  {

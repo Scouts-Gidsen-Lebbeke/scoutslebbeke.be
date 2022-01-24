@@ -1,5 +1,4 @@
 window.onload = function() {
-    checkSession();
     document.addEventListener('keydown', ev => {
         if (ev.code === 'KeyE' && ev.ctrlKey && ev.altKey) {
             window.location.href = '/';
@@ -9,14 +8,14 @@ window.onload = function() {
 
 function load(page) {
     history.pushState({content: page}, "", "/backoffice");
-    $('#content').load('/backoffice/pages/' + page + '.html');
+    $('#platform-content').load('/backoffice/pages/' + page + '.html');
 }
 
 window.onpopstate = function() {
-    $('#content').load('/backoffice/pages/' + history.state.content + '.html');
+    $('#platform-content').load('/backoffice/pages/' + history.state.content + '.html');
 }
 
-function checkSession() {
+async function checkSession() {
     fetch(new Request('/backoffice/api/session.php', {method: 'GET'}))
         .then(response => response.json()).then(data => {
             if (window.location.pathname === "/backoffice/" && !data["active"]) {
@@ -51,8 +50,18 @@ function logout() {
         });
 }
 
-function loadUsers() {
-
+function loadPages() {
+    fetch(new Request('/backoffice/api/getPages.php', {method: 'GET'}))
+        .then(response => response.json()).then(data => {
+            if (data["success"]) {
+                $.each(data["list"], function (i, item) {
+                    $('#page-list').append($('<option>', {
+                        value: item["path"],
+                        text : item["name"]
+                    }));
+                });
+            }
+    });
 }
 
 function postSprokkel() {

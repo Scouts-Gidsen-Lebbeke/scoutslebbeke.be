@@ -1,5 +1,5 @@
 <?php
-include 'connect.php';
+include "connect.php";
 function reCaptcha($recaptcha){
     $secret = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config.ini')['captcha_secret_key'];
     $postvars = array("secret" => $secret, "response" => $recaptcha, "remoteip" => $_SERVER['REMOTE_ADDR']);
@@ -37,4 +37,6 @@ try {
     echo json_encode(array("status" => "success", "error" => false, "message" => "Upload succesvol!"));
 } catch (RuntimeException $e) {
     echo json_encode(array("status" => "error", "error" => true, "message" => $e->getMessage()));
+} finally {
+    $connection->close();
 }
