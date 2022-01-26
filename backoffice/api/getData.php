@@ -1,8 +1,9 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/api/connect.php';
-$table = $_POST['table'];
+$data = json_decode(file_get_contents('php://input'), true);
+$table = $data['table'];
 $f = fopen('php://memory', 'w');
-$fields = $_POST['fields'];
+$fields = $data['fields'];
 fputcsv($f, $fields);
 if ($query = $connection->query("select * from `$table`")) {
     while($row = $query->fetch_assoc()){
