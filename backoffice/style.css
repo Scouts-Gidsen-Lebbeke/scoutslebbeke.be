@@ -51,12 +51,34 @@ input[id=name],input[id=password] {
     font-size: 20px;
     background-color: black;
     color: white;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+#profile-pic {
+    float: left;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border: #999999 2px solid;
+    background-size: cover;
+    background: url("/backoffice/images/users/default.png");
+}
+#username, #profile-pic, #logout {
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+#username {
+    font-weight: bold;
+    left: 80px;
 }
 #logout {
     border: solid 4px transparent;
     border-radius: 5px;
-    float: right;
-    margin: -4px;
+    right: 30px;
+    font-weight: bold;
     color: white;
 }
 a {
@@ -81,7 +103,6 @@ a {
 }
 .menubaritem:hover, #logout:hover {
     background-color: #343536;
-    cursor: pointer;
 }
 #platform-content {
     padding: 15px 30px;
@@ -119,6 +140,6 @@ input[type=file] {
     height: 600px;
     border: none;
 }
-#username_span {
+.pointer {
     cursor: pointer;
 }

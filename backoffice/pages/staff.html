@@ -1,0 +1,11 @@
+<h1>Leiding</h1>
+<p>Configureer hier de zichtbare leiding. Kies een leid(st)er of voeg iemand nieuw toe.</p>
+<form method="post">
+    <select id="staff-list" onselect="updateStaffInfo()">
+        <option value="">Selecteer iemand...</option>
+    </select>
+    <div id="staff-info"></div>
+</form>
+<script>
+    loadStaff();
+</script>

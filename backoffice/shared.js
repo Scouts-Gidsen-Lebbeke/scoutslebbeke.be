@@ -4,6 +4,7 @@ window.onload = function() {
             window.location.href = '/';
         }
     });
+    load(history.state === null ? 'home' : history.state.content);
 };
 
 function load(page) {
@@ -23,8 +24,12 @@ async function checkSession() {
             } else if (window.location.pathname.endsWith("front.html") && data["active"]) {
                 window.location.href = "/backoffice";
             } else if (data["active"]) {
-                load(history.state === null ? 'home' : history.state.content);
-                $("#username_span").html(data["user"]);
+                $("#username").text(data["user"]);
+                if (data["pic"] !== null) {
+                    const picDiv = $("#profile-pic");
+                    picDiv.css("background", "url(/backoffice/images/users/" + data["pic"] + ")");
+                    picDiv.css("background-size", "100% 100%");
+                }
             }
         });
 }
@@ -105,5 +110,23 @@ function getWeekendData() {
 }
 
 function getCampData() {
+
+}
+
+function loadStaff() {
+    fetch(new Request('/backoffice/api/getStaff.php', {method: 'GET'}))
+        .then(response => response.json()).then(data => {
+            if (data["success"]) {
+                $.each(data["list"], function (i, item) {
+                    $('#staff-list').append($('<option>', {
+                        value: item["username"],
+                        text : item["Voornaam"] + " " + item["Achternaam"]
+                    }));
+                });
+            }
+    });
+}
+
+function updateStaffInfo() {
 
 }

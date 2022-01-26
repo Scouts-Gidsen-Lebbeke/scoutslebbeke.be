@@ -17,15 +17,16 @@
     checkSession();
 </script>
 <div id="profile">
-    <b id="welcome">Welkom, <span onclick="load('profile')" id="username_span"></span>!</b>
-    <a onclick="logout()"><b id="logout">Afmelden</b></a>
+    <div id="profile-pic" class="pointer" onclick="load('profile')"></div>
+    <div id="username"></div>
+    <div id="logout" onclick="logout()" class="pointer">Afmelden</div>
 </div>
 <div id="menu">
     <div onclick="load('home')" class="menubaritem">Home</div>
     <div onclick="load('news')" class="menubaritem">Nieuwtjes</div>
     <div onclick="load('calendar')" class="menubaritem">Kalender</div>
     <div onclick="load('sprokkel')" class="menubaritem">Sprokkel</div>
-    <div onclick="load('users')" class="menubaritem">Leiding</div>
+    <div onclick="load('staff')" class="menubaritem">Leiding</div>
     <div onclick="load('pages')" class="menubaritem">Pagina's</div>
     <div onclick="load('menu')" class="menubaritem">Menu</div>
     <div onclick="load('data')" class="menubaritem">Data</div>

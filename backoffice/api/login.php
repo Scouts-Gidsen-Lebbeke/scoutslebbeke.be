@@ -9,12 +9,14 @@ try {
     if (empty($password)) {
         throw new RuntimeException("Wachtwoord kan niet leeg zijn!");
     }
-    $query = $connection->query("select password from login where username='$username'");
-    if (mysqli_num_rows($query) != 1 || !password_verify($password, mysqli_fetch_assoc($query)['password'])) {
+    $query = $connection->query("select password, profile_picture from login where username='$username'");
+    $row = mysqli_fetch_assoc($query);
+    if (mysqli_num_rows($query) != 1 || !password_verify($password, $row['password'])) {
        throw new RuntimeException("Gebruikersnaam en/of wachtwoord is fout!");
     }
     session_start();
-    $_SESSION['login_user'] = $username;
+    $_SESSION['user'] = $username;
+    $_SESSION['user_profile_pic'] = $row['profile_picture'];
     echo json_encode(array("status" => "success", "error" => false, "message" => "Inloggen succesvol!"));
 } catch (RuntimeException $e) {
     echo json_encode(array("status" => "error", "error" => true, "message" => $e->getMessage()));
