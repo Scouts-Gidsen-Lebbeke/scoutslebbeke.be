@@ -124,7 +124,7 @@ input[type=text], input[type=email], input[type=tel], input[type=password], inpu
 input[type=file] {
     margin: -25px auto 8px;
 }
-#profilepic {
+#staff-pic {
     max-width: 300px;
     float:right;
     margin-right: 40px;

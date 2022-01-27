@@ -1,34 +1,49 @@
 <h1>Leiding</h1>
 <p>Configureer hier de zichtbare leiding. Kies een leid(st)er of voeg iemand nieuw toe.</p>
 <form method="post">
-    <select id="staff-list" onselect="updateStaffInfo()">
+    <select id="staff-list" onchange="updateStaffInfo()">
         <option value="">Selecteer iemand...</option>
     </select>
-    <div id="staff-info">
-        <img id="staff-pic" src="/images/profile/default.png" alt="staff-pic">
-        <form>
-            <label for="staff-firstname">Voornaam</label>
-            <input id="staff-firstname" type="text"><br>
-            <label for="staff-lastname">Achternaam</label>
-            <input id="staff-lastname" type="text"><br>
-            <label for="staff-firstname">Voornaam</label>
-            <input id="staff-firstname" type="text"><br>
-            <label for="staff-firstname">Voornaam</label>
-            <input id="staff-firstname" type="text"><br>
-            <label for="staff-firstname">Voornaam</label>
-            <input id="staff-firstname" type="text"><br>
-        </form>
-        <p>Voornaam: '.$voornaam.'</p>
-        <p>Achternaam: '.$achternaam.'</p>
-        <p>Bijnaam: '.$bijnaam.'</p>
-        <p>Totem: '.$totem.'</p>
-        <p>Gsm: '.$gsm.'</p>
-        <p>E-mail: '.$email.'</p>
-        <p>Functie: '.$functie.'</p>
-        <p>Hoofdleiding: '.$hoofd.'</p>
-        <p>Takleiding: '.$takleiding.'</p>;
-    </div>
+    <button type="button" id="save-staff" onclick="saveStaff()">Sla op</button>
+    <button type="button" id="delete-staff" onclick="deleteStaff()">Verwijder</button>
+    <button type="button" id="new-staff" onclick="newStaff()">Nieuwe leid(st)er</button>
 </form>
+<div id="staff-info">
+    <img id="staff-pic" src="/images/profile/default.png" alt="staff-pic">
+    <form>
+        <label for="staff-firstname">Voornaam:</label>
+        <input id="staff-firstname" type="text"><br>
+        <label for="staff-lastname">Achternaam:</label>
+        <input id="staff-lastname" type="text"><br>
+        <label for="staff-nickname-1">Kapoenennaam:</label>
+        <input id="staff-nickname-1" type="text"><br>
+        <label for="staff-nickname-2">Welpennaam:</label>
+        <input id="staff-nickname-2" type="text"><br>
+        <label for="staff-totem">Totem:</label>
+        <input id="staff-totem" type="text"><br>
+        <label for="staff-mobile">Gsm:</label>
+        <input id="staff-mobile" type="number"><br>
+        <label for="staff-email">E-mail:</label>
+        <input id="staff-email" type="number"><br>
+        <label for="staff-function">Tak:</label>
+        <select id="staff-function">
+            <option value="Geen">Geen</option>
+            <option value="Kapoenenleiding">Kapoenenleiding</option>
+            <option value="Welpenleiding">Welpenleiding</option>
+            <option value="Pioniersleiding">Pioniersleiding</option>
+            <option value="Jonggiverleiding">Jonggiverleiding</option>
+            <option value="Giverleiding">Giverleiding</option>
+            <option value="Jinleiding">Jinleiding</option>
+            <option value="Stam">Stam</option>
+        </select><br>
+        <input type="checkbox" id="branch-head">
+        <label for="branch-head">Takleiding</label>
+        <input type="checkbox" id="staff-head">
+        <label for="staff-head">Groepsleiding</label>
+        <input type="checkbox" id="uniform-master">
+        <label for="uniform-master">Uniform verantwoordelijke</label>
+    </form>
+</div>
 <script>
     loadStaff();
 </script>
