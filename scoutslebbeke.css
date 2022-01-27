@@ -289,6 +289,10 @@ hr {
     color: white;
 }
 
+#credits-lock {
+    width: 15px;
+}
+
 /*responsive design*/
 @media only screen and (max-width: 1200px) {
     #mobilenav, #mobilesprokkel {

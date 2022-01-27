@@ -4,7 +4,30 @@
     <select id="staff-list" onselect="updateStaffInfo()">
         <option value="">Selecteer iemand...</option>
     </select>
-    <div id="staff-info"></div>
+    <div id="staff-info">
+        <img id="staff-pic" src="/images/profile/default.png" alt="staff-pic">
+        <form>
+            <label for="staff-firstname">Voornaam</label>
+            <input id="staff-firstname" type="text"><br>
+            <label for="staff-lastname">Achternaam</label>
+            <input id="staff-lastname" type="text"><br>
+            <label for="staff-firstname">Voornaam</label>
+            <input id="staff-firstname" type="text"><br>
+            <label for="staff-firstname">Voornaam</label>
+            <input id="staff-firstname" type="text"><br>
+            <label for="staff-firstname">Voornaam</label>
+            <input id="staff-firstname" type="text"><br>
+        </form>
+        <p>Voornaam: '.$voornaam.'</p>
+        <p>Achternaam: '.$achternaam.'</p>
+        <p>Bijnaam: '.$bijnaam.'</p>
+        <p>Totem: '.$totem.'</p>
+        <p>Gsm: '.$gsm.'</p>
+        <p>E-mail: '.$email.'</p>
+        <p>Functie: '.$functie.'</p>
+        <p>Hoofdleiding: '.$hoofd.'</p>
+        <p>Takleiding: '.$takleiding.'</p>;
+    </div>
 </form>
 <script>
     loadStaff();

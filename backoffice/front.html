@@ -5,20 +5,19 @@
     <link href="style.css" rel="stylesheet" type="text/css">
     <meta name="author" content="Robin Keppens">
     <link rel="icon" href="/backoffice/images/loginim.png">
-    <script src="shared.js"></script>
+    <script src="front.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 <body id="loginbody">
-<script>
-    checkSession();
-</script>
 <div id="main">
     <div id="login">
         <form enctype="multipart/form-data" id="login_form">
             <label for="name">Gebruikersnaam:</label>
             <input id="name" name="username" placeholder="Gebruikersnaam" type="text">
             <label for="password">Wachtwoord:</label>
-            <input id="password" name="password" placeholder="**********" type="password"><br>
+            <input id="password" name="password" placeholder="**********" type="password">
+            <i class="bi bi-eye-slash" id="togglePassword"></i><br>
             <input type="button" id="loginbutton" onclick="login()"><br>
             <span id="login_error"></span>
         </form>

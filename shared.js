@@ -63,13 +63,18 @@ function getGroepsleiding() {
 function getLeiding(tak) {
     fetch("/api/getLeiding.php?q="+tak).then((res) => res.json()).then((data) => {
         Object.values(data).forEach((item) => {
-            const bijnaam = tak === 'Kapoenenleiding' || tak === 'Welpenleiding' ? ' &bull; ' + item['Bijnaam'] : '';
+            let bijnaam = "";
+            if (tak === 'Kapoenenleiding') {
+                bijnaam = ' &bull; ' + item['kapoenenbijnaam'];
+            } else if (tak === 'Welpenleiding') {
+                bijnaam = ' &bull; ' + item['welpenbijnaam'];
+            }
             const takleiding = item['Takleiding'] === '1' ? " (takleiding)" : '';
             $("#leiding").append("<img src='/images/profile/" + item["Foto"] + "' alt='" + tak + "' class='fotoLeiding'/><br>" +
                 "<b>Naam:</b> " + item["Voornaam"] + " " + item["Achternaam"] + bijnaam + takleiding + "<br>" +
                 "<b>Totem:</b> " + item["Totem"] + "<br>" +
-                "<b>Gsm:</b> " + formatGsm(item["Gsm"]) + "<br>" +
-                "<b>Email:</b> " + item["Email"] + "<br>");
+                (takleiding ? "<b>Gsm:</b> " + formatGsm(item["Gsm"]) + "<br>" +
+                "<b>Email:</b> " + item["Email"] + "<br>" : ""));
         });
     });
 }

@@ -1,9 +1,4 @@
 window.onload = function() {
-    document.addEventListener('keydown', ev => {
-        if (ev.code === 'KeyE' && ev.ctrlKey && ev.altKey) {
-            window.location.href = '/';
-        }
-    });
     load(history.state === null ? 'home' : history.state.content);
 };
 
@@ -16,32 +11,18 @@ window.onpopstate = function() {
     $('#platform-content').load('/backoffice/pages/' + history.state.content + '.html');
 }
 
-async function checkSession() {
+function checkSession() {
     fetch(new Request('/backoffice/api/session.php', {method: 'GET'}))
         .then(response => response.json()).then(data => {
-            if (window.location.pathname === "/backoffice/" && !data["active"]) {
+            if (!data["active"]) {
                 window.location.href = "/backoffice/front.html";
-            } else if (window.location.pathname.endsWith("front.html") && data["active"]) {
-                window.location.href = "/backoffice";
-            } else if (data["active"]) {
-                $("#username").text(data["user"]);
-                if (data["pic"] !== null) {
-                    const picDiv = $("#profile-pic");
-                    picDiv.css("background", "url(/backoffice/images/users/" + data["pic"] + ")");
-                    picDiv.css("background-size", "100% 100%");
-                }
-            }
-        });
-}
-
-function login() {
-    const form = new FormData(document.querySelector('#login_form'));
-    fetch(new Request('/backoffice/api/login.php', {method: 'POST', body: form}))
-        .then(response => response.json()).then(data => {
-            if (data["error"]) {
-                $('#login_error').html(data["message"]);
             } else {
-                window.location.href = '/backoffice';
+                $("#username").text(data["user"]);
+                const picDiv = $("#profile-pic");
+                if (data["pic"] !== null) {
+                    picDiv.css("background", "url(/backoffice/images/users/" + data["pic"] + ")");
+                }
+                picDiv.css("background-size", "100% 100%");
             }
         });
 }
