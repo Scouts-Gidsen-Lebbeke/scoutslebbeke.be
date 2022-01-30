@@ -18,12 +18,12 @@ window.onload = function() {
 };
 
 window.onpopstate = function() {
-    $('#content').load('/pages/' + history.state.content + '.html');
+    $('#content').load('/pages/' + history.state.content + '.html?q=' + new Date().getTime());
 }
 
 function load(page) {
     history.pushState({content: page}, "", "/");
-    $('#content').load('/pages/' + page + '.html');
+    $('#content').load('/pages/' + page + '.html?q=' + new Date().getTime());
     if (width <= BACKGROUND_FADING_LIMIT) {
         closeNav();
     }

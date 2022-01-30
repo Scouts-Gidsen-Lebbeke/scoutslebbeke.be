@@ -1,0 +1,26 @@
+<h1>Uploads</h1>
+<p>Upload hier de beschikbare documenten op onze website.</p>
+<h2>Sprokkel</h2>
+<form enctype="multipart/form-data" id="sprokkelData">
+    <input type="file" name="upfile"><br>
+    <button type="button" onclick="postSprokkel()">Upload</button><br>
+    <span id="error_sprokkel"></span>
+</form>
+<h2>Kampboekje</h2>
+<form enctype="multipart/form-data" id="camp-data-upload">
+    <input type="file" name="upfile"><br>
+    <button type="button" onclick="postCamp()">Upload</button><br>
+    <span id="error-camp-upload"></span>
+</form>
+<h2>Privacyverklaring</h2>
+<form enctype="multipart/form-data" id="privacy-data-upload">
+    <input type="file" name="upfile"><br>
+    <button type="button" onclick="postPrivacy()">Upload</button><br>
+    <span id="error-privacy-upload"></span>
+</form>
+<h2>Achtergrondafbeeldingen</h2>
+<form enctype="multipart/form-data" id="background-data-upload">
+    <input type="file" name="upfile"><br>
+    <button type="button" onclick="postBackground()">Upload</button><br>
+    <span id="error-background-upload"></span>
+</form>

@@ -1,4 +1,7 @@
-### testing requests
+GET http://localhost:80/backoffice/api/getStaffDetail.php?q=robink
+Accept: application/json
+
+###
 
 POST http://localhost:80/backoffice/api/getData.php
 Content-Type: application/json

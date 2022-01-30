@@ -51,7 +51,7 @@ form i {
     color: darkred;
 }
 #profile {
-    padding: 30px;
+    padding: 30px 20px;
     font-size: 20px;
     background-color: black;
     color: white;
@@ -75,14 +75,12 @@ form i {
 }
 #username {
     font-weight: bold;
-    left: 80px;
+    left: 70px;
 }
 #logout {
-    border: solid 4px transparent;
-    border-radius: 5px;
-    right: 30px;
-    font-weight: bold;
-    color: white;
+    width: 30px;
+    right: 20px;
+    cursor: pointer;
 }
 a {
     text-decoration: none;
@@ -90,22 +88,17 @@ a {
     font-weight: normal;
 }
 #menu {
-    font-size: 10px;
     background-color: black;
-    width: 300px;
     float: left;
     height: 100%;
 }
 .menubaritem {
-    width: 280px;
     font-weight: bold;
     text-align: center;
-    padding: 10px;
+    padding: 10px 20px;
     font-size: 20px;
-    color: white
-}
-.menubaritem:hover, #logout:hover {
-    background-color: #343536;
+    color: white;
+    cursor: pointer;
 }
 #platform-content {
     padding: 15px 30px;
@@ -113,7 +106,10 @@ a {
     width: auto;
 }
 #platform-content h1 {
-    font-size: 20px;
+    font-size: 25px;
+}
+#platform-content h2 {
+    font-size: 18px;
 }
 #platform-content p, #platform-content label {
     font-size: 15px;
@@ -145,4 +141,14 @@ input[type=file] {
 }
 .pointer {
     cursor: pointer;
+}
+#staff-pic-form {
+    display: none;
+}
+.text-menu-item {
+    display: none;
+    height: 35px;
+}
+#menu img {
+    width: 30px;
 }

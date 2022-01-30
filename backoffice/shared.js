@@ -4,7 +4,7 @@ window.onload = function() {
 
 function load(page) {
     history.pushState({content: page}, "", "/backoffice");
-    $('#platform-content').load('/backoffice/pages/' + page + '.html');
+    $('#platform-content').load('/backoffice/pages/' + page + '.html?q=' + new Date().getTime());
 }
 
 window.onpopstate = function() {
@@ -94,66 +94,12 @@ function getCampData() {
 
 }
 
-function loadStaff() {
-    fetch(new Request('/backoffice/api/getStaff.php', {method: 'GET'}))
-        .then(response => response.json()).then(data => {
-            if (data["success"]) {
-                $.each(data["list"], function (i, item) {
-                    $('#staff-list').append($('<option>', {
-                        value: item["username"],
-                        text : item["Voornaam"] + " " + item["Achternaam"]
-                    }));
-                });
-            }
-    });
-}
-
-function updateStaffInfo() {
-    const username = $('#staff-list').val();
-    $("#save-staff").prop("disabled", !username);
-    $("#delete-staff").prop("disabled", !username);
-    if (username) {
-        fetch(new Request('/backoffice/api/getStaffDetail.php?q=' + username, {method: 'GET'}))
-            .then(response => response.json()).then(data => {
-                if (data["success"]) {
-                    $('#staff-firstname').val(data["Voornaam"]);
-                    $('#staff-lastname').val(data["Achternaam"]);
-                    $('#staff-nickname-1').val(data["kapoenenbijnaam"]);
-                    $('#staff-nickname-2').val(data["welpenbijnaam"]);
-                    $('#staff-totem').val(data["Totem"]);
-                    $('#staff-mobile').val(data["Gsm"]);
-                    $('#staff-pic').attr("src", "/images/profile/" + data["Foto"]);
-                    $('#staff-function').val(data["Functie"]);
-                    $('#staff-email').val(data["email"]);
-                    $('#branch-head').prop("checked", data["Takleiding"]);
-                    $('#staff-head').prop("checked", data["Groepsleiding"]);
-                    $('#uniform-master').prop("checked", data["uniform"]);
-                }
-        });
-    } else {
-        $('#staff-firstname').val(null);
-        $('#staff-lastname').val(null);
-        $('#staff-nickname-1').val(null);
-        $('#staff-nickname-2').val(null);
-        $('#staff-totem').val(null);
-        $('#staff-mobile').val(null);
-        $('#staff-pic').attr("src", "/images/profile/default.png");
-        $('#staff-function').val("Geen");
-        $('#staff-email').val(null);
-        $('#branch-head').prop("checked", false);
-        $('#staff-head').prop("checked", false);
-        $('#uniform-master').prop("checked", false);
-    }
-}
-
-function saveStaff() {
+function initPageContent() {
 
 }
 
-function deleteStaff() {
 
-}
-
-function newStaff() {
-
+function toggleNav() {
+    $(".icon-menu-item").toggle()
+    $(".text-menu-item").toggle()
 }

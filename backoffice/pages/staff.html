@@ -2,11 +2,8 @@
 <p>Configureer hier de zichtbare leiding. Kies een leid(st)er of voeg iemand nieuw toe.</p>
 <form method="post">
     <select id="staff-list" onchange="updateStaffInfo()">
-        <option value="">Selecteer iemand...</option>
+        <option value="">Nieuw</option>
     </select>
-    <button type="button" id="save-staff" onclick="saveStaff()">Sla op</button>
-    <button type="button" id="delete-staff" onclick="deleteStaff()">Verwijder</button>
-    <button type="button" id="new-staff" onclick="newStaff()">Nieuwe leid(st)er</button>
 </form>
 <div id="staff-info">
     <img id="staff-pic" src="/images/profile/default.png" alt="staff-pic">
@@ -24,7 +21,7 @@
         <label for="staff-mobile">Gsm:</label>
         <input id="staff-mobile" type="number"><br>
         <label for="staff-email">E-mail:</label>
-        <input id="staff-email" type="number"><br>
+        <input id="staff-email" type="email"><br>
         <label for="staff-function">Tak:</label>
         <select id="staff-function">
             <option value="Geen">Geen</option>
@@ -41,9 +38,16 @@
         <input type="checkbox" id="staff-head">
         <label for="staff-head">Groepsleiding</label>
         <input type="checkbox" id="uniform-master">
-        <label for="uniform-master">Uniform verantwoordelijke</label>
+        <label for="uniform-master">Uniform verantwoordelijke</label><br>
+        <button type="button" id="save-staff" onclick="saveStaff()">Sla op</button>
+        <button type="button" id="delete-staff" onclick="deleteStaff()" disabled>Verwijder</button>
+        <button type="button" id="new-staff-pic" onclick="$('#staff-pic-form').toggle()" disabled>Wijzig foto</button>
+    </form>
+    <form id="staff-pic-form">
+        <label>Upload hier een nieuwe foto (jpeg of png):</label><br><br>
+        <input type="file" name="upfile"><br>
+        <button type="button" onclick="updateStaffInfo()">Upload</button><br>
+        <span id="error-staff-pic"></span>
     </form>
 </div>
-<script>
-    loadStaff();
-</script>
+<script src="/backoffice/script/staff.js"></script>
