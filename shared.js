@@ -1,4 +1,4 @@
-let width, images = 13, previousPhoto = 0, intervalID;
+let width, images = 15, previousPhoto = 0, intervalID;
 const BACKGROUND_FADING_LIMIT = 1200;
 
 window.onload = function() {
@@ -61,7 +61,7 @@ function getGroepsleiding() {
 }
 
 function getLeiding(tak) {
-    fetch("/api/getLeiding.php?q="+tak).then((res) => res.json()).then((data) => {
+    fetch("/api/getLeiding.php?q=" + tak).then((res) => res.json()).then((data) => {
         Object.values(data).forEach((item) => {
             let bijnaam = "";
             if (tak === 'Kapoenenleiding') {
@@ -120,13 +120,11 @@ function closeNav() {
     $("#overlay").hide();
 }
 
-//load submenu in mobile navigation bar
 function loadsub(sub) {
     $('#' + sub + 'mobilemenu').css("width","60%");
     $("#mobilemenu").css("width","0");
 }
 
-//return to main menu in mobile navigation bar
 function returnside(sub) {
     $('#mobilemenu').css("width","60%");
     $('#' + sub + 'mobilemenu').css("width","0");
