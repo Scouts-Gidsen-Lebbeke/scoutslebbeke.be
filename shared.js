@@ -1,4 +1,4 @@
-let width, images = 15, previousPhoto = 0, intervalID;
+let width, images = 13, previousPhoto = 0, intervalID;
 const BACKGROUND_FADING_LIMIT = 1200;
 
 window.onload = function() {
