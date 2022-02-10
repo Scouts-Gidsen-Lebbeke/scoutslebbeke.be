@@ -1,10 +1,10 @@
 <h1>Uploads</h1>
 <p>Upload hier de beschikbare documenten op onze website.</p>
 <h2>Sprokkel</h2>
-<form enctype="multipart/form-data" id="sprokkelData">
+<form enctype="multipart/form-data" id="sprokkel-data-upload">
     <input type="file" name="upfile"><br>
     <button type="button" onclick="postSprokkel()">Upload</button><br>
-    <span id="error_sprokkel"></span>
+    <span id="error-sprokkel-upload"></span>
 </form>
 <h2>Kampboekje</h2>
 <form enctype="multipart/form-data" id="camp-data-upload">
@@ -24,3 +24,4 @@
     <button type="button" onclick="postBackground()">Upload</button><br>
     <span id="error-background-upload"></span>
 </form>
+<script src="/backoffice/script/uploads.js"></script>

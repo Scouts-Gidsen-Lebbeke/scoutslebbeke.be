@@ -7,7 +7,7 @@ html, body {
     height: 100%;
 }
 #loginbody {
-    background: url("images/login_background.JPG") no-repeat;
+    background: url("/backoffice/images/login_background.JPG") no-repeat;
     background-size: cover;
 }
 #main {
@@ -27,7 +27,7 @@ html, body {
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
-input[id=name],input[id=password] {
+input[id=username-input],input[id=password-input] {
     width: 85%;
     padding: 10px 10px 10px 5px;
     border: 1px solid #ccc;
@@ -86,6 +86,10 @@ a {
     text-decoration: none;
     color: white;
     font-weight: normal;
+}
+#platform-content a {
+    color: black;
+    font-weight: bold;
 }
 #menu {
     background-color: black;

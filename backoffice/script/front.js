@@ -1,8 +1,18 @@
 window.onload = function() {
-    const password = $("#password");
+    const password = $("#password-input");
     $("#togglePassword").on("click", function () {
         password.attr("type", password.attr("type") === "password" ? "text" : "password");
         this.classList.toggle("bi-eye");
+    });
+    password.keypress(function(event) {
+        if (event.keyCode === 13) {
+            login();
+        }
+    });
+    $("#username-input").keypress(function(event) {
+        if (event.keyCode === 13) {
+            login();
+        }
     });
     document.addEventListener('keydown', ev => {
         if (ev.code === 'KeyE' && ev.ctrlKey && ev.altKey) {

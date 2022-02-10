@@ -1,15 +1,20 @@
 loadStaff();
 
 function loadStaff() {
-    fetch(new Request('/backoffice/api/getStaff.php', {method: 'GET'}))
+    const filter = $('#filter-active-staff').prop("checked");
+    fetch(new Request('/backoffice/api/getStaff.php?q=' + filter, {method: 'GET'}))
         .then(response => response.json()).then(data => {
         if (data["success"]) {
+            const selector = $('#staff-list');
+            selector.empty();
+            selector.append($('<option>', {value: "", text : "Nieuw"}));
             $.each(data["list"], function (i, item) {
-                $('#staff-list').append($('<option>', {
+                selector.append($('<option>', {
                     value: item["username"],
                     text : item["Voornaam"] + " " + item["Achternaam"]
                 }));
             });
+            selector.trigger("change");
         }
     });
 }
@@ -23,6 +28,7 @@ function updateStaffInfo() {
             .then(response => response.json()).then(res => {
             if (res["success"]) {
                 const data = res["data"];
+                $('#staff-username').val(username);
                 $('#staff-firstname').val(data["Voornaam"]);
                 $('#staff-lastname').val(data["Achternaam"]);
                 $('#staff-nickname-1').val(data["kapoenenbijnaam"]);
@@ -38,6 +44,7 @@ function updateStaffInfo() {
             }
         });
     } else {
+        $('#staff-username').val(null);
         $('#staff-firstname').val(null);
         $('#staff-lastname').val(null);
         $('#staff-nickname-1').val(null);
@@ -54,7 +61,11 @@ function updateStaffInfo() {
 }
 
 function saveStaff() {
-
+    const form = new FormData(document.querySelector('#staff-data'));
+    fetch(new Request('/backoffice/api/postStaff.php', {method: 'POST', body: form}))
+        .then(response => {console.log(response); return response.json();}).then(data => {
+            $('#error-staff-data').html(data["message"]);
+    });
 }
 
 function deleteStaff() {

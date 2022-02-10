@@ -1,0 +1,5 @@
+loadPages();
+
+function initNavContent() {
+
+}

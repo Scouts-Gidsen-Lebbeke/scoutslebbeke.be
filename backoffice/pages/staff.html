@@ -1,13 +1,14 @@
 <h1>Leiding</h1>
 <p>Configureer hier de zichtbare leiding. Kies een leid(st)er of voeg iemand nieuw toe.</p>
-<form method="post">
-    <select id="staff-list" onchange="updateStaffInfo()">
-        <option value="">Nieuw</option>
-    </select>
+<form>
+    <select id="staff-list" onchange="updateStaffInfo()"></select>
+    <input type="checkbox" id="filter-active-staff" onclick="loadStaff()" checked>
+    <label for="filter-active-staff">Filter actieve leiding</label>
 </form>
 <div id="staff-info">
     <img id="staff-pic" src="/images/profile/default.png" alt="staff-pic">
-    <form>
+    <form enctype="multipart/form-data" id="staff-data">
+        <input id="staff-username" type="text" hidden>
         <label for="staff-firstname">Voornaam:</label>
         <input id="staff-firstname" type="text"><br>
         <label for="staff-lastname">Achternaam:</label>
@@ -42,6 +43,7 @@
         <button type="button" id="save-staff" onclick="saveStaff()">Sla op</button>
         <button type="button" id="delete-staff" onclick="deleteStaff()" disabled>Verwijder</button>
         <button type="button" id="new-staff-pic" onclick="$('#staff-pic-form').toggle()" disabled>Wijzig foto</button>
+        <span id="error-staff-data"></span>
     </form>
     <form id="staff-pic-form">
         <label>Upload hier een nieuwe foto (jpeg of png):</label><br><br>
