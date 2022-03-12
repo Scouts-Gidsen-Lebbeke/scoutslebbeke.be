@@ -161,7 +161,7 @@ hr {
 }
 
 /*image 'missie' and images 'takken'*/
-#takkenfoto, #jaarthema {
+#takkenfoto, #jaarthema, #error-image {
     max-width: 300px;
 }
 
@@ -367,7 +367,7 @@ hr {
 }
 
 @media only screen and (max-width: 350px) {
-    #jaarthema, #takkenfoto {
+    #jaarthema, #takkenfoto, #error-image {
         width: 100%;
         max-width: none;
     }
