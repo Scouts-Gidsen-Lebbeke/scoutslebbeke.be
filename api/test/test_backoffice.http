@@ -1,4 +1,4 @@
-POST http://localhost:80/backoffice/api/postStaff.php
+POST {{host}}/backoffice/api/postStaff.php
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -74,16 +74,16 @@ Content-Disposition: form-data; name="uniform-master"
 --WebAppBoundary--
 
 ###
-GET http://localhost:80/backoffice/api/getStaff.php?q=true
+GET {{host}}/backoffice/api/getStaff.php?q=true
 Accept: application/json
 
 ###
-GET http://localhost:80/backoffice/api/getStaffDetail.php?q=robink
+GET {{host}}/backoffice/api/getStaffDetail.php?q=robink
 Accept: application/json
 
 ###
 
-POST http://localhost:80/backoffice/api/getData.php
+POST {{host}}/backoffice/api/getData.php
 Content-Type: application/json
 
 {
@@ -93,7 +93,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:80/backoffice/api/postPassword.php
+POST {{host}}/backoffice/api/postPassword.php
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -115,36 +115,3 @@ azerA123
 --WebAppBoundary--
 
 ###
-
-
-GET http://localhost:80/leidingsplatform/api/session.php
-Accept: application/json
-
-###
-GET http://localhost:80/api/getNavigation.php
-Accept: application/json
-
-###
-POST http://localhost:80/60jaar/handleSubmit.php
-Content-Type: multipart/form-data; boundary=WebAppBoundary
-
---WebAppBoundary
-Content-Disposition: form-data; name="firstname"
-
-test
---WebAppBoundary--
-
---WebAppBoundary
-Content-Disposition: form-data; name="lastname"
-
-test
---WebAppBoundary--
-
---WebAppBoundary
-Content-Disposition: form-data; name="email"
-
-test@test.be
---WebAppBoundary--
-
-###
-
