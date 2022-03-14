@@ -2,7 +2,11 @@ let width, images = 13, previousPhoto = 0, intervalID;
 const BACKGROUND_FADING_LIMIT = 1200;
 
 window.onload = function() {
-    load(history.state === null ? 'nieuwtjes' : history.state.content);
+    const q = (new URL(document.location)).searchParams.get('q');
+    if (q) {
+        window.history.replaceState(null, "", "/");
+    }
+    load(q ? q : history.state ? history.state.content : 'nieuwtjes');
     getNavigation();
     width = window.innerWidth > 0 ? window.innerWidth : screen.width;
     if (width > BACKGROUND_FADING_LIMIT) {
