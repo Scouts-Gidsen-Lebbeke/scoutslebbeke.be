@@ -160,13 +160,24 @@ hr {
     width: 200px;
 }
 
+#leiding {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.staff-item {
+    padding: 0 5px;
+}
+
 /*image 'missie' and images 'takken'*/
 #takkenfoto, #jaarthema, #error-image {
     max-width: 300px;
 }
 
 .fotoLeiding {
-    width: 500px;
+    width: 400px;
+    height: 270px;
     margin: 10px auto;
 }
 
@@ -357,8 +368,13 @@ hr {
         display: block;
     }
 
+    .staff-item {
+        display: block;
+    }
+
     .fotoLeiding {
         width: 90%;
+        height: auto;
     }
 
     .afbIndex {

@@ -55,11 +55,12 @@ function changeImage() {
 function getGroepsleiding() {
     fetch("/api/getGroepsleiding.php").then((res) => res.json()).then((data) => {
         Object.values(data).forEach((item) => {
-            $("#leiding").append("<img src='/images/profile/" + item["Foto"] + "' alt='groepsleiding' class='fotoLeiding'/><br>" +
+            $("#leiding").append("<div class='staff-item'>" +
+                "<img src='/images/profile/" + item["Foto"] + "' alt='groepsleiding' class='fotoLeiding'/><br>" +
                 "<b>Naam:</b> " + item["Voornaam"] + " " + item["Achternaam"] + "<br>" +
                 "<b>Totem:</b> " + item["Totem"] + "<br>" +
                 "<b>Gsm:</b> " + formatGsm(item["Gsm"]) + "<br>" +
-                "<b>Email:</b> groepsleiding@scoutslebbeke.be<br>");
+                "<b>Email:</b> groepsleiding@scoutslebbeke.be<br></div>");
         });
     });
 }
@@ -68,17 +69,19 @@ function getLeiding(tak) {
     fetch("/api/getLeiding.php?q=" + tak).then((res) => res.json()).then((data) => {
         Object.values(data).forEach((item) => {
             let bijnaam = "";
-            if (tak === 'Kapoenenleiding') {
-                bijnaam = ' &bull; ' + item['kapoenenbijnaam'];
-            } else if (tak === 'Welpenleiding') {
-                bijnaam = ' &bull; ' + item['welpenbijnaam'];
+            if (tak === 'Kapoenenleiding' || (tak === 'Stam' && item['kapoenenbijnaam'])) {
+                bijnaam += ' &bull; ' + item['kapoenenbijnaam'];
+            }
+            if (tak === 'Welpenleiding' || (tak === 'Stam' && item['welpenbijnaam'])) {
+                bijnaam += ' &bull; ' + item['welpenbijnaam'];
             }
             const takleiding = item['Takleiding'] === '1' ? " (takleiding)" : '';
-            $("#leiding").append("<img src='/images/profile/" + item["Foto"] + "' alt='" + tak + "' class='fotoLeiding'/><br>" +
+            $("#leiding").append("<div class='staff-item'>" +
+                "<img src='/images/profile/" + item["Foto"] + "' alt='" + tak + "' class='fotoLeiding'/><br>" +
                 "<b>Naam:</b> " + item["Voornaam"] + " " + item["Achternaam"] + bijnaam + takleiding + "<br>" +
-                "<b>Totem:</b> " + item["Totem"] + "<br>" +
+                "<b>Totem:</b> " + (item["Totem"] ? item["Totem"] : "(geen)") + "<br>" +
                 (takleiding ? "<b>Gsm:</b> " + formatGsm(item["Gsm"]) + "<br>" +
-                "<b>Email:</b> " + item["Email"] + "<br>" : ""));
+                "<b>Email:</b> " + item["Email"] + "<br>" : "") + "</div>");
         });
     });
 }
