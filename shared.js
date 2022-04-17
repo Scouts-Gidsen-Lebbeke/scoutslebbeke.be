@@ -148,7 +148,7 @@ function getBrowserNav(data) {
     let result = [], menuitem;
     Object.keys(data).forEach((item) => {
         menuitem = "";
-        if (data[item].length === 1) {
+        if (data[item].length === 1 && item === data[item][0].name) {
             menuitem += "<a onclick=\"load('" + data[item][0].path + "');\"><div class=\"navitem\">" + item + "</div></a>";
         } else {
             menuitem += "<div class=\"navdropdown\"><a><div class=\"navitem\">" + item + " <i class=\"arrow down\"></i></div></a><div class=\"navdropdowncontent\">";
@@ -165,7 +165,7 @@ function getBrowserNav(data) {
 function getMobileNav(data) {
     let subitems = '', result = '';
     Object.keys(data).forEach((item) => {
-        if (data[item].length === 1) {
+        if (data[item].length === 1 && item === data[item][0].name) {
             subitems += "<a onclick=\"load('" + data[item][0].path + "')\">" + item + "</a>";
         } else {
             subitems += "<a onclick=\"loadsub('" + item + "')\">" + item + "</a>";
