@@ -105,6 +105,7 @@ a {
     cursor: pointer;
 }
 #platform-content {
+    font-size: 15px;
     padding: 15px 30px;
     overflow: hidden;
     width: auto;
@@ -115,14 +116,11 @@ a {
 #platform-content h2 {
     font-size: 18px;
 }
-#platform-content p, #platform-content label {
-    font-size: 15px;
-}
 input[type=text], input[type=email], input[type=tel], input[type=password], input[type=number], select, #picToUpload {
     margin: 8px auto;
 }
 input[type=file] {
-    margin: -25px auto 8px;
+    margin: 8px auto;
 }
 #staff-pic {
     max-width: 300px;
@@ -155,7 +153,4 @@ input[type=file] {
 }
 #menu img {
     width: 30px;
-}
-#sprokkel-period {
-    margin-bottom: 10px;
 }
