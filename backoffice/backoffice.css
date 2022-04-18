@@ -118,7 +118,7 @@ a {
 #platform-content p, #platform-content label {
     font-size: 15px;
 }
-input[type=text], input[type=email], input[type=tel], input[type=password], input[type=number], select, button, #picToUpload {
+input[type=text], input[type=email], input[type=tel], input[type=password], input[type=number], select, #picToUpload {
     margin: 8px auto;
 }
 input[type=file] {
