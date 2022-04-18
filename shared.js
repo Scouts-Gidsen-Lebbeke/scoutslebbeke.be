@@ -1,5 +1,5 @@
-let width, images = 13, previousPhoto = 0, intervalID;
-const BACKGROUND_FADING_LIMIT = 1200;
+let width, previousPhoto = 0, intervalID;
+const BACKGROUND_FADING_LIMIT = 1200, images = 13;
 
 window.onload = function() {
     const q = (new URL(document.location)).searchParams.get('q');
@@ -13,11 +13,6 @@ window.onload = function() {
         changeImage();
         intervalID = setInterval(changeImage, 5000);
     }
-    document.addEventListener('keydown', ev => {
-        if (ev.code === 'KeyE' && ev.ctrlKey && ev.altKey) {
-            window.location.href = '/backoffice';
-        }
-    });
     $('#curr_year').text(new Date().getFullYear())
 };
 
@@ -34,13 +29,13 @@ function load(page) {
 }
 
 window.onresize = function () {
-    let newwidth = window.innerWidth > 0 ? window.innerWidth : screen.width;
-    if (width <= BACKGROUND_FADING_LIMIT && newwidth > BACKGROUND_FADING_LIMIT) {
+    let newWidth = window.innerWidth > 0 ? window.innerWidth : screen.width;
+    if (width <= BACKGROUND_FADING_LIMIT && newWidth > BACKGROUND_FADING_LIMIT) {
         intervalID = setInterval(changeImage, 5000);
-    } else if (width > BACKGROUND_FADING_LIMIT && newwidth <= BACKGROUND_FADING_LIMIT) {
+    } else if (width > BACKGROUND_FADING_LIMIT && newWidth <= BACKGROUND_FADING_LIMIT) {
         clearInterval(intervalID);
     }
-    width = newwidth;
+    width = newWidth;
 };
 
 function changeImage() {
@@ -90,7 +85,7 @@ function formatGsm(str) {
     if (str === null) {
         return '-';
     }
-    return str.substr(0, 4) + '/' + str.substr(4, 2) + '.' + str.substr(6, 2) + '.' + str.substr(8);
+    return str.substring(0, 4) + '/' + str.substring(4, 6) + '.' + str.substring(6, 8) + '.' + str.substring(8);
 }
 
 function getGrlContact() {
@@ -107,10 +102,7 @@ function initMap() {
         zoom: 15,
         center: adres
     });
-    let marker = new google.maps.Marker({
-        position: adres,
-        map: map
-    });
+    new google.maps.Marker({position: adres, map: map});
 }
 
 function openNav() {

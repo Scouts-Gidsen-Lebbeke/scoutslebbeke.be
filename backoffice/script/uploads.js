@@ -1,3 +1,17 @@
+fetch("/backoffice/api/getSetting.php?q=sprokkel_period").then(res => res.json()).then(data => {
+    $('input[name=sprokkelBtn][value="' + data["setting_value"] + '"]').prop('checked',true)
+});
+
+function postSprokkelSetting() {
+    const form = new FormData(document.querySelector('#sprokkel-period'));
+    fetch(new Request('/backoffice/api/postSetting.php?q=sprokkel_period', {method: 'POST', body: form}))
+        .then(response => response.json()).then(data => {
+            if (data["error"]) {
+                console.log(data["message"]);
+            }
+    });
+}
+
 function postSprokkel() {
     const form = new FormData(document.querySelector('#sprokkel-data-upload'));
     fetch(new Request('/backoffice/api/postSprokkel.php', {method: 'POST', body: form}))
