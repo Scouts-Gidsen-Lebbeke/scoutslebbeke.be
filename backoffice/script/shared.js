@@ -43,7 +43,7 @@ function loadPages() {
                 $.each(data["list"], function (i, item) {
                     $('#page-list').append($('<option>', {
                         value: item["path"],
-                        text : item["name"]
+                        text : item["name"] + " - " + item["group_name"]
                     }));
                 });
             }
