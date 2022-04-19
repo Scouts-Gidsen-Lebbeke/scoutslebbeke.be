@@ -1,12 +1,12 @@
 <?php
 include "connect.php";
 $result = array();
-if ($query = $connection->query("select path, name, `group` from pages where visible order by `index`, subindex")) {
+if ($query = $connection->query("select path, p.name, group_name from pages p left join page_groups g on group_name = g.name where visible order by g.index, p.index")) {
     while ($row = $query->fetch_array(MYSQLI_ASSOC)) {
-        if (isset($result[$row["group"]])) {
-            array_push($result[$row["group"]], ["name" => $row["name"], "path" => $row["path"]]);
+        if (isset($result[$row["group_name"]])) {
+            array_push($result[$row["group_name"]], ["name" => $row["name"], "path" => $row["path"]]);
         } else {
-            $result[$row["group"]] = [["name" => $row["name"], "path" => $row["path"]]];
+            $result[$row["group_name"]] = [["name" => $row["name"], "path" => $row["path"]]];
         }
     }
 }
