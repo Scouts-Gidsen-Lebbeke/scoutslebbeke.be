@@ -63,9 +63,9 @@ function updateStaffInfo() {
 function saveStaff() {
     const form = new FormData(document.querySelector('#staff-data'));
     fetch(new Request('/backoffice/api/postStaff.php', {method: 'POST', body: form}))
-        .then(response => {console.log(response); return response.json();}).then(data => {
-            $('#error-staff-data').html(data["message"]);
-    });
+        .then(console.log)//.then(response => response.json()).then(data => {
+            //$('#error-staff-data').html(data);
+    //});
 }
 
 function deleteStaff() {

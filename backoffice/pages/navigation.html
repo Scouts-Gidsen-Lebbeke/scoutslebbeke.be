@@ -1,9 +1,56 @@
 <h1>Navigatie</h1>
 <p>Configureer hier de zichtbare pagina's in de menubalk en creëer nieuwe pagina's.</p>
+<h2>Groepen</h2>
 <form>
-    <select id="page-list" onselect="initNavContent()">
-        <option value="">Selecteer een menu-item...</option>
+    <select id="group-list" onchange="initGroupContent(value)">
+        <option value="">Selecteer een groep...</option>
     </select>
-    <div id="navigation-content"></div>
+    <input type="button" id="delete-group" value="Verwijder groep" onclick="deleteGroup()" disabled>
+    <input type="button" value="Nieuwe groep" onclick="newGroup()">
+    <div id="group-content">
+        <form enctype="multipart/form-data" id="group-data">
+            <p>
+                <input id="group-id" type="hidden">
+                <label for="group-name">Naam:</label>
+                <input id="group-name" type="text">
+                <input type="button" value="Sla op" id="update-group-name" onclick="updateGroupName()">
+                <span id="group-name-error"></span>
+            </p>
+        </form>
+        Deze groep wordt op plaats <span id="group-rank">{}</span> weergegeven.
+        <input type="button" value="Verhoog" id="group-rank-up" onclick="updateGroupRank(1)">
+        <input type="button" value="Verlaag" id="group-rank-down" onclick="updateGroupRank(-1)">
+    </div>
 </form>
-<script src="/backoffice/script/navigation.js"></script>
+<h2>Items</h2>
+<form>
+    <select id="page-list" onchange="initNavContent(value)">
+        <option value="">Selecteer een item...</option>
+    </select>
+    <input type="button" id="delete-item" value="Verwijder item" onclick="deleteItem()">
+    <input type="button" value="Nieuw item" onclick="newItem()">
+    <div id="page-content">
+        <p>
+            <label for="item-id">Bestandslocatie:</label>
+            <input type="text" id="item-id" disabled>
+        </p>
+        <p>
+            <label for="item-name">Naam:</label>
+            <input type="text" id="item-name">
+            <input type="button" value="Sla op" id="update-item-name" onclick="updateItemName()">
+            <span id="item-name-error"></span>
+        </p>
+        <p>
+            <label for="item-group">Groep:</label>
+            <select id="item-group" onchange="updateItemGroup()"></select>
+        </p>
+        <p>
+            <label for="item-visible">Zichtbaar:</label>
+            <input type="checkbox" id="item-visible" onchange="updateItemVisibility(value)">
+        </p>
+        Dit item wordt op plaats <span id="item-rank">{}</span> weergegeven.
+        <input type="button" value="Verhoog" id="item-rank-up" onclick="updateItemRank(1)">
+        <input type="button" value="Verlaag" id="item-rank-down" onclick="updateItemRank(-1)">
+    </div>
+</form>
+<script src="/backoffice/script/navigation.js?q=27"></script>

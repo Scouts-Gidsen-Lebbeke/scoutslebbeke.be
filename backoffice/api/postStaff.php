@@ -1,5 +1,6 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/api/connect.php';
+return json_encode($_POST);
 try {
     $username = $_POST['staff-username'];
     $firstname = $_POST['staff-firstname'];

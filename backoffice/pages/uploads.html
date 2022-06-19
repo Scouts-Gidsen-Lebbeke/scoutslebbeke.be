@@ -11,27 +11,30 @@
     <label for="sprokkel3">Sprokkel april - juni</label>
 </form>
 <form enctype="multipart/form-data" id="sprokkel-data-upload">
-    <input type="file" name="upfile"><br>
-    <button type="button" onclick="postSprokkel()">Upload</button>
+    <input type="file" name="upfile">
+    <input type="button" onclick="postSprokkel()" value="Upload"/>
     Klik <a href="/uploads/sprokkel.pdf" target="_blank">hier</a> om de huidige geüploade versie te bekijken.<br>
     <span id="error-sprokkel-upload"></span>
 </form>
 <h2>Kampboekje</h2>
 <form enctype="multipart/form-data" id="camp-data-upload">
-    <input type="file" name="upfile"><br>
-    <button type="button" onclick="postCamp()">Upload</button><br>
+    <input type="file" name="upfile">
+    <input type="button" onclick="postCamp()" value="Upload"/>
+    Klik <a href="/uploads/camp.pdf" target="_blank">hier</a> om de huidige geüploade versie te bekijken.<br>
     <span id="error-camp-upload"></span>
 </form>
 <h2>Privacyverklaring</h2>
 <form enctype="multipart/form-data" id="privacy-data-upload">
-    <input type="file" name="upfile"><br>
-    <button type="button" onclick="postPrivacy()">Upload</button><br>
+    <input type="file" name="upfile">
+    <input type="button" onclick="postPrivacy()" value="Upload"/>
+    Klik <a href="/privacyverklaring.pdf" target="_blank">hier</a> om de huidige geüploade versie te bekijken.<br>
     <span id="error-privacy-upload"></span>
 </form>
 <h2>Achtergrondafbeeldingen</h2>
 <form enctype="multipart/form-data" id="background-data-upload">
-    <input type="file" name="upfile"><br>
-    <button type="button" onclick="postBackground()">Upload</button><br>
+    <input type="file" name="upfile">
+    <input type="button" onclick="postBackground()" value="Upload"/>
+    Klik <a onclick="showBackgrounds()" target="_blank">hier</a> om de huidige geüploade versie te bekijken.<br>
     <span id="error-background-upload"></span>
 </form>
 <script src="/backoffice/script/uploads.js"></script>

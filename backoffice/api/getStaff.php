@@ -1,6 +1,6 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/api/connect.php';
-$filter = strcmp($_GET['q'], 'true') === 0 ? " where Functie != 'Geen' and Functie != 'Stam'" : "";
+$filter = strcmp($_GET['q'], 'true') === 0 ? " where Functie != 'Stam'" : "";
 $myArray = array();
 if ($result = $connection->query("select username, Voornaam, Achternaam from profiel" . $filter)) {
     while ($row = $result->fetch_assoc()) {

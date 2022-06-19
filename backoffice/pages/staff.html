@@ -8,41 +8,63 @@
 <div id="staff-info">
     <img id="staff-pic" src="/images/profile/default.png" alt="staff-pic">
     <form enctype="multipart/form-data" id="staff-data">
-        <input id="staff-username" type="text" hidden>
-        <label for="staff-firstname">Voornaam:</label>
-        <input id="staff-firstname" type="text"><br>
-        <label for="staff-lastname">Achternaam:</label>
-        <input id="staff-lastname" type="text"><br>
-        <label for="staff-nickname-1">Kapoenennaam:</label>
-        <input id="staff-nickname-1" type="text"><br>
-        <label for="staff-nickname-2">Welpennaam:</label>
-        <input id="staff-nickname-2" type="text"><br>
-        <label for="staff-totem">Totem:</label>
-        <input id="staff-totem" type="text"><br>
-        <label for="staff-mobile">Gsm:</label>
-        <input id="staff-mobile" type="number"><br>
-        <label for="staff-email">E-mail:</label>
-        <input id="staff-email" type="email"><br>
-        <label for="staff-function">Tak:</label>
-        <select id="staff-function">
-            <option value="Geen">Geen</option>
-            <option value="Kapoenenleiding">Kapoenenleiding</option>
-            <option value="Welpenleiding">Welpenleiding</option>
-            <option value="Pioniersleiding">Pioniersleiding</option>
-            <option value="Jonggiverleiding">Jonggiverleiding</option>
-            <option value="Giverleiding">Giverleiding</option>
-            <option value="Jinleiding">Jinleiding</option>
-            <option value="Stam">Stam</option>
-        </select><br>
-        <input type="checkbox" id="branch-head">
-        <label for="branch-head">Takleiding</label>
-        <input type="checkbox" id="staff-head">
-        <label for="staff-head">Groepsleiding</label>
-        <input type="checkbox" id="uniform-master">
-        <label for="uniform-master">Uniform verantwoordelijke</label><br>
-        <button type="button" id="save-staff" onclick="saveStaff()">Sla op</button>
-        <button type="button" id="delete-staff" onclick="deleteStaff()" disabled>Verwijder</button>
-        <button type="button" id="new-staff-pic" onclick="$('#staff-pic-form').toggle()" disabled>Wijzig foto</button>
+        <input id="staff-username" type="hidden">
+        <p>
+            <label for="staff-firstname">Voornaam:</label>
+            <input id="staff-firstname" type="text">
+        </p>
+        <p>
+            <label for="staff-lastname">Achternaam:</label>
+            <input id="staff-lastname" type="text">
+        </p>
+        <p>
+            <label for="staff-nickname-1">Kapoenennaam:</label>
+            <input id="staff-nickname-1" type="text">
+        </p>
+        <p>
+            <label for="staff-nickname-2">Welpennaam:</label>
+            <input id="staff-nickname-2" type="text">
+        </p>
+        <p>
+            <label for="staff-totem">Totem:</label>
+            <input id="staff-totem" type="text">
+        </p>
+        <p>
+            <label for="staff-mobile">Gsm:</label>
+            <input id="staff-mobile" type="number">
+        </p>
+        <p>
+            <label for="staff-email">E-mail:</label>
+            <input id="staff-email" type="email">
+        </p>
+        <p>
+            <label for="staff-function">Tak:</label>
+            <select id="staff-function">
+                <option value="Geen">Geen</option>
+                <option value="Kapoenenleiding">Kapoenenleiding</option>
+                <option value="Welpenleiding">Welpenleiding</option>
+                <option value="Pioniersleiding">Pioniersleiding</option>
+                <option value="Jonggiverleiding">Jonggiverleiding</option>
+                <option value="Giverleiding">Giverleiding</option>
+                <option value="Jinleiding">Jinleiding</option>
+                <option value="Stam">Stam</option>
+            </select>
+        </p>
+        <p>
+            <label for="branch-head">Takleiding:</label>
+            <input type="checkbox" id="branch-head">
+        </p>
+        <p>
+            <label for="staff-head">Groepsleiding:</label>
+            <input type="checkbox" id="staff-head">
+        </p>
+        <p>
+            <label for="uniform-master">Uniform verantwoordelijke:</label>
+            <input type="checkbox" id="uniform-master">
+        </p>
+        <input type="button" id="save-staff" onclick="saveStaff()" value="Sla op"/>
+        <input type="button" id="delete-staff" onclick="deleteStaff()" value="Verwijder" disabled/>
+        <input type="button" id="new-staff-pic" onclick="$('#staff-pic-form').toggle()" value="Wijzig foto" disabled/>
         <span id="error-staff-data"></span>
     </form>
     <form id="staff-pic-form">

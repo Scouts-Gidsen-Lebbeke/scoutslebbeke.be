@@ -1,3 +1,24 @@
 <h1>Instellingen</h1>
 <p>Hier kunnen een aantal standaardzaken ingesteld worden.</p>
-<img src="/backoffice/images/underconstruction.png" alt="todo">
+<h2>Reset leiding</h2>
+<form id="reset-staff">
+    <label>Reset de actieve leiding voor een nieuw werkingsjaar:</label>
+    <input type="button" class="settings-button" onclick="resetStaff()" value="Reset">
+</form>
+<h2>Reset nieuwtjes</h2>
+<form id="reset-news">
+    <label>Maak de nieuwtjespagina leeg:</label>
+    <input type="button" id="settings-button-button" onclick="resetNews()" value="Reset">
+</form>
+<h2>Gebruikers (admin only)</h2>
+<form id="reset-user">
+    <label>Kies een gebruiker:</label>
+    <select></select>
+    <input type="button" class="settings-button" onclick="resetUser()" value="Reset wachtwoord">
+    <input type="button" class="settings-button" onclick="deleteUser()" value="Verwijder">
+</form>
+<form id="new-user">
+    <label>Maak een nieuwe gebruiker aan:</label>
+    <input type="text" placeholder="Gebruikersnaam">
+    <input type="button" id="settings-button" onclick="createUser()" value="Maak aan">
+</form>

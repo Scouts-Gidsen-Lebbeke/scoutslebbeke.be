@@ -116,12 +116,6 @@ a {
 #platform-content h2 {
     font-size: 18px;
 }
-input[type=text], input[type=email], input[type=tel], input[type=password], input[type=number], select, #picToUpload {
-    margin: 8px auto;
-}
-input[type=file] {
-    margin: 8px auto;
-}
 #staff-pic {
     max-width: 300px;
     float:right;
@@ -153,4 +147,26 @@ input[type=file] {
 }
 #menu img {
     width: 30px;
+}
+form {
+    display: table;
+}
+form p {
+    display: table-row;
+}
+input, label, select {
+    display: table-cell;
+    margin: 0.5em 0.5em 0.5em 0;
+}
+form span {
+    margin: 0.5em auto;
+}
+form label {
+    padding-right: 0.5em;
+}
+#group-content, #page-content, #staff-username {
+    display: none;
+}
+#login_form input, #login_form label {
+    display: inline;
 }
