@@ -1,12 +1,9 @@
-/*standard*/
 body {
     margin: 0;
     background: #181818;
     font-family: Arial, Helvetica, sans-serif;
 }
-
-/*wrapper for background*/
-#wrapper1 {
+#wrapper {
     position: fixed;
     margin: auto;
     width: 100%;
@@ -16,34 +13,23 @@ body {
     box-shadow: inset 0 -600px 300px -300px #181818;
     transition: background 1s;
 }
-
-/*normal navigation*/
 #nav, #mobilenav {
     background: #181818;
 }
-
 #nav {
     text-align: center;
     height: 70px;
 }
-
-.navitems a:hover, .mobilemenu a:hover, #mobilemenuspan a:hover {
-    cursor: pointer;
-}
-
 .navitem i {
     border: solid white;
     border-width: 0 3px 3px 0;
     display: inline-block;
     padding: 3px;
 }
-
 .navitem .down {
     margin-bottom: 3px;
     transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
 }
-
 .navitem {
     height: 55px;
     font-size: 22px;
@@ -53,11 +39,9 @@ body {
     color: #eeeeee;
     transition: .5s;
 }
-
 .navdropdown {
     display: inline-block;
 }
-
 .navdropdowncontent {
     border-radius: 5px;
     display: none;
@@ -72,30 +56,27 @@ body {
     padding: 12px 16px;
     display: block;
 }
-
 .navdropdown:hover .navdropdowncontent {
     display: table;
 }
-
 .navslash {
     font: 30px bold;
     color: white;
     display: inline-block;
     padding: 15px 0;
 }
-
-/*div with title*/
 #title {
     margin: 100px auto;
     color: white;
     width: fit-content;
-    padding: 0 20px;
+    padding: 0 10px;
     font-size: 65px;
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(0, 0, 0, 0.4);
     text-align: center;
+    box-sizing: border-box;
+    border-radius: 30px;
+    box-shadow: 0 0 15px 15px rgba(0,0,0,.4);
 }
-
-/*content*/
 #content {
     text-align: center;
     width: 70%;
@@ -103,59 +84,45 @@ body {
     margin: auto;
     padding: 10px 40px 50px;
 }
-
+a {
+    cursor: pointer;
+}
 h1 {
     font-size: 50px;
 }
-
 h2 {
     font-size: 30px;
 }
-
 hr {
     border: 1px dashed;
 }
-
 #content a {
     text-decoration: none;
     font-weight: bold;
     color: black;
-    cursor: pointer;
 }
-
-/*div with credits*/
 #credits {
     text-align: center;
     color: white;
     margin: 20px 0;
 }
-
-/*images 'nieuwtjes'*/
 .afbIndex {
     margin: 10px auto;
     width: 75%;
 }
-
-/*tables 'over ons'*/
 #infotable td {
     vertical-align: top;
 }
-
 .subtable {
     width: 100%;
 }
-
-/*table 'contact'*/
 #contacttable {
     margin: auto;
 }
-
-/*images and table 'uniform'*/
 .uniform {
     max-width: 160px;
     max-height: 160px;
 }
-
 .uniformtable td {
     width: 200px;
 }
@@ -165,76 +132,55 @@ hr {
     flex-wrap: wrap;
     justify-content: center;
 }
-
 .staff-item {
     padding: 0 5px;
 }
-
-/*image 'missie' and images 'takken'*/
 #takkenfoto, #jaarthema, #error-image {
     max-width: 300px;
 }
-
 .fotoLeiding {
     width: 400px;
     height: 270px;
     margin: 10px auto;
 }
-
-/*imagelinks 'contact'*/
 .links {
     max-width: 40px;
 }
-
-/*iframe 'sprokkel'/'kamp'*/
 #sprokkel iframe {
     width: 100%;
     height: 1500px;
 }
-
-/*iframe subscription form*/
 #subscframe {
     width: 80%;
     height: 1000px;
 }
-
 .googleform {
     width: 100%;
     height: 1500px;
 }
-
 #form-wrapper {
     text-align: left;
     width: 300px;
     margin: 0 auto;
 }
-
 #form-wrapper button, label, input {
     margin: 5px auto;
 }
-
 #form-wrapper input {
     width: 250px;
 }
-
-/*map 'contact'*/
 #map {
     height: 500px;
     width: 500px;
     margin: 20px;
 }
-
-/*mobile subscription form and mobile 'sprokkel'/'kamp'*/
 #mobilesubsc {
     display: none;
 }
-
-/*mobile navigation*/
 #mobilenav {
     display: none;
     padding: 10px 20px 15px;
 }
-
 .mobilemenu {
     font-size: 28px;
     height: 100%;
@@ -248,33 +194,27 @@ hr {
     transition: 0.5s;
     padding-top: 60px;
 }
-
 .mobilemenu a {
     margin: 20px;
     text-decoration: none;
     color: white;
     display: block;
 }
-
 .mobilemenu .closebtn {
     position: absolute;
     top: 0;
     right: 25px;
 }
-
 #mobilemenuspan {
     font-size: 28px;
 }
-
 #mobilemenuspan a {
     color: white;
     text-decoration: none;
 }
-
 #mobilemenuspan a:hover, #mobilemenu a:hover {
     text-shadow: none;
 }
-
 #overlay {
     display: none;
     position: fixed;
@@ -285,103 +225,81 @@ hr {
     background-color: rgba(0, 0, 0, 0.7);
     z-index: 1;
 }
-
 .right {
     transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
     margin-bottom: 3px;
     border: solid white;
     border-width: 0 3px 3px 0;
     display: inline-block;
     padding: 3px;
 }
-
 #credits a {
     color: white;
 }
-
 #credits-lock {
     width: 15px;
 }
-
-/*responsive design*/
 @media only screen and (max-width: 1200px) {
     #mobilenav, #mobilesprokkel {
         display: block;
     }
-
     #nav, #sprokkel {
         display: none;
     }
-
     #content {
         width: 100%;
         padding: 10px;
         box-sizing: border-box;
     }
-
-    #wrapper1 {
+    #wrapper {
         background: url('background/6.jpg')
     }
 }
-
 @media only screen and (max-width: 1000px) {
     .uniformtable td, #contacttable td, #infotable td {
         display: block;
         width: 100%;
     }
-
     .uniform {
         width: 90%;
         max-width: none;
         max-height: none;
     }
-
     #subscframe {
         height: 1340px;
     }
 }
-
 @media only screen and (max-width: 800px) {
     #credits, #subscframe, #map {
         display: none;
     }
-
     #title {
         font-size: 30px;
         margin: auto;
     }
-
     h1 {
         font-size: 30px;
     }
-
     h2 {
         font-size: 20px;
     }
-
     #content {
         margin: auto;
     }
-
     #mobilesubsc {
         display: block;
     }
-
     .staff-item {
         display: block;
     }
-
     .fotoLeiding {
         width: 90%;
         height: auto;
     }
-
     .afbIndex {
         width: 100%;
     }
 }
-
 @media only screen and (max-width: 350px) {
     #jaarthema, #takkenfoto, #error-image {
         width: 100%;
