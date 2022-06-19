@@ -43,7 +43,7 @@ function changeImage() {
     if (i === previousPhoto) {
         i = (i + 1) % images + 1;
     }
-    $("#wrapper1").css("background-image", "url(/background/" + i + ".jpg)");
+    $("#wrapper").css("background-image", "url(/background/" + i + ".jpg)");
     previousPhoto = i;
 }
 
