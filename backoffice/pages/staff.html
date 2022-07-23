@@ -8,38 +8,38 @@
 <div id="staff-info">
     <img id="staff-pic" src="/images/profile/default.png" alt="staff-pic">
     <form enctype="multipart/form-data" id="staff-data">
-        <input id="staff-username" type="hidden">
+        <input id="staff-username" name="staff-username" type="hidden">
         <p>
             <label for="staff-firstname">Voornaam:</label>
-            <input id="staff-firstname" type="text">
+            <input id="staff-firstname" name="staff-firstname" type="text">
         </p>
         <p>
             <label for="staff-lastname">Achternaam:</label>
-            <input id="staff-lastname" type="text">
+            <input id="staff-lastname" name="staff-lastname" type="text">
         </p>
         <p>
             <label for="staff-nickname-1">Kapoenennaam:</label>
-            <input id="staff-nickname-1" type="text">
+            <input id="staff-nickname-1" name="staff-nickname-1" type="text">
         </p>
         <p>
             <label for="staff-nickname-2">Welpennaam:</label>
-            <input id="staff-nickname-2" type="text">
+            <input id="staff-nickname-2" name="staff-nickname-2" type="text">
         </p>
         <p>
             <label for="staff-totem">Totem:</label>
-            <input id="staff-totem" type="text">
+            <input id="staff-totem" name="staff-totem" type="text">
         </p>
         <p>
             <label for="staff-mobile">Gsm:</label>
-            <input id="staff-mobile" type="number">
+            <input id="staff-mobile" name="staff-mobile" type="number">
         </p>
         <p>
             <label for="staff-email">E-mail:</label>
-            <input id="staff-email" type="email">
+            <input id="staff-email" name="staff-email" type="email">
         </p>
         <p>
             <label for="staff-function">Tak:</label>
-            <select id="staff-function">
+            <select id="staff-function" name="staff-function">
                 <option value="Geen">Geen</option>
                 <option value="Kapoenenleiding">Kapoenenleiding</option>
                 <option value="Welpenleiding">Welpenleiding</option>
@@ -52,15 +52,15 @@
         </p>
         <p>
             <label for="branch-head">Takleiding:</label>
-            <input type="checkbox" id="branch-head">
+            <input type="checkbox" id="branch-head" name="branch-head">
         </p>
         <p>
             <label for="staff-head">Groepsleiding:</label>
-            <input type="checkbox" id="staff-head">
+            <input type="checkbox" id="staff-head" name="staff-head">
         </p>
         <p>
             <label for="uniform-master">Uniform verantwoordelijke:</label>
-            <input type="checkbox" id="uniform-master">
+            <input type="checkbox" id="uniform-master" name="uniform-master">
         </p>
         <input type="button" id="save-staff" onclick="saveStaff()" value="Sla op"/>
         <input type="button" id="delete-staff" onclick="deleteStaff()" value="Verwijder" disabled/>
@@ -68,10 +68,12 @@
         <span id="error-staff-data"></span>
     </form>
     <form id="staff-pic-form">
-        <label>Upload hier een nieuwe foto (jpeg of png):</label><br><br>
-        <input type="file" name="upfile"><br>
-        <button type="button" onclick="updateStaffInfo()">Upload</button><br>
+        <p>
+            <label>Upload hier een nieuwe foto (jpeg of png):</label>
+            <input type="file" name="upfile">
+        </p>
+        <button type="button" onclick="updateStaffInfo()">Upload</button>
         <span id="error-staff-pic"></span>
     </form>
 </div>
-<script src="/backoffice/script/staff.js"></script>
+<script src="/backoffice/script/staff.js?q=0"></script>

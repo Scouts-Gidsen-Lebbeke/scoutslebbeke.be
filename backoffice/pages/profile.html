@@ -1,13 +1,19 @@
 <h1>Profiel</h1>
 <p>Wijzig hieronder je wachtwoord. Minstens 8 karakters, 1 cijfer, 1 kleine letter en 1 hoofdletter.</p>
 <form enctype="multipart/form-data" id="passwordData">
-    <label for="oldpass">Oud wachtwoord:</label><br>
-    <input type="password" name="oldpass" id="oldpass" placeholder="**********"><br>
-    <label for="newpass1">Nieuw wachtwoord:</label><br>
-    <input type="password" name="newpass1" id="newpass1" placeholder="**********"><br>
-    <label for="newpass2">Herhaal nieuw wachtwoord:</label><br>
-    <input type="password" name="newpass2" id="newpass2" placeholder="**********"><br>
-    <button type="button" onclick="postPassword()">Verzend</button><br>
-    <span id="error-password"></span>
+    <p>
+        <label for="oldpass">Oud wachtwoord:</label>
+        <input type="password" name="oldpass" id="oldpass" placeholder="**********">
+    </p>
+    <p>
+        <label for="newpass1">Nieuw wachtwoord:</label>
+        <input type="password" name="newpass1" id="newpass1" placeholder="**********">
+    </p>
+    <p>
+        <label for="newpass2">Herhaal nieuw wachtwoord:</label>
+        <input type="password" name="newpass2" id="newpass2" placeholder="**********">
+    </p>
 </form>
+<button type="button" onclick="postPassword()">Verzend</button>
+<span id="error-password"></span>
 <script src="/backoffice/script/profile.js"></script>

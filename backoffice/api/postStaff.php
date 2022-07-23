@@ -1,6 +1,5 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/api/connect.php';
-return json_encode($_POST);
 try {
     $username = $_POST['staff-username'];
     $firstname = $_POST['staff-firstname'];
@@ -11,9 +10,9 @@ try {
     $mobile = $_POST['staff-mobile'];
     $email = $_POST['staff-email'];
     $function = $_POST['staff-function'];
-    $branchHead = $_POST['branch-head'];
-    $staffHead = $_POST['staff-head'];
-    $uniformMaster = $_POST['uniform-master'];
+    $branchHead = filter_var($_POST['branch-head'], FILTER_VALIDATE_BOOLEAN);
+    $staffHead = filter_var($_POST['staff-head'], FILTER_VALIDATE_BOOLEAN);
+    $uniformMaster = filter_var($_POST['uniform-master'], FILTER_VALIDATE_BOOLEAN);
     if (empty($firstname)) {
         throw new RuntimeException("Voornaam kan niet leeg zijn!");
     }
@@ -24,12 +23,12 @@ try {
         if ($branchHead) {
             throw new RuntimeException("Enkel actieve leiding kan takleiding zijn!");
         }
-        if ($staffHead) {
-            throw new RuntimeException("Enkel actieve leiding kan groepsleiding zijn!");
-        }
         if ($uniformMaster) {
             throw new RuntimeException("Enkel actieve leiding kan uniformverantwoordelijke zijn!");
         }
+    }
+    if (strcmp($function, "Stam") === 0 && $staffHead) {
+        throw new RuntimeException("Enkel actieve leiding kan groepsleiding zijn!");
     }
     if (empty($username)) {
         $username = strtolower($firstname) . implode('', array_map(fn($v) => $v[0], explode(' ', strtolower($lastname))));

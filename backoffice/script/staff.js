@@ -61,11 +61,12 @@ function updateStaffInfo() {
 }
 
 function saveStaff() {
-    const form = new FormData(document.querySelector('#staff-data'));
+    const form = new FormData(document.getElementById('staff-data'));
+    for (const [key, value] of form) {
+        console.log(`${key}: ${value}`);
+    }
     fetch(new Request('/backoffice/api/postStaff.php', {method: 'POST', body: form}))
-        .then(console.log)//.then(response => response.json()).then(data => {
-            //$('#error-staff-data').html(data);
-    //});
+        .then(response => response.json()).then(data => $('#error-staff-data').html(data));
 }
 
 function deleteStaff() {
