@@ -1,5 +1,5 @@
 let width, previousPhoto = 0, intervalID;
-const BACKGROUND_FADING_LIMIT = 1200, images = 13;
+const BACKGROUND_FADING_LIMIT = 1200, images = 23;
 
 window.onload = function() {
     const q = (new URL(document.location)).searchParams.get('q');
@@ -10,8 +10,7 @@ window.onload = function() {
     getNavigation();
     width = window.innerWidth > 0 ? window.innerWidth : screen.width;
     if (width > BACKGROUND_FADING_LIMIT) {
-        changeImage();
-        intervalID = setInterval(changeImage, 5000);
+        resetAndChangeImage()
     }
     $('#curr_year').text(new Date().getFullYear())
 };
@@ -38,13 +37,15 @@ window.onresize = function () {
     width = newWidth;
 };
 
+function resetAndChangeImage() {
+    clearInterval(intervalID);
+    changeImage()
+    intervalID = setInterval(changeImage, 5000);
+}
+
 function changeImage() {
-    let i = Math.floor(Math.random() * images) + 1;
-    if (i === previousPhoto) {
-        i = (i + 1) % images + 1;
-    }
-    $("#wrapper").css("background-image", "url(/background/" + i + ".jpg)");
-    previousPhoto = i;
+    previousPhoto = previousPhoto % images + 1
+    $("#title-wrapper").css("background-image", "url(/background/" + previousPhoto + ".jpg)");
 }
 
 function getGroepsleiding() {
