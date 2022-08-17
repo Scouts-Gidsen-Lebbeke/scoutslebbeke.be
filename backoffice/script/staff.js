@@ -1,6 +1,12 @@
 loadStaff();
 
-function loadStaff() {
+function resetAndChangeMessage(message) {
+    const error = $('#error-staff-data')
+    error.html(message)
+    setTimeout(() => error.html(""), 2000);
+}
+
+function loadStaff(selection = null) {
     const filter = $('#filter-active-staff').prop("checked");
     fetch(new Request('/backoffice/api/getStaff.php?q=' + filter, {method: 'GET'}))
         .then(response => response.json()).then(data => {
@@ -14,6 +20,7 @@ function loadStaff() {
                     text : item["Voornaam"] + " " + item["Achternaam"]
                 }));
             });
+            selector.val(selection)
             selector.trigger("change");
         }
     });
@@ -21,7 +28,6 @@ function loadStaff() {
 
 function updateStaffInfo() {
     const username = $('#staff-list').val();
-    $('#error-staff-data').html("");
     $("#delete-staff").prop("disabled", !username);
     $("#new-staff-pic").prop("disabled", !username);
     if (username) {
@@ -45,6 +51,7 @@ function updateStaffInfo() {
                 $('#staff-head').prop("checked", data["Groepsleiding"] === "1");
                 $('#uniform-master').prop("checked", data["uniform"] === "1");
             }
+            resetAndChangeMessage(res["message"])
         });
     } else {
         $("#staff-pic-div").hide();
@@ -66,19 +73,25 @@ function updateStaffInfo() {
 
 function saveStaff() {
     const form = new FormData(document.getElementById('staff-data'));
-    for (const [key, value] of form) {
-        console.log(`${key}: ${value}`);
-    }
     fetch(new Request('/backoffice/api/postStaff.php', {method: 'POST', body: form}))
-        .then(response => response.json()).then(data => $('#error-staff-data').html(data["message"]));
+        .then(response => response.json()).then(data => {
+            if (!$('#staff-list').val() && data["success"]) {
+                $('#staff-username').val(data["user"]);
+                loadStaff(data["user"])
+            }
+            resetAndChangeMessage(data["message"])
+    });
 }
 
 function deleteStaff() {
-
-}
-
-function newStaff() {
-
+    const form = new FormData(document.getElementById('staff-data'));
+    fetch(new Request('/backoffice/api/deleteStaff.php', {method: 'POST', body: form}))
+        .then(response => response.json()).then(data => {
+            if (data["success"]) {
+                loadStaff()
+            }
+            resetAndChangeMessage(data["message"])
+    });
 }
 
 function uploadStaffPicture() {
@@ -89,7 +102,7 @@ function uploadStaffPicture() {
                 $('#staff-pic-name').val(data["new"]);
                 $('#staff-pic').attr("src", "/images/profile/" + data["new"]);
             } else {
-                $('#error-staff-data').html(data["message"])
+                resetAndChangeMessage(data["message"])
             }
     });
 }

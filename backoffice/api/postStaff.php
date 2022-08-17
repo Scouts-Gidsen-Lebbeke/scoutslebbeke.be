@@ -51,9 +51,9 @@ try {
     } else if (!mysqli_query($connection, "update profiel set Voornaam='$firstname', Achternaam='$lastname', kapoenenbijnaam='$nickname1', welpenbijnaam='$nickname2', Totem='$totem', Gsm='$mobile', email='$email', Functie='$function', Takleiding='$branchHead', Groepsleiding='$staffHead', uniform='$uniformMaster' where username='$username'")) {
         throw new RuntimeException("Er ging iets fout bij het updaten van de leid(st)er, probeer later opnieuw!");
     }
-    echo json_encode(array("status" => "success", "error" => false, "message" => "De leid(st)er werd succesvol opgeslagen!"));
+    echo json_encode(array("success" => true, "user" => $username, "message" => "De leid(st)er werd succesvol opgeslagen!"));
 } catch (RuntimeException $e) {
-    echo json_encode(array("status" => "error", "error" => true, "message" => $e->getMessage()));
+    echo json_encode(array("success" => false, "message" => $e->getMessage()));
 } finally {
     $connection->close();
 }
