@@ -189,3 +189,12 @@ function getSetting(settingId, settingSpanId) {
         $('#' + settingSpanId).html(data["setting_value"]);
     });
 }
+
+function getUniformStaff() {
+    fetch("/api/getUniformStaff.php").then(res => res.json()).then(data => {
+        let result = data ? data.join(", ") : "iemand van de leiding";
+        const i = result.lastIndexOf(",")
+        result = result.substring(0, i) + " of" + result.substring(i + 1);
+        $('#uniform-staff').html(result);
+    });
+}
