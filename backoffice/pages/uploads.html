@@ -3,11 +3,11 @@
 <h2>Sprokkel</h2>
 <form id="sprokkel-period">
     <label>Huidige periode:</label>
-    <input type="radio" id="sprokkel1" onclick="postSprokkelSetting()" name="sprokkelBtn" value="Sprokkel september - december">
+    <input type="radio" id="sprokkel1" onclick="postSprokkelSetting()" name="value" value="Sprokkel september - december">
     <label for="sprokkel1">Sprokkel september - december</label>
-    <input type="radio" id="sprokkel2" onclick="postSprokkelSetting()" name="sprokkelBtn" value="Sprokkel januari - april">
+    <input type="radio" id="sprokkel2" onclick="postSprokkelSetting()" name="value" value="Sprokkel januari - april">
     <label for="sprokkel2">Sprokkel januari - april</label>
-    <input type="radio" id="sprokkel3" onclick="postSprokkelSetting()" name="sprokkelBtn" value="Sprokkel april - juni">
+    <input type="radio" id="sprokkel3" onclick="postSprokkelSetting()" name="value" value="Sprokkel april - juni">
     <label for="sprokkel3">Sprokkel april - juni</label>
 </form>
 <form enctype="multipart/form-data" id="sprokkel-data-upload">
@@ -37,4 +37,4 @@
     Klik <a onclick="showBackgrounds()" target="_blank">hier</a> om de huidige geüploade versie te bekijken.<br>
     <span id="error-background-upload"></span>
 </form>
-<script src="/backoffice/script/uploads.js"></script>
+<script src="/backoffice/script/uploads.js?q=5"></script>

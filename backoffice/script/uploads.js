@@ -1,5 +1,5 @@
 fetch("/backoffice/api/getSetting.php?q=sprokkel_period").then(res => res.json()).then(data => {
-    $('input[name=sprokkelBtn][value="' + data["setting_value"] + '"]').prop('checked',true)
+    $('input[name=value][value="' + data["setting_value"] + '"]').prop('checked',true)
 });
 
 function postSprokkelSetting() {

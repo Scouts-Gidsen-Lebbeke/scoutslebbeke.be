@@ -1,6 +1,14 @@
 <h1>Instellingen</h1>
 <p>Hier kunnen een aantal standaardzaken ingesteld worden.</p>
-<h2>Reset leiding</h2>
+<h2>Leiding</h2>
+<form id="staff-visibility">
+    <label>Leiding zichtbaar:</label>
+    <input type="radio" id="yes" onclick="postStaffSetting()" name="value" value="true">
+    <label for="yes">Ja</label>
+    <input type="radio" id="no" onclick="postStaffSetting()" name="value" value="false">
+    <label for="no">Nee</label>
+    <span id="error-staff-visibility"></span>
+</form>
 <form id="reset-staff">
     <label>Reset de actieve leiding voor een nieuw werkingsjaar:</label>
     <input type="button" class="settings-button" onclick="resetStaff()" value="Reset">
@@ -22,3 +30,4 @@
     <input type="text" placeholder="Gebruikersnaam">
     <input type="button" id="settings-button" onclick="createUser()" value="Maak aan">
 </form>
+<script src="/backoffice/script/settings.js?q=5"></script>
