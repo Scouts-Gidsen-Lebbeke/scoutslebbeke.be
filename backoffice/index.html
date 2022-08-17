@@ -18,51 +18,13 @@
 </script>
 <div id="profile">
     <div id="profile-pic" class="pointer" onclick="load('profile')"></div>
-    <div id="username"></div>
+    <div id="user">
+        <span id="username"></span>
+        <img id="admin-img" src="/backoffice/images/admin-white.png" style="display: none" alt="admin">
+    </div>
     <img id="logout" onclick="logout()" src="/backoffice/images/logout.png" alt="logout"/>
 </div>
-<div id="menu">
-    <div onclick="load('home')" class="menubaritem">
-        <div class="text-menu-item">Home</div>
-        <img class="icon-menu-item" src="/backoffice/images/home.png" alt="home">
-    </div>
-    <div onclick="load('news')" class="menubaritem">
-        <div class="text-menu-item">Nieuwtjes</div>
-        <img class="icon-menu-item" src="/backoffice/images/news.png" alt="news">
-    </div>
-    <div onclick="load('calendar')" class="menubaritem">
-        <div class="text-menu-item">Kalender</div>
-        <img class="icon-menu-item" src="/backoffice/images/calendar.png" alt="calendar">
-    </div>
-    <div onclick="load('uploads')" class="menubaritem">
-        <div class="text-menu-item">Uploads</div>
-        <img class="icon-menu-item" src="/backoffice/images/uploads.png" alt="uploads">
-    </div>
-    <div onclick="load('staff')" class="menubaritem">
-        <div class="text-menu-item">Leiding</div>
-        <img class="icon-menu-item" src="/backoffice/images/staff.png" alt="staff">
-    </div>
-    <div onclick="load('pages')" class="menubaritem">
-        <div class="text-menu-item">Pagina's</div>
-        <img class="icon-menu-item" src="/backoffice/images/pages.png" alt="pages">
-    </div>
-    <div onclick="load('navigation')" class="menubaritem">
-        <div class="text-menu-item">Navigatie</div>
-        <img class="icon-menu-item" src="/backoffice/images/navigation.png" alt="navigation">
-    </div>
-    <div onclick="load('data')" class="menubaritem">
-        <div class="text-menu-item">Data</div>
-        <img class="icon-menu-item" src="/backoffice/images/data.png" alt="data">
-    </div>
-    <div onclick="load('settings')" class="menubaritem">
-        <div class="text-menu-item">Instellingen</div>
-        <img class="icon-menu-item" src="/backoffice/images/settings.png" alt="settings">
-    </div>
-    <div onclick="toggleNav()" class="menubaritem">
-        <img class="text-menu-item" src="/backoffice/images/left-arrow.png" alt="left">
-        <img class="icon-menu-item" src="/backoffice/images/right-arrow.png" alt="right">
-    </div>
-</div>
+<div id="menu"></div>
 <div id="platform-content"></div>
 </body>
 </html>

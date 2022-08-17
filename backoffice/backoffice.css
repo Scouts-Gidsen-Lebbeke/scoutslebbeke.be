@@ -67,15 +67,18 @@ form i {
     border: #999999 2px solid;
     background: url("/backoffice/images/users/default.png");
 }
-#username, #profile-pic, #logout {
+#user, #profile-pic, #logout {
     position: absolute;
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
-#username {
+#user {
     font-weight: bold;
     left: 70px;
+}
+#admin-img {
+    width: 18px;
 }
 #logout {
     width: 30px;
