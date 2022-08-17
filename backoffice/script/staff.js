@@ -29,6 +29,7 @@ function updateStaffInfo() {
             .then(response => response.json()).then(res => {
             if (res["success"]) {
                 const data = res["data"];
+                $("#staff-pic-div").show();
                 $('#staff-username').val(username);
                 $('#staff-pic-name').val(data["Foto"]);
                 $('#staff-firstname').val(data["Voornaam"]);
@@ -46,6 +47,7 @@ function updateStaffInfo() {
             }
         });
     } else {
+        $("#staff-pic-div").hide();
         $('#staff-username').val(null);
         $('#staff-firstname').val(null);
         $('#staff-lastname').val(null);
