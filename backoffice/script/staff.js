@@ -21,6 +21,7 @@ function loadStaff() {
 
 function updateStaffInfo() {
     const username = $('#staff-list').val();
+    $('#error-staff-data').html("");
     $("#delete-staff").prop("disabled", !username);
     $("#new-staff-pic").prop("disabled", !username);
     if (username) {
@@ -29,6 +30,7 @@ function updateStaffInfo() {
             if (res["success"]) {
                 const data = res["data"];
                 $('#staff-username').val(username);
+                $('#staff-pic-name').val(data["Foto"]);
                 $('#staff-firstname').val(data["Voornaam"]);
                 $('#staff-lastname').val(data["Achternaam"]);
                 $('#staff-nickname-1').val(data["kapoenenbijnaam"]);
@@ -66,7 +68,7 @@ function saveStaff() {
         console.log(`${key}: ${value}`);
     }
     fetch(new Request('/backoffice/api/postStaff.php', {method: 'POST', body: form}))
-        .then(response => response.json()).then(data => $('#error-staff-data').html(data));
+        .then(response => response.json()).then(data => $('#error-staff-data').html(data["message"]));
 }
 
 function deleteStaff() {
@@ -78,5 +80,14 @@ function newStaff() {
 }
 
 function uploadStaffPicture() {
-
+    const form = new FormData(document.getElementById('staff-data'));
+    fetch(new Request('/backoffice/api/postStaffImage.php', {method: 'POST', body: form}))
+        .then(response => response.json()).then(data => {
+            if (data["success"]) {
+                $('#staff-pic-name').val(data["new"]);
+                $('#staff-pic').attr("src", "/images/profile/" + data["new"]);
+            } else {
+                $('#error-staff-data').html(data["message"])
+            }
+    });
 }

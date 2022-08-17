@@ -1,22 +1,20 @@
 <h1>Navigatie</h1>
 <p>Configureer hier de zichtbare pagina's in de menubalk en creëer nieuwe pagina's.</p>
 <h2>Groepen</h2>
-<form>
+<form enctype="multipart/form-data" id="group-data">
     <select id="group-list" onchange="initGroupContent(value)">
         <option value="">Selecteer een groep...</option>
     </select>
     <input type="button" id="delete-group" value="Verwijder groep" onclick="deleteGroup()" disabled>
     <input type="button" value="Nieuwe groep" onclick="newGroup()">
     <div id="group-content">
-        <form enctype="multipart/form-data" id="group-data">
-            <p>
-                <input id="group-id" type="hidden">
-                <label for="group-name">Naam:</label>
-                <input id="group-name" type="text">
-                <input type="button" value="Sla op" id="update-group-name" onclick="updateGroupName()">
-                <span id="group-name-error"></span>
-            </p>
-        </form>
+        <p>
+            <input id="group-id" type="hidden" name="group-id">
+            <label for="group-name">Naam:</label>
+            <input id="group-name" type="text" name="group-name">
+            <input type="button" value="Sla op" id="update-group-name" onclick="updateGroupName()">
+            <span id="group-name-error"></span>
+        </p>
         Deze groep wordt op plaats <span id="group-rank">{}</span> weergegeven.
         <input type="button" value="Verhoog" id="group-rank-up" onclick="updateGroupRank(1)">
         <input type="button" value="Verlaag" id="group-rank-down" onclick="updateGroupRank(-1)">
@@ -53,4 +51,4 @@
         <input type="button" value="Verlaag" id="item-rank-down" onclick="updateItemRank(-1)">
     </div>
 </form>
-<script src="/backoffice/script/navigation.js?q=27"></script>
+<script src="/backoffice/script/navigation.js?q=298"></script>

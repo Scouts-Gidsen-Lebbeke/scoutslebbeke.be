@@ -116,12 +116,41 @@ a {
 #platform-content h2 {
     font-size: 18px;
 }
-#staff-pic {
-    max-width: 300px;
-    float:right;
+#staff-pic-div {
+    width: 400px;
+    height: 270px;
+    float: right;
     margin-right: 40px;
     border: solid 3px #37342B;
     border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+}
+#staff-pic {
+    width: 400px;
+    height: 270px;
+}
+.staff-pic {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#staff-new-pic {
+    width: 250px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    display: none;
+}
+#staff-pic-div:hover #staff-pic {
+    opacity: 70%;
+}
+#staff-pic-div:hover #staff-new-pic {
+    display: inline-block;
+}
+#staff-pic-upload {
+    display: none;
 }
 .itembutton {
     width: 10px;

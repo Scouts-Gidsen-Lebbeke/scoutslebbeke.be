@@ -2,15 +2,19 @@ loadPages();
 loadGroups();
 
 function loadGroups() {
+    const groups = $('#group-list');
+    const items = $('#item-group');
+    groups.empty();
+    items.empty();
     fetch(new Request('/backoffice/api/getPageGroups.php', {method: 'GET'}))
         .then(response => response.json()).then(data => {
             if (data["success"]) {
                 $.each(data["list"], function (i, item) {
-                    $('#group-list').append($('<option>', {
+                    groups.append($('<option>', {
                         value: item["id"],
                         text : item["name"]
                     }));
-                    $('#item-group').append($('<option>', {
+                    items.append($('<option>', {
                         value: item["id"],
                         text : item["name"]
                     }));
@@ -42,10 +46,12 @@ function initGroupContent(selected) {
 }
 
 function updateGroupName() {
-    const form = new FormData(document.querySelector('#group-data'));
+    const form = new FormData(document.getElementById('group-data'));
     fetch(new Request('/backoffice/api/postPageGroup.php', {method: 'POST', body: form}))
-        .then(r => r.json()).then(d => $('#group-name-error').html(d["error"]));
-    loadGroups()
+        .then(r => r.json()).then(d => {
+            $('#group-name-error').html(d["message"]);
+            loadGroups();
+    });
 }
 
 function updateGroupRank(change) {
@@ -63,10 +69,9 @@ function deleteGroup() {
 }
 
 function newGroup() {
-    $('#group-id').val(null);
+    $('#group-id').val('');
     $('#group-name').val("Nieuwe groep");
     updateGroupName()
-    loadGroups();
     $('#group-list').val($('#group-list option:last').val())
 }
 
@@ -99,3 +104,13 @@ function updateItemRank(change) {
     $('#item-rank-down').prop('disabled', rank === 1);
     $('#item-rank-up').prop('disabled', rank === $('#item-list option').length - 1);
 }
+
+function deleteItem() {}
+
+function newItem() {}
+
+function updateItemName() {}
+
+function updateItemGroup() {}
+
+function updateItemVisibility() {}

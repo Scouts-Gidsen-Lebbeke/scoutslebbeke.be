@@ -10,9 +10,9 @@ try {
     $mobile = $_POST['staff-mobile'];
     $email = $_POST['staff-email'];
     $function = $_POST['staff-function'];
-    $branchHead = filter_var($_POST['branch-head'], FILTER_VALIDATE_BOOLEAN);
-    $staffHead = filter_var($_POST['staff-head'], FILTER_VALIDATE_BOOLEAN);
-    $uniformMaster = filter_var($_POST['uniform-master'], FILTER_VALIDATE_BOOLEAN);
+    $branchHead = filter_var(@$_POST['branch-head'], FILTER_VALIDATE_BOOLEAN);
+    $staffHead = filter_var(@$_POST['staff-head'], FILTER_VALIDATE_BOOLEAN);
+    $uniformMaster = filter_var(@$_POST['uniform-master'], FILTER_VALIDATE_BOOLEAN);
     if (empty($firstname)) {
         throw new RuntimeException("Voornaam kan niet leeg zijn!");
     }
@@ -20,15 +20,15 @@ try {
         throw new RuntimeException("Achternaam kan niet leeg zijn!");
     }
     if (strcmp($function, "Stam") === 0 || strcmp($function, "Geen") === 0) {
+        if ($staffHead) {
+            throw new RuntimeException("Enkel actieve leiding kan groepsleiding zijn!");
+        }
         if ($branchHead) {
             throw new RuntimeException("Enkel actieve leiding kan takleiding zijn!");
         }
         if ($uniformMaster) {
             throw new RuntimeException("Enkel actieve leiding kan uniformverantwoordelijke zijn!");
         }
-    }
-    if (strcmp($function, "Stam") === 0 && $staffHead) {
-        throw new RuntimeException("Enkel actieve leiding kan groepsleiding zijn!");
     }
     if (empty($username)) {
         $username = strtolower($firstname) . implode('', array_map(fn($v) => $v[0], explode(' ', strtolower($lastname))));
