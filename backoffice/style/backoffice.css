@@ -203,3 +203,27 @@ form label {
 #login_form input, #login_form label {
     display: inline;
 }
+#left, #banner, #right {
+    display: inline-block;
+    background: center no-repeat;
+    height: 150px;
+}
+#left, #right {
+    width: 50px;
+    cursor: pointer;
+    background-size: contain;
+}
+#left {
+    background-image: url("/images/left-chevron.png");
+}
+#right {
+    background-image: url("/images/right-chevron.png");
+}
+#left:hover, #right:hover {
+    opacity: 80%;
+}
+#banner {
+    width: 600px;
+    background-size: cover;
+    cursor: pointer;
+}

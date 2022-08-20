@@ -1,5 +1,5 @@
-let width, previousPhoto = 0, intervalID;
-const BACKGROUND_FADING_LIMIT = 1200, images = 23;
+let width, currentIndex = 0, intervalID, backgrounds = [];
+const BACKGROUND_FADING_LIMIT = 1200;
 
 window.onload = function() {
     const q = (new URL(document.location)).searchParams.get('q');
@@ -7,11 +7,8 @@ window.onload = function() {
         window.history.replaceState(null, "", "/");
     }
     load(q ? q : history.state ? history.state.content : 'nieuwtjes');
+    getImages();
     getNavigation();
-    width = window.innerWidth > 0 ? window.innerWidth : screen.width;
-    if (width > BACKGROUND_FADING_LIMIT) {
-        resetAndChangeImage()
-    }
     $('#curr_year').text(new Date().getFullYear())
 };
 
@@ -37,6 +34,20 @@ window.onresize = function () {
     width = newWidth;
 };
 
+function getImages() {
+    fetch(new Request('/api/getBackgrounds.php')).then(response => response.json()).then(data => {
+        backgrounds = Object.values(data);
+        backgrounds.forEach(url => {
+            const img = new Image();
+            img.src = "/background/" + url;
+        })
+        width = window.innerWidth > 0 ? window.innerWidth : screen.width;
+        if (width > BACKGROUND_FADING_LIMIT) {
+            resetAndChangeImage()
+        }
+    })
+}
+
 function resetAndChangeImage() {
     clearInterval(intervalID);
     changeImage()
@@ -44,8 +55,8 @@ function resetAndChangeImage() {
 }
 
 function changeImage() {
-    previousPhoto = previousPhoto % images + 1
-    $("#title-wrapper").css("background-image", "url(/background/" + previousPhoto + ".jpg)");
+    currentIndex = currentIndex % backgrounds.length + 1
+    $("#title-wrapper").css("background-image", "url(/background/" + backgrounds[currentIndex] + ")");
 }
 
 function getGroepsleiding() {

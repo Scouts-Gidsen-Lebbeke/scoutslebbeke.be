@@ -32,7 +32,12 @@
 </form>
 <h2>Achtergrondafbeeldingen</h2>
 <form enctype="multipart/form-data" id="background-data-upload">
-    <input type="button" onclick="postBackground()" value="Upload"/>
+    <p>Huidige afbeeldingen (klik op een afbeelding om ze op ware grootte te bekijken):</p><br>
+    <div id="left" onclick="showBackground(currentIndex - 1)"></div>
+    <div id="banner" onclick="window.open('/background/' + backgrounds[currentIndex]);"></div>
+    <div id="right" onclick="showBackground(currentIndex + 1)"></div><br>
+    <input id="background-upload" class="hidden" type="file" onchange="postBackground()" name="upfile" accept="image/*">
+    <input type="button" onclick="deleteBackground()" value="Verwijder"/>deze afbeelding of <input type="button" onclick="$('#background-upload').trigger('click')" value="upload"/>een nieuwe.
     <span id="error-background-upload"></span>
 </form>
-<script src="/backoffice/script/uploads.js?q=7"></script>
+<script src="/backoffice/script/uploads.js?q=17"></script>
