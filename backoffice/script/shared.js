@@ -90,3 +90,8 @@ function toggleNav() {
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+function changeAndTimeout(id, message) {
+    $(id).html(message)
+    setTimeout(() => $(id).html(""), 2000);
+}

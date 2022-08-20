@@ -1,11 +1,5 @@
 loadStaff();
 
-function resetAndChangeMessage(message) {
-    const error = $('#error-staff-data')
-    error.html(message)
-    setTimeout(() => error.html(""), 2000);
-}
-
 function loadStaff(selection = null) {
     const filter = $('#filter-active-staff').prop("checked");
     fetch(new Request('/backoffice/api/getStaff.php?q=' + filter, {method: 'GET'}))
@@ -51,7 +45,7 @@ function updateStaffInfo() {
                 $('#staff-head').prop("checked", data["Groepsleiding"] === "1");
                 $('#uniform-master').prop("checked", data["uniform"] === "1");
             }
-            resetAndChangeMessage(res["message"])
+            changeAndTimeout('#error-staff-data', res["message"])
         });
     } else {
         $("#staff-pic-div").hide();
@@ -79,7 +73,7 @@ function saveStaff() {
                 $('#staff-username').val(data["user"]);
                 loadStaff(data["user"])
             }
-            resetAndChangeMessage(data["message"])
+        changeAndTimeout('#error-staff-data', data["message"])
     });
 }
 
@@ -90,7 +84,7 @@ function deleteStaff() {
             if (data["success"]) {
                 loadStaff()
             }
-            resetAndChangeMessage(data["message"])
+        changeAndTimeout('#error-staff-data', data["message"])
     });
 }
 
@@ -102,7 +96,7 @@ function uploadStaffPicture() {
                 $('#staff-pic-name').val(data["new"]);
                 $('#staff-pic').attr("src", "/images/profile/" + data["new"]);
             } else {
-                resetAndChangeMessage(data["message"])
+                changeAndTimeout('#error-staff-data', data["message"])
             }
     });
 }
