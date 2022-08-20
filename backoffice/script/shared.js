@@ -1,3 +1,5 @@
+let backgrounds = [], currentIndex
+
 window.onload = function() {
     load(history.state === null ? 'home' : history.state.content);
 };

@@ -1,7 +1,6 @@
 fetch("/backoffice/api/getSetting.php?q=sprokkel_period").then(res => res.json()).then(data => {
     $('input[name=value][value="' + data["setting_value"] + '"]').prop('checked',true)
 });
-let backgrounds = [], currentIndex
 loadBackgrounds()
 
 function loadBackgrounds() {
