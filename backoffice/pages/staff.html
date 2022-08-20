@@ -11,7 +11,7 @@
         <img id="staff-new-pic" class="staff-pic" src="/backoffice/images/add-photo.png" alt="staff-pic">
     </div>
     <form enctype="multipart/form-data" id="staff-data">
-        <input id="staff-pic-upload" type="file" onchange="uploadStaffPicture()" name="staff-pic-upload" accept="image/*">
+        <input id="staff-pic-upload" class="hidden" type="file" onchange="uploadStaffPicture()" name="staff-pic-upload" accept="image/*">
         <input id="staff-pic-name" name="staff-pic-name" type="hidden">
         <input id="staff-username" name="staff-username" type="hidden">
         <p>
@@ -72,4 +72,4 @@
     </form>
     <span id="error-staff-data"></span>
 </div>
-<script src="/backoffice/script/staff.js?q=194"></script>
+<script src="/backoffice/script/staff.js"></script>

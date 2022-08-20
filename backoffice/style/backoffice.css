@@ -153,9 +153,6 @@ a {
 #staff-pic-div:hover #staff-new-pic {
     display: inline-block;
 }
-#staff-pic-upload {
-    display: none;
-}
 .itembutton {
     width: 10px;
 }
@@ -170,6 +167,9 @@ a {
 }
 .pointer {
     cursor: pointer;
+}
+.hidden {
+    display: none;
 }
 #staff-pic-form {
     display: none;

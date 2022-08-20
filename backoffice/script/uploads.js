@@ -4,30 +4,25 @@ fetch("/backoffice/api/getSetting.php?q=sprokkel_period").then(res => res.json()
 
 function postSprokkelSetting() {
     const form = new FormData(document.querySelector('#sprokkel-period'));
-    fetch(new Request('/backoffice/api/postSetting.php?q=sprokkel_period', {method: 'POST', body: form}))
-        .then(response => response.json()).then(data => {
-            if (data["error"]) {
-                console.log(data["message"]);
-            }
-    });
+    fetch(new Request('/backoffice/api/postSetting.php?q=sprokkel_period', {method: 'POST', body: form}));
 }
 
 function postSprokkel() {
     const form = new FormData(document.querySelector('#sprokkel-data-upload'));
-    fetch(new Request('/backoffice/api/postSprokkel.php', {method: 'POST', body: form}))
-        .then(response => response.json()).then(data => $('#error-sprokkel-upload').html(data["message"]));
+    fetch(new Request('/backoffice/api/postPdf.php?dir=%2Fuploads%2F&name=sprokkel', {method: 'POST', body: form}))
+        .then(response => response.json()).then(data => changeAndTimeout('#error-sprokkel-upload', data["message"]));
 }
 
 function postCamp() {
     const form = new FormData(document.querySelector('#camp-data-upload'));
-    fetch(new Request('/backoffice/api/postCamp.php', {method: 'POST', body: form}))
-        .then(response => response.json()).then(data => $('#error-camp-upload').html(data["message"]));
+    fetch(new Request('/backoffice/api/postPdf.php?dir=%2Fuploads%2F&name=camp', {method: 'POST', body: form}))
+        .then(response => response.json()).then(data => changeAndTimeout('#error-camp-upload', data["message"]));
 }
 
 function postPrivacy() {
     const form = new FormData(document.querySelector('#privacy-data-upload'));
-    fetch(new Request('/backoffice/api/postPrivacy.php', {method: 'POST', body: form}))
-        .then(response => response.json()).then(data => $('#error-privacy-upload').html(data["message"]));
+    fetch(new Request('/backoffice/api/postPdf.php?dir=%2F&name=privacyverklaring', {method: 'POST', body: form}))
+        .then(response => response.json()).then(data => changeAndTimeout('#error-privacy-upload', data["message"]));
 }
 
 function postBackground() {

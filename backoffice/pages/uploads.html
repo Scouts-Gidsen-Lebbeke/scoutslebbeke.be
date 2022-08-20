@@ -9,32 +9,30 @@
     <label for="sprokkel2">Sprokkel januari - april</label>
     <input type="radio" id="sprokkel3" onclick="postSprokkelSetting()" name="value" value="Sprokkel april - juni">
     <label for="sprokkel3">Sprokkel april - juni</label>
-</form>
+</form><br>
 <form enctype="multipart/form-data" id="sprokkel-data-upload">
-    <input type="file" name="upfile">
-    <input type="button" onclick="postSprokkel()" value="Upload"/>
-    Klik <a href="/uploads/sprokkel.pdf" target="_blank">hier</a> om de huidige geüploade versie te bekijken.<br>
+    <input id="sprokkel-upload" class="hidden" type="file" onchange="postSprokkel()" name="upfile" accept="application/pdf">
+    Klik <a href="/uploads/sprokkel.pdf" target="_blank">hier</a> om de huidige versie te bekijken.
+    <input type="button" onclick="$('#sprokkel-upload').trigger('click')" value="Wijzig"/>
     <span id="error-sprokkel-upload"></span>
 </form>
 <h2>Kampboekje</h2>
 <form enctype="multipart/form-data" id="camp-data-upload">
-    <input type="file" name="upfile">
-    <input type="button" onclick="postCamp()" value="Upload"/>
-    Klik <a href="/uploads/camp.pdf" target="_blank">hier</a> om de huidige geüploade versie te bekijken.<br>
+    <input id="camp-upload" class="hidden" type="file" onchange="postCamp()" name="upfile" accept="application/pdf">
+    Klik <a href="/uploads/camp.pdf" target="_blank">hier</a> om de huidige versie te bekijken.
+    <input type="button" onclick="$('#camp-upload').trigger('click')" value="Wijzig"/>
     <span id="error-camp-upload"></span>
 </form>
 <h2>Privacyverklaring</h2>
 <form enctype="multipart/form-data" id="privacy-data-upload">
-    <input type="file" name="upfile">
-    <input type="button" onclick="postPrivacy()" value="Upload"/>
-    Klik <a href="/privacyverklaring.pdf" target="_blank">hier</a> om de huidige geüploade versie te bekijken.<br>
+    <input id="privacy-upload" class="hidden" type="file" onchange="postPrivacy()" name="upfile" accept="application/pdf">
+    Klik <a href="/privacyverklaring.pdf" target="_blank">hier</a> om de huidige versie te bekijken.
+    <input type="button" onclick="$('#privacy-upload').trigger('click')" value="Wijzig"/>
     <span id="error-privacy-upload"></span>
 </form>
 <h2>Achtergrondafbeeldingen</h2>
 <form enctype="multipart/form-data" id="background-data-upload">
-    <input type="file" name="upfile">
     <input type="button" onclick="postBackground()" value="Upload"/>
-    Klik <a onclick="showBackgrounds()" target="_blank">hier</a> om de huidige geüploade versie te bekijken.<br>
     <span id="error-background-upload"></span>
 </form>
-<script src="/backoffice/script/uploads.js?q=5"></script>
+<script src="/backoffice/script/uploads.js?q=7"></script>
