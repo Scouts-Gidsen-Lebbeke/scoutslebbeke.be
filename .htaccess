@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-F
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ([^.]*)(\.html)?$ /?q=$1 [R,NC]
