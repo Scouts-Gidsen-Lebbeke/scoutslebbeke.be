@@ -29,7 +29,7 @@ tinymce.init({
     automatic_uploads: true,
     images_upload_url: 'postAcceptor.php',
     images_reuse_filename: true,
-    extended_valid_elements: 'script[language|type|src]'
+    extended_valid_elements: 'script[language|type|src],a[onclick]'
 });
 
 function saveContent() {

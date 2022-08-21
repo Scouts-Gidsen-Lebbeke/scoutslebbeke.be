@@ -39,9 +39,9 @@ function loadNav(admin) {
         "calendar": ["Kalender", false],
         "uploads": ["Uploads", false],
         "staff": ["Leiding", false],
-        "pages": ["Pagina's", true],
+        "pages": ["Pagina's", false],
         "navigation": ["Navigatie", false],
-        "data": ["Data", false],
+        "data": ["Data", true],
         "settings": ["Instellingen", false]
     }
     for (const key in items) {
@@ -84,10 +84,6 @@ function loadPages() {
 function toggleNav() {
     $(".icon-menu-item").toggle()
     $(".text-menu-item").toggle()
-}
-
-function capitalize(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function changeAndTimeout(id, message) {
