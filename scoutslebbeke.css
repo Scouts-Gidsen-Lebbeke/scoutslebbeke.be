@@ -63,8 +63,7 @@ body {
 #title-wrapper {
     margin: auto;
     width: 70%;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: url('/images/defaultbackground.jpg') center no-repeat;
     background-size: cover;
     transition: background 1s;
     padding: 10px 40px;
@@ -243,7 +242,7 @@ hr {
     }
     #title-wrapper {
         box-shadow: none;
-        background: url('background/6.jpg');
+        background: url('/images/defaultbackground.jpg');
         margin-top: 2.5rem
     }
 }
