@@ -14,11 +14,6 @@ window.onload = function() {
             login();
         }
     });
-    document.addEventListener('keydown', ev => {
-        if (ev.code === 'KeyE' && ev.ctrlKey && ev.altKey) {
-            window.location.href = '/';
-        }
-    });
     checkSession();
 }
 

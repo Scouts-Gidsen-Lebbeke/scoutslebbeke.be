@@ -1,4 +1,4 @@
-let backgrounds = [], currentIndex
+let backgrounds = [], currentIndex, session;
 
 window.onload = function() {
     load(history.state === null ? 'home' : history.state.content);
@@ -19,16 +19,13 @@ function checkSession() {
             if (!data["active"]) {
                 window.location.href = "/backoffice/front.html";
             } else {
-                $("#username").text(capitalize(data["user"]));
-                const admin = data["admin"] === "1"
+                session = data["session"];
+                $("#username").text(session["user_first_name"]);
+                const admin = session["user_admin"] === "1"
                 loadNav(admin)
                 const adminImg = $("#admin-img")
                 admin ? adminImg.show() : adminImg.hide()
-                const picDiv = $("#profile-pic");
-                if (data["pic"] !== null) {
-                    picDiv.css("background", "url(/backoffice/images/users/" + data["pic"] + ")");
-                }
-                picDiv.css("background-size", "100% 100%");
+                $("#profile-pic").css("background-image", "url(/backoffice/images/users/" + session["user_profile_pic"] + ")");
             }
         });
 }

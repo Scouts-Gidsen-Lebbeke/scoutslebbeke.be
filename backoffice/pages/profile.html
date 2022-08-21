@@ -1,4 +1,11 @@
 <h1>Profiel</h1>
+<div id="profile-pic-large"></div>
+<div id="profile-data">
+    <p><span id="profile-full-name"></span></p>
+    <p>Gebruikersnaam: <span id="profile-username"></span></p>
+    <p>Admin <img class="icon-img" src="/backoffice/images/admin-black.png" alt="admin">: <span id="profile-admin"></span></p>
+</div>
+<h2>Wachtwoord</h2>
 <p>Wijzig hieronder je wachtwoord. Minstens 8 karakters, 1 cijfer, 1 kleine letter en 1 hoofdletter.</p>
 <form enctype="multipart/form-data" id="passwordData">
     <p>
@@ -14,6 +21,6 @@
         <input type="password" name="newpass2" id="newpass2" placeholder="**********">
     </p>
 </form>
-<button type="button" onclick="postPassword()">Verzend</button>
+<button type="button" onclick="postPassword()">Wijzig</button>
 <span id="error-password"></span>
-<script src="/backoffice/script/profile.js"></script>
+<script src="/backoffice/script/profile.js?q=5"></script>

@@ -27,7 +27,7 @@ html, body {
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
-input[id=username-input],input[id=password-input] {
+input[id=username-input],input[id=password-input],input[id=password-input-repeat],input[id=email-input] {
     width: 85%;
     padding: 10px 10px 10px 5px;
     border: 1px solid #ccc;
@@ -40,14 +40,25 @@ form i {
 }
 #loginbutton {
     background: url("../images/button_icon.png") no-repeat;
+}
+#homebutton {
+    background: url("../images/home-circle.png") no-repeat;
+}
+#backbutton {
+    background: url("../images/arrow-back.png") no-repeat;
+}
+#registerbutton {
+    background: url("../images/pen.png") no-repeat;
+}
+#loginbutton, #homebutton, #backbutton, #registerbutton {
     background-size: cover;
-    width: 40px;
-    height: 40px;
-    margin: 5px auto;
+    width: 35px;
+    height: 35px;
+    margin: 5px 10px auto auto;
     border: 0;
     cursor: pointer;
 }
-#login_error {
+#login_error, #register_error {
     color: darkred;
 }
 #profile {
@@ -65,7 +76,8 @@ form i {
     width: 30px;
     border-radius: 50%;
     border: #999999 2px solid;
-    background: url("/backoffice/images/users/default.png");
+    background-image: url("/backoffice/images/users/default.png");
+    background-size: 100% 100%;
 }
 #user, #profile-pic, #logout {
     position: absolute;
@@ -200,7 +212,7 @@ form label {
 #group-content, #page-content, #staff-username {
     display: none;
 }
-#login_form input, #login_form label {
+#login_form input, #login_form label, #register_form input, #register_form label {
     display: inline;
 }
 #left, #banner, #right {
@@ -226,4 +238,32 @@ form label {
     width: 600px;
     background-size: cover;
     cursor: pointer;
+}
+.no-access {
+    font-size: 11px;
+    font-weight: normal;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.small-info {
+    font-size: 11px;
+    font-weight: normal;
+}
+#profile-pic-large {
+    float: left;
+    height: 108px;
+    width: 108px;
+    border-radius: 50%;
+    border: #999999 5px solid;
+    background-size: 100% 100%;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+#profile-data {
+    height: 118px;
+    display: inline-block;
+    font-size: 16px;
+}
+#profile-full-name {
+    font-weight: bold;
 }

@@ -15,11 +15,14 @@
         <form enctype="multipart/form-data" id="login_form">
             <label for="username-input">Gebruikersnaam:</label>
             <input id="username-input" name="username" placeholder="Gebruikersnaam" type="text">
+            <p class="no-access" onclick="location.href='register.html'">Ik heb nog geen toegang</p><br>
             <label for="password-input">Wachtwoord:</label>
             <input id="password-input" name="password" placeholder="**********" type="password">
             <i class="bi bi-eye-slash" id="togglePassword"></i><br>
+            <p class="no-access" onclick="alert('Das pech.')">Wachtwoord vergeten?</p><br>
+            <input type="button" id="homebutton" onclick="location.href='/'">
             <input type="button" id="loginbutton" onclick="login()"><br>
-            <span id="login_error"></span>
+            <span id="register_error"></span>
         </form>
     </div>
 </div>
