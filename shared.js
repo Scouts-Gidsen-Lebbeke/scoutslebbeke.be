@@ -50,7 +50,6 @@ function getImages() {
 
 function resetAndChangeImage() {
     clearInterval(intervalID);
-    changeImage()
     intervalID = setInterval(changeImage, 5000);
 }
 
