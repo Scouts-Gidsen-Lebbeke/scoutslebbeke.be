@@ -108,6 +108,7 @@ function getGrlContact() {
     });
 }
 
+// noinspection JSUnusedGlobalSymbols (Google API dependency)
 function initMap() {
     let adres = {lat: 50.9841, lng: 4.144500};
     let map = new google.maps.Map(document.getElementById('map'), {
@@ -119,6 +120,7 @@ function initMap() {
 
 function openNav() {
     $("#mobilemenu").css("width", "60%");
+    $("#map").hide()
     document.body.style.overflow = "hidden";
     $("#overlay").show();
 }
@@ -129,6 +131,7 @@ function closeNav() {
     }
     document.body.style.overflow = "visible";
     $("#overlay").hide();
+    $("#map").show()
 }
 
 function loadsub(sub) {
