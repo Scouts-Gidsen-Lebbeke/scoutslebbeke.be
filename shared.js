@@ -50,11 +50,13 @@ function getImages() {
 
 function resetAndChangeImage() {
     clearInterval(intervalID);
+    changeImage()
     intervalID = setInterval(changeImage, 5000);
 }
 
 function changeImage() {
     currentIndex = currentIndex % backgrounds.length + 1
+    console.log(backgrounds[currentIndex])
     $("#title-wrapper").css("background-image", "url(/background/" + backgrounds[currentIndex] + ")");
 }
 
