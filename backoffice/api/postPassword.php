@@ -4,7 +4,7 @@ try {
     $oldpass = $_POST['oldpass'];
     $newpass = $_POST['newpass1'];
     $newpass2 = $_POST['newpass2'];
-    $username = "robink";//$_SESSION['login_user'];
+    $username = $_SESSION['login_user'];
     if (empty($oldpass)) {
         throw new RuntimeException("Oud wachtwoord kan niet leeg zijn!");
     }
