@@ -88,7 +88,7 @@ function getLeiding(tak) {
                 "<b>Naam:</b> " + item["Voornaam"] + " " + item["Achternaam"] + bijnaam + takleiding + "<br>" +
                 "<b>Totem:</b> " + (item["Totem"] ? item["Totem"] : "(geen)") + "<br>" +
                 (takleiding ? "<b>Gsm:</b> " + formatGsm(item["Gsm"]) + "<br>" +
-                    "<b>Email:</b> " + item["E-mail"] + "<br>" : "") + "</div>");
+                    "<b>E-mail:</b> " + item["Email"] + "<br>" : "") + "</div>");
         });
     });
 }
