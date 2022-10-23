@@ -213,6 +213,16 @@ function getUniformStaff() {
     });
 }
 
-function mailto() {
-    window.location.href = atob("bWFpbHRvOndlYm1hc3RlckBzY291dHNsZWJiZWtlLmJl")
+function mailto(location) {
+    switch (location) {
+        case "webmaster":
+            window.location.href = atob("bWFpbHRvOndlYm1hc3RlckBzY291dHNsZWJiZWtlLmJl")
+            break
+        case "info":
+            window.location.href = atob("bWFpbHRvOmluZm9Ac2NvdXRzbGViYmVrZS5iZQ==")
+            break
+        case "60":
+            window.location.href = atob("bWFpbHRvOjYwamFhckBzY291dHNsZWJiZWtlLmJl")
+            break
+    }
 }
