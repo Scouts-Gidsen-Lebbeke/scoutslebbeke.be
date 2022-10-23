@@ -212,3 +212,7 @@ function getUniformStaff() {
         $('#uniform-staff').html(result);
     });
 }
+
+function mailto() {
+    window.location.href = atob("bWFpbHRvOndlYm1hc3RlckBzY291dHNsZWJiZWtlLmJl")
+}

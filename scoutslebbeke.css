@@ -13,6 +13,9 @@ body {
     text-align: center;
     height: 70px;
 }
+.underline {
+    text-decoration: underline;
+}
 .navitem i {
     border: solid white;
     border-width: 0 3px 3px 0;
