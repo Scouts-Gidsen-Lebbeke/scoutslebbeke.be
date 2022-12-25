@@ -48,6 +48,7 @@ function load(page) {
     history.pushState({content: page}, "", "/");
     $('#content').load('/pages/' + page + '.html?q=' + new Date().getTime());
     $("#mobile-navigation").hide()
+    $("body").css({"overflow": "visible"})
 }
 
 function getImages() {
