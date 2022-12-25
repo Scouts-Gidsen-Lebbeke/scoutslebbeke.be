@@ -16,7 +16,7 @@ window.onload = function() {
         $('#navigation').html(getBrowserNav(data));
         $("#mobile-navigation").html(getMobileNav(data));
     });
-    $('#curr_year').text(new Date().getFullYear())
+    $('#current-year').text(new Date().getFullYear())
 };
 
 function toggleLogin() {
