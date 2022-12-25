@@ -1,0 +1,8 @@
+{
+  "realm": "scouts",
+  "auth-server-url": "https://login.scoutsengidsenvlaanderen.be/auth/",
+  "ssl-required": "all",
+  "resource": "groep-O3401G-Tyl-Uilenspiegel-Lebbeke",
+  "public-client": true,
+  "confidential-port": 0
+}

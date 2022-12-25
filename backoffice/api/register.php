@@ -18,7 +18,7 @@ try {
     if (mysqli_num_rows($query) == 1) {
         throw new RuntimeException("Gebruiker reeds gekend!");
     }
-    $query2 = $connection->query("select * from profiel where username='$username' and email='$email'");
+    $query2 = $connection->query("select * from staff where username='$username' and email='$email'");
     if (mysqli_num_rows($query2) != 1) {
         throw new RuntimeException("Gebruiker niet gekend!");
     }

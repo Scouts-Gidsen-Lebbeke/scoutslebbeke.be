@@ -23,7 +23,7 @@ a {
     font-weight: bold;
     color: black;
 }
-.afbIndex {
+.news-item-image {
     margin: 10px auto;
     width: 75%;
 }
@@ -31,7 +31,7 @@ a {
     width: 160px;
     max-width: 100%;
 }
-#leiding, #about, .uniform-group, #contact {
+#staff, #about, .uniform-group, #contact {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

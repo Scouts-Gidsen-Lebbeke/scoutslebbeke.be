@@ -1,12 +1,16 @@
-<h1>Sprokkel</h1>
-<p>De sprokkel is het boekje van Scouts & Gidsen Lebbeke. Hierin staan de programma's voor de verschillende
-    takken, een activiteitenkalender, spelletjes en nog zoveel meer. Om bomen uit te sparen hebben wij sinds enkele jaren alleen nog een digitale versie, die je hieronder kan vinden.
-    De liefhebbers van de papieren versie kunnen hem natuurlijk nog steeds downloaden en zelf afdrukken. Alvast veel leesplezier toegewenst!</p>
-<h2 id="period">Sprokkel</h2>
-<div id="sprokkel"><iframe id="sprokkel-iframe"></iframe></div>
-<p><a id="mobilesprokkel" download>Download</a></p>
-<script>
-    $('#sprokkel-iframe').attr("src", "/uploads/sprokkel.pdf?q=" + new Date().getTime());
-    $('#mobilesprokkel').attr("href", "/uploads/sprokkel.pdf?q=" + new Date().getTime());
-    getSetting("sprokkel_period", "period");
-</script>
+<h1 class="content-header">Sprokkel</h1>
+<div class="editable-content" id="sprokkel-intro">
+    <p>
+        De sprokkel is de kalender van Scouts & Gidsen Lebbeke.
+        Kies hieronder jouw tak om te zien wat we voor jou de komende maanden in petto hebben!
+    </p>
+</div>
+<div class="btn-group" role="group">
+    <button type="button" class="btn btn-secondary">Kapoenen</button>
+    <button type="button" class="btn btn-secondary">Welpen</button>
+    <button type="button" class="btn btn-secondary">Pioniers</button>
+    <button type="button" class="btn btn-secondary">Jonggivers</button>
+    <button type="button" class="btn btn-secondary">Givers</button>
+    <button type="button" class="btn btn-secondary">Jins</button>
+</div>
+<div id="selected-calendar"></div>

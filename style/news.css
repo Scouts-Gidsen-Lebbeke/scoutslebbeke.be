@@ -1,0 +1,27 @@
+#news-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.news-item {
+    transition: box-shadow .3s;
+    width: 700px;
+    margin: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+.news-item:hover {
+    box-shadow: 0 0 11px rgba(33,33,33,.2);
+}
+.news-item-image {
+    max-width: 698px;
+    height: 300px;
+}
+.news-item-info {
+    font-size: small;
+    color: dimgrey;
+}
+.news-item-content {
+    margin: 10px;
+}

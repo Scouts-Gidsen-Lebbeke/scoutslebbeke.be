@@ -1,7 +1,7 @@
 <?php
 include "connect.php";
 $result = array();
-if ($query = $connection->query("select Voornaam from profiel where uniform")) {
+if ($query = $connection->query("select Voornaam from staff where uniform")) {
     while ($row = $query->fetch_array(MYSQLI_ASSOC)) {
         $result[] = $row["Voornaam"];
     }

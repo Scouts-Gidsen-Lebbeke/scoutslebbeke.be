@@ -1,0 +1,22 @@
+.group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.group-info {
+    padding: 10px;
+    transition: box-shadow .3s;
+    max-width: 550px;
+    margin: 10px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.group-logo {
+    max-height: 300px;
+    max-width: 100%;
+}
+.group-act-logo {
+    max-height: 300px;
+}

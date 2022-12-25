@@ -1,0 +1,27 @@
+#link-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.link-item {
+    transition: box-shadow .3s;
+    width: 700px;
+    margin: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    background: #fff;
+    display: flex;
+    align-items: center;
+}
+.link-item:hover {
+    cursor: pointer;
+    box-shadow: 0 0 11px rgba(33,33,33,.2);
+}
+.link-item-image {
+    max-height: 200px;
+    max-width: 300px;
+    margin: 10px;
+}
+.link-item-content {
+    margin: 10px;
+}

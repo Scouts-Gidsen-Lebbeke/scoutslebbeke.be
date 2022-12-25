@@ -15,7 +15,7 @@ try {
        throw new RuntimeException("Gebruikersnaam en/of wachtwoord is fout!");
     }
     $real_username = $row["profile"];
-    $query2 = $connection->query("select * from profiel where username='$real_username'");
+    $query2 = $connection->query("select * from staff where username='$real_username'");
     $user_info = $query2->fetch_array(MYSQLI_ASSOC);
     session_start();
     $_SESSION['user'] = $username;

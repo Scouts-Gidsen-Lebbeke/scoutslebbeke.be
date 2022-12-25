@@ -32,11 +32,11 @@ try {
     }
     if (empty($username)) {
         $username = strtolower($firstname) . implode('', array_map(fn($v) => $v[0], explode(' ', strtolower($lastname))));
-        if ($query = $connection->query("select * from profiel where username='$username'")) {
+        if ($query = $connection->query("select * from staff where username='$username'")) {
             if (mysqli_num_rows($query) !== 0) {
                 $counter = 1;
                 $username = $username . $counter;
-                while ($query = $connection->query("select * from profiel where username='$username'")) {
+                while ($query = $connection->query("select * from staff where username='$username'")) {
                     if (mysqli_num_rows($query) === 0) {
                         break;
                     }
@@ -45,10 +45,10 @@ try {
                 }
             }
         }
-        if (!mysqli_query($connection, "insert into profiel values ('$username', '$firstname', '$lastname', '$nickname1', '$nickname2', '$totem', '$mobile', '$email', '$function', 'default.png', '$branchHead', '$staffHead', '$uniformMaster')")) {
+        if (!mysqli_query($connection, "insert into staff values ('$username', '$firstname', '$lastname', '$nickname1', '$nickname2', '$totem', '$mobile', '$email', '$function', 'default.png', '$branchHead', '$staffHead', '$uniformMaster')")) {
             throw new RuntimeException("Er ging iets fout bij het aanmaken van de nieuwe leid(st)er, probeer later opnieuw!");
         }
-    } else if (!mysqli_query($connection, "update profiel set Voornaam='$firstname', Achternaam='$lastname', kapoenenbijnaam='$nickname1', welpenbijnaam='$nickname2', Totem='$totem', Gsm='$mobile', email='$email', Functie='$function', Takleiding='$branchHead', Groepsleiding='$staffHead', uniform='$uniformMaster' where username='$username'")) {
+    } else if (!mysqli_query($connection, "update staff set Voornaam='$firstname', Achternaam='$lastname', kapoenenbijnaam='$nickname1', welpenbijnaam='$nickname2', Totem='$totem', Gsm='$mobile', email='$email', Functie='$function', Takleiding='$branchHead', Groepsleiding='$staffHead', uniform='$uniformMaster' where username='$username'")) {
         throw new RuntimeException("Er ging iets fout bij het updaten van de leid(st)er, probeer later opnieuw!");
     }
     echo json_encode(array("success" => true, "user" => $username, "message" => "De leid(st)er werd succesvol opgeslagen!"));

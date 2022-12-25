@@ -16,7 +16,7 @@ try {
     $newFileBase = $username . "." . pathinfo($filename, PATHINFO_EXTENSION);
     if ((str_ends_with($oldFile, "default.png") || !file_exists($oldFile) || unlink($oldFile)) && move_uploaded_file($tmpFile, $target_file)) {
         rename($target_file, $picBaseName . $newFileBase);
-        if (!mysqli_query($connection, "update profiel set Foto='$newFileBase' where username='$username'")) {
+        if (!mysqli_query($connection, "update staff set Foto='$newFileBase' where username='$username'")) {
             throw new RuntimeException("Fout bij de profiel-update!");
         }
     } else  {

@@ -1,0 +1,37 @@
+.profile-pic {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    border: #999999 2px solid;
+    background-image: url("/backoffice/images/users/default.png");
+    background-size: 100% 100%;
+}
+#profile-name, .profile-pic {
+    float: left;
+}
+#profile-name {
+    padding: 0 10px;
+}
+#profile-dropdown-block {
+    padding: 15px 20px;
+}
+#profile:hover {
+    cursor: pointer;
+    background: dimgrey;
+}
+#profile:hover #profile-dropdown {
+    display: table;
+}
+#profile-dropdown {
+    top: 60px;
+    right: 0;
+}
+#profile {
+    max-height: 60px;
+}
+@media only screen and (max-width: 1000px) {
+    #profile-name {
+        display: none;
+    }
+}

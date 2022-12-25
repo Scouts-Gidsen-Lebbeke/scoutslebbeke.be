@@ -1,0 +1,173 @@
+body {
+    margin: 0;
+    background: #181818;
+    font-family: Georgia, Avenir, serif;
+}
+#header {
+    top: 0;
+    z-index: 2;
+    width: 100%;
+    font-size: 20px;
+    color: #eeeeee;
+    background: #181818;
+    height: 60px;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+}
+#title-wrapper {
+    margin-top: 60px;
+    height: 400px;
+    background: url('/images/defaultbackground.jpg') center no-repeat;
+    background-size: cover;
+    transition: background 1s;
+    padding: 10px;
+}
+.underline {
+    cursor: pointer;
+    text-decoration: underline !important;
+}
+#title {
+    margin: 150px auto;
+    color: white;
+    width: fit-content;
+    font-size: 65px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 30px;
+    box-shadow: 0 0 15px 15px rgba(0,0,0,.4);
+    display: flex;
+    align-items: center;
+}
+#sixty-year {
+    height: 100px;
+    margin-right: 20px;
+}
+#content {
+    text-align: center;
+    background: white;
+    margin: auto;
+    padding: 10px 40px 50px;
+    box-sizing: border-box;
+}
+.content-background {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+#content a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+#credits {
+    text-align: center;
+    color: white;
+    margin: 20px 0;
+}
+.uniform {
+    width: 160px;
+    max-width: 100%;
+}
+#staff, #about, .uniform-group, #contact {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+#contact {
+    align-items: center;
+}
+.staff-item, .about-item, .uniform-item {
+    padding: 0 5px;
+    margin-bottom: 10px;
+}
+.about-item {
+    width: 400px;
+}
+.staffPicture {
+    width: 400px;
+    height: 270px;
+    margin: 10px auto;
+}
+.links {
+    max-width: 40px;
+}
+#sprokkel iframe {
+    width: 100%;
+    height: 1500px;
+}
+.googleform {
+    width: 100%;
+    height: 1500px;
+}
+#form-wrapper {
+    text-align: left;
+    width: 300px;
+    margin: 0 auto;
+}
+#form-wrapper button, label, input {
+    margin: 5px auto;
+}
+#form-wrapper input {
+    width: 250px;
+}
+#map {
+    height: 500px;
+    width: 500px;
+    margin: 20px;
+}
+#credits a {
+    color: white;
+}
+.content-header {
+    margin-top: 10px;
+    font-size: 3rem;
+}
+#content a {
+    cursor: pointer;
+}
+.visible-on-login {
+    display: none;
+}
+.editable-content {
+    max-width: 700px;
+    margin: auto;
+}
+@media only screen and (max-width: 1000px) {
+    #sprokkel, #sixty-year {
+        display: none;
+    }
+    #sprokkel-download-link {
+        display: block;
+    }
+    #content {
+        padding: 10px;
+    }
+}
+@media only screen and (max-width: 800px) {
+    #credits {
+        display: none;
+    }
+    #title-wrapper {
+        height: auto;
+    }
+    #title {
+        font-size: 30px;
+        margin: auto;
+    }
+    #content {
+        margin: auto;
+    }
+    .content-background {
+        background-image: none !important;
+    }
+    .about-item {
+        width: 100%;
+    }
+    .staffPicture {
+        width: 90%;
+        height: auto;
+    }
+    .news-item-image {
+        width: 100%;
+    }
+}

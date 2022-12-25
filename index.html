@@ -4,26 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="shared.js"></script>
-    <link rel="stylesheet" href="scoutslebbeke.css">
+    <script type="module" src="node_modules/keycloak-js/dist/keycloak.js"></script>
+    <script src="script/shared.js"></script>
+    <script src="script/profile.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style/content.css">
+    <link rel="stylesheet" href="style/burger.css">
+    <link rel="stylesheet" href="style/nav.css">
+    <link rel="stylesheet" href="style/mobilenav.css">
+    <link rel="stylesheet" href="style/news.css">
+    <link rel="stylesheet" href="style/links.css">
+    <link rel="stylesheet" href="style/profile.css">
+    <link rel="stylesheet" href="style/groups.css">
     <link rel="icon" href="/images/favicon.ico">
     <title>Scouts & Gidsen Tijl Uilenspiegel Lebbeke</title>
 </head>
 <body>
-<div id="nav" class="navitems text-white"></div>
-<div id="mobilenav"></div>
-<div id="main">
+<div id="header">
+    <button class="burger" id="burger" onclick="this.classList.toggle('opened');this.setAttribute('aria-expanded', this.classList.contains('opened'));toggleNav()" aria-label="Main Menu">
+        <svg width="30" height="30" viewBox="0 0 100 100">
+            <path class="line line1" d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
+            <path class="line line2" d="M 20,50 H 80" />
+            <path class="line line3" d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
+        </svg>
+    </button>
+    <div id="navigation"></div>
+    <div id="profile">
+        <div class="dropdown-block" id="profile-dropdown-block">
+            <div class="profile-pic"></div>
+            <span id="profile-name">Niet ingelogd</span>
+        </div>
+        <div class="dropdown" id="profile-dropdown">
+            <div class="dropdown-item visible-on-login" onclick="load('profile')">Profiel</div>
+            <div class="dropdown-item" id="profile-login" onclick="toggleLogin()">Log in</div>
+        </div>
+    </div>
+</div>
+<div id="mobile-navigation"></div>
+<div>
     <div id="title-wrapper" onclick="resetAndChangeImage()">
         <div id="title">
-            <p>Scouts & Gidsen Lebbeke</p>
+            <img src="images/60year.png" alt="60 jaar" id="sixty-year">
+            Scouts & Gidsen Lebbeke
         </div>
     </div>
     <div id="content"></div>
     <div id="credits">
-        © <span id="curr_year"></span> Scouts & Gidsen Lebbeke -
+        © <span id="current-year"></span> Scouts & Gidsen Lebbeke -
         <a class="underline" onclick="mailto('webmaster')">Meld een probleem</a> -
-        <a href="privacyverklaring.pdf">Privacyverklaring</a> -
-        <a href="https://leiding.scoutslebbeke.be"><img src="/images/lock.png" alt="backoffice" id="credits-lock"></a>
+        <a href="privacyverklaring.pdf">Privacyverklaring</a>
     </div>
 </div>
 </body>
