@@ -47,8 +47,7 @@ window.onpopstate = function() {
 function load(page) {
     history.pushState({content: page}, "", "/");
     $('#content').load('/pages/' + page + '.html?q=' + new Date().getTime());
-    $("#mobile-navigation").hide()
-    $("body").css({"overflow": "visible"})
+    closeNav()
 }
 
 function getImages() {
@@ -162,6 +161,15 @@ function toggleNav() {
     let mobileNav = $("#mobile-navigation")
     mobileNav.toggle()
     $("body").css({"overflow": mobileNav.is(":visible") ? "hidden" : "visible"})
+}
+
+function closeNav() {
+    let mobileNav = $("#mobile-navigation")
+    if (mobileNav.is(":visible")) {
+        mobileNav.hide()
+        $("body").css({"overflow": "visible"})
+        $('.burger').toggleClass('opened')
+    }
 }
 
 function toggleSub(sub) {
