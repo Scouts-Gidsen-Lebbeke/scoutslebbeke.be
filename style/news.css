@@ -16,7 +16,7 @@
 }
 .news-item-image {
     max-width: 698px;
-    height: 300px;
+    max-height: 300px;
 }
 .news-item-info {
     font-size: small;
@@ -24,4 +24,9 @@
 }
 .news-item-content {
     margin: 10px;
+}
+@media only screen and (max-width: 800px) {
+    .news-item-image {
+        max-width: 100%;
+    }
 }
