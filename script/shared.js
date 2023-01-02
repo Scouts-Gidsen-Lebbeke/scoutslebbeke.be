@@ -1,11 +1,11 @@
-let currentIndex = 0, intervalID, backgrounds = [];
+let currentIndex = 0, kc, intervalID, backgrounds = [];
 
 window.onload = function() {
-    kc = new Keycloak("/script/keycloak.json")
-    kc.init({
-        onLoad: 'check-sso',
-        silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html'
-    }).then(login)
+    //kc = new Keycloak("/script/keycloak.json")
+    //kc.init({
+    //    onLoad: 'check-sso',
+    //    silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html'
+    //}).then(login)
     const q = (new URL(document.location)).searchParams.get('q');
     if (q) {
         window.history.replaceState(null, "", "/");
