@@ -6,11 +6,12 @@
     </p>
 </div>
 <div class="btn-group flex-wrap flex-row justify-content-center" role="group">
-    <button type="button" class="btn btn-secondary">Kapoenen</button>
-    <button type="button" class="btn btn-secondary">Welpen</button>
-    <button type="button" class="btn btn-secondary">Pioniers</button>
-    <button type="button" class="btn btn-secondary">Jonggivers</button>
-    <button type="button" class="btn btn-secondary">Givers</button>
-    <button type="button" class="btn btn-secondary">Jins</button>
+    <button type="button" class="btn btn-secondary" id="calendar-btn-1" onclick="showCalendar(1)">Kapoenen</button>
+    <button type="button" class="btn btn-secondary" id="calendar-btn-2" onclick="showCalendar(2)">Welpen</button>
+    <button type="button" class="btn btn-secondary" id="calendar-btn-3" onclick="showCalendar(3)">Pioniers</button>
+    <button type="button" class="btn btn-secondary" id="calendar-btn-4" onclick="showCalendar(4)">Jonggivers</button>
+    <button type="button" class="btn btn-secondary" id="calendar-btn-5" onclick="showCalendar(5)">Givers</button>
+    <!--button type="button" class="btn btn-secondary hidden" onclick="showCalendar(6)">Jins</button-->
 </div>
-<div id="selected-calendar"></div>
+<div id="calendars"></div>
+<script src="script/calendar.js"></script>
