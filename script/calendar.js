@@ -5,7 +5,7 @@ function loadCalendar() {
         Object.values(data).forEach((n) => {
             let calendarGroup = "", calendarGroupId = ""
             Object.values(n).forEach((c) => {
-                let scrollTo = new Date(Date.parse(c['toDate'])) < Date.now() ? "hidden" : ""
+                let scrollTo = new Date(Date.parse(c['toDate'])).setUTCHours(23, 59, 59, 999) < Date.now() ? "hidden" : ""
                 calendarGroup +=
                     `<div class='calendar-item ${scrollTo}' id='calendar-item-${c['id']}'>
                         ${c['image'] ? `<img class='calendar-item-image' src='/uploads/calendar/${c['period']}/${c['group']}/${c['image']}' alt='${c['image']}'>` : '' }
