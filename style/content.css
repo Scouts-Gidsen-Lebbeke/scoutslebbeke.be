@@ -192,21 +192,12 @@ body {
         height: auto;
     }
 }
-h1 {
-    display: inline-block;
-    position: relative;
-}
-.print {
-    position: absolute;
-    top: 0;
-    right: -60px;
-}
 .print-button {
     height: 20px;
+    cursor: pointer;
 }
-
 @media print {
-    #header, #title-wrapper, #credits, .print {
+    #header, #title-wrapper, #credits, .print-button {
         display: none;
     }
     h1 {
