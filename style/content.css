@@ -192,3 +192,35 @@ body {
         height: auto;
     }
 }
+h1 {
+    display: inline-block;
+    position: relative;
+}
+.print {
+    position: absolute;
+    top: 0;
+    right: -60px;
+}
+.print-button {
+    height: 20px;
+}
+
+@media print {
+    #header, #title-wrapper, #credits, .print {
+        display: none;
+    }
+    h1 {
+        text-align: center;
+        padding-bottom: 10px;
+    }
+    h2 {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+    #content {
+        text-align: left;
+    }
+    .editable-content {
+        max-width: none;
+    }
+}
