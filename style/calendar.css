@@ -25,6 +25,7 @@
 .calendar-item-content {
     margin: auto;
     padding: 10px;
+    overflow-wrap: break-word;
 }
 .calendar-item-title {
     font-size: 1.4rem;
