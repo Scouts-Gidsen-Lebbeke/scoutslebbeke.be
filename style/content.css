@@ -215,3 +215,14 @@ body {
         max-width: none;
     }
 }
+#camp-graph-ph {
+    display: none;
+}
+@media only screen and (max-width: 445px) {
+    #camp-graph {
+        display: none;
+    }
+    #camp-graph-ph {
+        display: block;
+    }
+}
