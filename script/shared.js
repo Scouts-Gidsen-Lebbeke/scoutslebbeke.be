@@ -238,6 +238,9 @@ function mailto(location) {
         case "60":
             window.location.href = atob("bWFpbHRvOjYwamFhckBzY291dHNsZWJiZWtlLmJl")
             break
+        case "vzw":
+            window.location.href = atob("bWFpbHRvOnZ6d0BzY291dHNsZWJiZWtlLmJl")
+            break
     }
 }
 
