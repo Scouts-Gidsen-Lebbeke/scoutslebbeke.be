@@ -21,6 +21,9 @@ $sql = $select." ".$sql." order by fromDate";
 $totalDiff = 0;
 if ($query = $connection->query($sql)) {
     while ($row = $query->fetch_array(MYSQLI_ASSOC)) {
+        if (str_contains($row["title"], "geen scouts")) {
+            continue;
+        }
         if (key_exists("sum", $row) && $row["sum"] != "1") {
             $groups = intval($row["sum"]);
             $title = "Zondagse werking";
