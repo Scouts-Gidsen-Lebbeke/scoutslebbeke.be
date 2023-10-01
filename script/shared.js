@@ -111,6 +111,19 @@ function getStaff(tak) {
     });
 }
 
+function getStam() {
+    fetch("/api/getStaff.php?q=Stam").then((res) => res.json()).then((data) => {
+        Object.values(data).forEach((item) => {
+            $("#oldstaff").append(
+                `<tr>
+                    <td>${item["Voornaam"]} ${item["Achternaam"]}</td>
+                    <td>${item["Totem"] ? item["Totem"] : "(geen)"}</td>
+                </tr>`
+            );
+        });
+    });
+}
+
 function getNews() {
     fetch("/api/getNews.php").then((res) => res.json()).then((data) => {
         Object.values(data).forEach((n) => {
