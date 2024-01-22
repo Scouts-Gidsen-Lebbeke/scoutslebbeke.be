@@ -1,11 +1,11 @@
 let currentIndex = 0, kc, intervalID, backgrounds = [];
 
 window.onload = function() {
-    //kc = new Keycloak("/script/keycloak.json")
-    //kc.init({
-    //    onLoad: 'check-sso',
-    //    silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html'
-    //}).then(login)
+    kc = new Keycloak("/script/keycloak.json")
+    kc.init({
+        onLoad: 'check-sso',
+        silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html'
+    }).then(login)
     const q = (new URL(document.location)).searchParams.get('q');
     if (q) {
         window.history.replaceState(null, "", "/");
@@ -132,7 +132,7 @@ function getNews() {
                     <img class='news-item-image' src='/uploads/${n['image']}' alt='${n['image']}'>
                     <div class='news-item-content'>
                         <h2 class='news-item-title'>${n['title']}</h2>
-                        <p class='news-item-info'>${parseDateString(n['date'])}, door ${n['firstName']} ${n['name']}</p>
+                        <p class='news-item-info'>${parseDateString(n['date'])}, door ${n['first_name']} ${n['name']}</p>
                         <p class='news-item-description'>${n['content']}</p>
                     </div>
                 </div>`

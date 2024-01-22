@@ -6,8 +6,9 @@ function fetchProfile() {
 
 function loadProfile() {
     fetchProfile().then(d =>  {
-        $('#profile-name').text(d["gebruikersnaam"])
-        $('.visible-on-login').show()
+        console.log(d)
+        //$('#profile-name').text(d["gebruikersnaam"])
+        //$('.visible-on-login').show()
     })
 }
 
