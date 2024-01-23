@@ -8,13 +8,13 @@ function loadCalendar() {
                 let scrollTo = new Date(Date.parse(c['toDate'])).setUTCHours(23, 59, 59, 999) < Date.now() ? "hidden" : ""
                 calendarGroup +=
                     `<div class='calendar-item ${scrollTo}' id='calendar-item-${c['id']}'>
-                        ${c['image'] ? `<img class='calendar-item-image' src='/uploads/calendar/${c['period']}/${c['group']}/${c['image']}' alt='${c['image']}'>` : '' }
+                        ${c['image'] ? `<img class='calendar-item-image' src='/uploads/calendar/${c['period']}/${c['branch_id']}/${c['image']}' alt='${c['image']}'>` : '' }
                         <div class='calendar-item-content'>
                             <h2 class='calendar-item-title'>${periodToTitle(c['fromDate'], c['toDate'])} > ${c['title']}</h2>
                             <p class='calendar-item-description'>${c['content']}</p>
                         </div>
                     </div>`
-                calendarGroupId = c['group']
+                calendarGroupId = c['branch_id']
             })
             $("#calendars").append(`<div class='calendar-group' id='calendar-group-${calendarGroupId}'>${calendarGroup}</div>`);
             showCalendar(1)
