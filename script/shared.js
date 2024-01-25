@@ -5,47 +5,34 @@ window.onload = function() {
     kc.init({
         onLoad: 'check-sso',
         silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html'
-    }).then(login)
-    const q = (new URL(document.location)).searchParams.get('q');
-    if (q) {
-        window.history.replaceState(null, "", "/");
+    })
+    const params = (new URL(document.location)).searchParams;
+    const q = params.get('q');
+    params.delete('q')
+    let rest = "";
+    if (params.size > 0) {
+        console.log(params.toString())
+        rest = rest + '?' + params.toString()
     }
-    load(q ? q : history.state ? history.state.content : 'nieuwtjes');
+    if (q) {
+        window.history.replaceState(null, "", "/" + rest);
+    }
+    load(q ? q : history.state ? history.state.content : 'nieuwtjes', rest);
     getImages();
     fetch("/api/getNavigation.php").then((res) => res.json()).then((data) => {
+        console.log(data)
         $('#navigation').html(getBrowserNav(data));
         $("#mobile-navigation").html(getMobileNav(data));
     });
     $('#current-year').text(new Date().getFullYear())
 };
 
-function toggleLogin() {
-    if (kc.token) {
-        kc.logout().then(() => {
-            $('#profile-name').text("Niet ingelogd");
-            $('#profile-login').html("Log in");
-        })
-    } else {
-        kc.login().then(login)
-    }
-}
-
-function login() {
-    if (kc.token) {
-        loadProfile()
-        $('#profile-login').html("Log uit")
-        fetch(new Request('/api/getInternalLogin.php'), {
-            headers: new Headers({ 'Authorization': `Bearer ${kc.token}` })
-        })
-    }
-}
-
 window.onpopstate = function() {
     $('#content').load('/pages/' + history.state.content + '.html?q=' + new Date().getTime());
 }
 
-function load(page) {
-    history.pushState({content: page}, "", "/");
+function load(page, rest = "") {
+    history.pushState({content: page}, "", "/" + rest);
     $('#content').load('/pages/' + page + '.html?q=' + new Date().getTime());
     closeNav()
 }
@@ -68,7 +55,7 @@ function resetAndChangeImage() {
 }
 
 function changeImage() {
-    currentIndex = currentIndex % backgrounds.length + 1
+    currentIndex = (currentIndex + 1) % backgrounds.length
     $("#title-wrapper").css("background-image", "url(/background/" + backgrounds[currentIndex] + ")");
 }
 
