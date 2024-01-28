@@ -2,25 +2,19 @@ let currentIndex = 0, kc, intervalID, backgrounds = [];
 
 window.onload = function() {
     kc = new Keycloak("/script/keycloak.json")
-    kc.init({
-        onLoad: 'check-sso',
-        silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html'
-    })
+    //kc.init({
+    //    onLoad: 'check-sso',
+    //    silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html'
+    //})
     const params = (new URL(document.location)).searchParams;
     const q = params.get('q');
     params.delete('q')
-    let rest = "";
-    if (params.size > 0) {
-        console.log(params.toString())
-        rest = rest + '?' + params.toString()
-    }
     if (q) {
-        window.history.replaceState(null, "", "/" + rest);
+        window.history.replaceState(null, "", "/");
     }
-    load(q ? q : history.state ? history.state.content : 'nieuwtjes', rest);
+    load(q ? q : history.state ? history.state.content : 'nieuwtjes', params.toString());
     getImages();
     fetch("/api/getNavigation.php").then((res) => res.json()).then((data) => {
-        console.log(data)
         $('#navigation').html(getBrowserNav(data));
         $("#mobile-navigation").html(getMobileNav(data));
     });
@@ -28,12 +22,18 @@ window.onload = function() {
 };
 
 window.onpopstate = function() {
-    $('#content').load('/pages/' + history.state.content + '.html?q=' + new Date().getTime());
+    $('#content').load('/pages/' + history.state.content + '.html?q=' + new Date().getTime() + history.state.params);
 }
 
 function load(page, rest = "") {
-    history.pushState({content: page}, "", "/" + rest);
-    $('#content').load('/pages/' + page + '.html?q=' + new Date().getTime());
+    let urlRest = rest
+    let loadRest = rest
+    if (rest.length !== 0) {
+        urlRest = "?" + urlRest
+        loadRest = "&" + loadRest
+    }
+    history.pushState({content: page, params: loadRest}, "", "/" + urlRest);
+    $('#content').load('/pages/' + page + '.html?q=' + new Date().getTime() + loadRest);
     closeNav()
 }
 
@@ -254,4 +254,17 @@ function downloadPdf() {
         jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
     };
     html2pdf().set(opt).from(element).save();
+}
+
+function tokenized(url) {
+    return fetch(url, {
+        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` })
+    })
+}
+
+function noCors(url) {
+    return fetch(url, {
+        mode: 'no-cors',
+        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` })
+    })
 }
