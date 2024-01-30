@@ -22,7 +22,7 @@ function loadCalendar() {
 }
 
 function periodToTitle(from, to) {
-    if (from === to) {
+    if (new Date(Date.parse(from)).getDate() === new Date(Date.parse(to)).getDate()) {
         return capitalize(parseDateString(from))
     }
     return capitalize(`${parseDateString(from)} - ${parseDateString(to)}`)
