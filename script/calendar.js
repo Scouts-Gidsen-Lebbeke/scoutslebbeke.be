@@ -1,53 +1,54 @@
-loadCalendar()
-
-function loadCalendar() {
-    fetch("/api/getCalendars.php").then((res) => res.json()).then((data) => {
-        Object.values(data).forEach((n, index) => {
-            let calendarGroup = ""
-            Object.values(n).forEach((c) => {
-                let scrollTo = new Date(Date.parse(c['toDate'])) < Date.now() ? "hidden" : ""
-                calendarGroup +=
-                    `<div class='calendar-item ${scrollTo}' id='calendar-item-${c['id']}'>
-                        ${c['image'] ? `<img class='calendar-item-image' src='/uploads/calendar/${c['period']}/${index + 1}/${c['image']}' alt='${c['image']}'>` : '' }
-                        <div class='calendar-item-content'>
-                            <h2 class='calendar-item-title'>${periodToTitle(c['fromDate'], c['toDate'])} > ${c['title']}</h2>
-                            <p class='calendar-item-description'>${c['content']}</p>
-                        </div>
-                    </div>`
-            })
-            $("#calendars").append(`<div class='calendar-group' id='calendar-group-${index + 1}'>${calendarGroup}</div>`);
-            showCalendar(1)
+function loadCalendar(branch) {
+    fetch("/api/getCalendars.php?branch=" + branch).then((res) => res.json()).then((data) => {
+        let calendarGroup = ""
+        data['items'].forEach(item => {
+            let from = new Date(Date.parse(item['fromDate']));
+            let to = new Date(Date.parse(item['toDate']));
+            let location = ifNotNull(item['location'], "Scoutsterrein");
+            calendarGroup +=
+                `<div class="calendar-item ${from < new Date() ? 'hidden' : ''}">
+                    ${item['image'] ? `<img class="calendar-item-image" src="/uploads/calendar/${item['image']}" alt="${item['image']}">` : '' }
+                    <div class="calendar-item-content">
+                        <h2 class="calendar-item-title">${item['title']}</h2>
+                        <span class="calendar-item-details">
+                            <img src="images/calendar.png" class="span-icon" alt="calendar">
+                            ${periodToTitle(from, to)}
+                            <img src="images/marker.png" class="span-icon calendar-marker" alt="marker">
+                            ${location}
+                        </span>
+                        <p class="calendar-item-description">${item['content']}</p>
+                    </div>
+                </div>`
         });
+        $("#calendars").html(
+            `<div class="calendar" id="calendar-${data['id']}">
+                <div class="calendar-intro">${ifNotNull(data['intro'])}</div>
+                <div class="calendar-group">${calendarGroup}</div>
+                <div class="calendar-outro">${ifNotNull(data['outro'])}</div>
+            </div>`
+        )
     });
 }
 
 function periodToTitle(from, to) {
-    if (new Date(Date.parse(from)).getDate() === new Date(Date.parse(to)).getDate()) {
-        return capitalize(parseDateString(from))
+    if (from.getDate() === to.getDate()) {
+        return capitalize(`${printDate(from)}, ${printTime(from)} - ${printTime(to)}`)
     }
-    return capitalize(`${parseDateString(from)} - ${parseDateString(to)}`)
+    return capitalize(`${printDate(from)}, ${printTime(from)} - ${printDate(to)}, ${printTime(to)}`)
 }
 
-function parseDateString(s) {
-    return new Date(Date.parse(s)).toLocaleDateString('nl-BE',{ weekday: 'long', month: 'numeric', day: 'numeric' })
+function printDate(date) {
+    return date.toLocaleDateString('nl-BE', { weekday: 'short', month: 'numeric', day: 'numeric' })
+}
+
+function printTime(date) {
+    return date.toLocaleTimeString('nl-BE', { hour: '2-digit', minute:'2-digit' })
 }
 
 function capitalize(s) {
     return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
-function edit(item) {
-    $("#modal-label").text(`Bewerk item ${item['id']} (periode ${item['period']}, groep ${item['group']})`)
-    $("#calendar-item-edit-from").val(item['fromDate'])
-    $("#calendar-item-edit-to").val(item['toDate'])
-    $("#calendar-item-edit-title").val(item['title'])
-    $("#calendar-item-edit-content").val(item['content'])
-    let image = item['image'] ? `/uploads/calendar/${item['period']}/${item['group']}/${item['image']}` : '/images/no-image.png'
-    $("#calendar-item-edit-image").attr("src",image);
-    $('#trigger-modal').click()
-}
-
-function showCalendar(i) {
-    $('.calendar-group').hide()
-    $(`#calendar-group-${i}`).show()
+function ifNotNull(i, orElse = "") {
+    return i == null ? orElse : i;
 }
