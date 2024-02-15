@@ -2,10 +2,10 @@ let currentIndex = 0, kc, intervalID, backgrounds = [];
 
 window.onload = function() {
     kc = new Keycloak("/script/keycloak.json")
-    //kc.init({
-    //    onLoad: 'check-sso',
-    //    silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html'
-    //})
+    kc.init({
+        onLoad: 'check-sso',
+        silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html'
+    })
     const params = (new URL(document.location)).searchParams;
     const q = params.get('q');
     params.delete('q')
@@ -139,14 +139,6 @@ function formatGsm(str) {
     return str.substring(0, 4) + '/' + str.substring(4, 6) + '.' + str.substring(6, 8) + '.' + str.substring(8);
 }
 
-function getContact() {
-    fetch("/api/getContact.php").then((res) => res.json()).then((data) => {
-        Object.values(data).forEach((item) => {
-            $("#grlnumbers").append(formatGsm(item["Gsm"]) + " (" + item["Voornaam"] + " " + item["Achternaam"] + ")<br>");
-        });
-    });
-}
-
 // noinspection JSUnusedGlobalSymbols (Google API dependency)
 function initMap() {
     let address = {lat: 50.9841, lng: 4.144500};
@@ -177,16 +169,16 @@ function toggleSub(sub) {
     $("#main-mobile-menu").toggle()
 }
 
-function getBrowserNav(data) {
+function getBrowserNav(groups) {
     let result = [], menuitem;
-    Object.keys(data).forEach((item) => {
+    groups.forEach((group) => {
         menuitem = "";
-        if (data[item].length === 1 && item === data[item][0].name) {
-            menuitem += "<div class='navigation-item' onclick=\"load('" + data[item][0].path + "');\">" + item + "</div>";
-        } else {
-            menuitem += "<div class='dropdown-block'><div class=\"navigation-item\">" + item + " <i class=\"down\"></i></div><div class=\"dropdown\">";
-            data[item].forEach((page) => {
-                menuitem += "<div class='dropdown-item' onclick=\"load('" + page.path + "')\">" + page.name + "</div>";
+        if (group.items.length === 1 && group.items[0].name === group.name) {
+            menuitem += "<div class='navigation-item' onclick=\"load('" + group.items[0].path + "');\">" + group.name + "</div>";
+        } else if (group.items.length > 1) {
+            menuitem += "<div class='dropdown-block'><div class=\"navigation-item\">" + group.name + " <i class=\"down\"></i></div><div class=\"dropdown\">";
+            group.items.forEach((item) => {
+                menuitem += "<div class='dropdown-item' onclick=\"load('" + item.path + "')\">" + item.name + "</div>";
             });
             menuitem += "</div></div>";
         }
@@ -195,21 +187,21 @@ function getBrowserNav(data) {
     return result.join("");
 }
 
-function getMobileNav(data) {
+function getMobileNav(groups) {
     let subitems = '', result = '';
-    Object.keys(data).forEach((item) => {
-        if (data[item].length === 1 && item === data[item][0].name) {
-            subitems += "<a onclick=\"load('" + data[item][0].path + "')\">" + item + "</a>";
+    groups.forEach((group) => {
+        if (group.items.length === 1 && group.items[0].name === group.name) {
+            subitems += `<a onclick="load('${group.items[0].path}')\">${group.name}</a>`;
         } else {
-            subitems += "<a onclick=\"toggleSub('" + item + "')\">" + item + "</a>";
-            result += "<div class='mobile-menu' id='" + item + "-mobile-menu'>";
-            data[item].forEach((page) => {
-                result += "<a onclick=\"load('" + page.path + "')\">" + page.name + "</a>";
+            subitems += `<a onclick="toggleSub('${group.id}')">${group.name}</a>`;
+            result += `<div class='mobile-menu' id='${group.id}-mobile-menu'>`;
+            group.items.forEach((item) => {
+                result += `<a onclick="load('${item.path}')">${item.name}</a>`;
             });
-            result += "<a onclick=\"toggleSub('" + item + "')\">←</a></div>"
+            result += `<a onclick="toggleSub('${group.id}')">←</a></div>`
         }
     });
-    return "<div class='mobile-menu' id='main-mobile-menu'>" + subitems + "</div>" + result;
+    return `<div class='mobile-menu' id='main-mobile-menu'>${subitems}</div>${result}`;
 }
 
 function getSetting(settingId, settingSpanId) {
@@ -242,18 +234,6 @@ function mailto(location) {
             window.location.href = atob("bWFpbHRvOnZ6d0BzY291dHNsZWJiZWtlLmJl")
             break
     }
-}
-
-function downloadPdf() {
-    var element = document.getElementById('content');
-    var opt = {
-        margin:       1,
-        filename:     'myfile.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
-    html2pdf().set(opt).from(element).save();
 }
 
 function tokenized(url) {
