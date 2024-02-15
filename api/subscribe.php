@@ -22,7 +22,6 @@ $payment = $mollie->payments->create([
 ]);
 $connection->query("update event_registration set payment_id = '$payment->id' where id = '$order_id'");
 header("Location: " . $payment->getCheckoutUrl(), true, 303);
-return
 
 function double($d): string {
     return number_format($d, 2, '.', '');

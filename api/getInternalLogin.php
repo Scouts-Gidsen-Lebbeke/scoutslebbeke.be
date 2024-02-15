@@ -30,12 +30,12 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array($authorization = "Authorization: Bear
 curl_setopt($ch, CURLOPT_URL, "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $sgl_user = json_decode(curl_exec($ch));
-$sgl_id = $sgl_user->id;
 curl_close($ch);
-if (is_null($sgl_user->id)) {
+if (is_null($sgl_user)) {
     header("HTTP/1.1 401 Unauthorized");
     exit;
 }
+$sgl_id = $sgl_user->id;
 
 function fetchUser($sgl_id): object {
     global $connection;
