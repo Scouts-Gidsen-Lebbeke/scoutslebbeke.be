@@ -1,15 +1,22 @@
 <?php
-include "connect.php";
-$result = array();
-if ($query = $connection->query("select path, p.name, g.name as group_name from pages p left join page_groups g on p.group_id = g.id where visible order by g.rank, p.rank")) {
-    while ($row = $query->fetch_array(MYSQLI_ASSOC)) {
-        if (isset($result[$row["group_name"]])) {
-            array_push($result[$row["group_name"]], ["name" => $row["name"], "path" => $row["path"]]);
-        } else {
-            $result[$row["group_name"]] = [["name" => $row["name"], "path" => $row["path"]]];
+require "connect.php";
+$groups = mysqli_all_objects($connection, "select * from page_groups order by `rank`");
+foreach ($groups as $group) {
+    if ($group->name == "Activiteiten") {
+        $group->items = array();
+        foreach (mysqli_all_objects($connection, "select * from event where now() between open_subscription and end order by start") as $event) {
+            $event_page = (object) [
+                "name" => $event->name,
+                "path" => "activity/" . $event->id,
+                "rank" => $event->id,
+                "visible" => true,
+                "group_id" => $group->id
+            ];
+            $group->items[] = $event_page;
         }
+    } else {
+        $group->items = mysqli_all_objects($connection, "select * from pages where group_id='$group->id' and visible order by `rank`");
     }
 }
-$query->close();
 $connection->close();
-echo json_encode($result);
+echo json_encode($groups);
