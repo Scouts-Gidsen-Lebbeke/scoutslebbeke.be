@@ -17,7 +17,7 @@
     </div>
     <div class="about-item editable-content" id="about-for-who">
         <h2>Voor wie?</h2>
-        <p>Alle jongens en meisjes zijn welkom vanaf 5 jaar (3de kleuterklas).</p>
+        <p>Alle jongens en meisjes zijn welkom vanaf 6 jaar (geboortejaar <span id="min-year">?</span> of eerste leerjaar).</p>
     </div>
     <div class="about-item editable-content" id="about-cost">
         <h2>Wat neem ik mee?</h2>
@@ -27,3 +27,6 @@
         </p>
     </div>
 </div>
+<script>
+    $('#min-year').text(new Date().getFullYear() - (new Date().getMonth() > 6 ? 6 : 7))
+</script>
