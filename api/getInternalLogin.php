@@ -1,5 +1,7 @@
 <?php
-function getAuthorizationHeader(){
+require 'connect.php';
+
+function getAuthorizationHeader(): ?string {
     $headers = null;
     if (isset($_SERVER['Authorization'])) {
         $headers = trim($_SERVER["Authorization"]);
@@ -14,7 +16,7 @@ function getAuthorizationHeader(){
     }
     return $headers;
 }
-function getBearerToken() {
+function getBearerToken(): ?string {
     $headers = getAuthorizationHeader();
     if (!empty($headers)) {
         if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
@@ -27,10 +29,53 @@ $ch = curl_init();
 curl_setopt($ch, CURLOPT_HTTPHEADER, array($authorization = "Authorization: Bearer ".getBearerToken()));
 curl_setopt($ch, CURLOPT_URL, "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$result = json_decode(curl_exec($ch));
+$sgl_user = json_decode(curl_exec($ch));
+$sgl_id = $sgl_user->id;
 curl_close($ch);
-if (is_null($result->id)) {
+if (is_null($sgl_user->id)) {
     header("HTTP/1.1 401 Unauthorized");
     exit;
 }
-echo $result;
+
+function fetchUser($sgl_id): object {
+    global $connection;
+    $user = mysqli_fetch_object($connection->query("select * from user where sgl_id = '$sgl_id'"));
+    $user->roles = fetchRoles($user->id);
+    $user->isStaff = !!array_filter($user->roles, fn($r): bool => $r->staff);
+    $user->isAdmin = !!array_filter($user->roles, fn($r): bool => $r->admin);
+    return $user;
+}
+
+function fetchRoles($id): array {
+    global $connection;
+    return mysqli_all_objects($connection, "select id, name, staff, admin from user_role left join role on role.id = user_role.role_id where user_id = '$id'");
+}
+
+function updateUser($sgl_user): object {
+    global $connection;
+    $sgl_id = $sgl_user->id;
+    $name = $sgl_user->vgagegevens->achternaam;
+    $firstName = $sgl_user->vgagegevens->voornaam;
+    $email = $sgl_user->email;
+    $mobile = $sgl_user->persoonsgegevens->gsm;
+    $birthdate = $sgl_user->vgagegevens->geboortedatum;
+    $medDate = $sgl_user->vgagegevens->individueleSteekkaartdatumaangepast;
+    $memberId = $sgl_user->verbondsgegevens->lidnummer;
+    $nisFieldId = $sgl_user->groepseigenVelden->O3401G->schema[0]->id;
+    $adres = $sgl_user->adressen[0];
+    if (mysqli_num_rows($connection->query("select id from user where sgl_id = '$sgl_id'")) != 1) {
+        mysqli_query($connection, "insert into user values (null, '$sgl_id', '$memberId', '$name', '$firstName', '$birthdate', '$email', null, '$medDate')");
+    } else {
+        mysqli_query($connection, "update user set name = '$name', first_name = '$firstName', birth_date = '$birthdate', email = '$email', med_date = '$medDate' where sgl_id='$sgl_id'");
+    }
+    $user = fetchUser($sgl_user->id);
+    $functions = array_map(fn($func): string => $func->functie, array_filter($sgl_user->functies, fn($func): bool => is_null($func->einde)));
+    mysqli_query($connection, "delete from user_role where user_id='$user->id'");
+    foreach ($functions as $sgl_func_id) {
+        $func = mysqli_fetch_object($connection->query("select id from role where sgl_id = '$sgl_func_id'"));
+        if (!is_null($func)) {
+            mysqli_query($connection, "insert into user_role value ('$user->id', '$func->id')");
+        }
+    }
+    return fetchUser($sgl_id);
+}
