@@ -200,7 +200,7 @@ body {
     cursor: pointer;
 }
 @media print {
-    #header, #title-wrapper, #credits, .print-button {
+    #header, #title-wrapper, #credits, .print-button, .subscribe-button, .subscription-feedback {
         display: none;
     }
     h1 {
