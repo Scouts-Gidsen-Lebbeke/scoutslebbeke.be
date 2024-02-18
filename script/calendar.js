@@ -1,5 +1,6 @@
 function loadCalendar(branch) {
-    fetch("/api/getCalendars.php?branch=" + branch).then((res) => res.json()).then((data) => {
+    $("#calendars").html(`<div class="loader"></div>`)
+    fetch("/api/getCalendars.php?branch=" + branch).then((res) => res.json()).then(async (data) => {
         let calendarGroup = ""
         data['items'].forEach(item => {
             let from = new Date(Date.parse(item['fromDate']));
@@ -7,7 +8,7 @@ function loadCalendar(branch) {
             let location = ifNotNull(item['location'], "Scoutsterrein");
             calendarGroup +=
                 `<div class="calendar-item ${from < new Date() ? 'hidden' : ''}">
-                    ${item['image'] ? `<img class="calendar-item-image" src="/uploads/calendar/${item['image']}" alt="${item['image']}">` : '' }
+                    ${item['image'] ? `<img class="calendar-item-image" src="/uploads/calendar/${item['image']}" alt="${item['image']}">` : ''}
                     <div class="calendar-item-content">
                         <h2 class="calendar-item-title">${item['title']}</h2>
                         <span class="calendar-item-details">
