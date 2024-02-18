@@ -229,3 +229,9 @@ body {
         display: block;
     }
 }
+.subscribe-button {
+
+}
+.subscription-feedback {
+    font-weight: bold;
+}
