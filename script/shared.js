@@ -175,7 +175,7 @@ function getBrowserNav(groups) {
         menuitem = "";
         if (group.items.length === 1 && group.items[0].name === group.name) {
             menuitem += "<div class='navigation-item' onclick=\"load('" + group.items[0].path + "');\">" + group.name + "</div>";
-        } else if (group.items.length > 1) {
+        } else if (group.items.length > 0) {
             menuitem += "<div class='dropdown-block'><div class=\"navigation-item\">" + group.name + " <i class=\"down\"></i></div><div class=\"dropdown\">";
             group.items.forEach((item) => {
                 menuitem += "<div class='dropdown-item' onclick=\"load('" + item.path + "')\">" + item.name + "</div>";
@@ -192,7 +192,7 @@ function getMobileNav(groups) {
     groups.forEach((group) => {
         if (group.items.length === 1 && group.items[0].name === group.name) {
             subitems += `<a onclick="load('${group.items[0].path}')\">${group.name}</a>`;
-        } else {
+        } else if (group.items.length > 0) {
             subitems += `<a onclick="toggleSub('${group.id}')">${group.name}</a>`;
             result += `<div class='mobile-menu' id='${group.id}-mobile-menu'>`;
             group.items.forEach((item) => {
