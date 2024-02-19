@@ -1,0 +1,6 @@
+{
+  "dependencies": {µ
+    "keycloak-js": "^20.0.1"
+  },
+  "type": "module"
+}
