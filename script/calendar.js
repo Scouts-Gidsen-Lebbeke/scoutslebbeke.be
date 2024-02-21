@@ -1,5 +1,3 @@
-initCalendars()
-
 function initCalendars() {
     fetch("/api/getCalendarBranches.php").then((res) => res.json()).then((data) => {
         let branchButtons = ""
