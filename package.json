@@ -1,5 +1,5 @@
 {
-  "dependencies": {µ
+  "dependencies": {
     "keycloak-js": "^20.0.1"
   },
   "type": "module"

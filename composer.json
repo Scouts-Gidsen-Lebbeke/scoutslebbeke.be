@@ -3,6 +3,7 @@
         "jumbojett/openid-connect-php": "^1.0",
       "ext-curl": "*",
       "ext-mysqli": "*",
-        "mollie/mollie-api-php": "^2.65"
+        "mollie/mollie-api-php": "^2.65",
+        "phpmailer/phpmailer": "^6.9"
     }
 }
