@@ -1,6 +1,18 @@
+initCalendars()
+
+function initCalendars() {
+    fetch("/api/getCalendarBranches.php").then((res) => res.json()).then((data) => {
+        let branchButtons = ""
+        data.forEach(branch => {
+            branchButtons += `<button type="button" class="btn btn-secondary" onClick="loadCalendar(${branch.id})">${branch.name}</button>`
+        })
+        $("#calendar-branches").html(branchButtons);
+    });
+}
+
 function loadCalendar(branch) {
     $("#calendars").html(`<div class="loader"></div>`)
-    fetch("/api/getCalendars.php?branch=" + branch).then((res) => res.json()).then(async (data) => {
+    fetch("/api/getCalendars.php?branch=" + branch).then((res) => res.json()).then((data) => {
         let calendarGroup = ""
         data['items'].forEach(item => {
             let from = new Date(Date.parse(item['fromDate']));
