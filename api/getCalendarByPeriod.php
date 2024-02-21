@@ -4,14 +4,15 @@ $result = array();
 $from = parse(@$_GET['from']);
 $to = parse(@$_GET['to']);
 if ($from == null && $to == null) {
-    $sql = "from `calendar-item`";
+    $sql = "from `calendar_item`";
 } elseif ($from == null) {
-    $sql = "from `calendar-item` where toDate < FROM_UNIXTIME('$to')";
+    $sql = "from `calendar_item` where toDate < FROM_UNIXTIME('$to')";
 } elseif ($to == null) {
-    $sql = "from `calendar-item` where fromDate > FROM_UNIXTIME('$from')";
+    $sql = "from `calendar_item` where fromDate > FROM_UNIXTIME('$from')";
 } else {
-    $sql = "from `calendar-item` where fromDate > FROM_UNIXTIME('$from') and toDate < FROM_UNIXTIME('$to')";
+    $sql = "from `calendar_item` where fromDate > FROM_UNIXTIME('$from') and toDate < FROM_UNIXTIME('$to')";
 }
+$sql = $sql." and not closed";
 $select = "select *";
 if (@$_GET["grouped"] == "true") {
     $sql = $sql." group by fromDate, toDate";
@@ -19,17 +20,18 @@ if (@$_GET["grouped"] == "true") {
 }
 $sql = $select." ".$sql." order by fromDate";
 $totalDiff = 0;
+$branchCount = mysqli_fetch_column($connection->query("select count(*) from branch where active"));
 if ($query = $connection->query($sql)) {
     while ($row = $query->fetch_array(MYSQLI_ASSOC)) {
-        if (str_contains($row["title"], "geen scouts")) {
-            continue;
-        }
         if (key_exists("sum", $row) && $row["sum"] != "1") {
             $groups = intval($row["sum"]);
             $title = "Zondagse werking";
         } else {
             $groups = 1;
             $title = $row["title"];
+        }
+        if ($row["calendar_period_id"] != null) {
+            $groups = $branchCount;
         }
         if (@$_GET["grouped"] == "true") {
             $sql = $sql." group by fromDate, toDate";
