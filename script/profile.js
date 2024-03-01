@@ -10,7 +10,11 @@ async function toggleProfile() {
 
 async function loadKeycloak() {
     kc = new Keycloak("/script/keycloak.json")
-    return kc.init({ onLoad: 'check-sso', silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html' });
+    return kc.init({
+        onLoad: 'check-sso',
+        silentCheckSsoFallback: false,
+        silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html'
+    });
 }
 
 async function checkLogin() {
