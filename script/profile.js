@@ -39,16 +39,19 @@ async function loadProfileData() {
     await loadKeycloak()
     fetchProfile().then(d => {
         $("#profile-full-name").text(d.first_name + " " + d.name)
-        $("#profile-username").text(d.member_id)
+        $("#profile-member-id").text(d.member_id)
         $("#profile-functions").text(d.roles.map(f => f.name).join(', '))
         $("#profile-email").text(d.email)
-        $("#profile-mobile").text(d.birth_date)
+        $("#profile-image").attr("src", "/images/profile/" + d.image);
     });
 }
 
 async function tokenized(url) {
     await kc.updateToken(30)
-    return fetch(url, {
-        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` })
-    }).then(data => data.json())
+    if (kc.token) {
+        return fetch(url, {
+            headers: new Headers({ 'Authorization': `Bearer ${kc.token}` })
+        }).then(data => data.json())
+    }
+    return null
 }

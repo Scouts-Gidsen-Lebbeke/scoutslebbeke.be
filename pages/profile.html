@@ -1,24 +1,30 @@
 <h1 class="content-header">Profiel</h1>
-<h2>Mijn gegevens</h2>
+<h3>Mijn gegevens</h3>
 <div id="profile-data">
-  <p><span id="profile-full-name"></span></p>
-  <p>Gebruikersnaam: <span id="profile-username"></span></p>
-  <p>Functies: <span id="profile-functions"></span></p>
-  <p>Adres: <span id="profile-address"></span></p>
-  <p>Primair e-mailadres: <span id="profile-email"></span></p>
-  <p>Primair telefoonnummer: <span id="profile-mobile"></span></p>
+    <div>
+        <img src="/images/profile/default.png" alt="profile-pic" id="profile-image" class="staffPicture"/><br>
+    </div>
+    <div id="profile-data-details">
+        <p>Naam: <span id="profile-full-name"></span></p>
+        <p>Lidnummer: <span id="profile-member-id"></span></p>
+        <p>Functies: <span id="profile-functions"></span></p>
+        <p>Primair e-mailadres: <span id="profile-email"></span></p>
+        <button type="button" onclick="window.open('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/frontend/lid/profiel', '_blank')">
+            Wijzig mijn gegevens
+        </button>
+    </div>
 </div>
-<h2>Mijn inschrijvingen</h2>
+<h3>Mijn inschrijvingen</h3>
 <table class="table table-striped">
-  <thead>
+    <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">Evenement</th>
-      <th scope="col">Status</th>
+        <th scope="col">#</th>
+        <th scope="col">Evenement</th>
+        <th scope="col">Status</th>
     </tr>
-  </thead>
-  <tbody></tbody>
+    </thead>
+    <tbody></tbody>
 </table>
 <script>
-  loadProfileData()
+    loadProfileData()
 </script>
