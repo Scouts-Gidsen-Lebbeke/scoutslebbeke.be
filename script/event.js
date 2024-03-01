@@ -14,7 +14,7 @@ function checkSubscriptionState(id) {
     if (params.get('fromlogin')) {
         tokenized('/api/subscribe.php?id=' + id)
     } else if (kc.token) {
-        tokenized('/api/getSubscriptionState.php?id=' + id).then(data => data.json()).then(data => {
+        tokenized('/api/getSubscriptionState.php?id=' + id).then(data => {
             console.log(data)
             if (data['status'] === 'paid') {
                 $(".subscribe-button").hide();
@@ -28,7 +28,7 @@ function checkSubscriptionState(id) {
 
 function subscribe(id) {
     if (kc.token) {
-        tokenized('/api/subscribe.php?id=' + id)
+        tokenized('/api/subscribe.php?id=' + id).then(url => location.href = url)
     } else {
         kc.login({
             redirectUri: document.location + "?q=activity/" + id +"&fromlogin=true"
@@ -38,4 +38,12 @@ function subscribe(id) {
 
 function printDate(date) {
     return date.toLocaleDateString('nl-BE', { weekday: 'long', month: 'numeric', day: 'numeric' })
+}
+
+function loadActivity() {
+    const params = (new URL(document.location)).searchParams;
+    const id = params.get('id');
+    fetch('/api/getEvent.php?id=' + id).then(data => data.json()).then(data => {
+
+    });
 }
