@@ -45,8 +45,10 @@ function fetchUser($sgl_id): ?object {
     if ($sgl_id == null) return null;
     $user = mysqli_fetch_object($connection->query("select * from user where sgl_id = '$sgl_id'"));
     $user->roles = fetchRoles($user->id);
-    $user->isStaff = !!array_filter($user->roles, fn($r): bool => $r->staff);
     $user->isAdmin = !!array_filter($user->roles, fn($r): bool => $r->admin);
+    // A user should at all time only have assigned a single valid branch
+    $temp = array_filter($user->roles, fn($r) => $r->branch_id != null);
+    $user->branch = array_pop($temp)->branch_id;
     return $user;
 }
 
@@ -58,7 +60,7 @@ function getUser($withExit = false): ?object {
 
 function fetchRoles($id): array {
     global $connection;
-    return mysqli_all_objects($connection, "select id, name, staff, admin from user_role left join role on role.id = user_role.role_id where user_id = '$id'");
+    return mysqli_all_objects($connection, "select id, name, admin, branch_id from user_role left join role on role.id = user_role.role_id where user_id = '$id'");
 }
 
 function updateUser($sgl_user): object {
@@ -79,7 +81,7 @@ function updateUser($sgl_user): object {
         mysqli_query($connection, "update user set name = '$name', first_name = '$firstName', birth_date = '$birthdate', email = '$email', med_date = '$medDate' where sgl_id='$sgl_id'");
     }
     $user = fetchUser($sgl_user->id);
-    $functions = array_map(fn($func): string => $func->functie, array_filter($sgl_user->functies, fn($func): bool => is_null($func->einde)));
+    $functions = array_map(fn($func): string => $func->functie, array_filter($sgl_user->functies, fn($func): bool => is_null($func->einde ?? null)));
     mysqli_query($connection, "delete from user_role where user_id='$user->id'");
     foreach ($functions as $sgl_func_id) {
         $func = mysqli_fetch_object($connection->query("select id from role where sgl_id = '$sgl_func_id'"));
