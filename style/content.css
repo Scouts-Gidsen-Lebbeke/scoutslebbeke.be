@@ -20,7 +20,7 @@ body {
 #title-wrapper {
     margin-top: 60px;
     height: 400px;
-    background: url('/images/defaultbackground.jpg') center no-repeat;
+    background: url('/images/background/default.jpg') center no-repeat;
     background-size: cover;
     transition: background 1s;
     padding: 10px;

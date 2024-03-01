@@ -4,3 +4,5 @@
 *.env
 /images/profile/*
 !/images/profile/default.png
+/images/background/*
+!/images/background/default.jpg
