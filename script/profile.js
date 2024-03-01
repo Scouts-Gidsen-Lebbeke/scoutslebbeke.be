@@ -1,7 +1,7 @@
 let kc;
 
-function toggleProfile() {
-    if (kc.token) {
+async function toggleProfile() {
+    if (await loadKeycloak()) {
         load('profile');
     } else {
         toggleLogin();
