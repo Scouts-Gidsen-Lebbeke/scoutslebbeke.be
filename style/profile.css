@@ -1,17 +1,18 @@
-.profile-pic {
+#profile-pic {
     height: 30px;
     width: 30px;
     border-radius: 50%;
     box-sizing: border-box;
     border: #999999 2px solid;
-    background-image: url("/backoffice/images/users/default.png");
-    background-size: 100% 100%;
+    background-image: url("/images/profile/default.png");
+    background-size: cover;
+    background-position: center;
 }
-#profile-name, .profile-pic {
+#profile-name, #profile-pic {
     float: left;
 }
 #profile-name {
-    padding: 0 10px;
+    margin-right: 10px;
 }
 #profile-dropdown-block {
     padding: 15px 20px;

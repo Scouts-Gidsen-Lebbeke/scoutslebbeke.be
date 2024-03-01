@@ -1,11 +1,7 @@
-let currentIndex = 0, kc, intervalID, backgrounds = [];
+let currentIndex = 0, intervalID, backgrounds = [];
 
 window.onload = function() {
-    kc = new Keycloak("/script/keycloak.json")
-    kc.init({
-        onLoad: 'check-sso',
-        silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html'
-    })
+    checkLogin()
     const params = (new URL(document.location)).searchParams;
     const q = params.get('q');
     params.delete('q')
@@ -42,7 +38,7 @@ function getImages() {
         backgrounds = Object.values(data);
         backgrounds.forEach(url => {
             const img = new Image();
-            img.src = "/background/" + url;
+            img.src = url;
         })
         resetAndChangeImage()
     })
@@ -56,7 +52,7 @@ function resetAndChangeImage() {
 
 function changeImage() {
     currentIndex = (currentIndex + 1) % backgrounds.length
-    $("#title-wrapper").css("background-image", "url(/background/" + backgrounds[currentIndex] + ")");
+    $("#title-wrapper").css("background-image", "url(" + backgrounds[currentIndex] + ")");
 }
 
 function getStaffHead() {
@@ -234,12 +230,6 @@ function mailto(location) {
             window.location.href = atob("bWFpbHRvOnZ6d0BzY291dHNsZWJiZWtlLmJl")
             break
     }
-}
-
-function tokenized(url) {
-    return fetch(url, {
-        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` })
-    })
 }
 
 function noCors(url) {

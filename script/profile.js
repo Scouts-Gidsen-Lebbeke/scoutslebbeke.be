@@ -1,24 +1,54 @@
+let kc;
+
+function toggleProfile() {
+    if (kc.token) {
+        load('profile');
+    } else {
+        toggleLogin();
+    }
+}
+
+async function loadKeycloak() {
+    kc = new Keycloak("/script/keycloak.json")
+    return kc.init({ onLoad: 'check-sso', silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html' });
+}
+
+async function checkLogin() {
+    const authenticated = await loadKeycloak();
+    if (authenticated) {
+        loadProfile()
+    }
+}
+
+function toggleLogin() {
+    kc.login({ redirectUri: document.location })
+}
+
 function fetchProfile() {
-    return fetch(`https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel`, {
-        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` })
-    }).then(response => response.json())
+    return tokenized("/api/getLogin.php")
 }
 
 function loadProfile() {
-    fetchProfile().then(d =>  {
-        console.log(d)
-        //$('#profile-name').text(d["gebruikersnaam"])
-        //$('.visible-on-login').show()
+    fetchProfile().then(d => {
+        $('#profile-name').text(d.first_name)
+        $('#profile-pic').css("background-image", "url(/images/profile/" + d.image + ")")
     })
 }
 
-function loadProfileData() {
+async function loadProfileData() {
+    await loadKeycloak()
     fetchProfile().then(d => {
-        $("#profile-full-name").text(d['vgagegevens']['voornaam'] + " " + d['vgagegevens']['achternaam'])
-        $("#profile-username").text(d['gebruikersnaam'])
-        $("#profile-functions").text(d['functies'].filter(f => !f['einde'] && f['code'] && f['groep'] === 'O3401G').map(f => f['omschrijving']).join(', '))
-        $("#profile-address").text(d['adressen'][0]['straat'] + " " + d['adressen'][0]['nummer'] + ", " + d['adressen'][0]['gemeente'])
-        $("#profile-email").text(d['email'])
-        $("#profile-mobile").text(d['persoonsgegevens']['gsm'])
-    })
+        $("#profile-full-name").text(d.first_name + " " + d.name)
+        $("#profile-username").text(d.member_id)
+        $("#profile-functions").text(d.roles.map(f => f.name).join(', '))
+        $("#profile-email").text(d.email)
+        $("#profile-mobile").text(d.birth_date)
+    });
+}
+
+async function tokenized(url) {
+    await kc.updateToken(30)
+    return fetch(url, {
+        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` })
+    }).then(data => data.json())
 }

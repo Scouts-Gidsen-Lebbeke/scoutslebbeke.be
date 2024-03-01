@@ -25,25 +25,35 @@ function getBearerToken(): ?string {
     }
     return null;
 }
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_HTTPHEADER, array($authorization = "Authorization: Bearer ".getBearerToken()));
-curl_setopt($ch, CURLOPT_URL, "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel");
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$sgl_user = json_decode(curl_exec($ch));
-curl_close($ch);
-if (is_null($sgl_user)) {
-    header("HTTP/1.1 401 Unauthorized");
-    exit;
-}
-$sgl_id = $sgl_user->id;
 
-function fetchUser($sgl_id): object {
+function fetchSglUser($withExit = false): ?object {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array($authorization = "Authorization: Bearer ".getBearerToken()));
+    curl_setopt($ch, CURLOPT_URL, "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $sgl_user = json_decode(curl_exec($ch));
+    curl_close($ch);
+    if (is_null($sgl_user) && $withExit) {
+        header("HTTP/1.1 401 Unauthorized");
+        exit;
+    }
+    return $sgl_user;
+}
+
+function fetchUser($sgl_id): ?object {
     global $connection;
+    if ($sgl_id == null) return null;
     $user = mysqli_fetch_object($connection->query("select * from user where sgl_id = '$sgl_id'"));
     $user->roles = fetchRoles($user->id);
     $user->isStaff = !!array_filter($user->roles, fn($r): bool => $r->staff);
     $user->isAdmin = !!array_filter($user->roles, fn($r): bool => $r->admin);
     return $user;
+}
+
+function getUser($withExit = false): ?object {
+    $sgl_user = fetchSglUser($withExit);
+    if ($sgl_user == null) return null;
+    return fetchUser($sgl_user->id);
 }
 
 function fetchRoles($id): array {
