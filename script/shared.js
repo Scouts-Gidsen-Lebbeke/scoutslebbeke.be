@@ -1,14 +1,13 @@
 let currentIndex = 0, intervalID, backgrounds = [];
 
 window.onload = function() {
-    checkLogin()
     const params = (new URL(document.location)).searchParams;
     const q = params.get('q');
     params.delete('q')
     if (q) {
         window.history.replaceState(null, "", "/");
     }
-    load(q ? q : history.state ? history.state.content : 'nieuwtjes', params.toString());
+    load(q ? q : (history.state ? history.state.content : 'nieuwtjes'), params.toString());
     getImages();
     fetch("/api/getNavigation.php").then((res) => res.json()).then((data) => {
         $('#navigation').html(getBrowserNav(data));
