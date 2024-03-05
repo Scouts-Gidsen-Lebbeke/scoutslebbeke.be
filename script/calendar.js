@@ -1,8 +1,14 @@
+window.onload = function() {
+    loadGlobal();
+    checkLogin(loadProfile);
+    initCalendars()
+};
+
 function initCalendars() {
     fetch("/api/getCalendarBranches.php").then((res) => res.json()).then((data) => {
         let branchButtons = ""
         data.forEach(branch => {
-            branchButtons += `<button type="button" class="btn btn-secondary" onClick="loadCalendar(${branch.id})">${branch.name}</button>`
+            branchButtons += `<button type="button" class="branch-button" onClick="loadCalendar(${branch.id})">${branch.name}</button>`
         })
         $("#calendar-branches").html(branchButtons);
     });
@@ -58,8 +64,4 @@ function printTime(date) {
 
 function capitalize(s) {
     return s.charAt(0).toUpperCase() + s.slice(1)
-}
-
-function ifNotNull(i, orElse = "") {
-    return i == null ? orElse : i;
 }

@@ -1,0 +1,11 @@
+#contact {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+#map {
+    height: 500px;
+    width: 500px;
+    margin: 20px;
+}

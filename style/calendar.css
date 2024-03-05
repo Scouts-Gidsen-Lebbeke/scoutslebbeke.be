@@ -1,3 +1,9 @@
+.btn-group {
+    margin: 5px auto;
+}
+.btn-group .btn:focus {
+    border: none;
+}
 .calendar-group {
     max-width: 700px;
     margin: auto;

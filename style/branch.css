@@ -1,0 +1,9 @@
+#branch {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+#branch-logo {
+    max-height: 300px;
+    max-width: 100%;
+}

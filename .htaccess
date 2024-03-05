@@ -1,6 +1,6 @@
-RewriteEngine on
-RewriteCond pages/%{REQUEST_URI}.html -F [OR]
-RewriteCond pages/%{REQUEST_URI} -F
-RewriteRule ([^.]*)(\.html)?$ /?q=$1 [R,NC]
+#RewriteEngine on
+#RewriteCond pages/%{REQUEST_URI}.html -F [OR]
+#RewriteCond pages/%{REQUEST_URI} -F
+#RewriteRule ([^.]*)(\.html)?$ /?q=$1 [R,NC]
 
 ErrorDocument 404 /404

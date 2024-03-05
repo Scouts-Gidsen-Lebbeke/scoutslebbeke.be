@@ -52,10 +52,18 @@ function fetchUser($sgl_id): ?object {
     return $user;
 }
 
-function getUser($withExit = false): ?object {
+function getUser($withExit = false, $forceUpdate = false): ?object {
     $sgl_user = fetchSglUser($withExit);
     if ($sgl_user == null) return null;
+    if ($forceUpdate || !userExists($sgl_user->id)) {
+        return updateUser($sgl_user);
+    }
     return fetchUser($sgl_user->id);
+}
+
+function userExists($sgl_id): bool{
+    global $connection;
+    return mysqli_num_rows($connection->query("select id from user where sgl_id = '$sgl_id'")) == 1;
 }
 
 function fetchRoles($id): array {
@@ -73,10 +81,11 @@ function updateUser($sgl_user): object {
     $birthdate = $sgl_user->vgagegevens->geboortedatum;
     $medDate = $sgl_user->vgagegevens->individueleSteekkaartdatumaangepast;
     $memberId = $sgl_user->verbondsgegevens->lidnummer;
-    $nisFieldId = $sgl_user->groepseigenVelden->O3401G->schema[0]->id;
-    $adres = $sgl_user->adressen[0];
+    $som = $sgl_user->vgagegevens->verminderdlidgeld;
+    //$nisFieldId = $sgl_user->groepseigenVelden->O3401G->schema[0]->id;
+    //$adres = $sgl_user->adressen[0];
     if (mysqli_num_rows($connection->query("select id from user where sgl_id = '$sgl_id'")) != 1) {
-        mysqli_query($connection, "insert into user values (null, '$sgl_id', '$memberId', '$name', '$firstName', '$birthdate', '$email', null, '$medDate')");
+        mysqli_query($connection, "insert into user values (null, '$sgl_id', '$memberId', '$name', '$firstName', '$birthdate', '$email', '$mobile', null, '$medDate', '$som', null)");
     } else {
         mysqli_query($connection, "update user set name = '$name', first_name = '$firstName', birth_date = '$birthdate', email = '$email', med_date = '$medDate' where sgl_id='$sgl_id'");
     }

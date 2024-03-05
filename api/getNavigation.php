@@ -7,12 +7,24 @@ foreach ($groups as $group) {
         foreach (mysqli_all_objects($connection, "select * from event where now() < end order by start") as $event) {
             $event_page = (object) [
                 "name" => $event->name,
-                "path" => "activity/" . $event->id,
-                "rank" => $event->id,
+                "path" => "activity.html?id=" . $event->id,
+                "rank" => $event->start,
                 "visible" => true,
                 "group_id" => $group->id
             ];
             $group->items[] = $event_page;
+        }
+    } else if ($group->name == "Takken") {
+        $group->items = array();
+        foreach (mysqli_all_objects($connection, "select * from branch where active order by minimum_age") as $branch) {
+            $branch_page = (object) [
+                "name" => $branch->name,
+                "path" => "branch.html?id=" . $branch->id,
+                "rank" => $branch->minimum_age,
+                "visible" => true,
+                "group_id" => $group->id
+            ];
+            $group->items[] = $branch_page;
         }
     } else {
         $group->items = mysqli_all_objects($connection, "select * from pages where group_id='$group->id' and visible order by `rank`");

@@ -2,7 +2,7 @@
 require 'getInternalLogin.php';
 require 'init_mollie.php';
 
-$user = updateUser(fetchSglUser(true));
+$user = getUser(true, true);
 $event_id = $_GET['id'];
 $event = mysqli_fetch_object($connection->query("select * from event where id = '$event_id'"));
 $event_restriction = mysqli_fetch_object($connection->query("select * from event_restriction where event_id = '$event->id' and branch_id = '$user->branch'"));

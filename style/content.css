@@ -1,4 +1,6 @@
-@import url(calendar.css);
+@import url(profile.css);
+@import url(burger.css);
+@import url(nav.css);
 
 body {
     margin: 0;
@@ -66,16 +68,13 @@ body {
     width: 160px;
     max-width: 100%;
 }
-#staff, #about, .uniform-group, #contact {
+#staff, #about, .uniform-group {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 #oldstaff {
     margin: 5px auto;
-}
-#contact {
-    align-items: center;
 }
 .staff-item, .about-item, .uniform-item {
     padding: 0 5px;
@@ -92,30 +91,6 @@ body {
 .links {
     max-width: 40px;
 }
-#sprokkel iframe {
-    width: 100%;
-    height: 1000px;
-}
-.googleform {
-    width: 100%;
-    height: 1500px;
-}
-#form-wrapper {
-    text-align: left;
-    width: 300px;
-    margin: 0 auto;
-}
-#form-wrapper button, label, input {
-    margin: 5px auto;
-}
-#form-wrapper input {
-    width: 250px;
-}
-#map {
-    height: 500px;
-    width: 500px;
-    margin: 20px;
-}
 #credits a {
     color: white;
 }
@@ -123,11 +98,8 @@ body {
     margin-top: 10px;
     font-size: 3rem;
 }
-#content a {
+a {
     cursor: pointer;
-}
-.visible-on-login {
-    display: none;
 }
 .editable-content {
     max-width: 700px;
@@ -135,12 +107,6 @@ body {
 }
 .hidden {
     display: none;
-}
-.btn-group {
-    margin: 5px auto;
-}
-.btn-group .btn:focus {
-    border: none;
 }
 ::-webkit-scrollbar {
     width: 20px;
@@ -207,17 +173,6 @@ body {
     }
     .editable-content {
         max-width: none;
-    }
-}
-#camp-graph-ph {
-    display: none;
-}
-@media only screen and (max-width: 445px) {
-    #camp-graph {
-        display: none;
-    }
-    #camp-graph-ph {
-        display: block;
     }
 }
 .subscribe-button {
