@@ -12,4 +12,9 @@ function loadProfileData(d) {
     $("#profile-functions").text(d.roles.map(f => f.name).join(', '))
     $("#profile-email").text(d.email)
     $("#profile-image").attr("src", "/images/profile/" + d.image);
+    $("#profile-logout").prop('disabled', false);
+}
+
+function toggleLogout() {
+    kc.logout({ redirectUri: window.location.origin })
 }
