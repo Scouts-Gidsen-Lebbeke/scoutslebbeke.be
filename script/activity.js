@@ -11,7 +11,7 @@ window.onload = function() {
 
 function initActivity(id) {
     fetch('/api/getActivity.php?id=' + id).then(data => data.json()).then(activity => {
-        $("#activity-name").text(activity.name);
+        $("#activity-name").html(activity.name);
         $("#activity-when").text(periodToTitle(new Date(Date.parse(activity.start)), new Date(Date.parse(activity.end))))
         $("#activity-location").html(locationToTitle(activity.location, true))
         let branches = ""
