@@ -24,7 +24,6 @@ function getBranch(branchId) {
 
 function getStaff(data) {
     data.staff.forEach((staff) => {
-        console.log(staff)
         let nickname = "";
         if (staff.kapoenenbijnaam) {
             nickname += ' &bull; ' + staff.kapoenenbijnaam;
