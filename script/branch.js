@@ -24,6 +24,7 @@ function getBranch(branchId) {
 
 function getStaff(data) {
     data.staff.forEach((staff) => {
+        console.log(staff)
         let nickname = "";
         if (staff.kapoenenbijnaam) {
             nickname += ' &bull; ' + staff.kapoenenbijnaam;
@@ -31,15 +32,15 @@ function getStaff(data) {
         if (staff.welpenbijnaam) {
             nickname += ' &bull; ' + staff.welpenbijnaam;
         }
-        const staffHead = staff.staffHead === '1' ? " (takleiding)" : '';
+        const staffHead = staff.branchHead === "1" ? " (takleiding)" : '';
         $("#staff").append(
             `<div class='staff-item'>
                     <img src='/images/profile/${staff.image}' alt='${data.name} staff' class='staffPicture'/><br>
                     <b>Naam:</b> ${staff.first_name} ${staff.name}${nickname}${staffHead}<br>
+                    <b>Totem:</b> ${staff.Totem ? staff.Totem : "(geen)"}<br>
+                    ${staffHead ? "<b>Gsm:</b> " + staff.mobile + "<br><b>E-mail:</b> " + data.email + "<br>" : ""}
                 </div>`
         );
-        // <b>Totem:</b> ${staff.Totem ? staff.Totem : "(geen)"}<br>
-        // ${staffHead ? "<b>Gsm:</b> " + staff.mobile + "<br><b>E-mail:</b> " + data.email + "<br>" : ""}
     });
 }
 
