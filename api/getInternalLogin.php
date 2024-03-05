@@ -47,8 +47,8 @@ function fetchUser($sgl_id): ?object {
     $user->roles = fetchRoles($user->id);
     $user->isAdmin = !!array_filter($user->roles, fn($r): bool => $r->admin);
     // A user should at all time only have assigned a single valid branch
-    $temp = array_filter($user->roles, fn($r) => $r->branch_id != null);
-    $user->branch = array_pop($temp)->branch_id;
+    $temp = array_values(array_filter($user->roles, fn($r) => $r->branch_id != null));
+    $user->branch = $temp[0]->branch_id;
     return $user;
 }
 
@@ -85,7 +85,7 @@ function updateUser($sgl_user): object {
     //$nisFieldId = $sgl_user->groepseigenVelden->O3401G->schema[0]->id;
     //$adres = $sgl_user->adressen[0];
     if (mysqli_num_rows($connection->query("select id from user where sgl_id = '$sgl_id'")) != 1) {
-        mysqli_query($connection, "insert into user values (null, '$sgl_id', '$memberId', '$name', '$firstName', '$birthdate', '$email', '$mobile', null, '$medDate', '$som', null)");
+        mysqli_query($connection, "insert into user values (null, '$sgl_id', '$memberId', '$name', '$firstName', '$birthdate', '$email', '$mobile', null, '$medDate', '$som', 'default.png')");
     } else {
         mysqli_query($connection, "update user set name = '$name', first_name = '$firstName', birth_date = '$birthdate', email = '$email', med_date = '$medDate' where sgl_id='$sgl_id'");
     }
