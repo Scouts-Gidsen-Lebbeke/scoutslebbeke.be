@@ -1,0 +1,13 @@
+.uniform {
+    width: 160px;
+    max-width: 100%;
+}
+.uniform-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.uniform-item {
+    padding: 0 5px;
+    margin-bottom: 10px;
+}

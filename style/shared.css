@@ -7,6 +7,12 @@ body {
     background: #181818;
     font-family: Georgia, Avenir, serif;
 }
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+}
 #header {
     top: 0;
     z-index: 2;
@@ -19,18 +25,6 @@ body {
     display: flex;
     justify-content: space-between;
 }
-#title-wrapper {
-    margin-top: 60px;
-    height: 400px;
-    background: url('/images/background/default.jpg') center no-repeat;
-    background-size: cover;
-    transition: background 1s;
-    padding: 10px;
-}
-.underline {
-    cursor: pointer;
-    text-decoration: underline !important;
-}
 #title {
     margin: 150px auto;
     color: white;
@@ -42,6 +36,14 @@ body {
     display: flex;
     align-items: center;
 }
+#title-wrapper {
+    margin-top: 60px;
+    height: 400px;
+    background: url('/images/background/default.jpg') center no-repeat;
+    background-size: cover;
+    transition: background 1s;
+    padding: 10px;
+}
 #content {
     text-align: center;
     background: white;
@@ -49,47 +51,24 @@ body {
     padding: 10px 40px 50px;
     box-sizing: border-box;
 }
-a {
-    text-decoration: none;
-    font-weight: bold;
-    color: black;
-    cursor: pointer;
+#content p {
+    max-width: 700px;
+    margin: 0 auto 1rem;
 }
 #credits {
     text-align: center;
     color: white;
     margin: 20px 0;
 }
-.uniform {
-    width: 160px;
-    max-width: 100%;
-}
-.uniform-group {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-#oldstaff {
-    margin: 5px auto;
-}
-.about-item, .uniform-item {
-    padding: 0 5px;
-    margin-bottom: 10px;
-}
-.staffPicture {
-    width: 400px;
-    height: 270px;
-    margin: 10px auto;
-}
 #credits a {
     color: white;
 }
-#content p {
-    max-width: 700px;
-    margin: 0 auto 1rem;
-}
 .hidden {
     display: none;
+}
+.underline {
+    cursor: pointer;
+    text-decoration: underline !important;
 }
 ::-webkit-scrollbar {
     width: 20px;
@@ -120,8 +99,5 @@ a {
     #content {
         margin: auto;
         padding: 10px;
-    }
-    .content-background {
-        background-image: none !important;
     }
 }
