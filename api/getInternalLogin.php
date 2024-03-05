@@ -77,7 +77,7 @@ function updateUser($sgl_user): object {
     $name = $sgl_user->vgagegevens->achternaam;
     $firstName = $sgl_user->vgagegevens->voornaam;
     $email = $sgl_user->email;
-    $mobile = $sgl_user->persoonsgegevens->gsm;
+    $mobile = normalizeMobile($sgl_user->persoonsgegevens->gsm);
     $birthdate = $sgl_user->vgagegevens->geboortedatum;
     $medDate = $sgl_user->vgagegevens->individueleSteekkaartdatumaangepast;
     $memberId = $sgl_user->verbondsgegevens->lidnummer;
@@ -87,7 +87,7 @@ function updateUser($sgl_user): object {
     if (mysqli_num_rows($connection->query("select id from user where sgl_id = '$sgl_id'")) != 1) {
         mysqli_query($connection, "insert into user values (null, '$sgl_id', '$memberId', '$name', '$firstName', '$birthdate', '$email', '$mobile', null, '$medDate', '$som', 'default.png')");
     } else {
-        mysqli_query($connection, "update user set name = '$name', first_name = '$firstName', birth_date = '$birthdate', email = '$email', med_date = '$medDate' where sgl_id='$sgl_id'");
+        mysqli_query($connection, "update user set name = '$name', first_name = '$firstName', birth_date = '$birthdate', email = '$email', mobile = '$mobile', med_date = '$medDate' where sgl_id='$sgl_id'");
     }
     $user = fetchUser($sgl_user->id);
     $functions = array_map(fn($func): string => $func->functie, array_filter($sgl_user->functies, fn($func): bool => is_null($func->einde ?? null)));
@@ -99,4 +99,16 @@ function updateUser($sgl_user): object {
         }
     }
     return fetchUser($sgl_id);
+}
+
+function normalizeMobile($mobile): ?string {
+    if ($mobile == null) return null;
+    $mobile = preg_replace("/[^0-9]/", "", trim($mobile));
+    if (strlen($mobile) == 10) {
+        return "+32".substr($mobile, 1);
+    }
+    if (strlen($mobile) == 11) {
+        return "+".$mobile;
+    }
+    return null;
 }
