@@ -11,9 +11,15 @@ window.onload = function() {
 
 function initActivity(id) {
     fetch('/api/getActivity.php?id=' + id).then(data => data.json()).then(activity => {
+        console.log(activity)
         $("#activity-name").text(activity.name);
         $("#activity-when").text(periodToTitle(new Date(Date.parse(activity.start)), new Date(Date.parse(activity.end))))
         $("#activity-location").html(locationToTitle(activity.location, true))
+        let branches = ""
+        activity.restrictions.forEach(branch =>
+            branches += `<img src="/images/branch/${branch.image}" alt="${branch.name}" title="${branch.name}" class="branch-icon"/>`
+        )
+        $("#activity-branches").html(branches)
         $("#activity-info").html(activity.info);
         $("#activity-practical-info").html(activity.practical_info);
         $("#activity-subscription-deadline").text(printDeadline(activity.close_subscription));

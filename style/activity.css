@@ -13,8 +13,13 @@
     height: 16px;
     margin-right: 5px;
 }
-.calendar-marker {
+.activity-marker {
     margin-left: 10px;
+}
+.branch-icon {
+    max-width: 24px;
+    max-height: 24px;
+    margin-right: 5px;
 }
 #subscription-block {
     display: none;
