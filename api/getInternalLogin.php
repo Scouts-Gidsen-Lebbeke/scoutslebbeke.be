@@ -26,7 +26,7 @@ function getBearerToken(): ?string {
     return null;
 }
 
-function fetchSglUser($withExit = false): ?object {
+function fetchSglUser($withExit): ?object {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_HTTPHEADER, array("Authorization: Bearer ".getBearerToken()));
     curl_setopt($ch, CURLOPT_URL, "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel");
