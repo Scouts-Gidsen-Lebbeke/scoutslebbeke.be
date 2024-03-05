@@ -4,6 +4,9 @@
     justify-content: center;
     align-items: center;
 }
+.links {
+    max-width: 40px;
+}
 #map {
     height: 500px;
     width: 500px;

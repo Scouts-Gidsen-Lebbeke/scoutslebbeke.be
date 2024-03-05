@@ -1,3 +1,8 @@
+#about {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 .about-item {
     padding: 0 5px;
     margin-bottom: 10px;

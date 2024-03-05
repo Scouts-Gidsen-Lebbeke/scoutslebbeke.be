@@ -7,6 +7,20 @@
     max-height: 300px;
     max-width: 100%;
 }
+#staff {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.staff-item {
+    padding: 0 5px;
+    margin-bottom: 10px;
+}
+.staffPicture {
+    width: 400px;
+    height: 270px;
+    margin: 10px auto;
+}
 @media only screen and (max-width: 800px) {
     .staffPicture {
         width: 90%;
