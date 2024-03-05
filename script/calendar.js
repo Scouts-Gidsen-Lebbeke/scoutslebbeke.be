@@ -21,7 +21,6 @@ function loadCalendar(branch) {
         data['items'].forEach(item => {
             let from = new Date(Date.parse(item['fromDate']));
             let to = new Date(Date.parse(item['toDate']));
-            let location = ifNotNull(item['location'], "Scoutsterrein");
             calendarGroup +=
                 `<div class="calendar-item ${from < new Date() ? 'hidden' : ''}">
                     ${item['image'] ? `<img class="calendar-item-image" src="/uploads/calendar/${item['image']}" alt="${item['image']}">` : ''}
@@ -31,7 +30,7 @@ function loadCalendar(branch) {
                             <img src="images/calendar.png" class="span-icon" alt="calendar">
                             ${periodToTitle(from, to)}
                             <img src="images/marker.png" class="span-icon calendar-marker" alt="marker">
-                            ${location}
+                            ${locationToTitle(item.location, false)}
                         </span>
                         <p class="calendar-item-description">${item['content']}</p>
                     </div>
@@ -45,23 +44,4 @@ function loadCalendar(branch) {
             </div>`
         )
     });
-}
-
-function periodToTitle(from, to) {
-    if (from.getDate() === to.getDate()) {
-        return capitalize(`${printDate(from)}, ${printTime(from)} - ${printTime(to)}`)
-    }
-    return capitalize(`${printDate(from)}, ${printTime(from)} - ${printDate(to)}, ${printTime(to)}`)
-}
-
-function printDate(date) {
-    return date.toLocaleDateString('nl-BE', { weekday: 'short', month: 'numeric', day: 'numeric' })
-}
-
-function printTime(date) {
-    return date.toLocaleTimeString('nl-BE', { hour: '2-digit', minute:'2-digit' })
-}
-
-function capitalize(s) {
-    return s.charAt(0).toUpperCase() + s.slice(1)
 }

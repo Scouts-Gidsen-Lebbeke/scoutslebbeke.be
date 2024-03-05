@@ -54,10 +54,11 @@ body {
     background-repeat: no-repeat;
     background-size: contain;
 }
-#content a {
+a {
     text-decoration: none;
     font-weight: bold;
     color: black;
+    cursor: pointer;
 }
 #credits {
     text-align: center;
@@ -80,9 +81,6 @@ body {
     padding: 0 5px;
     margin-bottom: 10px;
 }
-.about-item {
-    width: 400px;
-}
 .staffPicture {
     width: 400px;
     height: 270px;
@@ -97,9 +95,6 @@ body {
 .content-header {
     margin-top: 10px;
     font-size: 3rem;
-}
-a {
-    cursor: pointer;
 }
 .editable-content {
     max-width: 700px;
@@ -144,40 +139,4 @@ a {
     .content-background {
         background-image: none !important;
     }
-    .about-item {
-        width: 100%;
-    }
-    .staffPicture {
-        width: 90%;
-        height: auto;
-    }
-}
-.print-button {
-    height: 20px;
-    cursor: pointer;
-}
-@media print {
-    #header, #title-wrapper, #credits, .print-button, .subscribe-button, .subscription-feedback {
-        display: none;
-    }
-    h1 {
-        text-align: center;
-        padding-bottom: 10px;
-    }
-    h2 {
-        font-size: 1.5rem;
-        font-weight: bold;
-    }
-    #content {
-        text-align: left;
-    }
-    .editable-content {
-        max-width: none;
-    }
-}
-.subscribe-button {
-
-}
-.subscription-feedback {
-    font-weight: bold;
 }

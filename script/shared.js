@@ -10,7 +10,7 @@ function loadGlobal() {
 }
 
 function load(page) {
-    window.location = `/${page}.html`
+    window.location = page.includes(".html") ? page : `/${page}.html`;
 }
 
 function getImages() {
@@ -114,12 +114,8 @@ async function tokenized(url) {
     return null
 }
 
-function fetchProfile() {
-    return tokenized("/api/getLogin.php")
-}
-
 function toggleLogin() {
-    kc.login({ redirectUri: document.location + "?fromlogin=true" })
+    kc.login({ redirectUri: document.location })
 }
 
 async function loadKeycloak() {
@@ -134,7 +130,7 @@ async function loadKeycloak() {
 async function checkLogin(onFulfilled) {
     const authenticated = await loadKeycloak();
     if (authenticated) {
-        fetchProfile().then(d => onFulfilled(d))
+        tokenized("/api/getLogin.php").then(onFulfilled)
     }
 }
 
@@ -144,6 +140,39 @@ function loadProfile(d) {
     $("#profile-dropdown-block").click(function(){
         window.location = "/profile.html"
     });
+}
+
+function periodToTitle(from, to) {
+    if (from.getDate() === to.getDate()) {
+        return capitalize(`${printDate(from)}, ${printTime(from)} - ${printTime(to)}`)
+    }
+    return capitalize(`${printDate(from)}, ${printTime(from)} - ${printDate(to)}, ${printTime(to)}`)
+}
+
+function printDate(date) {
+    return date.toLocaleDateString('nl-BE', { weekday: 'short', month: 'numeric', day: 'numeric' })
+}
+
+function printTime(date) {
+    return date.toLocaleTimeString('nl-BE', { hour: '2-digit', minute:'2-digit' })
+}
+
+function locationToTitle(location, full) {
+    if (location == null) {
+        return "Scoutsterrein";
+    }
+    let title = location.name;
+    if (full) {
+        title = `${title} (${location.address})`;
+    }
+    if (location.url != null) {
+        return `<a href="${location.url}" target="_blank">${title}</a>`;
+    }
+    return title;
+}
+
+function capitalize(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
 function ifNotNull(i, orElse = "") {

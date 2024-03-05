@@ -3,55 +3,67 @@ window.onload = function() {
     const params = (new URL(document.location)).searchParams;
     const eventId = params.get('id')
     checkLogin(function (d) {
-        if (params.get('fromlogin') && kc.token) {
-            subscribe(eventId)
-        } else {
-            loadProfile(d)
-            if (kc.token) {
-                checkSubscriptionState(eventId)
-            }
-        }
+        loadProfile(d)
+        checkSubscriptionState(eventId)
     });
     initActivity(eventId);
 };
 
 function initActivity(id) {
-    fetch('/api/getActivity.php?id=' + id).then(data => data.json()).then(data => {
-        $("#activity-name").text(data.name);
-        $("#activity-subscription-deadline").text(printDate(data.close_subscription));
-        $("#activity-info").html(data.info);
-        $("#activity-location").text("")
-        if (new Date(Date.parse(data.open_subscription)) > new Date()) {
-            $("#subscribe-button").disable()
-            $(".subscription-feedback").text("De inschrijvingen worden pas geopend op " + printDate(data.open_subscription) + ".")
-        } else {
-            $("#subscribe-button").click(function(){
-                subscribe(id)
-            });
-        }
+    fetch('/api/getActivity.php?id=' + id).then(data => data.json()).then(activity => {
+        $("#activity-name").text(activity.name);
+        $("#activity-when").text(periodToTitle(new Date(Date.parse(activity.start)), new Date(Date.parse(activity.end))))
+        $("#activity-location").html(locationToTitle(activity.location, true))
+        $("#activity-info").html(activity.info);
+        $("#activity-practical-info").html(activity.practical_info);
+        $("#activity-subscription-deadline").text(printDeadline(activity.close_subscription));
     });
 }
 
 function checkSubscriptionState(id) {
-    tokenized('/api/getSubscriptionState.php?id=' + id).then(data => {
-        if (data['status'] === 'paid') {
-            $(".subscribe-button").hide();
+    tokenized('/api/getSubscriptionState.php?id=' + id).then(result => {
+        if (result == null) return; // user is not logged in, keep original feedback
+        if (result.error != null) {
+            $("#subscription-feedback").text(result.error)
+            $("#subscription-feedback").css('color', 'red')
+        } else if (result.registration != null) {
+            let status = result.registration.status;
+            if (status === "open") {
+                $("#subscription-feedback").text("Je bent reeds ingeschreven voor deze activiteit, maar we hebben jouw betaling nog niet ontvangen.")
+            } else if (status === "paid") {
+                $("#subscription-feedback").text("Je bent reeds ingeschreven voor deze activiteit.")
+            }
+        } else if (result.open_subscription != null) {
+            $("#subscription-feedback").html("De inschrijvingen worden pas geopend op <b>" + printOpen(result.open_subscription) + "</b>.")
         } else {
-            $(".subscribe-button").enable();
+            $("#subscription-feedback").hide()
+            $("#activity-price").text(result.price)
+            $("#subscription-block").show()
+            $("#subscribe-button").on("click", function(){
+                subscribe(id)
+            });
         }
-        $(".subscription-feedback").text(data['status'])
     })
 }
 
 function subscribe(id) {
-    tokenized('/api/subscribe.php?id=' + id).then(url => {
-        if (url != null) {
-            location.href = url
+    console.log("subscribe")
+    tokenized('/api/subscribe.php?id=' + id).then(result => {
+        if (result.error != null) {
+            alert(result.error)
+        } else if (result.checkout != null) {
+            location.href = result.checkout
         }
     })
 }
 
-function printDate(dateString) {
+function printDeadline(dateString) {
     let date = new Date(Date.parse(dateString));
     return date.toLocaleDateString('nl-BE', { weekday: 'long', month: 'numeric', day: 'numeric' })
+}
+
+function printOpen(dateString) {
+    let date = new Date(Date.parse(dateString));
+    let day = date.toLocaleDateString('nl-BE', { weekday: 'long', month: 'numeric', day: 'numeric' })
+    return `${day} (${date.toLocaleTimeString('nl-BE', { hour: 'numeric' })}u)`
 }

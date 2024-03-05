@@ -8,7 +8,8 @@
     <script src="script/shared.js"></script>
     <script src="script/activity.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="style/content.css">
+    <link rel="stylesheet" href="style/shared.css">
+    <link rel="stylesheet" href="style/activity.css">
     <link rel="icon" href="/images/favicon.ico">
     <meta property='og:title' content='Scouts & Gidsen Lebbeke'>
     <meta property='og:image' content='/images/background/default.jpg'/>
@@ -41,25 +42,37 @@
     </div>
     <div id="content">
         <h1 id="activity-name"></h1>
-        <p id="activity-info"></p>
-        <h2>Wanneer?</h2>
-        <p id="activity-when"></p>
-        <h3>Waar?</h3>
+        <span id="activity-details">
+            <img src="images/calendar.png" class="span-icon" alt="calendar">
+            <span id="activity-when"></span>
+            <img src="images/marker.png" class="span-icon calendar-marker" alt="marker">
+            <span id="activity-location"></span>
+        </span>
         <div class="editable-content">
-            <p id="activity-location"></p>
+            <p id="activity-info"></p>
         </div>
-        <h2>Inschrijving</h2>
+        <h3>Praktisch</h3>
         <div class="editable-content">
-            <span id="activity-subscription-info"></span>
-            <p id="default-subscription-info">
-                Klaar om in te schrijven? Klik op de knop onderaan en je zal doorverwezen worden naar de Groepsadministratie om in te loggen.
-                Als uit die login blijkt dat jouw lidmaatschap volledig in orde is (lidgeld betaald en medische fiche aangevuld),
-                dan word je naar de betaalpagina doorgestuurd. Na de betaling ontvang je een mail met de bevestiging.
-                De deadline voor de inschrijving is <b id="activity-subscription-deadline"></b>.
+            <p id="activity-practical-info"></p>
+        </div>
+        <h3>Inschrijving</h3>
+        <div class="editable-content">
+            <p id="subscription-feedback">
+                Inschrijven is enkel mogelijk voor leden van onze scouts,
+                <a onclick="toggleLogin()">log in</a> om je in te schrijven!
             </p>
         </div>
-        <button class="subscribe-button" onclick="firstLogin()">Schrijf me in!</button><br>
-        <span class="subscription-feedback"></span>
+        <div id="subscription-block">
+            <div class="editable-content">
+                <p id="default-subscription-info">
+                    De deelnameprijs voor jou bedraagt <b>€ <span id="activity-price"></span></b>.
+                    Klaar om in te schrijven? Klik op de knop onderaan en je zal doorverwezen worden naar de betaalpagina.
+                    Nadat we jouw betaling hebben ontvangen, krijg je een mail met een inschrijvingsbevestiging.
+                    De deadline voor de inschrijving is <b id="activity-subscription-deadline"></b>.
+                </p>
+            </div>
+            <button id="subscribe-button">Schrijf me in!</button>
+        </div>
     </div>
     <div id="credits">
         © <span id="current-year"></span> <span class="organisation-name">Scouts & Gidsen Lebbeke</span> -
