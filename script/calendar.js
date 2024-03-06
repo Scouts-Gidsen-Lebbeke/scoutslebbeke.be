@@ -17,6 +17,10 @@ function initCalendars() {
 function loadCalendar(branch) {
     $("#calendars").html(`<div class="loader"></div>`)
     fetch("/api/getCalendars.php?branch=" + branch).then((res) => res.json()).then((data) => {
+        if (!data) {
+            $("#calendars").html("");
+            return;
+        }
         let calendarGroup = ""
         data['items'].forEach(item => {
             let from = new Date(Date.parse(item['fromDate']));
