@@ -29,7 +29,7 @@ function checkSubscriptionState(id) {
     tokenized('/api/getSubscriptionState.php?id=' + id).then(result => {
         if (result == null) return; // user is not logged in, keep original feedback
         if (result.error != null) {
-            $("#subscription-feedback").text(result.error)
+            $("#subscription-feedback").html(result.error)
             $("#subscription-feedback").css('color', 'red')
         } else if (result.registration != null) {
             let status = result.registration.status;
