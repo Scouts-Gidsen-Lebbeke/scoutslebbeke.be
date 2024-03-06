@@ -1,7 +1,7 @@
 <?php
 require 'init_env.php';
 
-$connection = new mysqli($config["main.db.host"], $config["main.db.user"], $config["main.db.password"], $config["main.db.database"]);
+$connection = new mysqli($config["DB_HOST"], $config["DB_USERNAME"], $config["DB_PASSWORD"], $config["DB_DATABASE"]);
 mysqli_set_charset($connection, "utf8");
 
 function mysqli_all_objects($connection, $query): array {
