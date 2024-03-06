@@ -52,10 +52,11 @@ function checkSubscriptionState(id) {
 }
 
 function subscribe(id) {
-    console.log("subscribe")
+    $("#subscribe-button").prop("disabled", true);
     tokenized('/api/subscribe.php?id=' + id).then(result => {
         if (result.error != null) {
             alert(result.error)
+            $("#subscribe-button").prop("disabled", false);
         } else if (result.checkout != null) {
             location.href = result.checkout
         }
