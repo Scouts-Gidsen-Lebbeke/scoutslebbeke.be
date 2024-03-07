@@ -6,15 +6,14 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script type="module" src="node_modules/keycloak-js/dist/keycloak.js"></script>
     <script src="script/shared.js"></script>
-    <script src="script/activity.js"></script>
+    <script src="script/activityOverview.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="style/shared.css">
-    <link rel="stylesheet" href="style/activity.css">
     <link rel="icon" href="/images/favicon.ico">
     <meta property='og:title' content='Scouts & Gidsen Lebbeke'>
     <meta property='og:image' content='/images/background/default.jpg'/>
-    <meta property='og:description' content='Actviteit'/>
-    <meta property='og:url' content='scoutslebbeke.be/activity.html'>
+    <meta property='og:description' content='Profiel'/>
+    <meta property='og:url' content='scoutslebbeke.be/profile.html'>
     <meta property='og:type' content='website'>
     <title>Scouts & Gidsen Lebbeke</title>
 </head>
@@ -41,36 +40,22 @@
         <div id="title" class="organisation-name">Scouts & Gidsen Lebbeke</div>
     </div>
     <div id="content">
-        <h1 id="activity-name"></h1>
-        <span id="activity-details">
-            <img src="images/calendar.png" class="span-icon" alt="calendar" title="Wanneer?">
-            <span id="activity-when"></span>
-            <img src="images/marker.png" class="span-icon activity-marker" alt="marker" title="Waar?">
-            <span id="activity-location"></span>
-            <img src="images/group.png" class="span-icon activity-marker" alt="group" title="Voor wie?">
-            <span id="activity-branches"></span>
-        </span>
-        <p id="activity-info"></p>
-        <h3>Praktisch</h3>
-        <p id="activity-practical-info"></p>
-        <h3>Inschrijving</h3>
-        <p id="subscription-feedback">
-            Inschrijven is enkel mogelijk voor leden van onze scouts,
-            <a onclick="toggleLogin()">log in</a> om je in te schrijven!
-        </p>
-        <div id="subscription-block">
-            <p id="default-subscription-info">
-                De deelnameprijs voor jou bedraagt <b>€ <span id="activity-price"></span></b>.
-                Klaar om in te schrijven? Klik op de knop onderaan en je zal doorverwezen worden naar de betaalpagina.
-                Nadat we jouw betaling hebben ontvangen, krijg je een mail met een inschrijvingsbevestiging.
-                De deadline voor de inschrijving is <b id="activity-subscription-deadline"></b>.
-            </p>
-            <button id="subscribe-button">Schrijf me in!</button>
-        </div>
-        <div id="activity-admin">
-            <button id="overview-button">Overzicht inschrijvingen</button>
-            <!--button id="edit-button">Bewerk activiteit</button-->
-        </div>
+        <h1>Overzicht inschrijvingen</h1>
+        <label for="activities">Kies een activiteit:</label>
+        <select name="events" id="activities" onchange="retrieveEvent(this.value)">
+            <option value="0" selected>(geen)</option>
+        </select>
+        <table class="table table-striped" id="subscription-overview">
+            <thead>
+            <tr>
+                <th scope="col">Voornaam</th>
+                <th scope="col">Naam</th>
+                <th scope="col">Tak</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div id="subscription-loader" class="loader hidden"></div>
     </div>
     <div id="credits">
         © <span id="current-year"></span> <span class="organisation-name">Scouts & Gidsen Lebbeke</span> -

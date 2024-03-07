@@ -17,7 +17,7 @@ function getSubscriptionState($user): stdClass {
                 throw new InvalidArgumentException("Er liep iets mis bij het vinden van de activiteit, probeer later opnieuw!");
             }
             $result->event = $event;
-            if (strtotime($event->open_subscription) > time() && !$user->isAdmin) {
+            if (strtotime($event->open_subscription) > time() && !$user->level->isAdmin()) {
                 $result->open_subscription = $event->open_subscription;
             }
             if ($user->branch == null) {

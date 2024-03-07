@@ -1,4 +1,5 @@
 <?php
+require 'RoleLevel.php';
 require 'connect.php';
 
 function getAuthorizationHeader(): ?string {
@@ -45,7 +46,7 @@ function fetchUser($sgl_id): ?object {
     if ($sgl_id == null) return null;
     $user = mysqli_fetch_object($connection->query("select * from user where sgl_id = '$sgl_id'"));
     $user->roles = fetchRoles($user->id);
-    $user->isAdmin = !!array_filter($user->roles, fn($r): bool => $r->admin);
+    $user->level = highest_level(array_map(fn ($r): int => $r->level, $user->roles));
     // A user should at all time only have assigned a single valid branch
     $temp = array_values(array_filter($user->roles, fn($r) => $r->branch_id != null));
     $user->branch = $temp[0]->branch_id;
@@ -68,7 +69,7 @@ function userExists($sgl_id): bool{
 
 function fetchRoles($id): array {
     global $connection;
-    return mysqli_all_objects($connection, "select id, name, admin, branch_id from user_role left join role on role.id = user_role.role_id where user_id = '$id'");
+    return mysqli_all_objects($connection, "select id, name, admin, branch_id, level from user_role left join role on role.id = user_role.role_id where user_id = '$id'");
 }
 
 function updateUser($sgl_user): object {
@@ -79,6 +80,7 @@ function updateUser($sgl_user): object {
     $email = $sgl_user->email;
     $mobile = normalizeMobile($sgl_user->persoonsgegevens->gsm);
     $birthdate = $sgl_user->vgagegevens->geboortedatum;
+    // SGL passes today when not filled in, sigh
     $medDate = $sgl_user->vgagegevens->individueleSteekkaartdatumaangepast;
     $memberId = $sgl_user->verbondsgegevens->lidnummer;
     $som = $sgl_user->vgagegevens->verminderdlidgeld;

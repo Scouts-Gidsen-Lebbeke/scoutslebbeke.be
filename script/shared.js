@@ -134,6 +134,15 @@ async function checkLogin(onFulfilled) {
     }
 }
 
+async function requireLogin(onFulfilled) {
+    const authenticated = await loadKeycloak();
+    if (authenticated) {
+        tokenized("/api/getLogin.php").then(onFulfilled)
+    } else {
+        toggleLogin();
+    }
+}
+
 function loadProfile(d) {
     $('#profile-name').text(d.first_name)
     $('#profile-pic').css("background-image", "url(/images/profile/" + d.image + ")")

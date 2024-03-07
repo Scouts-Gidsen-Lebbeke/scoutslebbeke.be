@@ -21,6 +21,6 @@
     max-height: 24px;
     margin-right: 5px;
 }
-#subscription-block {
+#subscription-block, #activity-admin {
     display: none;
 }

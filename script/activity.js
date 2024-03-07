@@ -5,6 +5,7 @@ window.onload = function() {
     checkLogin(function (d) {
         loadProfile(d)
         checkSubscriptionState(eventId)
+        checkAdmin(d, eventId)
     });
     initActivity(eventId);
 };
@@ -84,4 +85,13 @@ function printOpen(dateString) {
     let date = new Date(Date.parse(dateString));
     let day = date.toLocaleDateString('nl-BE', { weekday: 'long', month: 'numeric', day: 'numeric' })
     return `${day} (${date.toLocaleTimeString('nl-BE', { hour: 'numeric' })}u)`
+}
+
+function checkAdmin(user, eventId) {
+    if (user.level > 2) {
+        $("#activity-admin").show();
+        $("#overview-button").on("click", function(){
+            window.location = "activityOverview.html?id=" + eventId;
+        });
+    }
 }
