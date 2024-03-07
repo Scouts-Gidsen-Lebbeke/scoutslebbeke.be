@@ -20,6 +20,9 @@ function getSubscriptionState($user): stdClass {
             if (strtotime($event->open_subscription) > time() && !$user->isAdmin) {
                 $result->open_subscription = $event->open_subscription;
             }
+            if ($user->branch == null) {
+                throw new InvalidArgumentException("Je hebt geen actieve tak, kijk jouw inschrijvingsgeld na!");
+            }
             $event_restriction = mysqli_fetch_object($connection->query("select * from event_restriction where event_id = '$event->id' and branch_id = '$user->branch'"));
             if ($event_restriction == null) {
                 throw new InvalidArgumentException("Deze activiteit is niet voor jouw tak!");
