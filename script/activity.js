@@ -34,7 +34,7 @@ function checkSubscriptionState(id) {
         } else if (result.registration != null) {
             let status = result.registration.status;
             if (status === "open") {
-                $("#subscription-feedback").text("Je bent reeds ingeschreven voor deze activiteit, maar we hebben jouw betaling nog niet ontvangen.")
+                $("#subscription-feedback").html(`Je bent reeds ingeschreven voor deze activiteit, maar we hebben jouw betaling nog niet ontvangen. Nog bezig met de betaling? Werk ze <a onclick='finishPayment("${result.registration.payment_id}")'>hier</a> verder af.`)
             } else if (status === "paid") {
                 $("#subscription-feedback").text("Je bent reeds ingeschreven voor deze activiteit.")
             }
@@ -47,6 +47,18 @@ function checkSubscriptionState(id) {
             $("#subscribe-button").on("click", function(){
                 subscribe(id)
             });
+        }
+    })
+}
+
+function finishPayment(id) {
+    fetch('/api/getCheckout.php?id=' + id).then(result => result.json()).then(result => {
+        if (result.error != null) {
+            alert(result.error)
+        } else if (result.feedback != null) {
+            $("#subscription-feedback").html(result.feedback)
+        } else if (result.checkout != null) {
+            location.href = result.checkout
         }
     })
 }
