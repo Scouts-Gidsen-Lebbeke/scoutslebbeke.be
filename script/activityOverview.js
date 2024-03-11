@@ -27,9 +27,18 @@ function retrieveEvent(id) {
     if (id === "0") return
     $("#subscription-loader").show()
     tokenized("/api/getActivityOverview.php?id=" + id).then(subscriptions => {
-        subscriptions.forEach(subscription =>
-            $('#subscription-overview tr:last').after(`<tr><td>${subscription.first_name}</td><td>${subscription.name}</td><td>${subscription.branch_name}</td></tr>`)
-        )
+        let index = 0;
+        subscriptions.forEach(subscription => {
+            index++;
+            $('#subscription-overview tr:last').after(
+                `<tr>
+                            <td>${index}</td>
+                            <td>${subscription.first_name}</td>
+                            <td>${subscription.name}</td>
+                            <td>${subscription.branch_name}</td>
+                       </tr>`
+            )
+        })
         $("#subscription-loader").hide()
     })
 }
