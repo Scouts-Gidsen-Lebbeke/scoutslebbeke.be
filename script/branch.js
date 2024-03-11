@@ -16,7 +16,11 @@ function getBranch(branchId) {
             $("#branch-age-gap").text(`${d.minimum_age} - ${ifNotNull(d.maximum_age, "...")}`)
         }
         $("#branch-description").html(d.description)
-        $("#branch-law").html(d.law)
+        if (d.law) {
+            $("#branch-law").html(d.law)
+        } else {
+            $("#law-div").hide()
+        }
         getStaff(d)
         $("#content").show()
     });
