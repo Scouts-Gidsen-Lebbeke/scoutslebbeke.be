@@ -13,16 +13,25 @@ try {
     } else if ($state->open_subscription ?? false) {
         throw new InvalidArgumentException("De inschrijvingen voor deze activiteit zijn nog niet geopend!");
     }
-    $event_id = $_GET['id'];
-    $connection->query("insert into event_registration values (null, '$event_id', '$user->id', now(), 'open', null)");
+    $activity = $state->activity;
+    $activity_restriction_id = $_GET['option'];
+    if ($activity_restriction_id == null) {
+        throw new InvalidArgumentException("Je hebt geen geldige optie opgegeven bij de inschrijving!");
+    }
+    $options = $state->options;
+    $chosen_option = array_values(array_filter($options, fn($o) => $o->id == $activity_restriction_id));
+    if (empty($chosen_option)) {
+        throw new InvalidArgumentException("Je hebt geen geldige optie opgegeven bij de inschrijving!");
+    }
+    $connection->query("insert into event_registration values (null, '$activity->id', '$user->id', now(), 'open', null)");
     $order_id = $connection->insert_id;
     $payment = $mollie->payments->create([
         "amount" => [
             "currency" => "EUR",
-            "value" => double($state->price)
+            "value" => double($chosen_option[0]->price)
         ],
-        "description" => $state->event->name,
-        "redirectUrl" => $config["SERVER_URL"] . "/activity.html?id=" . $event_id . "&payment_return=true",
+        "description" => $activity->name,
+        "redirectUrl" => $config["SERVER_URL"] . "/activity.html?id=" . $activity->id . "&payment_return=true",
         "webhookUrl" => $config["NGROK_URL"] . "/api/updatePayment.php",
         "metadata" => [
             "order_id" => $order_id,

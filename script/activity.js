@@ -43,11 +43,17 @@ function checkSubscriptionState(id) {
             $("#subscription-feedback").html("De inschrijvingen worden pas geopend op <b>" + printOpen(result.open_subscription) + "</b>.")
         } else {
             $("#subscription-feedback").hide()
-            $("#activity-price").text(result.price)
+            if (result.options.length === 1) {
+                let option = result.options[0]
+                $("#activity-price").text(`€ ${option.price}`)
+                $("#subscribe-buttons").append(`<button onclick="subscribe(id, option.id)">Schrijf me in!</button>`);
+            } else {
+                let options = result.options.map(o => `€${o.price} (${o.name})`).join(", ")
+                $("#activity-price").text(options.replace(/,([^,]*)$/, ' of$1'));
+                result.options.forEach(o => $("#subscribe-buttons").append(`<button class="subscribe-button" onclick="subscribe('${id}', '${o.id}')">Schrijf me in voor ${o.name}!</button>`));
+                $("#multiple-options").show()
+            }
             $("#subscription-block").show()
-            $("#subscribe-button").on("click", function(){
-                subscribe(id)
-            });
         }
     })
 }
@@ -64,9 +70,9 @@ function finishPayment(id) {
     })
 }
 
-function subscribe(id) {
-    $("#subscribe-button").prop("disabled", true);
-    tokenized('/api/subscribe.php?id=' + id).then(result => {
+function subscribe(id, option) {
+    $(".subscribe-button").prop("disabled", true);
+    tokenized(`/api/subscribe.php?id=${id}&option=${option}`).then(result => {
         if (result.error != null) {
             alert(result.error)
             $("#subscribe-button").prop("disabled", false);

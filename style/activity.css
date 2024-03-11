@@ -21,6 +21,9 @@
     max-height: 24px;
     margin-right: 5px;
 }
-#subscription-block, #activity-admin {
+.subscribe-button {
+    margin: auto 5px 10px;
+}
+#subscription-block, #activity-admin, #multiple-options {
     display: none;
 }
