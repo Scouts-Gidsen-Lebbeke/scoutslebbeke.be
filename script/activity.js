@@ -46,7 +46,7 @@ function checkSubscriptionState(id) {
             if (result.options.length === 1) {
                 let option = result.options[0]
                 $("#activity-price").text(`€ ${option.price}`)
-                $("#subscribe-buttons").append(`<button class="subscribe-button" onclick="subscribe(id, option.id)">Schrijf me in!</button>`);
+                $("#subscribe-buttons").append(`<button class="subscribe-button" onclick="subscribe('${id}', '${option.id}')">Schrijf me in!</button>`);
             } else {
                 let options = result.options.map(o => `€${o.price} (${o.name})`).join(", ")
                 $("#activity-price").text(options.replace(/,([^,]*)$/, ' of$1'));
