@@ -48,8 +48,9 @@ function fetchUser($sgl_id): ?object {
     $user->roles = fetchRoles($user->id);
     $user->level = highest_level(array_map(fn ($r): int => $r->level, $user->roles));
     // A user should at all time only have assigned a single valid branch
-    $temp = array_values(array_filter($user->roles, fn($r) => $r->branch_id != null));
-    $user->branch = $temp[0]->branch_id;
+    $branch_role = array_values(array_filter($user->roles, fn($r) => $r->branch_id != null))[0];
+    $user->branch = $branch_role->branch_id;
+    $user->staff_branch = mysqli_fetch_column($connection->query("select id from branch where staff_role_id = '$branch_role->id'"));
     return $user;
 }
 
