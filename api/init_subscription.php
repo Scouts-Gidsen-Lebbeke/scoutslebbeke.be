@@ -12,7 +12,7 @@ function getSubscriptionState($user): stdClass {
         }
         $result->registration = mysqli_fetch_object($connection->query("select * from event_registration where user_id = '$user->id' and event_id = '$activity_id' and payment_id is not null and status not in ('canceled', 'expired', 'failed') order by date desc limit 1"));
         if ($result->registration == null) {
-            $activity = mysqli_fetch_object($connection->query("select * from event where id = '$activity_id'"));
+            $activity = mysqli_fetch_object($connection->query("select * from activity where id = '$activity_id'"));
             if ($activity == null) {
                 throw new InvalidArgumentException("Er liep iets mis bij het vinden van de activiteit, probeer later opnieuw!");
             }
