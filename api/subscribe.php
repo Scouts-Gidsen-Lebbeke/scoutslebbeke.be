@@ -23,7 +23,7 @@ try {
     if (empty($chosen_option)) {
         throw new InvalidArgumentException("Je hebt geen geldige optie opgegeven bij de inschrijving!");
     }
-    $connection->query("insert into event_registration values (null, '$activity->id', '$user->id', now(), 'open', null)");
+    $connection->query("insert into activity_registration values (null, '$activity->id', '$user->id', now(), 'open', null)");
     $order_id = $connection->insert_id;
     $payment = $mollie->payments->create([
         "amount" => [
@@ -38,7 +38,7 @@ try {
             "user_id" => $user->id
         ]
     ]);
-    $connection->query("update event_registration set payment_id = '$payment->id' where id = '$order_id'");
+    $connection->query("update activity_registration set payment_id = '$payment->id' where id = '$order_id'");
     $result->checkout = $payment->getCheckoutUrl();
 } catch (Exception $e) {
     $result->error = $e;
