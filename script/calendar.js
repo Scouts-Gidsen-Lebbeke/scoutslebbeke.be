@@ -56,9 +56,11 @@ function loadCalendar() {
                     <div class="calendar-item-content">
                         <h2 class="calendar-item-title">
                             ${item.title}
-                            ${item.editable ? `
+                            ${item.editable && item.id != null ? `
                                 <img src="/images/edit.png" alt="edit" class="edit-icon" onclick="editItem('${item.id}')" title="Bewerk dit item">
                                 <img src="/images/delete.png" alt="delete" class="edit-icon" onclick="deleteItem('${item.id}')" title="Verwijder dit item">
+                            ` : item.editable ? `
+                                <img src="/images/edit.png" alt="edit" class="edit-icon" onclick="editDefault('${item.calendar_id}', '${item.fromDate}', '${item.toDate}')" title="Bewerk dit item">
                             ` : ''}
                         </h2>
                         <span class="calendar-item-details">
@@ -88,18 +90,22 @@ function loadCalendar() {
 
 function translateInOutro(calendar, inOut) {
     if (calendar.editable) {
-        let value = ifNotNull(calendar[inOut], `Geen ${inOut} opgegeven, klik om te bewerken.`)
-        return `<span onClick="editInOutro('${calendar.id}', '${inOut}')" id="intro-outro-placeholder">${value}</span>`
+        let value = ifNotNullOrEmpty(calendar[inOut], `Geen ${inOut} opgegeven, klik om te bewerken.`)
+        return `<span onClick="editInOutro('${calendar.id}', '${inOut}')" class="intro-outro-placeholder">${value}</span>`
     }
     return ifNotNull(calendar[inOut])
 }
 
 function editInOutro(calendarId, inOut) {
-    window.location = `/calendar/editCalendarInOutro.html?id=${calendarId}&${inOut}`;
+    window.location = `/calendar/editCalendar${capitalize(inOut)}.html?id=${calendarId}`;
 }
 
 function editItem(itemId) {
     window.location = `/calendar/editCalendarItem.html?id=${itemId}`;
+}
+
+function editDefault(calendarId, from, to) {
+    window.location = `/calendar/editCalendarItem.html?calendarId=${calendarId}&from=${from}&to=${to}`;
 }
 
 function addItem(calendarId) {

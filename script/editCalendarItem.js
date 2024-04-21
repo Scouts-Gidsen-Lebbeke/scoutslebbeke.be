@@ -22,6 +22,8 @@ function retrieveItem() {
     const itemId = params.get('id')
     if (itemId == null) {
         $("#calendar-id").val(params.get('calendarId'))
+        $("#item-from").val(params.get('from'))
+        $("#item-to").val(params.get('to'))
         $(".loader").hide()
         $("#item-form").show()
         return
@@ -54,7 +56,6 @@ function postItem() {
         body: formData
     }).then(data => data.json()).then(result => {
         if (result.error != null) {
-            console.log(result)
             $("#form-feedback").html(result.error)
         } else {
             cancel()

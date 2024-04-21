@@ -24,7 +24,46 @@ if ($period != null) {
             }
             $item->editable = $admin || ($item->calendar_id != null && $staff_of_branch);
         }
+        if ($calendar->editable) {
+            foreach (find_sundays($period->start, $period->end) as $i => $sunday) {
+                $before = items_before($calendar, date_time_set($sunday, 23, 59));
+                if ($before < $i + 1) {
+                    $calendar->items[] = create_default_item($calendar->id, $sunday);
+                }
+            }
+            usort($calendar->items, fn($f, $s) => strtotime($s->fromDate) < strtotime($f->fromDate));
+        }
     }
 }
 $connection->close();
 echo json_encode($calendar);
+
+function items_before($calendar, $date): int {
+    return sizeof(array_filter($calendar->items, fn($i) => $i->fromDate < $date));
+}
+
+function find_sundays($begin, $end): array {
+    $result = array();
+    $from = DateTime::createFromFormat('Y-m-d', $begin);
+    $to = DateTime::createFromFormat('Y-m-d', $end);
+    while ($from <= $to) {
+        if($from->format("D") == "Sun") {
+            $result[] = clone $from;
+            $from->modify('+1 week');
+        } else {
+            $from->modify('+1 day');
+        }
+    }
+    return $result;
+}
+
+function create_default_item($id, $sunday): stdClass {
+    $item = new stdClass();
+    $item->calendar_id = $id;
+    $item->title = "Nog in te vullen";
+    $item->fromDate = date_time_set($sunday, 14, 00)->format('Y-m-d H:i:s');
+    $item->toDate = date_time_set($sunday, 17, 00)->format('Y-m-d H:i:s');
+    $item->content = "Nog in te vullen";
+    $item->editable = true;
+    return $item;
+}

@@ -184,3 +184,7 @@ function capitalize(s) {
 function ifNotNull(i, orElse = "") {
     return i == null ? orElse : i;
 }
+
+function ifNotNullOrEmpty(i, orElse = "") {
+    return (i == null || i === "") ? orElse : i;
+}

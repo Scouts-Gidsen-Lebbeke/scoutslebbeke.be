@@ -83,7 +83,7 @@
 #item-location {
     width: 200px;
 }
-#item-content {
+#item-content, #intro, #outro {
     width: 100%
 }
 .edit-icon {
@@ -97,4 +97,7 @@
 }
 #form-feedback {
     color: red;
+}
+.intro-outro-placeholder {
+    cursor: pointer;
 }
