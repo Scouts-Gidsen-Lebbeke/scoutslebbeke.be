@@ -13,15 +13,17 @@ a {
     color: black;
     cursor: pointer;
 }
+header-component {
+}
 #header {
     top: 0;
     z-index: 2;
     width: 100%;
+    position: absolute;
     font-size: 20px;
     color: #eeeeee;
     background: #181818;
     height: 60px;
-    position: absolute;
     display: flex;
     justify-content: space-between;
 }

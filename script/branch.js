@@ -7,7 +7,7 @@ window.onload = function() {
 
 function getBranch(branchId) {
     $("#content").hide()
-    fetch("/api/getBranch.php?id=" + branchId).then((res) => res.json()).then((d) => {
+    fetch(`/api/branch/getBranch.php?id=${branchId}`).then((res) => res.json()).then((d) => {
         $("#branch-name").text(d.name)
         $("#branch-logo").attr("src", "/images/branch/" + d.image);
         if (d.minimum_age === d.maximum_age) {
@@ -38,24 +38,11 @@ function getStaff(data) {
         const staffHead = staff.branchHead === "1" ? " (takleiding)" : '';
         $("#staff").append(
             `<div class='staff-item'>
-                    <img src='/images/profile/${staff.image}' alt='${data.name} staff' class='staffPicture'/><br>
+                    <img src="/images/profile/${staff.image}" alt="${data.name} staff" class="staffPicture"/><br>
                     <b>Naam:</b> ${staff.first_name} ${staff.name}${nickname}${staffHead}<br>
                     <b>Totem:</b> ${staff.Totem ? staff.Totem : "(geen)"}<br>
-                    ${staffHead ? "<b>Gsm:</b> " + staff.mobile + "<br><b>E-mail:</b> " + data.email + "<br>" : ""}
+                    ${staffHead ? `<b>Gsm:</b> ${staff.mobile}<br><b>E-mail:</b> ${data.email}<br>` : ""}
                 </div>`
         );
-    });
-}
-
-function getStam() {
-    fetch("/api/getStaff.php?q=Stam").then((res) => res.json()).then((data) => {
-        Object.values(data).forEach((item) => {
-            $("#oldstaff").append(
-                `<tr>
-                    <td>${item["Voornaam"]} ${item["Achternaam"]}</td>
-                    <td>${item["Totem"] ? item["Totem"] : "(geen)"}</td>
-                </tr>`
-            );
-        });
     });
 }

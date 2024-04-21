@@ -4,11 +4,9 @@
 .btn-group .btn:focus {
     border: none;
 }
-.calendar-group {
+.calendar {
     max-width: 700px;
     margin: auto;
-    overflow: auto;
-    height: 400px;
 }
 .calendar-item {
     transition: box-shadow .3s;
@@ -61,4 +59,42 @@
         max-width: 100%;
         max-height: none;
     }
+}
+#item-title-wrapper {
+    display: table;
+    width: 100%;
+    margin-bottom: 5px;
+}
+#item-title-label {
+    display: table-cell;
+    width: 1px;
+    padding-right: 3px;
+}
+#item-title {
+    display: table-cell;
+    width: 100%;
+}
+#item-meta-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+#item-location {
+    width: 200px;
+}
+#item-content {
+    width: 100%
+}
+.edit-icon {
+    position: relative;
+    top: -3px;
+    width: 16px;
+    cursor: pointer;
+}
+.passed, .staff {
+    display: none;
+}
+#form-feedback {
+    color: red;
 }

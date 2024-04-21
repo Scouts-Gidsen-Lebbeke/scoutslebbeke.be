@@ -1,5 +1,5 @@
 <?php
-include "connect.php";
+include "../connect.php";
 $result = array();
 $from = parse(@$_GET['from']);
 $to = parse(@$_GET['to']);

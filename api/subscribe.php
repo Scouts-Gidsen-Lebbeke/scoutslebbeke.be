@@ -41,7 +41,7 @@ try {
     $connection->query("update activity_registration set payment_id = '$payment->id' where id = '$order_id'");
     $result->checkout = $payment->getCheckoutUrl();
 } catch (Exception $e) {
-    $result->error = $e;
+    $result->error = $e->getMessage();
 }
 echo json_encode($result);
 

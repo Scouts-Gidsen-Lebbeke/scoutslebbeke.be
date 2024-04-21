@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="module" src="/node_modules/keycloak-js/dist/keycloak.js"></script>
+    <script src="/script/components.js"></script>
+    <script src="/script/shared.js"></script>
+    <script src="/script/editCalendarItem.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style/shared.css">
+    <link rel="stylesheet" href="/style/calendar.css">
+    <link rel="icon" href="/images/favicon.ico">
+    <title>Scouts & Gidsen Lebbeke</title>
+</head>
+<body>
+<header-component></header-component>
+<div id="content">
+    <h1>Bewerk item</h1>
+    <div class="loader"></div>
+    <form id="item-form" class="hidden">
+        <input type="number" id="item-id" name="id" hidden>
+        <input type="number" id="period-id" name="period" hidden>
+        <input type="number" id="calendar-id" name="calendar" hidden>
+        <div id="item-title-wrapper">
+            <label id="item-title-label" for="item-title">Titel</label>
+            <input type="text" id="item-title" name="title" title="Korte beschrijving van de activiteit" required><br/>
+        </div>
+        <div id="item-meta-wrapper">
+            <div id="item-period-wrapper">
+                <label for="item-from">Van</label>
+                <input type="datetime-local" id="item-from" name="from" title="Wanneer start de activiteit?" required>
+                <label for="item-to">tot</label>
+                <input type="datetime-local" id="item-to" name="to" title="Wanneer eindigt de activiteit?" required>
+            </div>
+            <div id="item-location-wrapper">
+                <label for="item-location">Locatie</label>
+                <select id="item-location" name="location" title="Waar vindt de activiteit plaats?" required>
+                    <option value="0">Scoutsterrein</option>
+                </select>
+                <input type="button" onclick="" value="+" disabled>
+            </div>
+            <div id="item-closed-wrapper">
+                <label for="item-closed" title="Is dit een beschrijving van wanneer er geen scouts is?">Geen werking</label>
+                <input type="checkbox" id="item-closed" name="closed" required>
+            </div>
+        </div>
+        <textarea id="item-content" rows="5" name="content" title="Lange beschrijving van de activiteit" required></textarea>
+        <label for="item-image">Afbeelding</label>
+        <input type="file" id="item-image" accept="image/*"><br/>
+        <input type="button" onclick="cancel()" value="Annuleer">
+        <input type="button" onclick="postItem()" value="Bewaar">
+    </form>
+    <span id="form-feedback"></span>
+</div>
+<footer-component></footer-component>
+</body>
+</html>
