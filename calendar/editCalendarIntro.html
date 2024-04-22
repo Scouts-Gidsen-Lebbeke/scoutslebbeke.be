@@ -7,6 +7,7 @@
     <script type="module" src="/node_modules/keycloak-js/dist/keycloak.js"></script>
     <script src="/script/components.js"></script>
     <script src="/script/shared.js"></script>
+    <script src="https://cdn.tiny.cloud/1/3zke4762j1cnv5l70ctyfbpncqoc7ztulh9sri9haivlajkw/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="/script/editCalendarIntro.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/style/shared.css">
@@ -21,7 +22,8 @@
     <div class="loader"></div>
     <form id="intro-form" class="hidden">
         <input type="number" id="id" name="id" hidden>
-        <textarea id="intro" rows="5" name="intro" title="Introductie voor deze kalender" required></textarea>
+        <div id="pre-intro" title="Introductie voor deze kalender"></div>
+        <textarea id="intro" rows="5" name="intro" required hidden></textarea>
         <input type="button" onclick="cancel()" value="Annuleer">
         <input type="button" onclick="postIntro()" value="Bewaar">
     </form>

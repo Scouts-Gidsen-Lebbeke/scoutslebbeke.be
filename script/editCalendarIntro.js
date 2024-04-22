@@ -1,3 +1,15 @@
+tinymce.init({
+    selector: 'div#pre-intro',
+    plugins: 'link code',
+    toolbar: 'undo redo | bold italic underline strikethrough subscript superscript | forecolor | link | code',
+    toolbar_mode: 'floating',
+    menubar: false,
+    tinycomments_mode: 'embedded',
+    height: 250,
+    content_css: '/style/editor.css',
+    automatic_uploads: false,
+});
+
 window.onload = function() {
     loadGlobal();
     requireLogin(d => {
@@ -13,7 +25,7 @@ function retrieveIntro() {
     const id = (new URL(document.location)).searchParams.get('id')
     tokenized(`/api/calendar/getById.php?id=${id}`).then(item => {
         $("#id").val(item.id)
-        $("#intro").val(item.intro)
+        tinymce.get("pre-intro").setContent(item.intro)
         $(".loader").hide()
         $("#intro-form").show()
     })
@@ -24,6 +36,7 @@ function cancel() {
 }
 
 function postIntro() {
+    $("#intro").val(tinymce.activeEditor.getContent());
     const form = document.querySelector("#intro-form");
     const formData = new FormData(form);
     fetch("/api/calendar/updateIntro.php", {

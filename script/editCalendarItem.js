@@ -1,3 +1,15 @@
+tinymce.init({
+    selector: 'div#item-pre-content',
+    plugins: 'link code',
+    toolbar: 'undo redo | bold italic underline strikethrough subscript superscript | forecolor | link | code',
+    toolbar_mode: 'floating',
+    menubar: false,
+    tinycomments_mode: 'embedded',
+    height: 250,
+    content_css: '/style/editor.css',
+    automatic_uploads: false,
+});
+
 window.onload = function() {
     loadGlobal();
     retrieveLocations()
@@ -37,7 +49,7 @@ function retrieveItem() {
         $("#item-to").val(item.toDate)
         $("#item-location").val(ifNotNull(item.location_id, 0))
         $("#item-closed").prop('checked', item.closed === "1")
-        $("#item-content").val(item.content)
+        tinymce.get("item-pre-content").setContent(item.content)
         $(".loader").hide()
         $("#item-form").show()
     })
@@ -48,6 +60,7 @@ function cancel() {
 }
 
 function postItem() {
+    $("#item-content").val(tinymce.activeEditor.getContent());
     const form = document.querySelector("#item-form");
     const formData = new FormData(form);
     fetch("/api/calendar/updateItem.php", {

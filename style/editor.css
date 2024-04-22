@@ -1,0 +1,19 @@
+body {
+    font-family: Georgia, Avenir, serif;
+    margin: auto;
+    text-align: center;
+    padding: 10px;
+    overflow-wrap: break-word;
+    background: white;
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+}
+p {
+    max-width: 700px;
+    margin: 0 auto 1rem;
+}

@@ -13,8 +13,6 @@ a {
     color: black;
     cursor: pointer;
 }
-header-component {
-}
 #header {
     top: 0;
     z-index: 2;
