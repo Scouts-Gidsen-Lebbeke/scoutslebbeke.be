@@ -25,7 +25,9 @@ function retrieveOutro() {
     const id = (new URL(document.location)).searchParams.get('id')
     tokenized(`/api/calendar/getById.php?id=${id}`).then(item => {
         $("#id").val(item.id)
-        tinymce.get("pre-outro").setContent(item.outro)
+        if (item.outro) {
+            tinymce.get("pre-outro").setContent(item.outro)
+        }
         $(".loader").hide()
         $("#outro-form").show()
     })

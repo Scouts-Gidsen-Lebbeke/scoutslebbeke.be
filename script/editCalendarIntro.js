@@ -25,7 +25,9 @@ function retrieveIntro() {
     const id = (new URL(document.location)).searchParams.get('id')
     tokenized(`/api/calendar/getById.php?id=${id}`).then(item => {
         $("#id").val(item.id)
-        tinymce.get("pre-intro").setContent(item.intro)
+        if (item.intro) {
+            tinymce.get("pre-intro").setContent(item.intro)
+        }
         $(".loader").hide()
         $("#intro-form").show()
     })
