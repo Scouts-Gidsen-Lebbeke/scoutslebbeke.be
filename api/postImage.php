@@ -1,4 +1,7 @@
 <?php
+require 'getInternalLogin.php';
+
+guardStaff();
 $result = new stdClass();
 $result->succes = false;
 try {

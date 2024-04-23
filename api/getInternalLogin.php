@@ -115,3 +115,12 @@ function normalizeMobile($mobile): ?string {
     }
     return null;
 }
+
+function guardStaff(): object {
+    $user = getUser(true);
+    if (!$user->level->isStaff()) {
+        header("HTTP/1.1 401 Unauthorized");
+        exit;
+    }
+    return $user;
+}
