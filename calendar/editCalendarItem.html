@@ -24,33 +24,41 @@
         <input type="number" id="item-id" name="id" hidden>
         <input type="number" id="period-id" name="period" hidden>
         <input type="number" id="calendar-id" name="calendar" hidden>
-        <div id="item-title-wrapper">
-            <label id="item-title-label" for="item-title">Titel</label>
-            <input type="text" id="item-title" name="title" title="Korte beschrijving van de activiteit" required><br/>
+        <input type="text" id="item-image" name="image" hidden>
+        <input id="item-image-upload" class="hidden" type="file" onchange="postBackground()" name="upfile" accept="image/*"><br/>
+        <div id="item-wrapper">
+        <div id="item-image-div" class="item-pic" onclick="toggleUpload()">
+            <img id="item-image-pic" class="item-pic" src="/images/no-image.png" alt="item-pic">
+            <img id="item-image-new-pic" class="item-pic" src="/images/add-photo.png" alt="item-pic">
         </div>
-        <div id="item-meta-wrapper">
-            <div id="item-period-wrapper">
-                <label for="item-from">Van</label>
-                <input type="datetime-local" id="item-from" name="from" title="Wanneer start de activiteit?" required>
-                <label for="item-to">tot</label>
-                <input type="datetime-local" id="item-to" name="to" title="Wanneer eindigt de activiteit?" required>
+        <div>
+            <div id="item-title-wrapper">
+                <label id="item-title-label" for="item-title">Titel</label>
+                <input type="text" id="item-title" name="title" title="Korte beschrijving van de activiteit" required><br/>
             </div>
-            <div id="item-location-wrapper">
-                <label for="item-location">Locatie</label>
-                <select id="item-location" name="location" title="Waar vindt de activiteit plaats?" required>
-                    <option value="0">Scoutsterrein</option>
-                </select>
-                <input type="button" onclick="" value="+" disabled>
+            <div id="item-meta-wrapper">
+                <div id="item-period-wrapper">
+                    <label for="item-from">Van</label>
+                    <input type="datetime-local" id="item-from" name="from" title="Wanneer start de activiteit?" required>
+                    <label for="item-to">tot</label>
+                    <input type="datetime-local" id="item-to" name="to" title="Wanneer eindigt de activiteit?" required>
+                </div>
+                <div id="item-location-wrapper">
+                    <label for="item-location">Locatie</label>
+                    <select id="item-location" name="location" title="Waar vindt de activiteit plaats?" required>
+                        <option value="0">Scoutsterrein</option>
+                    </select>
+                    <input type="button" onclick="" value="+" disabled>
+                </div>
+                <div id="item-closed-wrapper">
+                    <label for="item-closed" title="Is dit een beschrijving van wanneer er geen scouts is?">Geen werking</label>
+                    <input type="checkbox" id="item-closed" name="closed" required>
+                </div>
             </div>
-            <div id="item-closed-wrapper">
-                <label for="item-closed" title="Is dit een beschrijving van wanneer er geen scouts is?">Geen werking</label>
-                <input type="checkbox" id="item-closed" name="closed" required>
-            </div>
+            <div id="item-pre-content" title="Lange beschrijving van de activiteit"></div>
+            <textarea id="item-content" rows="5" name="content" required hidden></textarea>
         </div>
-        <div id="item-pre-content" title="Lange beschrijving van de activiteit"></div>
-        <textarea id="item-content" rows="5" name="content" required hidden></textarea>
-        <label for="item-image">Afbeelding</label>
-        <input type="file" id="item-image" accept="image/*"><br/>
+        </div>
         <input type="button" onclick="cancel()" value="Annuleer">
         <input type="button" onclick="postItem()" value="Bewaar">
     </form>

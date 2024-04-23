@@ -50,10 +50,31 @@ function retrieveItem() {
         $("#item-to").val(item.toDate)
         $("#item-location").val(ifNotNull(item.location_id, 0))
         $("#item-closed").prop('checked', item.closed === "1")
+        $("#item-image-pic").attr("src", `/uploads/calendar/${item.image}`);
         tinymce.get("item-pre-content").setContent(item.content)
         $(".loader").hide()
         $("#item-form").show()
     })
+}
+
+function toggleUpload() {
+    $("#item-image-upload").trigger("click")
+}
+
+function postBackground() {
+    const form = new FormData(document.querySelector('#item-form'));
+    fetch("/api/postImage.php?dir=calendar", {
+        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
+        method: "POST",
+        body: form
+    }).then(response => response.json()).then(data => {
+        if (data.succes) {
+            $("#item-image").val(data.name)
+            $("#item-image-pic").attr("src", data.location);
+        } else {
+            $("#form-feedback").html(data.message);
+        }
+    });
 }
 
 function cancel() {
