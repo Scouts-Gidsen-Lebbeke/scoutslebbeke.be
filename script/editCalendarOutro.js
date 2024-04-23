@@ -1,9 +1,10 @@
 tinymce.init({
     selector: 'div#pre-outro',
-    plugins: 'link code',
-    toolbar: 'undo redo | bold italic underline strikethrough subscript superscript | forecolor | link | code',
+    plugins: 'link code paste emoticons',
+    toolbar: 'undo redo | bold italic underline strikethrough subscript superscript | forecolor | link emoticons | code',
     toolbar_mode: 'floating',
     menubar: false,
+    paste_as_text: true,
     tinycomments_mode: 'embedded',
     height: 250,
     content_css: '/style/editor.css',
