@@ -63,7 +63,7 @@ function toggleUpload() {
     $("#item-image-upload").trigger("click")
 }
 
-function postBackground() {
+function postImage() {
     const form = new FormData(document.querySelector('#item-form'));
     fetch("/api/postImage.php?dir=calendar", {
         headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),

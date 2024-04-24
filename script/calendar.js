@@ -52,7 +52,7 @@ function loadCalendar() {
             let to = new Date(Date.parse(item.toDate));
             calendarGroup +=
                 `<div class="calendar-item ${to < new Date() ? 'passed' : ''}" id="calendar-item-${item.id}">
-                    ${item.image ? `<img class="calendar-item-image" src="/uploads/calendar/${item.image}" alt="${item.image}" onclick="editItem(${item.id})">` : ''}
+                    ${item.image ? `<img class="calendar-item-image" src="/images/calendar/${item.image}" alt="${item.image}" onclick="editItem(${item.id})">` : ''}
                     <div class="calendar-item-content">
                         <h2 class="calendar-item-title">
                             ${item.title}
