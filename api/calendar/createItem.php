@@ -1,6 +1,6 @@
 <?php
 require "../getInternalLogin.php";
-getUser(true);
+guardStaff();
 $id = $_GET['id'];
 $succes = mysqli_query($connection, "insert into calendar_item values (null, now(), now(), 'Titel', 'Inhoud', null, null, '$id', 0, null, null)");
 if ($succes) {

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="module" src="/node_modules/keycloak-js/dist/keycloak.js"></script>
+    <script src="/script/components.js"></script>
+    <script src="/script/shared.js"></script>
+    <script src="https://cdn.tiny.cloud/1/3zke4762j1cnv5l70ctyfbpncqoc7ztulh9sri9haivlajkw/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="/script/editNews.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style/shared.css">
+    <link rel="stylesheet" href="/style/news.css">
+    <link rel="icon" href="/images/favicon.ico">
+    <title>Scouts & Gidsen Lebbeke</title>
+</head>
+<body>
+<header-component></header-component>
+<div id="content">
+    <h1>Bewerk nieuwtje</h1>
+    <div class="loader"></div>
+    <form id="news-form" class="hidden">
+        <input type="number" id="news-id" name="id" hidden>
+        <input type="text" id="news-image" name="image" hidden>
+        <input id="news-image-upload" class="hidden" type="file" onchange="postImage()" name="upfile" accept="image/*"><br/>
+        <div id="news-wrapper">
+            <div id="news-image-div" class="news-pic" onclick="toggleUpload()">
+                <img id="news-image-pic" class="news-pic" src="/images/no-image.png" alt="news-pic">
+                <img id="news-image-new-pic" class="news-pic" src="/images/add-photo.png" alt="news-pic">
+            </div>
+            <div>
+                <div id="news-title-wrapper">
+                    <label id="news-title-label" for="news-title">Titel</label>
+                    <input type="text" id="news-title" name="title" title="Korte beschrijving van de activiteit" required>
+                    <label for="news-visible" title="Is dit nieuwtje zichtbaar?">Zichtbaar</label>
+                    <input type="checkbox" id="news-visible" name="visible" required><br/>
+                </div>
+                <div id="news-pre-content" title="Beschrijving van het nieuwtje"></div>
+                <textarea id="news-content" rows="5" name="content" required hidden></textarea>
+            </div>
+        </div>
+        <input type="button" onclick="cancel()" value="Annuleer">
+        <input type="button" onclick="postNews()" value="Bewaar">
+    </form>
+    <span id="form-feedback"></span>
+</div>
+<footer-component></footer-component>
+</body>
+</html>

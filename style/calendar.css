@@ -86,12 +86,6 @@
 #item-content, #intro, #outro {
     width: 100%
 }
-.edit-icon {
-    position: relative;
-    top: -3px;
-    width: 16px;
-    cursor: pointer;
-}
 .passed, .staff {
     display: none;
 }

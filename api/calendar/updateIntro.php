@@ -1,8 +1,8 @@
 <?php
 require "../getInternalLogin.php";
+guardStaff();
 $result = new stdClass();
 try {
-    getUser(true);
     $id = $_POST['id'];
     if (empty($id)) {
         throw new InvalidArgumentException("Er liep iets mis bij het ophalen van de kalender!");

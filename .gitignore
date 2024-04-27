@@ -7,3 +7,4 @@
 /images/background/*
 !/images/background/default.jpg
 /script/keycloak.json
+/images/news/*

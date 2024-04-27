@@ -1,8 +1,8 @@
 <?php
 require "../getInternalLogin.php";
+guardStaff();
 $result = new stdClass();
 try {
-    getUser(true);
     $id = $_POST['id'];
     $calendar_id = $_POST['calendar'];
     $title = $_POST['title'];
