@@ -51,7 +51,7 @@ function retrieveItem() {
         $("#item-location").val(ifNotNull(item.location_id, 0))
         $("#item-closed").prop('checked', item.closed === "1")
         if (item.image) {
-            $("#item-image-pic").attr("src", `/uploads/calendar/${item.image}`);
+            $("#item-image-pic").attr("src", `/images/calendar/${item.image}`);
         }
         tinymce.get("item-pre-content").setContent(item.content)
         $(".loader").hide()
