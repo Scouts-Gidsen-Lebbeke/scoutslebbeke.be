@@ -50,6 +50,7 @@ function retrieveItem() {
         $("#item-to").val(item.toDate)
         $("#item-location").val(ifNotNull(item.location_id, 0))
         $("#item-closed").prop('checked', item.closed === "1")
+        $("#item-image").val(item.image)
         if (item.image) {
             $("#item-image-pic").attr("src", `/images/calendar/${item.image}`);
         }
