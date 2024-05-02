@@ -5,7 +5,7 @@ $result = new stdClass();
 try {
     $id = $_POST['id'];
     $calendar_id = $_POST['calendar'];
-    $title = $_POST['title'];
+    $title = mysqli_real_escape_string($connection, $_POST['title']);
     if (empty($title)) {
         throw new InvalidArgumentException("Een titel is verplicht!");
     }
@@ -23,7 +23,7 @@ try {
     $location = $_POST['location'];
     $location = !empty($location) ? "'$location'" : "NULL";
     $closed = @$_POST['closed'] == 'on';
-    $content = $_POST['content'];
+    $content = mysqli_real_escape_string($connection, $_POST['content']);
     $image = $_POST['image'];
     $image = !empty($image) ? "'$image'" : "NULL";
     if (empty($content)) {
