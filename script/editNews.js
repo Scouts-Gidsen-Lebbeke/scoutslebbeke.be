@@ -36,6 +36,7 @@ function retrieveNews() {
         $("#news-id").val(news.id)
         $("#news-title").val(news.title)
         $("#news-visible").prop('checked', news.visible === "1")
+        $("#news-image").val(news.image)
         if (news.image) {
             $("#news-image-pic").attr("src", `/images/news/${news.image}`);
         }
