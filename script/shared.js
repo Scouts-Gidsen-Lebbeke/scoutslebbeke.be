@@ -203,3 +203,18 @@ function ifNotNull(i, orElse = "") {
 function ifNotNullOrEmpty(i, orElse = "") {
     return (i == null || i === "") ? orElse : i;
 }
+
+function printDeadline(dateString) {
+    let date = new Date(Date.parse(dateString));
+    return date.toLocaleDateString('nl-BE', { weekday: 'long', month: 'numeric', day: 'numeric' })
+}
+
+function sanitizeData(data) {
+    let obj = Object.fromEntries(data)
+    for(const prop in obj){
+        if(obj.hasOwnProperty(prop) && obj[prop] !== null && !isNaN(obj[prop])){
+            obj[prop] = +obj[prop];
+        }
+    }
+    return JSON.parse(JSON.stringify(obj));
+}

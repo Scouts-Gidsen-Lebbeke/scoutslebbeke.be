@@ -50,6 +50,10 @@ function fetchSglUserById($id): ?object {
     return callAPI("lid/".$id, true);
 }
 
+function fetchUserMedics($id): ?object {
+    return callAPI("lid/".$id."/steekkaart", true);
+}
+
 function fetchUser($sgl_id): ?object {
     global $connection;
     if ($sgl_id == null) return null;

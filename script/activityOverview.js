@@ -46,7 +46,7 @@ function retrieveActivity() {
                     <td>${s.name}</td>
                     <td>${s.branch_name}</td>
                     <td>€ ${s.price}</td>
-                    <td><input type="checkbox" onclick="markPresent(this.checked, '${s.id}', '${s.user_id}')" ${s.present === "1" ? "checked" : ""}></td>
+                    <td><input id="${s.user_id}-present" type="checkbox" onclick="markPresent(this.checked, '${s.id}', '${s.user_id}')" ${s.present === "1" ? "checked" : ""}></td>
                 </tr>`
             )
         })
@@ -54,8 +54,11 @@ function retrieveActivity() {
     })
 }
 
-function markPresent(present, activityId, userId) {
-    tokenized(`/api/activity/markPresent.php?activityId=${activityId}&userId=${userId}&present=${present}`).then(d => {
-
+function markPresent(present, activityId, memberId) {
+    tokenized(`/api/activity/markPresent.php?activityId=${activityId}&memberId=${memberId}&present=${present}`).then(result => {
+        if (result.error) {
+            alert(result.error)
+            $(`#${memberId}-present`).prop('checked', !present);
+        }
     })
 }

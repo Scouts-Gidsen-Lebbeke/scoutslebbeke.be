@@ -44,7 +44,7 @@ burger-component {
     stroke-dashoffset: -134;
     stroke-width: 6;
 }
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1100px) {
     burger-component {
         display: block;
     }

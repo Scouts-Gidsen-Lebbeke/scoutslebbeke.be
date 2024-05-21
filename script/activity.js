@@ -27,11 +27,6 @@ function initActivity(id) {
     });
 }
 
-function printDeadline(dateString) {
-    let date = new Date(Date.parse(dateString));
-    return date.toLocaleDateString('nl-BE', { weekday: 'long', month: 'numeric', day: 'numeric' })
-}
-
 function checkAdmin(user, activityId) {
     if (user.level > 2) {
         $("#activity-admin").show();

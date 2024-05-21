@@ -29,22 +29,12 @@ function checkSubscriptionState(activityId, memberId) {
                 let total_price = additional_price + Number(result.options.find(o => o.id === chosen_option).price);
                 $("#activity-price-field").val(total_price);
                 $("#activity-price").text(`€ ${total_price}`);
-            } );
+            });
             $("#options input:radio:first").attr('checked', true).trigger("change");
             $("#subscribe-button").click(() => subscribe(result.activity.id))
             $("#subscription-block").show()
         }
     })
-}
-
-function sanitizeData(data) {
-    let obj = Object.fromEntries(data)
-    for(const prop in obj){
-        if(obj.hasOwnProperty(prop) && obj[prop] !== null && !isNaN(obj[prop])){
-            obj[prop] = +obj[prop];
-        }
-    }
-    return JSON.parse(JSON.stringify(obj));
 }
 
 function finishPayment(id) {

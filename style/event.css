@@ -1,4 +1,4 @@
-#activity-details {
+#event-details {
     color: dimgray;
     display: flex;
     justify-content: center;
@@ -6,27 +6,28 @@
     align-items: center;
     margin-bottom: 10px;
 }
-#activity-details a {
+#event-details a {
     color: dimgray;
 }
 .span-icon {
     height: 16px;
     margin-right: 5px;
 }
-.activity-marker {
+.event-marker {
     margin-left: 10px;
-}
-.branch-icon {
-    max-width: 24px;
-    max-height: 24px;
-    margin-right: 5px;
 }
 #subscribe-button {
     margin: auto 5px 10px;
 }
-#subscription-block, #activity-admin, #multiple-options {
+#event-admin, #confirmation {
     display: none;
 }
-#subscription-form input, #activity-admin button {
-    margin: 4px;
+#registration-form input, #registration-form textarea, #event-admin button {
+    margin: auto 15px auto 4px;
+}
+#registration-feedback {
+    color: red;
+}
+#registration-form input[type=number] {
+    width: 50px;
 }
