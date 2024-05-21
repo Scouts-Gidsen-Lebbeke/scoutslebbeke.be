@@ -44,6 +44,7 @@ function getSubscriptionState($member, $user): stdClass {
                     throw new InvalidArgumentException("Deze activiteit is niet voor jouw tak!");
                 }
             }
+//            $siblings = mysqli_fetch_array($connection->query("select * from sibling_relation s inner join activity_registration r on s.user_id = '$member->id' or s.sibling_user_id = '$member->id' where r."))
             foreach ($activity_restrictions as $option) {
                 $option->price = getPrice($option, $activity, $member);
             }
