@@ -27,3 +27,6 @@
 #subscription-block, #activity-admin, #multiple-options {
     display: none;
 }
+#subscription-form input, #activity-admin button {
+    margin: auto 4px;
+}

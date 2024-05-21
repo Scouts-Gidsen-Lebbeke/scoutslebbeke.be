@@ -95,18 +95,33 @@ function mailto(location) {
     }
 }
 
-async function tokenized(url, optional = false) {
+async function tokenized(url, optional = false, abort = null) {
     if (!kc.token && optional) {
-        return fetch(url).then(data => data.json());
+        if (abort) {
+            return fetch(url, { signal: abort.signal }).then(data => data.json());
+        } else {
+            return fetch(url).then(data => data.json());
+        }
     }
     await kc.updateToken(30);
     if (kc.token) {
-        return fetch(url, {
-            headers: new Headers({ 'Authorization': `Bearer ${kc.token}` })
-        }).then(data => data.json());
+        if (abort) {
+            return fetch(url, {
+                headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
+                signal: abort.signal
+            }).then(data => data.json());
+        } else {
+            return fetch(url, {
+                headers: new Headers({ 'Authorization': `Bearer ${kc.token}` })
+            }).then(data => data.json());
+        }
     }
     if (optional) {
-        return fetch(url).then(data => data.json());
+        if (abort) {
+            return fetch(url, { signal: abort.signal }).then(data => data.json());
+        } else {
+            return fetch(url).then(data => data.json());
+        }
     }
     return null;
 }

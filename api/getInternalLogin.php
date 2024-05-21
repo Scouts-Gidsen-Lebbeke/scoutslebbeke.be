@@ -27,18 +27,27 @@ function getBearerToken(): ?string {
     return null;
 }
 
-function fetchSglUser($withExit): ?object {
+function callAPI($path, $withExit = false) {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_HTTPHEADER, array("Authorization: Bearer ".getBearerToken()));
-    curl_setopt($ch, CURLOPT_URL, "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/lid/profiel");
+    curl_setopt($ch, CURLOPT_URL, "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/".$path);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $sgl_user = json_decode(curl_exec($ch));
+    $result = json_decode(curl_exec($ch));
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
-    if (is_null($sgl_user) && $withExit) {
+    if ($http_code === "401" && $withExit) {
         header("HTTP/1.1 401 Unauthorized");
         exit;
     }
-    return $sgl_user;
+    return $result;
+}
+
+function fetchSglUser($withExit): ?object {
+    return callAPI("lid/profiel", $withExit);
+}
+
+function fetchSglUserById($id): ?object {
+    return callAPI("lid/".$id, true);
 }
 
 function fetchUser($sgl_id): ?object {
@@ -48,14 +57,28 @@ function fetchUser($sgl_id): ?object {
     $user->roles = fetchRoles($user->id);
     $user->level = highest_level(array_map(fn ($r): int => $r->level, $user->roles));
     // A user should at all time only have assigned a single valid branch
-    $branch_role = array_values(array_filter($user->roles, fn($r) => $r->branch_id != null))[0];
-    $user->branch = $branch_role->branch_id;
-    $user->staff_branch = mysqli_fetch_column($connection->query("select id from branch where staff_role_id = '$branch_role->id'"));
+    $branch_role = array_values(array_filter($user->roles, fn($r) => $r->branch_id != null));
+    $user->branch = null;
+    $user->staff_branch = null;
+    if (!empty($branch_role)) {
+        $user->branch = $branch_role[0]->branch_id;
+        $branch_id = $branch_role[0]->id;
+        $user->staff_branch = mysqli_fetch_column($connection->query("select id from branch where staff_role_id = '$branch_id'"));
+    }
     return $user;
 }
 
 function getUser($withExit = false, $forceUpdate = false): ?object {
     $sgl_user = fetchSglUser($withExit);
+    if ($sgl_user == null) return null;
+    if ($forceUpdate || !userExists($sgl_user->id)) {
+        return updateUser($sgl_user);
+    }
+    return fetchUser($sgl_user->id);
+}
+
+function getUserById($id, $forceUpdate = false): ?object {
+    $sgl_user = fetchSglUserById($id);
     if ($sgl_user == null) return null;
     if ($forceUpdate || !userExists($sgl_user->id)) {
         return updateUser($sgl_user);

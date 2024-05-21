@@ -4,37 +4,59 @@ require 'init_mollie.php';
 
 $result = new stdClass();
 try {
-    $user = getUser(true, true);
-    $state = getSubscriptionState($user);
+    if (!empty($_POST['memberId'])) {
+        $user = guardStaff();
+        $member = getUserById($_POST['memberId']);
+    } else {
+        $user = getUser();
+        $member = $user;
+    }
+    $as_staff = $member->id != $user->id;
+    $state = getSubscriptionState($member, $user);
     if ($state->error ?? false) {
         throw new InvalidArgumentException($state->error);
     } else if ($state->registration ?? false) {
-        throw new InvalidArgumentException("Je bent reeds ingeschreven voor deze activiteit!");
+        if ($as_staff) {
+            $result->registration->feedback = $member->first_name." is reeds ingeschreven voor deze activiteit.";
+        } else {
+            $result->registration->feedback = "Je bent reeds ingeschreven voor deze activiteit.";
+        }
     } else if ($state->open_subscription ?? false) {
         throw new InvalidArgumentException("De inschrijvingen voor deze activiteit zijn nog niet geopend!");
     }
     $activity = $state->activity;
-    $activity_restriction_id = $_GET['option'];
+    $activity_restriction_id = $_POST['option'];
     if ($activity_restriction_id == null) {
-        throw new InvalidArgumentException("Je hebt geen geldige optie opgegeven bij de inschrijving!");
+        throw new InvalidArgumentException("Er werd geen geldige optie opgegeven bij de inschrijving!");
     }
     $options = $state->options;
     $chosen_option = array_values(array_filter($options, fn($o) => $o->id == $activity_restriction_id));
     if (empty($chosen_option)) {
-        throw new InvalidArgumentException("Je hebt geen geldige optie opgegeven bij de inschrijving!");
+        throw new InvalidArgumentException("Er werd geen geldige optie opgegeven bij de inschrijving!");
     }
-    $connection->query("insert into activity_registration values (null, '$activity->id', '$user->id', now(), 'open', null)");
+    $price = double($_POST['price']);
+    if ($price < double($chosen_option[0]->price)) {
+        throw new InvalidArgumentException("De inschrijvingsprijs kan niet lager zijn dan de basisprijs van de gekozen optie!");
+    }
+    $data = json_encode($_POST);
+    if ($as_staff) {
+        $redirect = "/activity/staffSubscription.html?id=".$activity->id."&memberId=".$member->sgl_id."&payment_return=true";
+    } else {
+        $redirect = "/activity.html?id=".$activity->id."&payment_return=true";
+    }
+    $connection->query("insert into activity_registration values (null, '$activity->id', '$member->id', now(), 'open', null, $price, '$data')");
     $order_id = $connection->insert_id;
     $payment = $mollie->payments->create([
         "amount" => [
             "currency" => "EUR",
-            "value" => double($chosen_option[0]->price)
+            "value" => $price
         ],
         "description" => $activity->name,
-        "redirectUrl" => $config["SERVER_URL"] . "/activity.html?id=" . $activity->id . "&payment_return=true",
-        "webhookUrl" => $config["NGROK_URL"] . "/api/updatePayment.php",
+        "redirectUrl" => $config["SERVER_URL"].$redirect,
+        "webhookUrl" => $config["NGROK_URL"]."/api/updatePayment.php",
         "metadata" => [
             "order_id" => $order_id,
+            "member_id" => $member->id,
             "user_id" => $user->id
         ]
     ]);

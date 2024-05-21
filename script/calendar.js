@@ -36,10 +36,16 @@ function loadCalendar() {
         return;
     }
     let branchId = $("#calendar-branches").val();
-    if (branchId == 0) {
+    if (branchId === 0) {
         $("#calendars").html("Selecteer hierboven een tak om te zien wat we de komende maanden voor jou in petto hebben!");
         return;
     }
+    //let params = (new URL(document.location)).searchParams
+    //params.set('periodId', periodId);
+    //params.set('branchId', branchId);
+    //window.location.search
+    //history.pushState({search: })
+
     $("#calendars").html(`<div class="loader"></div>`)
     tokenized(`/api/calendar/getByBranch.php?branch=${branchId}&period=${periodId}`, true).then((calendar) => {
         if (!calendar) {

@@ -1,0 +1,32 @@
+window.onload = function() {
+    loadGlobal();
+    const params = (new URL(document.location)).searchParams;
+    const activityId = params.get('id')
+    $("#member-id").on("change", () => {
+        checkSubscriptionState(activityId, $("#member-id").val())
+    })
+    requireLogin(d => {
+        if (d.level > 2) {
+            loadProfile(d)
+            const memberId = params.get('memberId')
+            if (memberId) {
+                $("#member-id").val(memberId).change()
+            }
+        } else {
+            window.location = "/403.html";
+        }
+    });
+    initActivity(activityId);
+};
+
+function initActivity(id) {
+    fetch(`/api/getActivity.php?id=${id}`).then(data => data.json()).then(activity => {
+        $("#activity-name").html(activity.name);
+    });
+}
+
+function returnToActivity() {
+    const params = (new URL(document.location)).searchParams;
+    const activityId = params.get('id')
+    window.location = "/activity.html?id=" + activityId;
+}
