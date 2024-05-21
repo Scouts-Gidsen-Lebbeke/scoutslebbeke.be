@@ -23,11 +23,17 @@
     display: none;
 }
 #registration-form input, #registration-form textarea, #event-admin button {
-    margin: auto 15px auto 4px;
+    margin: auto 10px auto 4px;
 }
 #registration-feedback {
     color: red;
 }
-#registration-form input[type=number] {
+#additional-form input[type=number] {
     width: 50px;
+}
+#additional-form-title {
+    margin-top: 10px;
+}
+.event-field {
+    display: inline-block;
 }
