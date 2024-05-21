@@ -12,7 +12,7 @@ window.onload = function() {
 };
 
 function initActivity(id) {
-    fetch(`/api/getActivity.php?id=${id}`).then(data => data.json()).then(activity => {
+    fetch(`/api/activity/getActivity.php?id=${id}`).then(data => data.json()).then(activity => {
         $("#activity-name").html(activity.name);
         $("#activity-when").text(periodToTitle(new Date(Date.parse(activity.start)), new Date(Date.parse(activity.end))))
         $("#activity-location").html(locationToTitle(activity.location, true))
@@ -36,7 +36,7 @@ function checkAdmin(user, activityId) {
     if (user.level > 2) {
         $("#activity-admin").show();
         $("#overview-button").on("click", function(){
-            window.location = "activityOverview.html?id=" + activityId;
+            window.location = "/activity/activityOverview.html?id=" + activityId;
         });
         $("#staff-subscription-button").on("click", function(){
             window.location = "/activity/staffSubscription.html?id=" + activityId;

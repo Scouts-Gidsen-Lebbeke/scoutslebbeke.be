@@ -3,7 +3,7 @@ function checkSubscriptionState(activityId, memberId) {
     $("#subscription-feedback").empty();
     $("#subscription-block").hide();
     if (!memberId) return
-    tokenized(`/api/getSubscriptionState.php?id=${activityId}&memberId=${memberId}`).then(result => {
+    tokenized(`/api/activity/getSubscriptionState.php?id=${activityId}&memberId=${memberId}`).then(result => {
         if (result == null) return; // user is not logged in, keep original feedback
         $("#subscription-disabled").hide();
         if (result.error != null) {
@@ -62,7 +62,7 @@ function finishPayment(id) {
 function subscribe(id) {
     $("#subscribe-button").prop("disabled", true);
     const form = new FormData(document.querySelector("#subscription-form"));
-    fetch(`/api/subscribe.php?id=${id}`, {
+    fetch(`/api/activity/subscribe.php?id=${id}`, {
         headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
         method: "POST",
         body: form

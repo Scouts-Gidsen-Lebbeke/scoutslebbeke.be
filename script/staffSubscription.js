@@ -27,6 +27,5 @@ function initActivity(id) {
 
 function returnToActivity() {
     const params = (new URL(document.location)).searchParams;
-    const activityId = params.get('id')
-    window.location = "/activity.html?id=" + activityId;
+    window.location = "/activity.html?id=" + params.get('id');
 }

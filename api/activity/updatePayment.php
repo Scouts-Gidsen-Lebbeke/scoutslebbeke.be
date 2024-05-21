@@ -1,9 +1,9 @@
 <?php
 use Mollie\Api\Exceptions\ApiException;
 
-require "init_mollie.php";
-require "connect.php";
-require 'init_mail.php';
+require "../init_mollie.php";
+require "../connect.php";
+require '../init_mail.php';
 
 try {
     $payment = $mollie->payments->get($_POST["id"]);

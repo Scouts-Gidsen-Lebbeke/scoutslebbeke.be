@@ -1,5 +1,5 @@
 <?php
-require 'getInternalLogin.php';
+require '../getInternalLogin.php';
 
 function getSubscriptionState($member, $user): stdClass {
     global $connection;

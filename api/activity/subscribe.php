@@ -1,6 +1,6 @@
 <?php
 require 'init_subscription.php';
-require 'init_mollie.php';
+require '../init_mollie.php';
 
 $result = new stdClass();
 try {
@@ -53,7 +53,7 @@ try {
         ],
         "description" => $activity->name,
         "redirectUrl" => $config["SERVER_URL"].$redirect,
-        "webhookUrl" => $config["NGROK_URL"]."/api/updatePayment.php",
+        "webhookUrl" => $config["NGROK_URL"]."/api/activity/updatePayment.php",
         "metadata" => [
             "order_id" => $order_id,
             "member_id" => $member->id,
