@@ -15,5 +15,7 @@ try {
     $result->success = mysqli_query($connection, "update activity_registration set present = '$present' where user_id = '$member_id' and activity_id = '$activity_id'");
 } catch (Exception $e) {
     $result->error = $e->getMessage();
+} finally {
+    $connection->close();
 }
 echo json_encode($result);

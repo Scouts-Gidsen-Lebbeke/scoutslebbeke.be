@@ -218,3 +218,36 @@ function sanitizeData(data) {
     }
     return JSON.parse(JSON.stringify(obj));
 }
+
+function parseAdditionalData(data) {
+    if (!data) {
+        return "";
+    }
+    let jsonData = JSON.parse(data);
+    return Object.keys(jsonData).map(key => `<td class="hidden ${key}-column">${jsonData[key]}</td>`).join("")
+}
+
+
+function exportTableToExcel(tableID, filename = 'output.xlsx'){
+    let tableSelect = document.getElementById(tableID);
+    let rows = tableSelect.rows;
+    let exportData = [];
+    for (let i = 0; i < rows.length; i++) {
+        let row = [], cols = rows[i].cells;
+        for (let j = 0; j < cols.length; j++) {
+            if (window.getComputedStyle(cols[j]).display !== 'none') {
+                row.push(cols[j].innerText);
+            }
+        }
+        exportData.push(row);
+    }
+    let worksheet = XLSX.utils.aoa_to_sheet(exportData);
+    let workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+    let excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    let blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+    let downloadLink = document.createElement("a");
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = filename ? filename : 'excel_data.xlsx';
+    downloadLink.click();
+}

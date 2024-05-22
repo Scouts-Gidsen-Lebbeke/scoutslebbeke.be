@@ -32,25 +32,45 @@ async function loadActivities() {
 
 function retrieveActivity() {
     let id = $("#activities").val(), branch = $("#branches").val()
-    $("#subscription-overview tr:not(:first)").remove();
+    $("#export-button").prop('disabled', true);
+    $("#overview-table tbody").empty();
+    $(".additional").remove();
     if (id === "0") return
-    $("#subscription-loader").show()
-    tokenized(`/api/activity/getActivityOverview.php?id=${id}&branch=${branch}`).then(subscriptions => {
-        let index = 0;
-        subscriptions.forEach(s => {
-            index++;
-            $('#subscription-overview tr:last').after(
+    $("#overview-loader").show()
+    tokenized(`/api/activity/getActivityOverview.php?id=${id}&branch=${branch}`).then(result => {
+        result.forEach((s, i) => {
+            $('#overview-table tbody').append(
                 `<tr>
-                    <td>${index}</td>
+                    <td>${i + 1}</td>
                     <td>${s.first_name}</td>
                     <td>${s.name}</td>
-                    <td>${s.branch_name}</td>
-                    <td>€ ${s.price}</td>
-                    <td><input id="${s.user_id}-present" type="checkbox" onclick="markPresent(this.checked, '${s.id}', '${s.user_id}')" ${s.present === "1" ? "checked" : ""}></td>
+                    <td class="branch-column">${s.branch_name}</td>
+                    <td class="price-column">€ ${s.price}</td>
+                    <td class="present-column"><input id="${s.user_id}-present" type="checkbox" onclick="markPresent(this.checked, '${s.id}', '${s.user_id}')" ${s.present === "1" ? "checked" : ""}></td>
+                    ${parseAdditionalData(s.additional_data)}
                 </tr>`
             )
         })
-        $("#subscription-loader").hide()
+        if (result.length !== 0) {
+            let data = result[0].additional_data;
+            if (data) {
+                Object.keys(JSON.parse(data)).forEach(d => {
+                    $('#overview-table thead tr').append(`<th class="additional ${d}-column hidden">${capitalize(d)}</th>`)
+                    $("#checks").append(`
+                        <div class="additional">
+                            <input type="checkbox" id="${d}-column" onclick="toggleVisible(this)">
+                            <label for="${d}-column">${capitalize(d)}</label>
+                        </div>
+                    `)
+                    let sum = sumTableValues(`${d}-column`)
+                    $('#overview-table tfoot tr').append(`<th class="additional ${d}-column hidden">${sum !== -1 ? sum : ""}</th>`)
+                })
+            }
+            let sum = sumTableValues("price-column")
+            $("#price-total").html(`€ ${sum}`)
+        }
+        $("#overview-loader").hide()
+        $("#export-button").prop('disabled', false);
     })
 }
 
@@ -61,4 +81,24 @@ function markPresent(present, activityId, memberId) {
             $(`#${memberId}-present`).prop('checked', !present);
         }
     })
+}
+
+function toggleVisible(cb) {
+    $(`.${cb.id}`).toggle()
+}
+
+function sumTableValues(id) {
+    let sum = -1;
+    $("#overview-table tbody tr").each(function() {
+        $(this).find(`.${id}`).each(function() {
+            let numericValue = parseFloat($(this).text().replace("€ ", ""));
+            if (!isNaN(numericValue)) {
+                if (sum === -1) {
+                    sum = 0;
+                }
+                sum += numericValue;
+            }
+        });
+    });
+    return sum;
 }

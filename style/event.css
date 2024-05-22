@@ -37,3 +37,11 @@
 .event-field {
     display: inline-block;
 }
+#checks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+#checks div {
+    margin: auto 10px;
+}

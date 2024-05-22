@@ -12,3 +12,4 @@ if ($user == null) {
 } else {
     echo json_encode(getSubscriptionState($member, $user));
 }
+$connection->close();

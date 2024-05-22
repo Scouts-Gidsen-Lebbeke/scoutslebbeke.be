@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.17.0/dist/xlsx.full.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script type="module" src="/node_modules/keycloak-js/dist/keycloak.js"></script>
     <script src="/script/jquery.dform-1.1.0.min.js"></script>
@@ -24,18 +25,34 @@
     <select name="events" id="events" onchange="retrieveEvent(value)">
         <option value="0" selected>(geen)</option>
     </select>
-    <table class="table table-striped" id="registration-overview">
+    <h3>Lijst</h3>
+    <div id="checks">
+        <div>
+            <input type="checkbox" id="price-column" onclick="toggleVisible(this)" checked>
+            <label for="price-column">Prijs</label>
+        </div>
+    </div>
+    <table class="table table-striped" id="overview-table">
         <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Voornaam</th>
-            <th scope="col">Naam</th>
-            <th scope="col">Prijs</th>
-        </tr>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Voornaam</th>
+                <th scope="col">Naam</th>
+                <th scope="col" class="price-column">Prijs</th>
+            </tr>
         </thead>
         <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th class="price-column" id="price-total"></th>
+            </tr>
+        </tfoot>
     </table>
-    <div id="registration-loader" class="loader hidden"></div>
+    <div id="overview-loader" class="loader hidden"></div>
+    <button id="export-button" onclick="exportTableToExcel('overview-table', 'overzicht.xlsx')" disabled>Exporteer</button>
 </div>
 <footer-component></footer-component>
 </body>

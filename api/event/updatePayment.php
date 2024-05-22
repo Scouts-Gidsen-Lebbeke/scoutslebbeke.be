@@ -22,4 +22,6 @@ try {
     }
 } catch (ApiException $e) {
     echo "API call failed: " . htmlspecialchars($e->getMessage());
+} finally {
+    $connection->close();
 }
