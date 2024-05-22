@@ -17,15 +17,19 @@ try {
     if ($first_name == null) {
         throw new InvalidArgumentException("Gelieve een geldige voornaam op te geven!");
     }
+    unset($_POST['first-name']);
     $last_name = $_POST['last-name'];
     if ($last_name == null) {
         throw new InvalidArgumentException("Gelieve een geldige achternaam op te geven!");
     }
+    unset($_POST['last-name']);
     $email = $_POST['email'];
     if ($email == null) {
         throw new InvalidArgumentException("Gelieve een geldig e-mailadres op te geven!");
     }
+    unset($_POST['email']);
     $price = double($_POST['price']);
+    unset($_POST['price']);
     $data = json_encode($_POST);
     $connection->query("insert into event_registration values (null, '$event->id', '$first_name', '$last_name', '$email', now(), 'open', null, $price, '$data')");
     $order_id = $connection->insert_id;
@@ -45,6 +49,8 @@ try {
     $result->checkout = $payment->getCheckoutUrl();
 } catch (Exception $e) {
     $result->error = $e->getMessage();
+} finally {
+    $connection->close();
 }
 echo json_encode($result);
 
