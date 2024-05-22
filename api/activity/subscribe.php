@@ -7,6 +7,7 @@ try {
     if (!empty($_POST['memberId'])) {
         $user = guardStaff();
         $member = getUserById($_POST['memberId']);
+        unset($_POST['memberId']);
     } else {
         $user = getUser();
         $member = $user;
@@ -29,6 +30,7 @@ try {
     if ($activity_restriction_id == null) {
         throw new InvalidArgumentException("Er werd geen geldige optie opgegeven bij de inschrijving!");
     }
+    unset($_POST['option']);
     $options = $state->options;
     $chosen_option = array_values(array_filter($options, fn($o) => $o->id == $activity_restriction_id));
     if (empty($chosen_option)) {
@@ -38,6 +40,7 @@ try {
     if ($price < double($chosen_option[0]->price)) {
         throw new InvalidArgumentException("De inschrijvingsprijs kan niet lager zijn dan de basisprijs van de gekozen optie!");
     }
+    unset($_POST['price']);
     $data = json_encode($_POST);
     if ($as_staff) {
         $redirect = "/activity/staffSubscription.html?id=".$activity->id."&memberId=".$member->sgl_id."&payment_return=true";
@@ -64,6 +67,8 @@ try {
     $result->checkout = $payment->getCheckoutUrl();
 } catch (Exception $e) {
     $result->error = $e->getMessage();
+} finally {
+    $connection->close();
 }
 echo json_encode($result);
 
