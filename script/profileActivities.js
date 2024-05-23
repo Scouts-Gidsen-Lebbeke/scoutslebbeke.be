@@ -7,7 +7,7 @@ window.onload = function() {
 };
 
 function loadActivityOverview(id) {
-    fetch("/api/getUserActivities.php?id=" + id).then(data => data.json()).then(activities => {
+    fetch("/api/activity/getUserActivities.php?id=" + id).then(data => data.json()).then(activities => {
         activities.forEach(activity =>
             $('#activity-overview tbody').append(`<tr><td>${activity.id}</td><td>${activity.name}</td><td>${activity.date}</td><td>${activity.status}</td></tr>`)
         )
