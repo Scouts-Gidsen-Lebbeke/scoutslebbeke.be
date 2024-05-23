@@ -44,9 +44,9 @@ function getSubscriptionState($member, $user): stdClass {
                     throw new InvalidArgumentException("Deze activiteit is niet voor jouw tak!");
                 }
             }
-//            $siblings = mysqli_fetch_array($connection->query("select * from sibling_relation s inner join activity_registration r on s.user_id = '$member->id' or s.sibling_user_id = '$member->id' where r."))
+            $siblings = mysqli_fetch_array($connection->query("select * from sibling_relation s inner join activity_registration r on s.sibling_user_id = r.user_id where r.activity_id = '$activity_id' and s.user_id = '$member->id' and r.status = 'paid'"));
             foreach ($activity_restrictions as $option) {
-                $option->price = getPrice($option, $activity, $member);
+                $option->price = getPrice($option, $activity, $member, !empty($siblings));
             }
             $result->options = $activity_restrictions;
         } else if ($result->registration->status == "open") {
@@ -70,7 +70,7 @@ function getSubscriptionState($member, $user): stdClass {
     return $result;
 }
 
-function getPrice($activity_restriction, $activity, $user) {
+function getPrice($activity_restriction, $activity, $user, $reduction) {
     $base_price = $activity_restriction->alter_price ?? $activity->price;
-    return $user->som ? ceil($base_price / 3) : $base_price;
+    return $user->som ? ceil($base_price / 3) : ($reduction ? $base_price - $activity->sibling_reduction : $base_price);
 }
