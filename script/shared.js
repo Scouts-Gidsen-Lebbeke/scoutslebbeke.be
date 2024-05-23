@@ -36,9 +36,18 @@ function changeImage() {
 }
 
 function toggleNav() {
+    $("#mobile-profile").hide();
     let mobileNav = $("#mobile-navigation");
     mobileNav.toggle();
     $("body").css({"overflow": mobileNav.is(":visible") ? "hidden" : "visible"});
+}
+
+function toggleProfile() {
+    $("#mobile-navigation").hide();
+    $(".burger").removeClass("opened")
+    let profileNav = $("#mobile-profile");
+    profileNav.toggle();
+    $("body").css({"overflow": profileNav.is(":visible") ? "hidden" : "visible"});
 }
 
 function toggleSub(sub) {
@@ -130,6 +139,11 @@ function toggleLogin() {
     kc.login({ redirectUri: document.location });
 }
 
+function toggleLogout() {
+    const newPage = document.location.href.includes("profile") || document.location.href.includes("admin")
+    kc.logout({ redirectUri: newPage ? window.location.origin : document.location })
+}
+
 async function loadKeycloak() {
     kc = new Keycloak("/script/keycloak.json");
     return kc.init({
@@ -158,9 +172,13 @@ async function requireLogin(onFulfilled) {
 function loadProfile(d) {
     $("#profile-name").text(d.first_name);
     $("#profile-pic").css("background-image", `url(/images/profile/${d.image})`);
-    $("#profile-dropdown-block").click(function(){
-        window.location = "/profile.html";
-    });
+    $(".login-item").remove()
+    d.pages.forEach(p => {
+        $("#profile-dropdown").append(`<div class="dropdown-item" onclick="load('${p.path}')">${p.name}</div>`)
+        $("#mobile-profile").append(`<a onclick="load('${p.path}')">${p.name}</a>`)
+    })
+    $("#profile-dropdown").append(`<div class="dropdown-item" onclick="toggleLogout()">Log uit</div>`)
+    $("#mobile-profile").append(`<a onclick="toggleLogout()">Log uit</a>`)
 }
 
 function periodToTitle(from, to) {

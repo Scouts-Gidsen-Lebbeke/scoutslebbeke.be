@@ -17,13 +17,6 @@
 #profile-dropdown-block {
     padding: 15px 20px;
 }
-#profile:hover {
-    cursor: pointer;
-    background: dimgrey;
-}
-#profile:hover #profile-dropdown {
-    display: table;
-}
 #profile-dropdown {
     top: 60px;
     right: 0;
@@ -80,8 +73,23 @@
 #profile-image-div:hover #profile-image-new-pic {
     display: inline-block;
 }
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1100px) {
     #profile-name {
         display: none;
     }
+}
+@media only screen and (min-width: 1100px) {
+    #profile-pic {
+        pointer-events: none;
+    }
+}
+#mobile-profile {
+    display: none;
+    position: fixed;
+    top: 60px;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: #181818;
 }

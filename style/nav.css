@@ -28,17 +28,20 @@
 }
 .dropdown-item:hover, .navigation-item:hover {
     cursor: pointer;
-    background: dimgrey;
-}
-.dropdown-block:hover .dropdown {
-    display: table;
 }
 @media only screen and (max-width: 1100px) {
     #navigation {
         display: none;
     }
 }
-
+@media only screen and (min-width: 1100px) {
+    .dropdown-item:hover, .navigation-item:hover {
+        background: dimgrey;
+    }
+    .dropdown-block:hover .dropdown {
+        display: table;
+    }
+}
 #mobile-navigation {
     display: none;
     position: fixed;

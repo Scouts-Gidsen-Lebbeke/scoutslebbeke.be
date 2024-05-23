@@ -40,14 +40,20 @@ class Header extends HTMLElement {
             <div id="header">
                 <burger-component></burger-component>
                 <div id="navigation"></div>
-                <div id="profile">
-                    <div class="dropdown-block" id="profile-dropdown-block" onclick="toggleLogin()">
+                <div id="profile" class="dropdown-block">
+                    <div class="navigation-item">
                         <span id="profile-name">Niet ingelogd</span>
-                        <div id="profile-pic"></div>
+                        <div id="profile-pic" onclick="toggleProfile()"></div>
+                    </div>    
+                    <div class="dropdown" id="profile-dropdown">
+                        <div class="dropdown-item login-item" onclick="toggleLogin()">Log in</div>
                     </div>
                 </div>
             </div>
             <div id="mobile-navigation"></div>
+            <div id="mobile-profile" class="mobile-menu">
+                <a class="login-item" onclick="toggleLogin()">Log in</a>
+            </div>
             <title-wrapper></title-wrapper>
         `;
     }
