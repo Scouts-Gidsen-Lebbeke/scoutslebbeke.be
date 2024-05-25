@@ -47,7 +47,7 @@ try {
     } else {
         $redirect = "/activity.html?id=".$activity->id."&payment_return=true";
     }
-    $connection->query("insert into activity_registration values (null, '$activity->id', '$member->id', now(), 'open', null, $price, '$data', false)");
+    $connection->query("insert into activity_registration values (null, '$activity->id', '$member->id', now(), 'open', null, $price, '$data', false, '$chosen_option[0]->start', '$chosen_option[0]->end')");
     $order_id = $connection->insert_id;
     $payment = $mollie->payments->create([
         "amount" => [
