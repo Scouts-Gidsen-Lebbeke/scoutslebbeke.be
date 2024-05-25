@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://unpkg.com/downloadjs@1.4.7"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script type="module" src="/node_modules/keycloak-js/dist/keycloak.js"></script>
     <script src="/script/components.js"></script>
@@ -10,6 +12,7 @@
     <script src="/script/profileActivities.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/style/shared.css">
+    <link rel="stylesheet" href="/style/profile.css">
     <link rel="icon" href="/images/favicon.ico">
     <title>Scouts & Gidsen Lebbeke</title>
 </head>
@@ -19,19 +22,28 @@
     <h1>Mijn activiteiten</h1>
     <p>
         Hieronder zie je de activiteiten waarvoor je je hebt ingeschreven.
-        Na afloop van een activiteit zal je hier binnenkort een deelnamebewijs kunnen downloaden.
+        Je kan hier een inschrijving annuleren (indien de deadline van de activiteit nog niet verstreken is)
+        en na afloop van de activiteit kan je een deelnamebewijs downloaden.
     </p>
     <table class="table table-striped" id="activity-overview">
         <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Activiteit</th>
-            <th scope="col">Datum</th>
-            <th scope="col">Status</th>
-        </tr>
+            <tr>
+                <th scope="col" title="Inschrijvingsnummer">#</th>
+                <th scope="col" title="Naam van de activiteit">Activiteit</th>
+                <th scope="col" title="Datum van inschrijving">Datum</th>
+                <th scope="col" title="Jouw deelnameprijs">Prijs</th>
+                <th scope="col" title="Status van de betaling">Status</th>
+                <th scope="col" title="Download deelnamebewijs" class="icon-column">
+                    <img src="/images/download.png" class="subscription-icon" alt="download">
+                </th>
+                <th scope="col" title="Annuleer mijn inschrijving" class="icon-column">
+                    <img src="/images/cancel-black.png" class="subscription-icon" alt="cancel">
+                </th>
+            </tr>
         </thead>
         <tbody></tbody>
     </table>
+    <div class="loader"></div>
 </div>
 <footer-component></footer-component>
 </body>

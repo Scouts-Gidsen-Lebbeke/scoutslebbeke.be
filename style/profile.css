@@ -93,3 +93,9 @@
     z-index: 1;
     background: #181818;
 }
+.icon-column {
+    width: 25px;
+}
+.subscription-icon {
+    width: 20px;
+}
