@@ -36,8 +36,9 @@ try {
     if (empty($chosen_option)) {
         throw new InvalidArgumentException("Er werd geen geldige optie opgegeven bij de inschrijving!");
     }
+    $option = $chosen_option[0];
     $price = double($_POST['price']);
-    if ($price < double($chosen_option[0]->price)) {
+    if ($price < double($option->price)) {
         throw new InvalidArgumentException("De inschrijvingsprijs kan niet lager zijn dan de basisprijs van de gekozen optie!");
     }
     unset($_POST['price']);
@@ -47,7 +48,9 @@ try {
     } else {
         $redirect = "/activity.html?id=".$activity->id."&payment_return=true";
     }
-    $connection->query("insert into activity_registration values (null, '$activity->id', '$member->id', now(), 'open', null, $price, '$data', false, '$chosen_option[0]->start', '$chosen_option[0]->end')");
+    $start = $option->alter_start ?? $activity->start;
+    $end = $option->alter_end ?? $activity->end;
+    $connection->query("insert into activity_registration values (null, '$activity->id', '$member->id', now(), 'open', null, $price, '$data', false, '$start', '$end')");
     $order_id = $connection->insert_id;
     $payment = $mollie->payments->create([
         "amount" => [
