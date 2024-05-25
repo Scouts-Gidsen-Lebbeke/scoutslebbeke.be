@@ -4,14 +4,17 @@ require '../init_mollie.php';
 
 $result = new stdClass();
 try {
-    if (!empty($_POST['memberId'])) {
-        $user = guardStaff();
+    $user = getUser();
+    if ($user->sgl_id != $_POST['memberId']) {
+        if (!$user->level->isStaff()) {
+            header("HTTP/1.1 401 Unauthorized");
+            exit;
+        }
         $member = getUserById($_POST['memberId']);
-        unset($_POST['memberId']);
     } else {
-        $user = getUser();
         $member = $user;
     }
+    unset($_POST['memberId']);
     $as_staff = $member->id != $user->id;
     $state = getSubscriptionState($member, $user);
     if ($state->error ?? false) {
