@@ -29,8 +29,10 @@ function getNews() {
 }
 
 function toggleEdit(editable) {
-    $("#news-edit-icon").show(editable)
-    $(".edit-icon").show(editable)
+    if (editable) {
+        $("#news-edit-icon").show()
+        $(".edit-icon").show()
+    }
 }
 
 function parseDateString(s) {
