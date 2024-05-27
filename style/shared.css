@@ -121,3 +121,6 @@ a {
     width: 16px;
     cursor: pointer;
 }
+.http-status-image {
+    max-width: 100%;
+}
