@@ -42,29 +42,31 @@
             <label for="present-column">Aanwezig</label>
         </div>
     </div>
-    <table class="table table-striped" id="overview-table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Voornaam</th>
-                <th scope="col">Naam</th>
-                <th scope="col" class="branch-column">Tak</th>
-                <th scope="col" class="price-column">Prijs</th>
-                <th scope="col" class="present-column">Aanwezig?</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-        <tfoot>
-            <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th class="branch-column"></th>
-                <th class="price-column" id="price-total"></th>
-                <th class="present-column"></th>
-            </tr>
-        </tfoot>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-striped" id="overview-table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Voornaam</th>
+                    <th scope="col">Naam</th>
+                    <th scope="col" class="branch-column">Tak</th>
+                    <th scope="col" class="price-column">Prijs</th>
+                    <th scope="col" class="present-column">Aanwezig?</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th class="branch-column"></th>
+                    <th class="price-column" id="price-total"></th>
+                    <th class="present-column"></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
     <div id="overview-loader" class="loader hidden"></div>
     <button id="export-button" onclick="exportTableToExcel('overview-table', 'overzicht.xlsx')" disabled>Exporteer</button>
 </div>
