@@ -20,6 +20,8 @@ function checkSubscriptionState(activityId, memberId) {
             )
             if (result.options.length !== 1) {
                 $("#multiple-options").show()
+            } else {
+                $("#multiple-options").hide()
             }
             if (result.activity.additional_form) {
                 $("#additional-form").dform(JSON.parse(result.activity.additional_form));
