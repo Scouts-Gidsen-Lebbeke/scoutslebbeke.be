@@ -52,18 +52,35 @@ function finishPayment(id) {
 function subscribe(id) {
     $("#subscribe-button").prop("disabled", true);
     const form = new FormData(document.querySelector("#subscription-form"));
-    fetch(`/api/activity/subscribe.php?id=${id}`, {
-        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
-        method: "POST",
-        body: form
-    }).then(response => response.json()).then(result => {
-        if (result.error != null) {
-            alert(result.error)
-            $("#subscribe-button").prop("disabled", false);
-        } else if (result.checkout != null) {
-            location.href = result.checkout
+    // fetch(`/api/activity/subscribe.php?id=${id}`, {
+    //     headers: new Headers({
+    //         'Authorization': `Bearer ${kc.token}`,
+    //     }),
+    //     method: "POST",
+    //     body: form
+    // }).then(response => response.json()).then(result => {
+    //     if (result.error != null) {
+    //         alert(result.error)
+    //         $("#subscribe-button").prop("disabled", false);
+    //     } else if (result.checkout != null) {
+    //         location.href = result.checkout
+    //     }
+    // })
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', `/api/activity/subscribe.php?id=${id}`, true);
+    xhr.setRequestHeader('Authorization', `Bearer ${kc.token}`);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            let result = JSON.parse(xhr.responseText);
+            if (xhr.status === 200) {
+                location.href = result.checkout
+            } else {
+                alert(result.error)
+                $("#subscribe-button").prop("disabled", false);
+            }
         }
-    })
+    };
+    xhr.send(form);
 }
 
 function printOpen(dateString) {

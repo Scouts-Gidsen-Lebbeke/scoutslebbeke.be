@@ -51,15 +51,32 @@ function checkAdmin(user, eventId) {
 function register(id) {
     $("#register-button").prop("disabled", true);
     const form = new FormData(document.querySelector("#registration-form"));
-    fetch(`/api/event/register.php?id=${id}`, {
-        method: "POST",
-        body: form
-    }).then(response => response.json()).then(result => {
-        if (result.error != null) {
-            $("#registration-feedback").text(result.error)
-            $("#register-button").prop("disabled", false);
-        } else if (result.checkout != null) {
-            location.href = result.checkout
+    // fetch(`/api/event/register.php?id=${id}`, {
+    //     method: "POST",
+    //     body: form,
+    //     headers: {
+    //         'Content-Type': 'multipart/form-data; boundary=' + Math.random().toString().substring(2)
+    //     }
+    // }).then(response => response.json()).then(result => {
+    //     if (result.error != null) {
+    //         $("#registration-feedback").text(result.error)
+    //         $("#register-button").prop("disabled", false);
+    //     } else if (result.checkout != null) {
+    //         location.href = result.checkout
+    //     }
+    // })
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', `/api/event/register.php?id=${id}`, true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            let result = JSON.parse(xhr.responseText);
+            if (xhr.status === 200) {
+                location.href = result.checkout
+            } else {
+                $("#registration-feedback").text(result.error)
+                $("#register-button").prop("disabled", false);
+            }
         }
-    })
+    };
+    xhr.send(form);
 }

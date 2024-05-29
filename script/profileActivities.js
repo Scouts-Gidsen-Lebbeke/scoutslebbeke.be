@@ -48,6 +48,7 @@ async function getCertificate(subscriptionId) {
         form.getTextField('signature_date').setText(printDDMMYYYY(new Date()))
         form.getTextField('signatory').setText(d.organization.signatory)
         form.getTextField('id').setText(btoa(`${d.activity.id}-#${d.registration.id}`))
+        form.getTextField('id')
         form.flatten()
         const page = pdfDoc.getPage(0)
         const pngImage = await pdfDoc.embedPng(await signature)
