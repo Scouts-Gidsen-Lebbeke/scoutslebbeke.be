@@ -14,11 +14,6 @@ $period = $end->diff($start);
 $result->registration->days = $period->days + 1;
 $activity_id = $result->registration->activity_id;
 $result->activity = mysqli_fetch_object($connection->query("select * from activity where id ='$activity_id'"));
-$result->organization = (object) array(
-    "name" => $config["ORGANIZATION_NAME"],
-    "address" => $config["ORGANIZATION_ADDRESS"],
-    "email" => $config["ORGANIZATION_EMAIL"],
-    "signatory" => $config["ORGANIZATION_SIGNATORY"],
-);
+$result->organization = $organization;
 echo json_encode($result);
 $connection->close();
