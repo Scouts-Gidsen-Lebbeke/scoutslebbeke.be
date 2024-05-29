@@ -2,6 +2,8 @@ function checkSubscriptionState(activityId, memberId) {
     $("#subscription-disabled").show();
     $("#subscription-feedback").empty();
     $("#subscription-block").hide();
+    $("#options").empty()
+    $("#additional-form").empty()
     if (!memberId) return
     tokenized(`/api/activity/getSubscriptionState.php?id=${activityId}&memberId=${memberId}`).then(result => {
         if (result == null) return; // user is not logged in, keep original feedback
