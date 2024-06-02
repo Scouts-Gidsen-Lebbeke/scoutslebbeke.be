@@ -46,8 +46,8 @@ function retrieveActivity() {
                     <td>${s.first_name}</td>
                     <td>${s.name}</td>
                     <td class="branch-column hidden">${s.branch_name}</td>
-                    <td class="from-column hidden">${s.start}</td>
-                    <td class="until-column hidden">${s.end}</td>
+                    <td class="from-column hidden">${printDate(s.start)}</td>
+                    <td class="until-column hidden">${printDate(s.end)}</td>
                     <td class="price-column hidden">€ ${s.price}</td>
                     <td class="present-column hidden"><input id="${s.user_id}-present" type="checkbox" onclick="markPresent(this.checked, '${s.id}', '${s.user_id}')" ${s.present === "1" ? "checked" : ""}></td>
                     ${parseAdditionalData(s.additional_data)}
@@ -75,6 +75,10 @@ function retrieveActivity() {
         $("#overview-loader").hide()
         $("#export-button").prop('disabled', false);
     })
+}
+
+function printDate(date) {
+    return new Date(Date.parse(date)).toLocaleDateString('nl-BE', { year: '2-digit', month: '2-digit', day: '2-digit' });
 }
 
 function markPresent(present, activityId, memberId) {
