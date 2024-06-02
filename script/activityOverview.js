@@ -37,6 +37,7 @@ function retrieveActivity() {
     $(".additional").remove();
     if (id === "0") return
     $("#overview-loader").show()
+    $("#checks input[type=checkbox]").prop('checked', false);
     tokenized(`/api/activity/getActivityOverview.php?id=${id}&branch=${branch}`).then(result => {
         result.forEach((s, i) => {
             $('#overview-table tbody').append(
@@ -44,9 +45,11 @@ function retrieveActivity() {
                     <td>${i + 1}</td>
                     <td>${s.first_name}</td>
                     <td>${s.name}</td>
-                    <td class="branch-column">${s.branch_name}</td>
-                    <td class="price-column">€ ${s.price}</td>
-                    <td class="present-column"><input id="${s.user_id}-present" type="checkbox" onclick="markPresent(this.checked, '${s.id}', '${s.user_id}')" ${s.present === "1" ? "checked" : ""}></td>
+                    <td class="branch-column hidden">${s.branch_name}</td>
+                    <td class="from-column hidden">${s.start}</td>
+                    <td class="until-column hidden">${s.end}</td>
+                    <td class="price-column hidden">€ ${s.price}</td>
+                    <td class="present-column hidden"><input id="${s.user_id}-present" type="checkbox" onclick="markPresent(this.checked, '${s.id}', '${s.user_id}')" ${s.present === "1" ? "checked" : ""}></td>
                     ${parseAdditionalData(s.additional_data)}
                 </tr>`
             )

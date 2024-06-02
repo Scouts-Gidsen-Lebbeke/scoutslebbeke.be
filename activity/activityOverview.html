@@ -30,15 +30,23 @@
     <h3>Lijst</h3>
     <div id="checks">
         <div>
-            <input type="checkbox" id="branch-column" onclick="toggleVisible(this)" checked>
+            <input type="checkbox" id="branch-column" onclick="toggleVisible(this)">
             <label for="branch-column">Tak</label>
         </div>
         <div>
-            <input type="checkbox" id="price-column" onclick="toggleVisible(this)" checked>
+            <input type="checkbox" id="from-column" onclick="toggleVisible(this)">
+            <label for="from-column">Van</label>
+        </div>
+        <div>
+            <input type="checkbox" id="until-column" onclick="toggleVisible(this)">
+            <label for="until-column">Tot</label>
+        </div>
+        <div>
+            <input type="checkbox" id="price-column" onclick="toggleVisible(this)">
             <label for="price-column">Prijs</label>
         </div>
         <div>
-            <input type="checkbox" id="present-column" onclick="toggleVisible(this)" checked>
+            <input type="checkbox" id="present-column" onclick="toggleVisible(this)">
             <label for="present-column">Aanwezig</label>
         </div>
     </div>
@@ -50,6 +58,8 @@
                     <th scope="col">Voornaam</th>
                     <th scope="col">Naam</th>
                     <th scope="col" class="branch-column">Tak</th>
+                    <th scope="col" class="from-column">Van</th>
+                    <th scope="col" class="until-column">Tot</th>
                     <th scope="col" class="price-column">Prijs</th>
                     <th scope="col" class="present-column">Aanwezig?</th>
                 </tr>
@@ -61,6 +71,8 @@
                     <th></th>
                     <th></th>
                     <th class="branch-column"></th>
+                    <th class="from-column"></th>
+                    <th class="until-column"></th>
                     <th class="price-column" id="price-total"></th>
                     <th class="present-column"></th>
                 </tr>
