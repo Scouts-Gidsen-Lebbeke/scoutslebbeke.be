@@ -4,14 +4,14 @@ $user = guardStaff();
 $result = new stdClass();
 try {
     $id = $_POST['id'];
-    $title = $_POST['title'];
+    $title = mysqli_real_escape_string($connection, $_POST['title']);
     if (empty($title)) {
         throw new InvalidArgumentException("Een titel is verplicht!");
     }
     $visible = @$_POST['visible'] == 'on';
     $image = $_POST['image'];
     $image = !empty($image) ? "'$image'" : "NULL";
-    $content = $_POST['content'];
+    $content = mysqli_real_escape_string($connection, $_POST['content']);
     if (empty($content)) {
         throw new InvalidArgumentException("De inhoud is verplicht!");
     }
