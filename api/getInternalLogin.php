@@ -54,6 +54,24 @@ function fetchUserMedics($id): ?object {
     return callAPI("lid/".$id."/steekkaart", true);
 }
 
+function fetchUserByInternalId($id): ?object {
+    global $connection;
+    if ($id == null) return null;
+    $user = mysqli_fetch_object($connection->query("select * from user where id = '$id'"));
+    $user->roles = fetchRoles($id);
+    $user->level = highest_level(array_map(fn ($r): int => $r->level, $user->roles));
+    // A user should at all time only have assigned a single valid branch
+    $branch_role = array_values(array_filter($user->roles, fn($r) => $r->branch_id != null));
+    $user->branch = null;
+    $user->staff_branch = null;
+    if (!empty($branch_role)) {
+        $user->branch = $branch_role[0]->branch_id;
+        $branch_id = $branch_role[0]->id;
+        $user->staff_branch = mysqli_fetch_column($connection->query("select id from branch where staff_role_id = '$branch_id'"));
+    }
+    return $user;
+}
+
 function fetchUser($sgl_id): ?object {
     global $connection;
     if ($sgl_id == null) return null;
