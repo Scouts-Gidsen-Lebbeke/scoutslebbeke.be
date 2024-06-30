@@ -21,7 +21,7 @@ function initEvent(id) {
         $("#event-registration-deadline").text(printDeadline(event.close_registration));
         if (new Date(Date.parse(event.close_registration)) < new Date()) {
             $("#registration-block").hide()
-            $("#registration-feedback").text(result.error)
+            $("#registration-feedback").text("De inschrijvingen voor dit evenement zijn afgesloten!")
             return
         }
         if (event.additional_form) {
