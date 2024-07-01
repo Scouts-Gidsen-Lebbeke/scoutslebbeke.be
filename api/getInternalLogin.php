@@ -84,13 +84,13 @@ function translateUser($sgl_user): object {
     $user = mysqli_fetch_object($connection->query("select * from user where sgl_id = '$sgl_user->id'"));
     $user->email = $sgl_user->email;
     $user->mobile = normalizeMobile($sgl_user->persoonsgegevens->gsm);
-    $user->birthdate = $sgl_user->vgagegevens->geboortedatum;
-    $user->medDate = $sgl_user->vgagegevens->individueleSteekkaartdatumaangepast;
+    $user->birth_date = $sgl_user->vgagegevens->geboortedatum;
+    $user->med_date = $sgl_user->vgagegevens->individueleSteekkaartdatumaangepast;
     // SGL passes today when not filled in, sigh
-    if (strtotime("$user->medDate+5 seconds") > time()) {
+    if (strtotime("$user->med_date+5 seconds") > time()) {
         $user->medDate = null;
     }
-    $user->memberId = $sgl_user->verbondsgegevens->lidnummer;
+    $user->member_id = $sgl_user->verbondsgegevens->lidnummer;
     $user->som = $sgl_user->vgagegevens->verminderdlidgeld;
     $user->nis_nr = getPrivateField($sgl_user->groepseigenVelden, "dc6fe7e5-edd6-45db-8fb0-ad783c769592");
     $user->address = $sgl_user->adressen[0];
@@ -108,9 +108,10 @@ function translateUser($sgl_user): object {
     $user->branch = null;
     $user->staff_branch = null;
     if (!empty($branch_role)) {
-        $user->branch = $branch_role[0]->branch_id;
-        $branch_id = $branch_role[0]->id;
-        $user->staff_branch = mysqli_fetch_column($connection->query("select id from branch where staff_role_id = '$branch_id'"));
+        $branch_id = $branch_role[0]->branch_id;
+        $user->branch = mysqli_fetch_object($connection->query("select * from branch where id = '$branch_id'"));
+        $role_id = $branch_role[0]->id;
+        $user->staff_branch = mysqli_fetch_column($connection->query("select * from branch where staff_role_id = '$role_id'"));
     }
     return $user;
 }
