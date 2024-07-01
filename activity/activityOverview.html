@@ -30,6 +30,10 @@
     <h3>Lijst</h3>
     <div id="checks">
         <div>
+            <input type="checkbox" id="address-column" onclick="toggleVisible(this)">
+            <label for="address-column">Adres</label>
+        </div>
+        <div>
             <input type="checkbox" id="branch-column" onclick="toggleVisible(this)">
             <label for="branch-column">Tak</label>
         </div>
@@ -57,6 +61,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Voornaam</th>
                     <th scope="col">Naam</th>
+                    <th scope="col" class="address-column hidden">Adres</th>
                     <th scope="col" class="branch-column hidden">Tak</th>
                     <th scope="col" class="from-column hidden">Van</th>
                     <th scope="col" class="until-column hidden">Tot</th>
@@ -70,6 +75,7 @@
                     <th></th>
                     <th></th>
                     <th></th>
+                    <th class="address-column hidden"></th>
                     <th class="branch-column hidden"></th>
                     <th class="from-column hidden"></th>
                     <th class="until-column hidden"></th>

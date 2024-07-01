@@ -39,23 +39,25 @@ function retrieveActivity() {
     $("#overview-loader").show()
     $("#checks input[type=checkbox]").prop('checked', false);
     tokenized(`/api/activity/getActivityOverview.php?id=${id}&branch=${branch}`).then(result => {
-        result.forEach((s, i) => {
+        console.log(result.registrations)
+        result.registrations.forEach((s, i) => {
             $('#overview-table tbody').append(
                 `<tr>
                     <td>${i + 1}</td>
-                    <td>${s.first_name}</td>
-                    <td>${s.name}</td>
-                    <td class="branch-column hidden">${s.branch_name}</td>
+                    <td>${s.user.first_name}</td>
+                    <td>${s.user.name}</td>
+                    <td class="address-column hidden">${s.user.address.straat} ${s.user.address.nummer}${ifNotNull(s.user.address.bus)}, ${s.user.address.postcode} ${s.user.address.gemeente}</td>
+                    <td class="branch-column hidden">${s.user.branch}</td>
                     <td class="from-column hidden">${printDate(s.start)}</td>
                     <td class="until-column hidden">${printDate(s.end)}</td>
                     <td class="price-column hidden">€ ${s.price}</td>
-                    <td class="present-column hidden"><input id="${s.user_id}-present" type="checkbox" onclick="markPresent(this.checked, '${s.id}', '${s.user_id}')" ${s.present === "1" ? "checked" : ""}></td>
+                    <td class="present-column hidden"><input id="${s.user.id}-present" type="checkbox" onclick="markPresent(this.checked, '${s.id}', '${s.user.id}')" ${s.present === "1" ? "checked" : ""}></td>
                     ${parseAdditionalData(s.additional_data)}
                 </tr>`
             )
         })
-        if (result.length !== 0) {
-            let data = result[0].additional_data;
+        if (result.registrations.length !== 0) {
+            let data = result.registrations[0].additional_data;
             if (data) {
                 Object.keys(JSON.parse(data)).forEach(d => {
                     $('#overview-table thead tr').append(`<th class="additional ${d}-column hidden">${capitalize(d)}</th>`)

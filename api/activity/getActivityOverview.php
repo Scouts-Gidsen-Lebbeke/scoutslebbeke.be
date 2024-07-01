@@ -4,10 +4,11 @@ require '../getInternalLogin.php';
 guardStaff();
 $id = $_GET["id"];
 $branch = $_GET["branch"];
-if ($branch == "0") {
-    $query = "select * from subscription_overview where id = '$id' order by branch_id";
-} else {
-    $query = "select * from subscription_overview where id = '$id' and branch_id = '$branch'";
+$result = new stdClass();
+$result->activity = mysqli_fetch_object($connection->query("select * from activity where id = '$id'"));
+$result->registrations = mysqli_all_objects($connection, $query = "select * from activity_registration where activity_id = '$id'");
+foreach ($result->registrations as $r) {
+    $r->user = fetchUserById($r->user_id);
 }
-echo json_encode(mysqli_all_objects($connection, $query));
+echo json_encode($result);
 $connection->close();
