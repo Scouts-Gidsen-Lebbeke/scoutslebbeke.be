@@ -52,7 +52,7 @@ function getCertificate(membershipId) {
         form.getTextField('first_name').setText(d.member.first_name)
         form.getTextField('birth_date').setText(printDDMMYYYY(new Date(Date.parse(d.member.birth_date))))
         form.getTextField('nis_nr').setText(ifNotNull(d.member.nis_nr, ""))
-        form.getTextField('address').setText(`${d.member.address.straat} ${d.member.address.nummer}${d.member.address.bus != null ? " " + d.member.address.bus : ""}, ${d.member.address.postcode} ${d.member.address.bus.gemeente}`)
+        form.getTextField('address').setText(`${d.member.address.straat} ${d.member.address.nummer}${d.member.address.bus != null ? " " + d.member.address.bus : ""}, ${d.member.address.postcode} ${d.member.address.gemeente}`)
         const period = printY(d.period.start) + " - " + printY(d.period.end)
         form.getTextField('membership_period').setText(period)
         form.getTextField('amount').setText(`€ ${d.membership.price}`)
