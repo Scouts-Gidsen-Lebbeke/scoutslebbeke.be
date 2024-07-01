@@ -1,6 +1,6 @@
 <?php
 require 'getInternalLogin.php';
-$user = getUser();
+$user = getCurrentUser();
 if (!empty($user)) {
     $user->pages = array();
     if ($user->level->isScout()) {

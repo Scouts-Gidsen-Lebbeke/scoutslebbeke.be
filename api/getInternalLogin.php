@@ -42,7 +42,7 @@ function callAPI($path, $withExit = false) {
     return $result;
 }
 
-function fetchSglUser($withExit): ?object {
+function fetchCurrentSglUser($withExit): ?object {
     return callAPI("lid/profiel", $withExit);
 }
 
@@ -54,99 +54,70 @@ function fetchUserMedics($id): ?object {
     return callAPI("lid/".$id."/steekkaart", true);
 }
 
-function fetchUserByInternalId($id): ?object {
+function fetchUserById($id): ?object {
     global $connection;
-    if ($id == null) return null;
     $user = mysqli_fetch_object($connection->query("select * from user where id = '$id'"));
-    $user->roles = fetchRoles($id);
-    $user->level = highest_level(array_map(fn ($r): int => $r->level, $user->roles));
-    // A user should at all time only have assigned a single valid branch
-    $branch_role = array_values(array_filter($user->roles, fn($r) => $r->branch_id != null));
-    $user->branch = null;
-    $user->staff_branch = null;
-    if (!empty($branch_role)) {
-        $user->branch = $branch_role[0]->branch_id;
-        $branch_id = $branch_role[0]->id;
-        $user->staff_branch = mysqli_fetch_column($connection->query("select id from branch where staff_role_id = '$branch_id'"));
-    }
-    return $user;
-}
-
-function fetchUser($sgl_id): ?object {
-    global $connection;
-    if ($sgl_id == null) return null;
-    $user = mysqli_fetch_object($connection->query("select * from user where sgl_id = '$sgl_id'"));
-    $user->roles = fetchRoles($user->id);
-    $user->level = highest_level(array_map(fn ($r): int => $r->level, $user->roles));
-    // A user should at all time only have assigned a single valid branch
-    $branch_role = array_values(array_filter($user->roles, fn($r) => $r->branch_id != null));
-    $user->branch = null;
-    $user->staff_branch = null;
-    if (!empty($branch_role)) {
-        $user->branch = $branch_role[0]->branch_id;
-        $branch_id = $branch_role[0]->id;
-        $user->staff_branch = mysqli_fetch_column($connection->query("select id from branch where staff_role_id = '$branch_id'"));
-    }
-    return $user;
-}
-
-function getUser($withExit = false, $forceUpdate = false): ?object {
-    $sgl_user = fetchSglUser($withExit);
+    $sgl_user = fetchSglUserById($user->sgl_id);
     if ($sgl_user == null) return null;
-    if ($forceUpdate || !userExists($sgl_user->id)) {
-        return updateUser($sgl_user);
-    }
-    return fetchUser($sgl_user->id);
+    return translateUser($sgl_user);
 }
 
-function getUserById($id, $forceUpdate = false): ?object {
+function getCurrentUser($withExit = false): ?object {
+    $sgl_user = fetchCurrentSglUser($withExit);
+    if ($sgl_user == null) return null;
+    return translateUser($sgl_user);
+}
+
+function getUserBySglId($id): ?object {
     $sgl_user = fetchSglUserById($id);
     if ($sgl_user == null) return null;
-    if ($forceUpdate || !userExists($sgl_user->id)) {
-        return updateUser($sgl_user);
+    return translateUser($sgl_user);
+}
+
+function translateUser($sgl_user): object {
+    global $connection, $organization;
+    if (mysqli_num_rows($connection->query("select id from user where sgl_id = '$sgl_user->id'")) != 1) {
+        $name = $sgl_user->vgagegevens->achternaam;
+        $firstName = $sgl_user->vgagegevens->voornaam;
+        mysqli_query($connection, "insert into user values (null, '$sgl_user->id', null, '$name', '$firstName', null, null, null, null, null, null, 'default.png')");
     }
-    return fetchUser($sgl_user->id);
-}
-
-function userExists($sgl_id): bool{
-    global $connection;
-    return mysqli_num_rows($connection->query("select id from user where sgl_id = '$sgl_id'")) == 1;
-}
-
-function fetchRoles($id): array {
-    global $connection;
-    return mysqli_all_objects($connection, "select id, name, admin, branch_id, level from user_role left join role on role.id = user_role.role_id where user_id = '$id'");
-}
-
-function updateUser($sgl_user): object {
-    global $connection;
-    $sgl_id = $sgl_user->id;
-    $name = $sgl_user->vgagegevens->achternaam;
-    $firstName = $sgl_user->vgagegevens->voornaam;
-    $email = $sgl_user->email;
-    $mobile = normalizeMobile($sgl_user->persoonsgegevens->gsm);
-    $birthdate = $sgl_user->vgagegevens->geboortedatum;
+    $user = mysqli_fetch_object($connection->query("select * from user where sgl_id = '$sgl_user->id'"));
+    $user->email = $sgl_user->email;
+    $user->mobile = normalizeMobile($sgl_user->persoonsgegevens->gsm);
+    $user->birthdate = $sgl_user->vgagegevens->geboortedatum;
+    $user->medDate = $sgl_user->vgagegevens->individueleSteekkaartdatumaangepast;
     // SGL passes today when not filled in, sigh
-    $medDate = $sgl_user->vgagegevens->individueleSteekkaartdatumaangepast;
-    $memberId = $sgl_user->verbondsgegevens->lidnummer;
-    $som = $sgl_user->vgagegevens->verminderdlidgeld;
-    //$nisFieldId = $sgl_user->groepseigenVelden->O3401G->schema[0]->id;
-    //$adres = $sgl_user->adressen[0];
-    if (mysqli_num_rows($connection->query("select id from user where sgl_id = '$sgl_id'")) != 1) {
-        mysqli_query($connection, "insert into user values (null, '$sgl_id', '$memberId', '$name', '$firstName', '$birthdate', '$email', '$mobile', null, '$medDate', '$som', 'default.png')");
-    } else {
-        mysqli_query($connection, "update user set name = '$name', first_name = '$firstName', birth_date = '$birthdate', email = '$email', mobile = '$mobile', med_date = '$medDate' where sgl_id='$sgl_id'");
+    if (strtotime("$user->medDate+5 seconds") > time()) {
+        $user->medDate = null;
     }
-    $user = fetchUser($sgl_user->id);
-    $functions = array_map(fn($func): string => $func->functie, array_filter($sgl_user->functies, fn($func): bool => is_null($func->einde ?? null)));
-    mysqli_query($connection, "delete from user_role where user_id='$user->id'");
-    foreach ($functions as $sgl_func_id) {
-        $func = mysqli_fetch_object($connection->query("select id from role where sgl_id = '$sgl_func_id'"));
-        if (!is_null($func)) {
-            mysqli_query($connection, "insert into user_role value ('$user->id', '$func->id')");
+    $user->memberId = $sgl_user->verbondsgegevens->lidnummer;
+    $user->som = $sgl_user->vgagegevens->verminderdlidgeld;
+    $user->nis_nr = getPrivateField($sgl_user->groepseigenVelden, "dc6fe7e5-edd6-45db-8fb0-ad783c769592");
+    $user->address = $sgl_user->adressen[0];
+    $functions = array_filter($sgl_user->functies, fn($func): bool => $func->groep == $organization->id && is_null($func->einde ?? null));
+    $user->roles = array();
+    foreach ($functions as $sglf) {
+        $role = mysqli_fetch_object($connection->query("select * from role where sgl_id = '$sglf->functie'"));
+        if (!is_null($role)) {
+            $user->roles[] = $role;
         }
     }
-    return fetchUser($sgl_id);
+    $user->level = highest_level(array_map(fn ($r): int => $r->level, $user->roles));
+    // A user should at all time only have assigned a single valid branch
+    $branch_role = array_values(array_filter($user->roles, fn($r) => $r->branch_id != null));
+    $user->branch = null;
+    $user->staff_branch = null;
+    if (!empty($branch_role)) {
+        $user->branch = $branch_role[0]->branch_id;
+        $branch_id = $branch_role[0]->id;
+        $user->staff_branch = mysqli_fetch_column($connection->query("select id from branch where staff_role_id = '$branch_id'"));
+    }
+    return $user;
+}
+
+function getPrivateField($list, $id): ?string {
+    global $organization;
+    return @get_object_vars(get_object_vars($list)[$organization->id]->waarden)[$id];
 }
 
 function normalizeMobile($mobile): ?string {
@@ -162,8 +133,17 @@ function normalizeMobile($mobile): ?string {
 }
 
 function guardStaff(): object {
-    $user = getUser(true);
+    $user = getCurrentUser(true);
     if (!$user->level->isStaff()) {
+        header("HTTP/1.1 401 Unauthorized");
+        exit;
+    }
+    return $user;
+}
+
+function guardAdmin(): object {
+    $user = getCurrentUser(true);
+    if (!$user->level->isAdmin()) {
         header("HTTP/1.1 401 Unauthorized");
         exit;
     }

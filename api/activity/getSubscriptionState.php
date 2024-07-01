@@ -1,11 +1,11 @@
 <?php
 require 'init_subscription.php';
 
-$user = getUser(false, true);
+$user = getCurrentUser(false, true);
 $member = $user;
 if ($_GET['memberId'] != $member->sgl_id) {
     guardStaff();
-    $member = getUserById($_GET['memberId'], true);
+    $member = getUserBySglId($_GET['memberId'], true);
 }
 if ($user == null) {
     echo json_encode(null);

@@ -4,13 +4,13 @@ require '../init_mollie.php';
 
 $result = new stdClass();
 try {
-    $user = getUser();
+    $user = getCurrentUser(true);
     if ($user->sgl_id != $_POST['memberId']) {
         if (!$user->level->isStaff()) {
             header("HTTP/1.1 401 Unauthorized");
             exit;
         }
-        $member = getUserById($_POST['memberId']);
+        $member = getUserBySglId($_POST['memberId']);
     } else {
         $member = $user;
     }

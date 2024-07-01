@@ -9,7 +9,8 @@ $organization = (object) array(
     "address" => $config["ORGANIZATION_STREET"]." ".$config["ORGANIZATION_NO"].", ".$config["ORGANIZATION_ZIP"]." ".$config["ORGANIZATION_TOWN"],
     "email" => $config["ORGANIZATION_EMAIL"],
     "signatory" => $config["ORGANIZATION_SIGNATORY"],
-    "signatory_role" => $config["ORGANIZATION_SIGNATORY_ROLE"]
+    "signatory_role" => $config["ORGANIZATION_SIGNATORY_ROLE"],
+    "id" => $config["ORGANIZATION_ID"]
 );
 $certifier = (object) array(
     "name" => $config["CERTIFIER_NAME"],

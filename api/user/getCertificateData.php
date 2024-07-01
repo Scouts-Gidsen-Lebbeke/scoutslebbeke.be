@@ -1,7 +1,7 @@
 <?php
 require '../getInternalLogin.php';
 
-$user = getUser(true);
+$user = getCurrentUser(true);
 $id = $_GET["id"];
 $result = new stdClass();
 $result->member = $user;

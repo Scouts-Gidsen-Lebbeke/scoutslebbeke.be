@@ -1,7 +1,7 @@
 <?php
 require "../getInternalLogin.php";
 $branch = $_GET['branch'];
-$user = getUser();
+$user = getCurrentUser();
 $admin = $user != null && $user->level->isAdmin();
 $staff_of_branch = $user != null && $user->level->isStaff() && $user->staff_branch == $branch;
 $calendar = null;
