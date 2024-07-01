@@ -92,6 +92,9 @@ function translateUser($sgl_user): object {
     }
     $user->member_id = $sgl_user->verbondsgegevens->lidnummer;
     $user->som = $sgl_user->vgagegevens->verminderdlidgeld;
+    // totem -> 90dba1bd-588b-45d8-82fb-85929f75ae29
+    // kbijnaam -> 6c55ec6f-728f-4d0d-99ba-56c3c93e9541
+    // wbijnaam -> 46ef0135-747a-469f-9606-dd40273aaa73
     $user->nis_nr = getPrivateField($sgl_user->groepseigenVelden, "dc6fe7e5-edd6-45db-8fb0-ad783c769592");
     $user->address = $sgl_user->adressen[0];
     $functions = array_filter($sgl_user->functies, fn($func): bool => $func->groep == $organization->id && is_null($func->einde ?? null));

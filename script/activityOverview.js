@@ -45,7 +45,7 @@ function retrieveActivity() {
                     <td>${i + 1}</td>
                     <td>${s.user.first_name}</td>
                     <td>${s.user.name}</td>
-                    <td class="address-column hidden">${s.user.address.straat} ${s.user.address.nummer}${ifNotNull(s.user.address.bus)}, ${s.user.address.postcode} ${s.user.address.gemeente}</td>
+                    <td class="address-column hidden">${s.user.address.straat} ${s.user.address.nummer}${s.user.address.bus != null ? " " + s.user.address.bus : ""}, ${s.user.address.postcode} ${s.user.address.gemeente}</td>
                     <td class="branch-column hidden">${s.user.branch.name}</td>
                     <td class="from-column hidden">${printDate(s.start)}</td>
                     <td class="until-column hidden">${printDate(s.end)}</td>

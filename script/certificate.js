@@ -13,7 +13,7 @@ async function getCertificate(subscriptionId) {
         form.getTextField('first_name').setText(d.member.first_name)
         form.getTextField('birth_date').setText(printDDMMYYYY(new Date(Date.parse(d.member.birth_date))))
         form.getTextField('nis_nr').setText(ifNotNull(d.member.nis_nr, ""))
-        form.getTextField('address').setText(ifNotNull(d.member.address, ""))
+        form.getTextField('address').setText(`${d.member.address.straat} ${d.member.address.nummer}${d.member.address.bus != null ? " " + d.member.address.bus : ""}, ${d.member.address.postcode} ${d.member.address.bus.gemeente}`)
         form.getTextField('activity_name').setText(d.activity.name)
         form.getTextField('period').setText(`${printDDMMYYYY(new Date(Date.parse(d.registration.start)))} - ${printDDMMYYYY(new Date(Date.parse(d.registration.end)))}`)
         form.getTextField('days').setText(d.registration.days.toString())
