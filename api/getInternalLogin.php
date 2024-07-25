@@ -28,14 +28,33 @@ function getBearerToken(): ?string {
 }
 
 function callAPI($path, $withExit = false) {
-    $ch = curl_init();
+    $ch = curl_init("https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/".$path);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array("Authorization: Bearer ".getBearerToken()));
-    curl_setopt($ch, CURLOPT_URL, "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/".$path);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $result = json_decode(curl_exec($ch));
     $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
     if ($http_code === "401" && $withExit) {
+        header("HTTP/1.1 401 Unauthorized");
+        exit;
+    }
+    return $result;
+}
+
+function postToAPI($path, $data): ?object {
+    $jsonData = json_encode($data);
+    $ch = curl_init("https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/".$path);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        "Content-Type: application/json",
+        "Authorization: Bearer ".getBearerToken()
+    ));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $result = json_decode(curl_exec($ch));
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    if ($http_code === "401") {
         header("HTTP/1.1 401 Unauthorized");
         exit;
     }
@@ -75,7 +94,7 @@ function getUserBySglId($id): ?object {
 }
 
 function translateUser($sgl_user): object {
-    global $connection, $organization;
+    global $connection, $organization, $custom_fields;
     if (mysqli_num_rows($connection->query("select id from user where sgl_id = '$sgl_user->id'")) != 1) {
         $name = $sgl_user->vgagegevens->achternaam;
         $firstName = $sgl_user->vgagegevens->voornaam;
@@ -83,7 +102,7 @@ function translateUser($sgl_user): object {
     }
     $user = mysqli_fetch_object($connection->query("select * from user where sgl_id = '$sgl_user->id'"));
     $user->email = $sgl_user->email;
-    $user->mobile = normalizeMobile($sgl_user->persoonsgegevens->gsm);
+    $user->mobile = normalizeMobile(@$sgl_user->persoonsgegevens->gsm);
     $user->birth_date = $sgl_user->vgagegevens->geboortedatum;
     $user->med_date = $sgl_user->vgagegevens->individueleSteekkaartdatumaangepast;
     // SGL passes today when not filled in, sigh
@@ -92,10 +111,10 @@ function translateUser($sgl_user): object {
     }
     $user->member_id = $sgl_user->verbondsgegevens->lidnummer;
     $user->som = $sgl_user->vgagegevens->verminderdlidgeld;
-    // totem -> 90dba1bd-588b-45d8-82fb-85929f75ae29
-    // kbijnaam -> 6c55ec6f-728f-4d0d-99ba-56c3c93e9541
-    // wbijnaam -> 46ef0135-747a-469f-9606-dd40273aaa73
-    $user->nis_nr = getPrivateField($sgl_user->groepseigenVelden, "dc6fe7e5-edd6-45db-8fb0-ad783c769592");
+    $user->totem = getPrivateField($sgl_user->groepseigenVelden, $custom_fields->totem);
+    $user->kbijnaam = getPrivateField($sgl_user->groepseigenVelden, $custom_fields->kbijnaam);
+    $user->wbijnaam = getPrivateField($sgl_user->groepseigenVelden, $custom_fields->wbijnaam);
+    $user->nis_nr = getPrivateField($sgl_user->groepseigenVelden, $custom_fields->nis_nr);
     $user->address = $sgl_user->adressen[0];
     $functions = array_filter($sgl_user->functies, fn($func): bool => $func->groep == $organization->id && is_null($func->einde ?? null));
     $user->roles = array();
@@ -110,11 +129,15 @@ function translateUser($sgl_user): object {
     $branch_role = array_values(array_filter($user->roles, fn($r) => $r->branch_id != null));
     $user->branch = null;
     $user->staff_branch = null;
+    $user->branch_head = false;
     if (!empty($branch_role)) {
         $branch_id = $branch_role[0]->branch_id;
         $user->branch = mysqli_fetch_object($connection->query("select * from branch where id = '$branch_id'"));
         $role_id = $branch_role[0]->id;
         $user->staff_branch = mysqli_fetch_column($connection->query("select * from branch where staff_role_id = '$role_id'"));
+        if (!empty($user->staff_branch)) {
+            $user->branch_head = !empty(array_filter($user->roles, fn($r) => $r->sgl_id == $custom_fields->branch_head));
+        }
     }
     return $user;
 }

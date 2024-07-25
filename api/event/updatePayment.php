@@ -12,6 +12,7 @@ try {
     $connection->query("update event_registration set status = '$payment->status' where id = '$order_id'");
     if ($payment->isPaid() && !$payment->hasRefunds() && !$payment->hasChargebacks()) {
         $registration = mysqli_fetch_object($connection->query("select * from event_registration where id = '$order_id'"));
+        $mail = createMail();
         $mail->addAddress($registration->email);
         $mail->addCC($config["MAIL_FROM_ADDRESS"]);
         $mail->isHTML();

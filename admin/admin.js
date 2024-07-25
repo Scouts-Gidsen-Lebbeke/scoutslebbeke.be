@@ -11,3 +11,7 @@ window.onload = function() {
 function downloadCertificate() {
     getCertificate($("#subscription-id").val())
 }
+
+function syncStaff() {
+    tokenized("/api/admin/syncStaff.php")
+}

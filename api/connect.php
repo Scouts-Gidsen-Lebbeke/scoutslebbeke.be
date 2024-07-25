@@ -13,3 +13,13 @@ function mysqli_all_objects($connection, $query): array {
     $result->close();
     return $data;
 }
+
+function mysqli_all_columns($connection, $query): array {
+    $data = array();
+    $result = $connection->query($query);
+    while ($obj = mysqli_fetch_column($result)){
+        $data[] = $obj;
+    }
+    $result->close();
+    return $data;
+}

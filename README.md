@@ -11,7 +11,6 @@ Vlottere overgang naar Laravel-project (look & feel).
 #### Missing links
 Kleine moeite, veel betere UX.
 - Reloads van filtertabellen (activities en events) behouden filtering
-- Sortering na klikken op tabelheaders
 - Sticky header
 - Redirect activity-pagina
 - Bug redirect event-pagina (ook bevestigd bij cancel)
@@ -24,7 +23,6 @@ Nodig voor overdracht basisfunctionaliteit.
 - Kalender template creatie
 - Activity & event edits (duplicate-functionaliteit)
 - Implementatie fiscale attesten
-- Ophalen adresgegevens en rrnr groepsadmin
 - Aanvullen documentatie (deze + Drive)
 - Overzicht lidmaatschap
 
@@ -35,8 +33,6 @@ Nodig voor volledige overdracht beheer.
 
 #### Performance & good practice
 - Geen user-updates meer: schrapping in bulk en nieuwe toekenning via auto-acceptatie
-- Wegwerken hard coded takleidingsrol
-- Schrapping dubbele gegevens user-tabel
 - Wegwerken dynamische menu's (enkel info nog variabel)
 - Open sourcing Github repo
 

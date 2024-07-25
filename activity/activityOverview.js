@@ -2,15 +2,12 @@ window.onload = function() {
     loadGlobal();
     const params = (new URL(document.location)).searchParams;
     const activityId = params.get('id')
-    let branches = initBranches();
-    let activities = loadActivities();
+    initBranches();
     requireLogin(async d => {
         if (d.level > 2) {
             loadProfile(d)
-            await branches
-            await activities
             if (activityId) {
-                $("#activities").val(activityId).change()
+                retrieveActivity(activityId)
             }
         } else {
             window.location = "/403.html";
@@ -24,21 +21,10 @@ async function initBranches() {
     });
 }
 
-async function loadActivities() {
-    return fetch("/api/activity/getAllActivities.php").then(d => d.json()).then(d => {
-        d.forEach(a => $('#activities').append(`<option value="${a.id}">${a.name}</option>`))
-    })
-}
-
-function retrieveActivity() {
-    let id = $("#activities").val(), branch = $("#branches").val()
-    $("#export-button").prop('disabled', true);
-    $("#overview-table tbody").empty();
-    $(".additional").remove();
+function retrieveActivity(id) {
     if (id === "0") return
     $("#overview-loader").show()
-    $("#checks input[type=checkbox]").prop('checked', false);
-    tokenized(`/api/activity/getActivityOverview.php?id=${id}&branch=${branch}`).then(result => {
+    tokenized(`/api/activity/getActivityOverview.php?id=${id}`).then(result => {
         result.registrations.forEach((s, i) => {
             $('#overview-table tbody').append(
                 `<tr>
@@ -75,6 +61,7 @@ function retrieveActivity() {
         }
         $("#overview-loader").hide()
         $("#export-button").prop('disabled', false);
+        $("#mail-button").prop('disabled', false);
     })
 }
 
@@ -109,4 +96,30 @@ function sumTableValues(id) {
         });
     });
     return sum;
+}
+
+function mail() {
+    const params = (new URL(document.location)).searchParams;
+    const activityId = params.get('id');
+    window.location = `mail.html`;
+}
+
+function filterBranch(input) {
+    const rows = $("#overview-table tr");
+    if (input.value === "0") {
+        Array.from(rows).forEach((row, index) => row.style.display = "");
+        return;
+    }
+    const filter = input.options[input.selectedIndex].text;
+    Array.from(rows).forEach((row, index) => {
+        if (index === 0) return; // Skip header row
+        const rowText = row.getElementsByClassName("branch-column")[0].textContent;
+        row.style.display = rowText.includes(filter) ? "" : "none";
+    });
+}
+
+function goBack() {
+    const params = (new URL(document.location)).searchParams;
+    const activityId = params.get('id')
+    window.location = params.get('from') === "admin" ? "/admin/admin.html" : `/activity/activity.html?id=${activityId}`;
 }

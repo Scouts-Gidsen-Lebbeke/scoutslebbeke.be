@@ -40,11 +40,11 @@ function parseDateString(s) {
 }
 
 function addNews() {
-    window.location = "/news/editNews.html";
+    window.location = "editNews.html";
 }
 
 function editNews(id) {
-    window.location = `/news/editNews.html?id=${id}`;
+    window.location = `editNews.html`;
 }
 
 function deleteNews(itemId) {

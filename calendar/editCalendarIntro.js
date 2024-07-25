@@ -35,7 +35,7 @@ function retrieveIntro() {
 }
 
 function cancel() {
-    window.location = "/calendar/calendar.html"
+    window.location = "calendar.html"
 }
 
 function postIntro() {

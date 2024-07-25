@@ -13,6 +13,7 @@ try {
     if ($payment->isPaid() && !$payment->hasRefunds() && !$payment->hasChargebacks()) {
         $member_id = $payment->metadata->member_id;
         $member = mysqli_fetch_object($connection->query("select * from user where id = '$member_id'"));
+        $mail = createMail();
         $mail->addAddress($member->email);
         $mail->addCC($config["MAIL_FROM_ADDRESS"]);
         $mail->isHTML();

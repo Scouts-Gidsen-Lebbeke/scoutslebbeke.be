@@ -7,7 +7,7 @@ foreach ($groups as $group) {
         foreach (mysqli_all_objects($connection, "select * from activity where now() < end order by start") as $activity) {
             $activity_page = (object) [
                 "name" => $activity->name,
-                "path" => "activity.html?id=" . $activity->id,
+                "path" => "activity/activity.html?id=" . $activity->id,
                 "rank" => $activity->start,
                 "visible" => true,
                 "group_id" => $group->id
@@ -19,7 +19,7 @@ foreach ($groups as $group) {
         foreach (mysqli_all_objects($connection, "select * from event where now() < end order by start") as $event) {
             $event_page = (object) [
                 "name" => $event->name,
-                "path" => "event.html?id=" . $event->id,
+                "path" => "event/event.html?id=" . $event->id,
                 "rank" => $event->start,
                 "visible" => true,
                 "group_id" => $group->id

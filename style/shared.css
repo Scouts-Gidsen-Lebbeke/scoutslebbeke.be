@@ -1,4 +1,4 @@
-@import url(profile.css);
+@import url(../profile/profile.css);
 @import url(burger.css);
 @import url(nav.css);
 
@@ -123,4 +123,10 @@ a {
 }
 .http-status-image {
     max-width: 100%;
+}
+th.sort-asc::after {
+    content: " ▲";
+}
+th.sort-desc::after {
+    content: " ▼";
 }

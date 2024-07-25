@@ -20,3 +20,10 @@ $certifier = (object) array(
     "town" => $config["CERTIFIER_TOWN"],
     "address" => $config["CERTIFIER_STREET"]." ".$config["CERTIFIER_NO"].", ".$config["CERTIFIER_ZIP"]." ".$config["CERTIFIER_TOWN"]
 );
+$custom_fields = (object) array(
+    "totem" => $config["CUSTOM_TOTEM"],
+    "kbijnaam" => $config["CUSTOM_KBIJNAAM"],
+    "wbijnaam" => $config["CUSTOM_WBIJNAAM"],
+    "nis_nr" => $config["CUSTOM_NIS_NR"],
+    "branch_head" => $config["CUSTOM_BRANCH_HEAD"]
+);

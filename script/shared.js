@@ -269,3 +269,49 @@ function exportTableToExcel(tableID, filename = 'output.xlsx'){
     downloadLink.download = filename ? filename : 'excel_data.xlsx';
     downloadLink.click();
 }
+
+function sortTable(tableID, n) {
+    const table = document.getElementById(tableID);
+    const tbody = table.tBodies[0];
+    const rows = Array.from(tbody.rows);
+
+    let asc = table.rows[0].cells[n].classList.contains('sort-asc');
+
+    // Remove sort classes from all headers
+    Array.from(table.rows[0].cells).forEach(header => {
+        header.classList.remove('sort-asc', 'sort-desc');
+    });
+
+    // Add the appropriate class to the header
+    table.rows[0].cells[n].classList.add(asc ? 'sort-desc' : 'sort-asc');
+
+    // Sort rows based on the cell value
+    rows.sort((row1, row2) => {
+        const cell1 = row1.cells[n].textContent;
+        const cell2 = row2.cells[n].textContent;
+
+        if (!isNaN(cell1) && !isNaN(cell2)) {
+            return asc ? cell1 - cell2 : cell2 - cell1;
+        }
+
+        return asc
+            ? cell1.localeCompare(cell2)
+            : cell2.localeCompare(cell1);
+    });
+
+    // Append the sorted rows to the table body
+    rows.forEach(row => tbody.appendChild(row));
+}
+
+function filterTable(tableID, input) {
+    const filter = input.value.toLowerCase();
+    const table = document.getElementById(tableID);
+    const rows = table.getElementsByTagName("tr");
+
+    Array.from(rows).forEach((row, index) => {
+        if (index === 0) return; // Skip header row
+        const cells = row.getElementsByTagName("td");
+        const rowText = Array.from(cells).map(cell => cell.textContent.toLowerCase()).join(" ");
+        row.style.display = rowText.includes(filter) ? "" : "none";
+    });
+}

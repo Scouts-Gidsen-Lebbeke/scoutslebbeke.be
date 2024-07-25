@@ -35,7 +35,7 @@ function getStaff(data) {
         if (staff.welpenbijnaam) {
             nickname += ' &bull; ' + staff.welpenbijnaam;
         }
-        const staffHead = staff.branchHead === "1" ? " (takleiding)" : '';
+        const staffHead = staff.branch_head === "1" ? " (takleiding)" : '';
         $("#staff").append(
             `<div class='staff-item'>
                     <img src="/images/profile/${staff.image}" alt="${data.name} staff" class="staffPicture"/><br>

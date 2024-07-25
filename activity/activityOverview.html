@@ -8,10 +8,10 @@
     <script type="module" src="/node_modules/keycloak-js/dist/keycloak.js"></script>
     <script src="/script/components.js"></script>
     <script src="/script/shared.js"></script>
-    <script src="/script/activityOverview.js"></script>
+    <script src="/activity/activityOverview.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/style/shared.css">
-    <link rel="stylesheet" href="/style/activity.css">
+    <link rel="stylesheet" href="/activity/activity.css">
     <link rel="icon" href="/images/favicon.ico">
     <title>Scouts & Gidsen Lebbeke</title>
 </head>
@@ -19,15 +19,14 @@
 <header-component></header-component>
 <div id="content">
     <h1>Overzicht inschrijvingen</h1>
-    <label for="activities">Kies een activiteit:</label>
-    <select name="activities" id="activities" onchange="retrieveActivity()">
-        <option value="0" selected>(geen)</option>
-    </select>
-    <label for="branches">Filter op tak:</label>
-    <select name="branch" id="branches" onchange="retrieveActivity()">
-        <option value="0" selected>Alle</option>
-    </select>
-    <h3>Lijst</h3>
+    <div id="overview-filters">
+        <label for="search">Zoek:</label>
+        <input type="text" id="search" oninput="filterTable('overview-table', this)">
+        <label for="branches">Filter op tak:</label>
+        <select id="branches" onchange="filterBranch(this)">
+            <option value="0" selected>Alle</option>
+        </select>
+    </div>
     <div id="checks">
         <div>
             <input type="checkbox" id="address-column" onclick="toggleVisible(this)">
@@ -58,15 +57,15 @@
         <table class="table table-striped" id="overview-table">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Voornaam</th>
-                    <th scope="col">Naam</th>
-                    <th scope="col" class="address-column hidden">Adres</th>
-                    <th scope="col" class="branch-column hidden">Tak</th>
-                    <th scope="col" class="from-column hidden">Van</th>
-                    <th scope="col" class="until-column hidden">Tot</th>
-                    <th scope="col" class="price-column hidden">Prijs</th>
-                    <th scope="col" class="present-column hidden">Aanwezig?</th>
+                    <th scope="col" onclick="sortTable('overview-table', 0)">#</th>
+                    <th scope="col" onclick="sortTable('overview-table', 1)">Voornaam</th>
+                    <th scope="col" onclick="sortTable('overview-table', 2)">Naam</th>
+                    <th scope="col" onclick="sortTable('overview-table', 3)" class="address-column hidden">Adres</th>
+                    <th scope="col" onclick="sortTable('overview-table', 4)" class="branch-column hidden">Tak</th>
+                    <th scope="col" onclick="sortTable('overview-table', 5)" class="from-column hidden">Van</th>
+                    <th scope="col" onclick="sortTable('overview-table', 6)" class="until-column hidden">Tot</th>
+                    <th scope="col" onclick="sortTable('overview-table', 7)" class="price-column hidden">Prijs</th>
+                    <th scope="col" onclick="sortTable('overview-table', 8)" class="present-column hidden">Aanwezig?</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -87,6 +86,9 @@
     </div>
     <div id="overview-loader" class="loader hidden"></div>
     <button id="export-button" onclick="exportTableToExcel('overview-table', 'overzicht.xlsx')" disabled>Exporteer</button>
+    <button id="mail-button" onclick="mail()" disabled>Mail deelnemers</button>
+    <button onclick="goBack()">Ga terug</button>
+
 </div>
 <footer-component></footer-component>
 </body>
