@@ -31,7 +31,7 @@ foreach ($groups as $group) {
         foreach (mysqli_all_objects($connection, "select * from branch where active order by minimum_age") as $branch) {
             $branch_page = (object) [
                 "name" => $branch->name,
-                "path" => "branch.html?id=" . $branch->id,
+                "path" => "branch/branch.html?id=" . $branch->id,
                 "rank" => $branch->minimum_age,
                 "visible" => true,
                 "group_id" => $group->id
