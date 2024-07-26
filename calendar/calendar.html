@@ -31,7 +31,9 @@
             </select>
             <span class="staff">
                 <label for="calendar-periods">Periode:</label>
-                <select name="calendars" id="calendar-periods"  onchange="loadCalendar()"></select>
+                <select name="calendars" id="calendar-periods" onchange="loadCalendar()">
+                    <option value="0" selected>(geen)</option>
+                </select>
                 <label for="show-old">Toon afgelopen activiteiten</label>
                 <input type="checkbox" id="show-old" onclick="toggleHidden(this.checked)">
             </span>

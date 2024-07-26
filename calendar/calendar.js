@@ -20,7 +20,9 @@ async function initPeriods() {
     return fetch("/api/calendar/getAll.php").then((res) => res.json()).then((periods) => {
         periods.forEach(p => $('#calendar-periods').append(`<option value="${p.id}">${p.name}</option>`))
         let active = periods.find(p => p.active === "1")
-        $("#calendar-periods").val(active.id)
+        if (active) {
+            $("#calendar-periods").val(active.id)
+        }
     });
 }
 
@@ -32,20 +34,15 @@ async function initBranches() {
 
 function loadCalendar() {
     let periodId = $("#calendar-periods").val();
-    if (!periodId) {
+    if (periodId === "0") {
+        $("#calendars").html("Momenteel hebben we geen werking, we zien je graag in september terug!");
         return;
     }
     let branchId = $("#calendar-branches").val();
-    if (branchId === 0) {
+    if (branchId === "0") {
         $("#calendars").html("Selecteer hierboven een tak om te zien wat we de komende maanden voor jou in petto hebben!");
         return;
     }
-    //let params = (new URL(document.location)).searchParams
-    //params.set('periodId', periodId);
-    //params.set('branchId', branchId);
-    //window.location.search
-    //history.pushState({search: })
-
     $("#calendars").html(`<div class="loader"></div>`)
     tokenized(`/api/calendar/getByBranch.php?branch=${branchId}&period=${periodId}`, true).then((calendar) => {
         if (!calendar) {
