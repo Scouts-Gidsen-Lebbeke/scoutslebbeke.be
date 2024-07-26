@@ -7,7 +7,7 @@ window.onload = function() {
         await periods
         await branches
         if (d.staff_branch || d.branch != null) {
-            let branch = d.staff_branch ? d.staff_branch : d.branch;
+            let branch = d.staff_branch ? d.staff_branch : d.branch.id;
             $("#calendar-branches").val(branch).trigger('change')
         }
         if (d.staff_branch) {
