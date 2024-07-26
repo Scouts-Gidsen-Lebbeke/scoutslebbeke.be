@@ -16,29 +16,31 @@
     <title>Scouts & Gidsen Lebbeke</title>
 </head>
 <body>
-<header-component></header-component>
-<div id="content">
-    <h1>Mijn lidmaatschap</h1>
-    <p>Hier kan je alle betalingsinfo en attesten over jouw lidmaatschap terugvinden.</p>
-    <p id="current-membership"></p>
-    <div class="table-responsive">
-        <table class="table table-striped" id="membership-overview">
-            <thead>
-            <tr>
-                <th scope="col" title="Inschrijvingsnummer">#</th>
-                <th scope="col" title="Periode van inschrijving">Periode</th>
-                <th scope="col" title="Datum van inschrijving">Datum</th>
-                <th scope="col" title="Jouw deelnameprijs">Prijs</th>
-                <th scope="col" title="Download inschrijvingsbewijs" class="icon-column">
-                    <img src="/images/download.png" class="subscription-icon" alt="download">
-                </th>
-            </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+<div id="body-wrapper">
+    <header-component></header-component>
+    <div id="content">
+        <h1>Mijn lidmaatschap</h1>
+        <p>Hier kan je alle betalingsinfo en attesten over jouw lidmaatschap terugvinden.</p>
+        <p id="current-membership"></p>
+        <div class="table-responsive">
+            <table class="table table-striped" id="membership-overview">
+                <thead>
+                <tr>
+                    <th scope="col" title="Inschrijvingsnummer">#</th>
+                    <th scope="col" title="Periode van inschrijving">Periode</th>
+                    <th scope="col" title="Datum van inschrijving">Datum</th>
+                    <th scope="col" title="Jouw deelnameprijs">Prijs</th>
+                    <th scope="col" title="Download inschrijvingsbewijs" class="icon-column">
+                        <img src="/images/download.png" class="subscription-icon" alt="download">
+                    </th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="loader"></div>
     </div>
-    <div class="loader"></div>
+    <footer-component></footer-component>
 </div>
-<footer-component></footer-component>
 </body>
 </html>

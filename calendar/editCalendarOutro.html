@@ -16,19 +16,21 @@
     <title>Scouts & Gidsen Lebbeke</title>
 </head>
 <body>
+<div id="body-wrapper">
 <header-component></header-component>
-<div id="content">
-    <h1>Bewerk outro</h1>
-    <div class="loader"></div>
-    <form id="outro-form" class="hidden">
-        <input type="number" id="id" name="id" hidden>
-        <div id="pre-outro" title="Eindtekstje voor deze kalender"></div>
-        <textarea id="outro" rows="5" name="outro" title="" required hidden></textarea>
-        <input type="button" onclick="cancel()" value="Annuleer">
-        <input type="button" onclick="postOutro()" value="Bewaar">
-    </form>
-    <span id="form-feedback"></span>
+    <div id="content">
+        <h1>Bewerk outro</h1>
+        <div class="loader"></div>
+        <form id="outro-form" class="hidden">
+            <input type="number" id="id" name="id" hidden>
+            <div id="pre-outro" title="Eindtekstje voor deze kalender"></div>
+            <textarea id="outro" rows="5" name="outro" title="" required hidden></textarea>
+            <input type="button" onclick="cancel()" value="Annuleer">
+            <input type="button" onclick="postOutro()" value="Bewaar">
+        </form>
+        <span id="form-feedback"></span>
+    </div>
+    <footer-component></footer-component>
 </div>
-<footer-component></footer-component>
 </body>
 </html>

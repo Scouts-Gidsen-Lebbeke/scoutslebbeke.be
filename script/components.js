@@ -66,11 +66,24 @@ class Footer extends HTMLElement {
 
     connectedCallback() {
         this.innerHTML = `
-            <div id="credits">
-                © <span id="current-year"></span> <span class="organisation-name">Scouts & Gidsen Lebbeke</span> -
-                <a class="underline" onclick="mailto('webmaster')">Meld een probleem</a> -
-                <a href="/privacyverklaring.pdf">Privacyverklaring</a>
+            <div>
+                <a href="https://www.scoutsengidsenvlaanderen.be" target="_blank"><img id="sgv-icon" src="/images/s&gv.png" alt="Scouts & Gidsen Vlaanderen"></a>
+                Scouts & Gidsen Lebbeke<br/>
+                Lange Minnestraat 65<br/>
+                9280 Lebbeke<br/>
+                <a href="https://goo.gl/maps/7UEjJM1XQagH2y9NA" target="_blank"><img class="link-icon" src="/images/maps.png" alt="maps"></a>
+                <a onclick="mailto('info')"><img class="link-icon" src="/images/email.ico" alt="email"></a>
+                <a href="callto:32469237995"><img class="link-icon" src="/images/phone.png" alt="phone"></a>
+                <a href="https://www.facebook.com/ScoustenGidsenLebbeke/" target="_blank"><img class="link-icon" src="/images/facebook.png" alt="facebook"></a>
+                <a href="https://www.instagram.com/scoutsengidsenlebbeke/" target="_blank"><img class="link-icon" src="/images/instagram.png" alt="instagram"></a>
+                <a href="https://wa.me/32469237995" target="_blank"><img class="link-icon" src="/images/whatsapp.png" alt="whatsapp"></a>
             </div>
+            <div id="footer-tech">
+                v 2.3.5<br/>
+                © <span id="current-year"></span> Robin Keppens<br/>
+                Made with ❤️ (and lots of ☕)
+            </div>
+            <span id="fork-repo"><a href="https://github.com/Scouts-Gidsen-Lebbeke/scoutslebbeke.be" target="_blank">Fork me on <img class="link-icon" src="/images/gh.png" alt="GitHub"></a></span>
         `;
     }
 }

@@ -20,36 +20,38 @@
     <title>Scouts & Gidsen Lebbeke</title>
 </head>
 <body>
-<header-component></header-component>
-<div id="content">
-    <h1>Schrijf een lid in</h1>
-    <p>Hieronder kan je een lid inschrijven voor <span id="activity-name">undefined</span>.</p>
-    <form autocomplete="off">
-        <label for="member">Zoek een lid</label>
-        <div class="autocomplete" id="autocomplete-container">
-            <input id="member" type="text" oninput="loadList(this)" onkeydown="toggleSelection(event)">
-            <div id="member-list" class="autocomplete-items"></div>
-        </div>
-    </form>
-    <p id="subscription-disabled">Geen lid geselecteerd.</p>
-    <p id="subscription-feedback"></p>
-    <div id="subscription-block">
-        <form id="subscription-form">
-            <input id="member-id" type="text" name="memberId" hidden>
-            <div id="multiple-options">
-                <p>Er zijn meerdere opties mogelijk voor dit lid voor deze activiteit, kies er één:</p>
-                <div id="options"></div>
+<div id="body-wrapper">
+    <header-component></header-component>
+    <div id="content">
+        <h1>Schrijf een lid in</h1>
+        <p>Hieronder kan je een lid inschrijven voor <span id="activity-name">undefined</span>.</p>
+        <form autocomplete="off">
+            <label for="member">Zoek een lid</label>
+            <div class="autocomplete" id="autocomplete-container">
+                <input id="member" type="text" oninput="loadList(this)" onkeydown="toggleSelection(event)">
+                <div id="member-list" class="autocomplete-items"></div>
             </div>
-            <div id="additional-form"></div>
-            <div id="price-data">
-                <input type="number" id="activity-price-field" name="price" hidden>
-                <p>De deelnameprijs bedraagt <b><span id="activity-price">undefined</span></b>.</p>
-            </div>
-            <button id="subscribe-button">Schrijf in</button>
         </form>
+        <p id="subscription-disabled">Geen lid geselecteerd.</p>
+        <p id="subscription-feedback"></p>
+        <div id="subscription-block">
+            <form id="subscription-form">
+                <input id="member-id" type="text" name="memberId" hidden>
+                <div id="multiple-options">
+                    <p>Er zijn meerdere opties mogelijk voor dit lid voor deze activiteit, kies er één:</p>
+                    <div id="options"></div>
+                </div>
+                <div id="additional-form"></div>
+                <div id="price-data">
+                    <input type="number" id="activity-price-field" name="price" hidden>
+                    <p>De deelnameprijs bedraagt <b><span id="activity-price">undefined</span></b>.</p>
+                </div>
+                <button id="subscribe-button">Schrijf in</button>
+            </form>
+        </div>
+        <button onclick="returnToActivity()">Ga terug</button>
     </div>
-    <button onclick="returnToActivity()">Ga terug</button>
+    <footer-component></footer-component>
 </div>
-<footer-component></footer-component>
 </body>
 </html>

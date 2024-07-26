@@ -20,14 +20,28 @@
     <title>Scouts & Gidsen Lebbeke</title>
 </head>
 <body>
-<header-component></header-component>
-<div id="content">
-    <h1>
-        Nieuwtjes
-        <img src="/images/add.png" alt="add" id="news-edit-icon" class="edit-icon" onclick="addNews()" title="Voeg een nieuwtje toe">
-    </h1>
-    <div id="news-items"></div>
+<div id="body-wrapper">
+    <header-component></header-component>
+    <div id="content">
+        <h4>Welkom bij Scouts & Gidsen Lebbeke!</h4>
+        <p>
+            Wij zijn een gemengde jeugdbeweging voor iedereen vanaf 6 jaar (geboortejaar <span id="min-year">?</span> of eerste leerjaar).
+            Tijdens het schooljaar organiseren we elke zondag tussen 14u en 17u activiteiten op ons terrein in de Lange Minnestraat.
+            Dit kunnen de klassieke plein- en bosspelletjes zijn, of bij de oudere groepen al eens een dorpsspel,
+            maar als echte scouts ontbreken uiteraard ook activiteiten als tochten, sjorren en zelf ons potje leren koken niet.
+            Elk jaar organiseren we ook minstens één weekend en gaan we samen op groot zomerkamp.
+        </p>
+        <p>
+            Begint het te kriebelen als je dit leest? Alle info over komen proberen en inschrijven kan je <a href="info/subscribe.html">hier</a> vinden!
+            Al lid en benieuwd naar wat we volgende zondag voor jou in petto hebben? Klik dan <a href="calendar/calendar.html">hier</a> voor onze kalender!
+        </p>
+        <h2>
+            Nieuwtjes
+            <img src="/images/add.png" alt="add" id="news-edit-icon" class="edit-icon" onclick="addNews()" title="Voeg een nieuwtje toe">
+        </h2>
+        <div id="news-items"></div>
+    </div>
+    <footer-component></footer-component>
 </div>
-<footer-component></footer-component>
 </body>
 </html>

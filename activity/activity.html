@@ -23,51 +23,53 @@
     <title>Scouts & Gidsen Lebbeke</title>
 </head>
 <body>
-<header-component></header-component>
-<div id="content">
-    <h1 id="activity-name"></h1>
-    <span id="activity-details">
-            <img src="../images/calendar.png" class="span-icon" alt="calendar" title="Wanneer?">
-            <span id="activity-when"></span>
-            <img src="../images/marker.png" class="span-icon activity-marker" alt="marker" title="Waar?">
-            <span id="activity-location"></span>
-            <img src="../images/group.png" class="span-icon activity-marker" alt="group" title="Voor wie?">
-            <span id="activity-branches"></span>
-        </span>
-    <p id="activity-info"></p>
-    <h3>Praktisch</h3>
-    <p id="activity-practical-info"></p>
-    <h3>Inschrijving</h3>
-    <p id="subscription-disabled">
-        Inschrijven is enkel mogelijk voor leden van onze scouts,
-        <a onclick="toggleLogin()">log in</a> om je in te schrijven!
-    </p>
-    <p id="subscription-feedback"></p>
-    <div id="subscription-block">
-        <p id="default-subscription-info">
-            Inschrijven kan je hieronder doen. Wanneer je op de knop "Schrijf me in!" klikt, zal je doorverwezen worden naar de betaalpagina.
-            Nadat we jouw betaling hebben ontvangen, krijg je een mail met een inschrijvingsbevestiging.
-            De deadline voor de inschrijving is <b id="activity-subscription-deadline">undefined</b>.
+<div id="body-wrapper">
+    <header-component></header-component>
+    <div id="content">
+        <h1 id="activity-name"></h1>
+        <span id="activity-details">
+                <img src="../images/calendar.png" class="span-icon" alt="calendar" title="Wanneer?">
+                <span id="activity-when"></span>
+                <img src="../images/marker.png" class="span-icon activity-marker" alt="marker" title="Waar?">
+                <span id="activity-location"></span>
+                <img src="../images/group.png" class="span-icon activity-marker" alt="group" title="Voor wie?">
+                <span id="activity-branches"></span>
+            </span>
+        <p id="activity-info"></p>
+        <h3>Praktisch</h3>
+        <p id="activity-practical-info"></p>
+        <h3>Inschrijving</h3>
+        <p id="subscription-disabled">
+            Inschrijven is enkel mogelijk voor leden van onze scouts,
+            <a onclick="toggleLogin()">log in</a> om je in te schrijven!
         </p>
-        <form id="subscription-form">
-            <input id="member-id" type="text" name="memberId" hidden>
-            <div id="multiple-options">
-                <p>Er zijn meerdere opties mogelijk voor jou voor deze activiteit, kies er één:</p>
-                <div id="options"></div>
-            </div>
-            <div id="additional-form"></div>
-            <div id="price-data">
-                <input type="number" id="activity-price-field" name="price" hidden>
-                <p>De deelnameprijs voor jou bedraagt <b><span id="activity-price">undefined</span></b>.</p>
-            </div>
-            <button id="subscribe-button">Schrijf me in!</button>
-        </form>
+        <p id="subscription-feedback"></p>
+        <div id="subscription-block">
+            <p id="default-subscription-info">
+                Inschrijven kan je hieronder doen. Wanneer je op de knop "Schrijf me in!" klikt, zal je doorverwezen worden naar de betaalpagina.
+                Nadat we jouw betaling hebben ontvangen, krijg je een mail met een inschrijvingsbevestiging.
+                De deadline voor de inschrijving is <b id="activity-subscription-deadline">undefined</b>.
+            </p>
+            <form id="subscription-form">
+                <input id="member-id" type="text" name="memberId" hidden>
+                <div id="multiple-options">
+                    <p>Er zijn meerdere opties mogelijk voor jou voor deze activiteit, kies er één:</p>
+                    <div id="options"></div>
+                </div>
+                <div id="additional-form"></div>
+                <div id="price-data">
+                    <input type="number" id="activity-price-field" name="price" hidden>
+                    <p>De deelnameprijs voor jou bedraagt <b><span id="activity-price">undefined</span></b>.</p>
+                </div>
+                <button id="subscribe-button">Schrijf me in!</button>
+            </form>
+        </div>
+        <div id="activity-admin">
+            <button id="staff-subscription-button">Schrijf een lid in</button>
+            <button id="overview-button">Overzicht inschrijvingen</button>
+        </div>
     </div>
-    <div id="activity-admin">
-        <button id="staff-subscription-button">Schrijf een lid in</button>
-        <button id="overview-button">Overzicht inschrijvingen</button>
-    </div>
+    <footer-component></footer-component>
 </div>
-<footer-component></footer-component>
 </body>
 </html>

@@ -18,44 +18,46 @@
     <title>Scouts & Gidsen Lebbeke</title>
 </head>
 <body>
-<header-component></header-component>
-<div id="content">
-    <h1>Overzicht registraties</h1>
-    <label for="events">Kies een evenement:</label>
-    <select name="events" id="events" onchange="retrieveEvent(value)">
-        <option value="0" selected>(geen)</option>
-    </select>
-    <h3>Lijst</h3>
-    <div id="checks">
-        <div>
-            <input type="checkbox" id="price-column" onclick="toggleVisible(this)" checked>
-            <label for="price-column">Prijs</label>
+<div id="body-wrapper">
+    <header-component></header-component>
+    <div id="content">
+        <h1>Overzicht registraties</h1>
+        <label for="events">Kies een evenement:</label>
+        <select name="events" id="events" onchange="retrieveEvent(value)">
+            <option value="0" selected>(geen)</option>
+        </select>
+        <h3>Lijst</h3>
+        <div id="checks">
+            <div>
+                <input type="checkbox" id="price-column" onclick="toggleVisible(this)" checked>
+                <label for="price-column">Prijs</label>
+            </div>
         </div>
+        <div class="table-responsive">
+            <table class="table table-striped" id="overview-table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Voornaam</th>
+                        <th scope="col">Naam</th>
+                        <th scope="col" class="price-column">Prijs</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th class="price-column" id="price-total"></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div id="overview-loader" class="loader hidden"></div>
+        <button id="export-button" onclick="exportTableToExcel('overview-table', 'overzicht.xlsx')" disabled>Exporteer</button>
     </div>
-    <div class="table-responsive">
-        <table class="table table-striped" id="overview-table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Voornaam</th>
-                    <th scope="col">Naam</th>
-                    <th scope="col" class="price-column">Prijs</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-            <tfoot>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th class="price-column" id="price-total"></th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-    <div id="overview-loader" class="loader hidden"></div>
-    <button id="export-button" onclick="exportTableToExcel('overview-table', 'overzicht.xlsx')" disabled>Exporteer</button>
+    <footer-component></footer-component>
 </div>
-<footer-component></footer-component>
 </body>
 </html>

@@ -18,28 +18,30 @@
     <title>Scouts & Gidsen Lebbeke</title>
 </head>
 <body>
-<header-component></header-component>
-<div id="content">
-    <h1>Mail deelnemers</h1>
-    <form id="email-form">
-        <input type="number" id="activity-id" name="id" hidden>
-        <div>
-            <div id="mail-subject-wrapper">
-                <label id="mail-subject-label" for="mail-subject">Onderwerp</label>
-                <input type="text" id="mail-subject" name="subject" title="Onderwerp van de mail" required>
-                <label for="cc" title="Moet er een kopie van deze mail verstuurd worden naar de groep?">Verstuur kopie</label>
-                <input type="checkbox" id="cc" name="cc" required><br/>
+<div id="body-wrapper">
+    <header-component></header-component>
+    <div id="content">
+        <h1>Mail deelnemers</h1>
+        <form id="email-form">
+            <input type="number" id="activity-id" name="id" hidden>
+            <div>
+                <div id="mail-subject-wrapper">
+                    <label id="mail-subject-label" for="mail-subject">Onderwerp</label>
+                    <input type="text" id="mail-subject" name="subject" title="Onderwerp van de mail" required>
+                    <label for="cc" title="Moet er een kopie van deze mail verstuurd worden naar de groep?">Verstuur kopie</label>
+                    <input type="checkbox" id="cc" name="cc" required><br/>
+                </div>
+                <div id="email-pre-content" title="Inhoud van de mail"></div>
+                <textarea id="email-content" rows="5" name="content" required hidden></textarea>
+                <label id="mail-attachment-label" for="mail-attachment">Bijlage</label>
+                <input type="file" id="mail-attachment" name="attachment">
             </div>
-            <div id="email-pre-content" title="Inhoud van de mail"></div>
-            <textarea id="email-content" rows="5" name="content" required hidden></textarea>
-            <label id="mail-attachment-label" for="mail-attachment">Bijlage</label>
-            <input type="file" id="mail-attachment" name="attachment">
-        </div>
-        <input type="button" onclick="cancel()" value="Annuleer">
-        <input type="button" onclick="mail()" value="Verstuur">
-    </form>
-    <span id="form-feedback"></span>
+            <input type="button" onclick="cancel()" value="Annuleer">
+            <input type="button" onclick="mail()" value="Verstuur">
+        </form>
+        <span id="form-feedback"></span>
+    </div>
+    <footer-component></footer-component>
 </div>
-<footer-component></footer-component>
 </body>
 </html>

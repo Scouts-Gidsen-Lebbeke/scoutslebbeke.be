@@ -20,23 +20,25 @@
     <title>Scouts & Gidsen Lebbeke</title>
 </head>
 <body>
-<header-component></header-component>
-<div id="content">
-    <h1>Kalender</h1>
-    <p>
-        <label for="calendar-branches">Tak:</label>
-        <select name="calendar-branches" id="calendar-branches" onchange="loadCalendar()">
-            <option value="0" selected>(geen)</option>
-        </select>
-        <span class="staff">
-            <label for="calendar-periods">Periode:</label>
-            <select name="calendars" id="calendar-periods"  onchange="loadCalendar()"></select>
-            <label for="show-old">Toon afgelopen activiteiten</label>
-            <input type="checkbox" id="show-old" onclick="toggleHidden(this.checked)">
-        </span>
-    </p>
-    <div id="calendars">Selecteer hierboven een tak om te zien wat we de komende maanden voor jou in petto hebben!</div>
+<div id="body-wrapper">
+    <header-component></header-component>
+    <div id="content">
+        <h1>Kalender</h1>
+        <p>
+            <label for="calendar-branches">Tak:</label>
+            <select name="calendar-branches" id="calendar-branches" onchange="loadCalendar()">
+                <option value="0" selected>(geen)</option>
+            </select>
+            <span class="staff">
+                <label for="calendar-periods">Periode:</label>
+                <select name="calendars" id="calendar-periods"  onchange="loadCalendar()"></select>
+                <label for="show-old">Toon afgelopen activiteiten</label>
+                <input type="checkbox" id="show-old" onclick="toggleHidden(this.checked)">
+            </span>
+        </p>
+        <div id="calendars">Selecteer hierboven een tak om te zien wat we de komende maanden voor jou in petto hebben!</div>
+    </div>
+    <footer-component></footer-component>
 </div>
-<footer-component></footer-component>
 </body>
 </html>

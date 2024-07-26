@@ -16,80 +16,82 @@
     <title>Scouts & Gidsen Lebbeke</title>
 </head>
 <body>
-<header-component></header-component>
-<div id="content">
-    <h1>Overzicht inschrijvingen</h1>
-    <div id="overview-filters">
-        <label for="search">Zoek:</label>
-        <input type="text" id="search" oninput="filterTable('overview-table', this)">
-        <label for="branches">Filter op tak:</label>
-        <select id="branches" onchange="filterBranch(this)">
-            <option value="0" selected>Alle</option>
-        </select>
-    </div>
-    <div id="checks">
-        <div>
-            <input type="checkbox" id="address-column" onclick="toggleVisible(this)">
-            <label for="address-column">Adres</label>
+<div id="body-wrapper">
+    <header-component></header-component>
+    <div id="content">
+        <h1>Overzicht inschrijvingen</h1>
+        <div id="overview-filters">
+            <label for="search">Zoek:</label>
+            <input type="text" id="search" oninput="filterTable('overview-table', this)">
+            <label for="branches">Filter op tak:</label>
+            <select id="branches" onchange="filterBranch(this)">
+                <option value="0" selected>Alle</option>
+            </select>
         </div>
-        <div>
-            <input type="checkbox" id="branch-column" onclick="toggleVisible(this)">
-            <label for="branch-column">Tak</label>
+        <div id="checks">
+            <div>
+                <input type="checkbox" id="address-column" onclick="toggleVisible(this)">
+                <label for="address-column">Adres</label>
+            </div>
+            <div>
+                <input type="checkbox" id="branch-column" onclick="toggleVisible(this)">
+                <label for="branch-column">Tak</label>
+            </div>
+            <div>
+                <input type="checkbox" id="from-column" onclick="toggleVisible(this)">
+                <label for="from-column">Van</label>
+            </div>
+            <div>
+                <input type="checkbox" id="until-column" onclick="toggleVisible(this)">
+                <label for="until-column">Tot</label>
+            </div>
+            <div>
+                <input type="checkbox" id="price-column" onclick="toggleVisible(this)">
+                <label for="price-column">Prijs</label>
+            </div>
+            <div>
+                <input type="checkbox" id="present-column" onclick="toggleVisible(this)">
+                <label for="present-column">Aanwezig</label>
+            </div>
         </div>
-        <div>
-            <input type="checkbox" id="from-column" onclick="toggleVisible(this)">
-            <label for="from-column">Van</label>
+        <div class="table-responsive">
+            <table class="table table-striped" id="overview-table">
+                <thead>
+                    <tr>
+                        <th scope="col" onclick="sortTable('overview-table', 0)">#</th>
+                        <th scope="col" onclick="sortTable('overview-table', 1)">Voornaam</th>
+                        <th scope="col" onclick="sortTable('overview-table', 2)">Naam</th>
+                        <th scope="col" onclick="sortTable('overview-table', 3)" class="address-column hidden">Adres</th>
+                        <th scope="col" onclick="sortTable('overview-table', 4)" class="branch-column hidden">Tak</th>
+                        <th scope="col" onclick="sortTable('overview-table', 5)" class="from-column hidden">Van</th>
+                        <th scope="col" onclick="sortTable('overview-table', 6)" class="until-column hidden">Tot</th>
+                        <th scope="col" onclick="sortTable('overview-table', 7)" class="price-column hidden">Prijs</th>
+                        <th scope="col" onclick="sortTable('overview-table', 8)" class="present-column hidden">Aanwezig?</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th class="address-column hidden"></th>
+                        <th class="branch-column hidden"></th>
+                        <th class="from-column hidden"></th>
+                        <th class="until-column hidden"></th>
+                        <th class="price-column hidden" id="price-total"></th>
+                        <th class="present-column hidden"></th>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
-        <div>
-            <input type="checkbox" id="until-column" onclick="toggleVisible(this)">
-            <label for="until-column">Tot</label>
-        </div>
-        <div>
-            <input type="checkbox" id="price-column" onclick="toggleVisible(this)">
-            <label for="price-column">Prijs</label>
-        </div>
-        <div>
-            <input type="checkbox" id="present-column" onclick="toggleVisible(this)">
-            <label for="present-column">Aanwezig</label>
-        </div>
-    </div>
-    <div class="table-responsive">
-        <table class="table table-striped" id="overview-table">
-            <thead>
-                <tr>
-                    <th scope="col" onclick="sortTable('overview-table', 0)">#</th>
-                    <th scope="col" onclick="sortTable('overview-table', 1)">Voornaam</th>
-                    <th scope="col" onclick="sortTable('overview-table', 2)">Naam</th>
-                    <th scope="col" onclick="sortTable('overview-table', 3)" class="address-column hidden">Adres</th>
-                    <th scope="col" onclick="sortTable('overview-table', 4)" class="branch-column hidden">Tak</th>
-                    <th scope="col" onclick="sortTable('overview-table', 5)" class="from-column hidden">Van</th>
-                    <th scope="col" onclick="sortTable('overview-table', 6)" class="until-column hidden">Tot</th>
-                    <th scope="col" onclick="sortTable('overview-table', 7)" class="price-column hidden">Prijs</th>
-                    <th scope="col" onclick="sortTable('overview-table', 8)" class="present-column hidden">Aanwezig?</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-            <tfoot>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th class="address-column hidden"></th>
-                    <th class="branch-column hidden"></th>
-                    <th class="from-column hidden"></th>
-                    <th class="until-column hidden"></th>
-                    <th class="price-column hidden" id="price-total"></th>
-                    <th class="present-column hidden"></th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-    <div id="overview-loader" class="loader hidden"></div>
-    <button id="export-button" onclick="exportTableToExcel('overview-table', 'overzicht.xlsx')" disabled>Exporteer</button>
-    <button id="mail-button" onclick="mail()" disabled>Mail deelnemers</button>
-    <button onclick="goBack()">Ga terug</button>
+        <div id="overview-loader" class="loader hidden"></div>
+        <button id="export-button" onclick="exportTableToExcel('overview-table', 'overzicht.xlsx')" disabled>Exporteer</button>
+        <button id="mail-button" onclick="mail()" disabled>Mail deelnemers</button>
+        <button onclick="goBack()">Ga terug</button>
 
+    </div>
+    <footer-component></footer-component>
 </div>
-<footer-component></footer-component>
 </body>
 </html>

@@ -1,11 +1,22 @@
 @import url(../profile/profile.css);
 @import url(burger.css);
 @import url(nav.css);
+@import url(footer.css);
 
-body {
+html, body {
+    height: 100%;
     margin: 0;
+}
+body {
     background: #181818;
     font-family: Georgia, Avenir, serif;
+    display: flex;
+    flex-direction: column;
+}
+#body-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 a {
     text-decoration: none;
@@ -17,7 +28,7 @@ a {
     top: 0;
     z-index: 2;
     width: 100%;
-    position: absolute;
+    position: fixed;
     font-size: 20px;
     color: #eeeeee;
     background: #181818;
@@ -38,7 +49,6 @@ a {
     text-align: center;
 }
 #title-wrapper {
-    margin-top: 60px;
     height: 400px;
     background: url('/images/background/default.jpg') center no-repeat;
     background-size: cover;
@@ -46,9 +56,9 @@ a {
     padding: 10px;
 }
 #content {
+    flex: 1;
     text-align: center;
     background: white;
-    margin: auto;
     padding: 10px 40px 50px;
     box-sizing: border-box;
 }
@@ -95,11 +105,12 @@ a {
     }
     #title {
         font-size: 30px;
-        margin: auto;
+        margin: 60px auto 0;
     }
     #content {
         margin: auto;
         padding: 10px;
+        width: 100%;
     }
 }
 .loader {

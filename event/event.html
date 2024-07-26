@@ -22,53 +22,55 @@
     <title>Scouts & Gidsen Lebbeke</title>
 </head>
 <body>
-<header-component></header-component>
-<div id="content">
-    <h1 id="event-name"></h1>
-    <span id="event-details">
-        <img src="/images/calendar.png" class="span-icon" alt="calendar" title="Wanneer?">
-        <span id="event-when"></span>
-        <img src="/images/marker.png" class="span-icon event-marker" alt="marker" title="Waar?">
-        <span id="event-location"></span>
-    </span>
-    <p id="event-info"></p>
-    <h3>Inschrijving</h3>
-    <div id="registration-block">
-        <p id="default-registration-info">
-            Inschrijven kan je hieronder doen. Wanneer je op de knop "Registreer" klikt, zal je doorverwezen worden naar de betaalpagina.
-            Nadat we jouw betaling hebben ontvangen, krijg je een bevestigingsmail.
-            De registraties sluiten op <b id="event-registration-deadline">undefined</b>.
-        </p>
-        <form id="registration-form">
-            <div id="contact-info">
-                <h4>Contactgegevens</h4>
-                <div class="event-field">
-                    <label for="event-last-name">Naam:</label>
-                    <input type="text" id="event-last-name" name="last-name">
+<div id="body-wrapper">
+    <header-component></header-component>
+    <div id="content">
+        <h1 id="event-name"></h1>
+        <span id="event-details">
+            <img src="/images/calendar.png" class="span-icon" alt="calendar" title="Wanneer?">
+            <span id="event-when"></span>
+            <img src="/images/marker.png" class="span-icon event-marker" alt="marker" title="Waar?">
+            <span id="event-location"></span>
+        </span>
+        <p id="event-info"></p>
+        <h3>Inschrijving</h3>
+        <div id="registration-block">
+            <p id="default-registration-info">
+                Inschrijven kan je hieronder doen. Wanneer je op de knop "Registreer" klikt, zal je doorverwezen worden naar de betaalpagina.
+                Nadat we jouw betaling hebben ontvangen, krijg je een bevestigingsmail.
+                De registraties sluiten op <b id="event-registration-deadline">undefined</b>.
+            </p>
+            <form id="registration-form">
+                <div id="contact-info">
+                    <h4>Contactgegevens</h4>
+                    <div class="event-field">
+                        <label for="event-last-name">Naam:</label>
+                        <input type="text" id="event-last-name" name="last-name">
+                    </div>
+                    <div class="event-field">
+                        <label for="event-first-name">Voornaam:</label>
+                        <input type="text" id="event-first-name" name="first-name">
+                    </div>
+                    <div class="event-field">
+                        <label for="event-email">E-mail:</label>
+                        <input type="email" id="event-email" name="email">
+                    </div>
                 </div>
-                <div class="event-field">
-                    <label for="event-first-name">Voornaam:</label>
-                    <input type="text" id="event-first-name" name="first-name">
+                <h4 id="additional-form-title">Evenementsgegevens</h4>
+                <div id="additional-form"></div>
+                <div id="price-data">
+                    <input type="number" id="event-price-field" name="price" value="0" hidden>
+                    <p>De totaalprijs bedraagt <b><span id="event-price">€ 0</span></b>.</p>
                 </div>
-                <div class="event-field">
-                    <label for="event-email">E-mail:</label>
-                    <input type="email" id="event-email" name="email">
-                </div>
-            </div>
-            <h4 id="additional-form-title">Evenementsgegevens</h4>
-            <div id="additional-form"></div>
-            <div id="price-data">
-                <input type="number" id="event-price-field" name="price" value="0" hidden>
-                <p>De totaalprijs bedraagt <b><span id="event-price">€ 0</span></b>.</p>
-            </div>
-            <button id="register-button">Registreer</button>
-        </form>
+                <button id="register-button">Registreer</button>
+            </form>
+        </div>
+        <p id="registration-feedback"></p>
+        <div id="event-admin">
+            <button id="overview-button">Overzicht registraties</button>
+        </div>
     </div>
-    <p id="registration-feedback"></p>
-    <div id="event-admin">
-        <button id="overview-button">Overzicht registraties</button>
-    </div>
+    <footer-component></footer-component>
 </div>
-<footer-component></footer-component>
 </body>
 </html>

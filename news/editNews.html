@@ -16,35 +16,37 @@
     <title>Scouts & Gidsen Lebbeke</title>
 </head>
 <body>
-<header-component></header-component>
-<div id="content">
-    <h1>Bewerk nieuwtje</h1>
-    <div class="loader"></div>
-    <form id="news-form" class="hidden">
-        <input type="number" id="news-id" name="id" hidden>
-        <input type="text" id="news-image" name="image" hidden>
-        <input id="news-image-upload" class="hidden" type="file" onchange="postImage()" name="upfile" accept="image/*"><br/>
-        <div id="news-wrapper">
-            <div id="news-image-div" class="news-pic" onclick="toggleUpload()">
-                <img id="news-image-pic" class="news-pic" src="/images/no-image.png" alt="news-pic">
-                <img id="news-image-new-pic" class="news-pic" src="/images/add-photo.png" alt="news-pic">
-            </div>
-            <div>
-                <div id="news-title-wrapper">
-                    <label id="news-title-label" for="news-title">Titel</label>
-                    <input type="text" id="news-title" name="title" title="Korte beschrijving van de activiteit" required>
-                    <label for="news-visible" title="Is dit nieuwtje zichtbaar?">Zichtbaar</label>
-                    <input type="checkbox" id="news-visible" name="visible" required><br/>
+<div id="body-wrapper">
+    <header-component></header-component>
+    <div id="content">
+        <h1>Bewerk nieuwtje</h1>
+        <div class="loader"></div>
+        <form id="news-form" class="hidden">
+            <input type="number" id="news-id" name="id" hidden>
+            <input type="text" id="news-image" name="image" hidden>
+            <input id="news-image-upload" class="hidden" type="file" onchange="postImage()" name="upfile" accept="image/*"><br/>
+            <div id="news-wrapper">
+                <div id="news-image-div" class="news-pic" onclick="toggleUpload()">
+                    <img id="news-image-pic" class="news-pic" src="/images/no-image.png" alt="news-pic">
+                    <img id="news-image-new-pic" class="news-pic" src="/images/add-photo.png" alt="news-pic">
                 </div>
-                <div id="news-pre-content" title="Beschrijving van het nieuwtje"></div>
-                <textarea id="news-content" rows="5" name="content" required hidden></textarea>
+                <div>
+                    <div id="news-title-wrapper">
+                        <label id="news-title-label" for="news-title">Titel</label>
+                        <input type="text" id="news-title" name="title" title="Korte beschrijving van de activiteit" required>
+                        <label for="news-visible" title="Is dit nieuwtje zichtbaar?">Zichtbaar</label>
+                        <input type="checkbox" id="news-visible" name="visible" required><br/>
+                    </div>
+                    <div id="news-pre-content" title="Beschrijving van het nieuwtje"></div>
+                    <textarea id="news-content" rows="5" name="content" required hidden></textarea>
+                </div>
             </div>
-        </div>
-        <input type="button" onclick="cancel()" value="Annuleer">
-        <input type="button" onclick="postNews()" value="Bewaar">
-    </form>
-    <span id="form-feedback"></span>
+            <input type="button" onclick="cancel()" value="Annuleer">
+            <input type="button" onclick="postNews()" value="Bewaar">
+        </form>
+        <span id="form-feedback"></span>
+    </div>
+    <footer-component></footer-component>
 </div>
-<footer-component></footer-component>
 </body>
 </html>

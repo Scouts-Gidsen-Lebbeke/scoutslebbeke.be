@@ -16,19 +16,21 @@
     <title>Scouts & Gidsen Lebbeke</title>
 </head>
 <body>
-<header-component></header-component>
-<div id="content">
-    <h1>Bewerk intro</h1>
-    <div class="loader"></div>
-    <form id="intro-form" class="hidden">
-        <input type="number" id="id" name="id" hidden>
-        <div id="pre-intro" title="Introductie voor deze kalender"></div>
-        <textarea id="intro" rows="5" name="intro" required hidden></textarea>
-        <input type="button" onclick="cancel()" value="Annuleer">
-        <input type="button" onclick="postIntro()" value="Bewaar">
-    </form>
-    <span id="form-feedback"></span>
+<div id="body-wrapper">
+    <header-component></header-component>
+    <div id="content">
+        <h1>Bewerk intro</h1>
+        <div class="loader"></div>
+        <form id="intro-form" class="hidden">
+            <input type="number" id="id" name="id" hidden>
+            <div id="pre-intro" title="Introductie voor deze kalender"></div>
+            <textarea id="intro" rows="5" name="intro" required hidden></textarea>
+            <input type="button" onclick="cancel()" value="Annuleer">
+            <input type="button" onclick="postIntro()" value="Bewaar">
+        </form>
+        <span id="form-feedback"></span>
+    </div>
+    <footer-component></footer-component>
 </div>
-<footer-component></footer-component>
 </body>
 </html>

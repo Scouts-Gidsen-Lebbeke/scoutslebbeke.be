@@ -5,6 +5,7 @@ window.onload = function() {
         toggleEdit(d.level > 2)
     });
     getNews()
+    $('#min-year').text(new Date().getFullYear() - (new Date().getMonth() > 6 ? 6 : 7))
 };
 
 function getNews() {
@@ -30,8 +31,8 @@ function getNews() {
 
 function toggleEdit(editable) {
     if (editable) {
-        $("#news-edit-icon").show()
-        $(".edit-icon").show()
+        $("#news-edit-icon").css("display", "inline");
+        $(".edit-icon").css("display", "inline");
     }
 }
 
@@ -40,11 +41,11 @@ function parseDateString(s) {
 }
 
 function addNews() {
-    window.location = "editNews.html";
+    window.location = "/news/editNews.html";
 }
 
 function editNews(id) {
-    window.location = `editNews.html`;
+    window.location = `/news/editNews.html?id=${id}`;
 }
 
 function deleteNews(itemId) {

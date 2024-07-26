@@ -14,28 +14,30 @@
     <title>Scouts & Gidsen Lebbeke</title>
 </head>
 <body>
-<header-component></header-component>
-<div id="content">
-    <h1>Profiel</h1>
-    <div id="profile-data">
-        <form id="profile-form">
-            <input id="profile-image-upload" class="hidden" type="file" onchange="postImage()" name="upfile" accept="image/*"><br/>
-        </form>
-        <div id="profile-image-div" class="profile-pic" onclick="toggleUpload()">
-            <img id="profile-image-pic" class="profile-pic" src="/images/profile/default.png" alt="profile-pic">
-            <img id="profile-image-new-pic" class="profile-pic" src="/images/add-photo.png" alt="profile-pic">
-        </div>
-        <div id="profile-data-details">
-            <p>Naam: <span id="profile-full-name"></span></p>
-            <p>Lidnummer: <span id="profile-member-id"></span></p>
-            <p>Functies: <span id="profile-functions"></span></p>
-            <p>Primair e-mailadres: <span id="profile-email"></span></p>
-            <button type="button" onclick="window.open('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/frontend/lid/profiel', '_blank')">
-                Wijzig mijn gegevens
-            </button>
+<div id="body-wrapper">
+    <header-component></header-component>
+    <div id="content">
+        <h1>Profiel</h1>
+        <div id="profile-data">
+            <form id="profile-form">
+                <input id="profile-image-upload" class="hidden" type="file" onchange="postImage()" name="upfile" accept="image/*"><br/>
+            </form>
+            <div id="profile-image-div" class="profile-pic" onclick="toggleUpload()">
+                <img id="profile-image-pic" class="profile-pic" src="/images/profile/default.png" alt="profile-pic">
+                <img id="profile-image-new-pic" class="profile-pic" src="/images/add-photo.png" alt="profile-pic">
+            </div>
+            <div id="profile-data-details">
+                <p>Naam: <span id="profile-full-name"></span></p>
+                <p>Lidnummer: <span id="profile-member-id"></span></p>
+                <p>Functies: <span id="profile-functions"></span></p>
+                <p>Primair e-mailadres: <span id="profile-email"></span></p>
+                <button type="button" onclick="window.open('https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/frontend/lid/profiel', '_blank')">
+                    Wijzig mijn gegevens
+                </button>
+            </div>
         </div>
     </div>
+    <footer-component></footer-component>
 </div>
-<footer-component></footer-component>
 </body>
 </html>

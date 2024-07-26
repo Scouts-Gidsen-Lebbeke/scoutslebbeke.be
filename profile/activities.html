@@ -18,36 +18,38 @@
     <title>Scouts & Gidsen Lebbeke</title>
 </head>
 <body>
-<header-component></header-component>
-<div id="content">
-    <h1>Mijn activiteiten</h1>
-    <p>
-        Hieronder zie je de activiteiten waarvoor je je hebt ingeschreven.
-        Je kan hier een inschrijving annuleren (indien de deadline van de activiteit nog niet verstreken is)
-        en na afloop van de activiteit kan je een deelnamebewijs downloaden.
-    </p>
-    <div class="table-responsive">
-        <table class="table table-striped" id="activity-overview">
-            <thead>
-                <tr>
-                    <th scope="col" title="Inschrijvingsnummer">#</th>
-                    <th scope="col" title="Naam van de activiteit">Activiteit</th>
-                    <th scope="col" title="Datum van inschrijving">Datum</th>
-                    <th scope="col" title="Jouw deelnameprijs">Prijs</th>
-                    <th scope="col" title="Status van de betaling">Status</th>
-                    <th scope="col" title="Download deelnamebewijs" class="icon-column">
-                        <img src="/images/download.png" class="subscription-icon" alt="download">
-                    </th>
-                    <th scope="col" title="Annuleer mijn inschrijving" class="icon-column">
-                        <img src="/images/cancel-black.png" class="subscription-icon" alt="cancel">
-                    </th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+<div id="body-wrapper">
+    <header-component></header-component>
+    <div id="content">
+        <h1>Mijn activiteiten</h1>
+        <p>
+            Hieronder zie je de activiteiten waarvoor je je hebt ingeschreven.
+            Je kan hier een inschrijving annuleren (indien de deadline van de activiteit nog niet verstreken is)
+            en na afloop van de activiteit kan je een deelnamebewijs downloaden.
+        </p>
+        <div class="table-responsive">
+            <table class="table table-striped" id="activity-overview">
+                <thead>
+                    <tr>
+                        <th scope="col" title="Inschrijvingsnummer">#</th>
+                        <th scope="col" title="Naam van de activiteit">Activiteit</th>
+                        <th scope="col" title="Datum van inschrijving">Datum</th>
+                        <th scope="col" title="Jouw deelnameprijs">Prijs</th>
+                        <th scope="col" title="Status van de betaling">Status</th>
+                        <th scope="col" title="Download deelnamebewijs" class="icon-column">
+                            <img src="/images/download.png" class="subscription-icon" alt="download">
+                        </th>
+                        <th scope="col" title="Annuleer mijn inschrijving" class="icon-column">
+                            <img src="/images/cancel-black.png" class="subscription-icon" alt="cancel">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="loader"></div>
     </div>
-    <div class="loader"></div>
+    <footer-component></footer-component>
 </div>
-<footer-component></footer-component>
 </body>
 </html>

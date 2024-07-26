@@ -18,17 +18,18 @@
     <title>Scouts & Gidsen Lebbeke</title>
 </head>
 <body>
-<header-component></header-component>
-<div id="content">
-    <h1>Admin</h1>
-    <h3>Ledenbeheer</h3>
-    <button onclick="syncStaff()">Synchroniseer leiding</button>
-    <h3>Activiteiten</h3>
-    <label for="subscription-id">Inschrijvingsnummer:</label>
-    <input id="subscription-id" type="number">
-    <button onclick="downloadCertificate()">Genereer</button>
-
+<div id="body-wrapper">
+    <header-component></header-component>
+    <div id="content">
+        <h1>Admin</h1>
+        <h3>Ledenbeheer</h3>
+        <button onclick="syncStaff()">Synchroniseer leiding</button>
+        <h3>Activiteiten</h3>
+        <label for="subscription-id">Inschrijvingsnummer:</label>
+        <input id="subscription-id" type="number">
+        <button onclick="downloadCertificate()">Genereer</button>
+    </div>
+    <footer-component></footer-component>
 </div>
-<footer-component></footer-component>
 </body>
 </html>

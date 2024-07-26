@@ -1,0 +1,64 @@
+footer-component {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+    color: white;
+    margin: 20px;
+}
+#sgv-icon {
+    height: 100px;
+    float: left;
+    margin-right: 5px;
+}
+.link-icon {
+    display: inline;
+    height: 20px;
+}
+#footer-tech {
+    margin-right: 40px;
+}
+#fork-repo {
+    position: absolute;
+    right: -20px;
+    width: 140px;
+    overflow: hidden;
+    height: 140px;
+    z-index: 9999;
+}
+#fork-repo a {
+    background: #FFFFFF;
+    color:black;
+    text-align: center;
+    font-weight: bold;
+    line-height: 2rem;
+    transition: 0.5s;
+    width: 200px;
+    position: absolute;
+    top: 35px;
+    right: -50px;
+    transform: rotate(45deg);
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.8);
+}
+#fork-repo a::before, #fork-repo a::after {
+    width: 100%;
+    border: dashed 1px black;
+    content: "";
+    position:absolute;
+    top: 1px;
+    left:0;
+    height:1px;
+}
+#fork-repo img {
+    margin-bottom: 4px;
+}
+#fork-repo a::after {
+    bottom:1px;
+    top:auto;
+}
+@media screen and (max-width:800px) {
+    footer-component {
+        display: none;
+    }
+}
