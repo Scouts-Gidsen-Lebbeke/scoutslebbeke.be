@@ -22,6 +22,8 @@ async function initPeriods() {
         let active = periods.find(p => p.active === "1")
         if (active) {
             $("#calendar-periods").val(active.id)
+        } else {
+            $("#calendars").html("Momenteel hebben we geen werking, we zien je graag in september terug!");
         }
     });
 }
