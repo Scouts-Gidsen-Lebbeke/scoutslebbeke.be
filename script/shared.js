@@ -181,6 +181,18 @@ function loadProfile(d) {
     $("#mobile-profile").append(`<a onclick="toggleLogout()">Log uit</a>`)
 }
 
+function guardAdmin(d) {
+    if (d.level < 4) {
+        window.location = "/403.html";
+    }
+}
+
+function guardStaff(d) {
+    if (d.level < 3) {
+        window.location = "/403.html";
+    }
+}
+
 function periodToTitle(from, to) {
     if (from.getDate() === to.getDate()) {
         return capitalize(`${printDate(from)}, ${printTime(from)} - ${printTime(to)}`);

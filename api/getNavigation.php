@@ -16,7 +16,7 @@ foreach ($groups as $group) {
         }
     } else if ($group->name == "Evenementen") {
         $group->items = array();
-        foreach (mysqli_all_objects($connection, "select * from event where now() < end order by start") as $event) {
+        foreach (mysqli_all_objects($connection, "select * from event where now() < end and now() > open_registration order by start") as $event) {
             $event_page = (object) [
                 "name" => $event->name,
                 "path" => "event/event.html?id=" . $event->id,

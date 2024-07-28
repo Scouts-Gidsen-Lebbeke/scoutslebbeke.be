@@ -5,13 +5,10 @@ TODO
 #### V2 prep
 Vlottere overgang naar Laravel-project (look & feel).
 - Wegwerken contactpagina in footer
-- Rebranding front page (over ons verhuizen naar daar)
 - Logo ipv burger
 
 #### Missing links
 Kleine moeite, veel betere UX.
-- Reloads van filtertabellen (activities en events) behouden filtering
-- Sticky header
 - Redirect activity-pagina
 - Bug redirect event-pagina (ook bevestigd bij cancel)
 - Controle medische fiche bij aanwezigheid

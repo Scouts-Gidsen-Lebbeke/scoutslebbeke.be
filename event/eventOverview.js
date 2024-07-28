@@ -2,32 +2,16 @@ window.onload = function() {
     loadGlobal();
     const params = (new URL(document.location)).searchParams;
     const eventId = params.get('id')
-    let events = loadEvents();
     requireLogin(async d => {
-        if (d.level > 2) {
-            loadProfile(d)
-            await events
-            if (eventId) {
-                $("#events").val(eventId).change()
-            }
-        } else {
-            window.location = "/403.html";
+        guardStaff(d);
+        loadProfile(d)
+        if (eventId) {
+            retrieveEvent(eventId)
         }
     });
 };
 
-async function loadEvents() {
-    return fetch("/api/event/getAllEvents.php").then(d => d.json()).then(d => {
-        d.forEach(a => $('#events').append(`<option value="${a.id}">${a.name}</option>`))
-    })
-}
-
 function retrieveEvent(id) {
-    $("#export-button").prop('disabled', true);
-    $("#overview-table tbody").empty();
-    $(".additional").remove();
-    if (id === "0") return
-    $("#overview-loader").show()
     tokenized(`/api/event/getEventOverview.php?id=${id}`).then(result => {
         result.forEach((r, i) => {
             $('#overview-table tbody').append(
@@ -81,4 +65,10 @@ function sumTableValues(id) {
         });
     });
     return sum;
+}
+
+function goBack() {
+    const params = (new URL(document.location)).searchParams;
+    const eventId = params.get('id')
+    window.location = params.get('from') === "admin" ? "/admin/admin.html" : `/event/event.html?id=${eventId}`;
 }

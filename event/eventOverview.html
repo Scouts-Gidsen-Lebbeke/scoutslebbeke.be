@@ -22,11 +22,10 @@
     <header-component></header-component>
     <div id="content">
         <h1>Overzicht registraties</h1>
-        <label for="events">Kies een evenement:</label>
-        <select name="events" id="events" onchange="retrieveEvent(value)">
-            <option value="0" selected>(geen)</option>
-        </select>
-        <h3>Lijst</h3>
+        <div id="overview-filters">
+            <label for="search">Zoek:</label>
+            <input type="text" id="search" oninput="filterTable('overview-table', this)">
+        </div>
         <div id="checks">
             <div>
                 <input type="checkbox" id="price-column" onclick="toggleVisible(this)" checked>
@@ -37,10 +36,10 @@
             <table class="table table-striped" id="overview-table">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Voornaam</th>
-                        <th scope="col">Naam</th>
-                        <th scope="col" class="price-column">Prijs</th>
+                        <th scope="col" onclick="sortTable('overview-table', 0)">#</th>
+                        <th scope="col" onclick="sortTable('overview-table', 1)">Voornaam</th>
+                        <th scope="col" onclick="sortTable('overview-table', 2)">Naam</th>
+                        <th scope="col" onclick="sortTable('overview-table', 3)" class="price-column">Prijs</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -54,8 +53,9 @@
                 </tfoot>
             </table>
         </div>
-        <div id="overview-loader" class="loader hidden"></div>
+        <div id="overview-loader" class="loader"></div>
         <button id="export-button" onclick="exportTableToExcel('overview-table', 'overzicht.xlsx')" disabled>Exporteer</button>
+        <button onclick="goBack()">Ga terug</button>
     </div>
     <footer-component></footer-component>
 </div>

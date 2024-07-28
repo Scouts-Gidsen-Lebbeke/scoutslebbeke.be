@@ -23,11 +23,63 @@
     <div id="content">
         <h1>Admin</h1>
         <h3>Ledenbeheer</h3>
-        <button onclick="syncStaff()">Synchroniseer leiding</button>
+        <label for="sync-staff">Haal de leidingsgegevens van de Groepsadmin op:</label>
+        <button id="sync-staff" onclick="syncStaff()">Synchroniseer</button>
+        <span id="sync-staff-feedback"></span>
         <h3>Activiteiten</h3>
-        <label for="subscription-id">Inschrijvingsnummer:</label>
-        <input id="subscription-id" type="number">
-        <button onclick="downloadCertificate()">Genereer</button>
+        <p>
+            Hieronder kan je alle afgelopen en geplande activiteiten beheren.
+        </p>
+        <div class="table-responsive">
+            <table class="table table-striped" id="activity-overview">
+                <thead>
+                <tr>
+                    <th scope="col" title="Naam van de activiteit">Activiteit</th>
+                    <th scope="col" title="Periode waarin de activiteit doorgaat">Periode</th>
+                    <th scope="col" title="Aantal geregistreerde inschrijvingen">Deelnemers</th>
+                    <th scope="col" title="Status van de inschrijvingen van de activiteit">Status</th>
+                    <th scope="col" title="Bewerk een bestaande of creëer een nieuwe activiteit" class="icon-column">
+                        <a onclick="createActivity()"><img src="/images/edit-black.png" class="subscription-icon" alt="download"></a>
+                    </th>
+                    <th scope="col" title="Dupliceer de activiteit" class="icon-column">
+                        <img src="/images/copy-black.png" class="subscription-icon" alt="download">
+                    </th>
+                    <th scope="col" title="Ga naar het overzicht" class="icon-column">
+                        <img src="/images/list-black.png" class="subscription-icon" alt="cancel">
+                    </th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div id="activity-overview-loader" class="loader"></div>
+        <h3>Evenementen</h3>
+        <p>
+            Hieronder kan je alle afgelopen en geplande evenementen beheren.
+        </p>
+        <div class="table-responsive">
+            <table class="table table-striped" id="event-overview">
+                <thead>
+                <tr>
+                    <th scope="col" title="Naam van het evenement">Evenement</th>
+                    <th scope="col" title="Periode waarin het evenement doorgaat">Periode</th>
+                    <th scope="col" title="Aantal registraties">Registraties</th>
+                    <th scope="col" title="Status van de inschrijvingen van het evenement">Status</th>
+                    <th scope="col" title="Bewerk een bestaand of creëer een nieuw evenement" class="icon-column">
+                        <a onclick="createActivity()"><img src="/images/edit-black.png" class="subscription-icon" alt="download"></a>
+                    </th>
+                    <th scope="col" title="Dupliceer het evenement" class="icon-column">
+                        <img src="/images/copy-black.png" class="subscription-icon" alt="download">
+                    </th>
+                    <th scope="col" title="Ga naar het overzicht" class="icon-column">
+                        <img src="/images/list-black.png" class="subscription-icon" alt="cancel">
+                    </th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div id="event-overview-loader" class="loader"></div>
     </div>
     <footer-component></footer-component>
 </div>

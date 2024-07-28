@@ -99,3 +99,6 @@
 .subscription-icon {
     width: 20px;
 }
+tbody .subscription-icon {
+    cursor: pointer;
+}

@@ -4,13 +4,10 @@ window.onload = function() {
     const activityId = params.get('id')
     initBranches();
     requireLogin(async d => {
-        if (d.level > 2) {
-            loadProfile(d)
-            if (activityId) {
-                retrieveActivity(activityId)
-            }
-        } else {
-            window.location = "/403.html";
+        guardStaff(d)
+        loadProfile(d)
+        if (activityId) {
+            retrieveActivity(activityId)
         }
     });
 };
@@ -22,8 +19,6 @@ async function initBranches() {
 }
 
 function retrieveActivity(id) {
-    if (id === "0") return
-    $("#overview-loader").show()
     tokenized(`/api/activity/getActivityOverview.php?id=${id}`).then(result => {
         result.registrations.forEach((s, i) => {
             $('#overview-table tbody').append(
