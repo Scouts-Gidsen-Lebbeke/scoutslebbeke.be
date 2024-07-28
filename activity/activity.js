@@ -37,4 +37,10 @@ function checkAdmin(user, activityId) {
             window.location = "/activity/staffSubscription.html?id=" + activityId;
         });
     }
+    if (user.level > 3) {
+        $("#edit-button").removeAttr('hidden');
+        $("#edit-button").on("click", function(){
+            window.location = "/activity/editActivity.html?id=" + activityId;
+        });
+    }
 }

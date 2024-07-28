@@ -2,6 +2,7 @@
 @import url(burger.css);
 @import url(nav.css);
 @import url(footer.css);
+@import url(location.css);
 
 html, body {
     height: 100%;
@@ -140,4 +141,7 @@ th.sort-asc::after {
 }
 th.sort-desc::after {
     content: " ▼";
+}
+location-dialog {
+    display: none;
 }

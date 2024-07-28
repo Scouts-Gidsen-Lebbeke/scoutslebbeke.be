@@ -69,15 +69,15 @@ function printActivityPeriod(fromStr, toStr) {
 }
 
 function createActivity() {
-
+    window.location = "/activity/editActivity.html?from=admin"
 }
 
 function editActivity(id) {
-
+    window.location = `/activity/editActivity.html?id=${id}&from=admin`
 }
 
 function duplicateActivity(id) {
-
+    window.location = `/activity/editActivity.html?id=${id}&duplicate=true&from=admin`
 }
 
 function showActivityOverview(id) {
@@ -85,15 +85,15 @@ function showActivityOverview(id) {
 }
 
 function createEvent() {
-
+    window.location = "/event/editEvent.html?from=admin"
 }
 
 function editEvent(id) {
-
+    window.location = `/event/editEvent.html?id=${id}&from=admin`
 }
 
 function duplicateEvent(id) {
-
+    window.location = `/event/editEvent.html?id=${id}&duplicate=true&from=admin`
 }
 
 function showEventOverview(id) {

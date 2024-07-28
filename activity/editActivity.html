@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="module" src="/node_modules/keycloak-js/dist/keycloak.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="/script/components.js"></script>
+    <script src="/script/shared.js"></script>
+    <script src="https://cdn.tiny.cloud/1/3zke4762j1cnv5l70ctyfbpncqoc7ztulh9sri9haivlajkw/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="/activity/editActivity.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/material.min.css">
+    <link rel="stylesheet" href="/style/shared.css">
+    <link rel="stylesheet" href="/activity/activity.css">
+    <link rel="icon" href="/images/favicon.ico">
+    <title>Scouts & Gidsen Lebbeke</title>
+</head>
+<body>
+<div id="body-wrapper">
+    <header-component></header-component>
+    <div id="content">
+        <h1>Bewerk activiteit</h1>
+        <div class="loader"></div>
+        <form id="activity-form" class="hidden">
+            <input type="number" id="activity-id" name="id" hidden>
+            <div>
+                <div id="activity-name-wrapper">
+                    <label for="activity-name-input" id="activity-name-label">Naam</label>
+                    <input type="text" id="activity-name-input" name="name" title="Naam van de activiteit" required><br/>
+                </div>
+                <div id="activity-meta-wrapper">
+                    <div id="activity-period-wrapper">
+                        <label for="activity-from">Van</label>
+                        <input type="datetime-local" id="activity-from" name="start" title="Wanneer start de activiteit?" required>
+                        <label for="activity-to">tot</label>
+                        <input type="datetime-local" id="activity-to" name="end" title="Wanneer eindigt de activiteit?" required>
+                    </div>
+                    <div id="activity-location-wrapper">
+                        <label for="activity-location">Locatie</label>
+                        <select id="activity-location" name="location" title="Waar vindt de activiteit plaats?" required>
+                        </select>
+                        <input type="button" onclick="createLocation()" value="+">
+                    </div>
+                    <div id="activity-restriction-wrapper">
+                        Groepen:
+                        <span id="activity-branches"></span>
+                        <input type="button" onclick="editRestrictions()" value="Bewerk">
+                    </div>
+                </div>
+                <div id="activity-meta-wrapper-2">
+                    <div id="activity-subscription-period-wrapper">
+                        <label for="activity-open">Van</label>
+                        <input type="datetime-local" id="activity-open" name="open" title="Wanneer openen de inschrijvingen van de activiteit?" required>
+                        <label for="activity-closed">tot</label>
+                        <input type="datetime-local" id="activity-closed" name="closed" title="Wanneer sluiten de inschrijvingen van de activiteit?" required>
+                    </div>
+                    <div id="activity-price-wrapper">
+                        <label for="activity-price">Basisprijs €</label>
+                        <input type="number" id="activity-price" name="price" title="Wat is de basisprijs van de activiteit?" required>
+                    </div>
+                    <div id="activity-reduction-wrapper">
+                        <label for="activity-sibling-reduction" title="Hoeveel korting krijgt een tweede kind uit hetzelfde gezin?">Gezinskorting €</label>
+                        <input type="number" id="activity-sibling-reduction" name="reduction" required>
+                    </div>
+                </div>
+                <span>Kort introductietekstje van de activiteit:</span>
+                <div id="activity-pre-info"></div>
+                <textarea id="activity-info" rows="5" name="info" required hidden></textarea>
+                <span>Praktische info van de activiteit:</span>
+                <div id="activity-pre-practical"></div>
+                <textarea id="activity-practical" rows="5" name="practical" required hidden></textarea>
+                <label for="activity-additional-form">JSON-opmaak van de extra data:</label>
+                <textarea id="activity-additional-pre-form" name="additional"></textarea>
+                <textarea id="activity-additional-form" name="additional" hidden></textarea>
+                <label for="activity-additional-form-rule">JSONATA-regel voor de prijsberekening:</label>
+                <textarea id="activity-additional-form-rule" name="rule"></textarea>
+            </div>
+            <input type="button" onclick="cancel()" value="Annuleer">
+            <input type="button" onclick="postActivity()" value="Bewaar">
+        </form>
+        <span id="form-feedback"></span>
+    </div>
+    <footer-component></footer-component>
+</div>
+<location-dialog></location-dialog>
+</body>
+</html>

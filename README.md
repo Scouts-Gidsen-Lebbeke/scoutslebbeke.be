@@ -18,7 +18,8 @@ Kleine moeite, veel betere UX.
 Nodig voor overdracht basisfunctionaliteit.
 - Consistentie nieuwtjes (onzichtbaar != niet meer opgehaald)
 - Kalender template creatie
-- Activity & event edits (duplicate-functionaliteit)
+- Activity edits: opslaan en restrictie-beheer
+- Event edits
 - Implementatie fiscale attesten
 - Aanvullen documentatie (deze + Drive)
 - Overzicht lidmaatschap
@@ -29,7 +30,6 @@ Nodig voor volledige overdracht beheer.
 - Implementatie goedkeuring lidmaatschap
 
 #### Performance & good practice
-- Geen user-updates meer: schrapping in bulk en nieuwe toekenning via auto-acceptatie
 - Wegwerken dynamische menu's (enkel info nog variabel)
 - Open sourcing Github repo
 

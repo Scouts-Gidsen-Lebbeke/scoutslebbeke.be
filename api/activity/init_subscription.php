@@ -36,7 +36,8 @@ function getSubscriptionState($member, $user): stdClass {
             if (strtotime($activity->open_subscription) > time() && !$user->level->isStaff()) {
                 $result->open_subscription = $activity->open_subscription;
             }
-            $activity_restrictions = mysqli_all_objects($connection, "select * from activity_restriction where activity_id = '$activity->id' and branch_id = '$member->branch'");
+            $branch_id = $member->branch->id;
+            $activity_restrictions = mysqli_all_objects($connection, "select * from activity_restriction where activity_id = '$activity->id' and branch_id = '$branch_id'");
             if (empty($activity_restrictions)) {
                 if ($as_staff) {
                     throw new InvalidArgumentException("Deze activiteit is niet voor ".$member->first_name." (".$member->branch.")!");

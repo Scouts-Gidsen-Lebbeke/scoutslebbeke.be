@@ -88,7 +88,57 @@ class Footer extends HTMLElement {
     }
 }
 
+class LocationDialog extends HTMLElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback() {
+        this.innerHTML = `
+            <div class="dialog">
+                <h4>Voeg een locatie toe</h4>
+                <form id="location-form">
+                    <label for="location-name">Naam</label>
+                    <input type="text" id="location-name" name="name"><br/>
+                    <label for="location-address">Adres</label>
+                    <input type="text" id="location-address" name="address"><br/>
+                    <label for="location-url">Link</label>
+                    <input type="url" id="location-url" name="url">
+                </form>
+                <button class="close-btn" onclick="saveAndClose()">Sla op</button>
+                <button class="close-btn" onclick="closeDialog()">Annuleer</button><br/>
+                <span id="location-form-feedback"></span>
+            </div>
+        `;
+    }
+}
+
+function createLocation() {
+    $("location-dialog").show()
+}
+
+function saveAndClose() {
+    const form = document.querySelector("#location-form");
+    const formData = new FormData(form);
+    fetch("/api/location/postLocation.php", {
+        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
+        method: "POST",
+        body: formData
+    }).then(data => data.json()).then(result => {
+        if (result.error != null) {
+            $("#location-form-feedback").html(result.error);
+        } else {
+            closeDialog();
+        }
+    });
+}
+
+function closeDialog() {
+    $("location-dialog").hide()
+}
+
 customElements.define('burger-component', Burger);
 customElements.define('title-wrapper', TitleWrapper);
 customElements.define('header-component', Header);
 customElements.define('footer-component', Footer);
+customElements.define('location-dialog', LocationDialog);

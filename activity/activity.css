@@ -38,3 +38,43 @@
 #checks div {
     margin: auto 10px;
 }
+#activity-name-wrapper {
+    display: table;
+    width: 100%;
+    margin-bottom: 5px;
+}
+#activity-name-label {
+    display: table-cell;
+    width: 1px;
+    padding-right: 3px;
+}
+#activity-name-input {
+    display: table-cell;
+    width: 100%;
+}
+#activity-meta-wrapper, #activity-meta-wrapper-2 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+#activity-location {
+    width: 200px;
+}
+#form-feedback {
+    color: red;
+}
+#activity-form textarea {
+    width: 100%;
+}
+.CodeMirror {
+    border: 1px solid black;
+    height: auto;
+    text-align: left;
+}
+.cm-scroller {
+    overflow: auto;
+}
+input[type=number] {
+    width: 50px;
+}
