@@ -4,7 +4,6 @@ TODO
 ### TODO
 #### V2 prep
 Vlottere overgang naar Laravel-project (look & feel).
-- Wegwerken contactpagina in footer
 - Logo ipv burger
 
 #### Missing links
@@ -13,6 +12,7 @@ Kleine moeite, veel betere UX.
 - Bug redirect event-pagina (ook bevestigd bij cancel)
 - Controle medische fiche bij aanwezigheid
 - Medische fiche niet ingevuld = datum vandaag!
+- Schrap voorgaande annulaties/cancels bij eventregistratie
 
 #### Overdracht leiding
 Nodig voor overdracht basisfunctionaliteit.
@@ -31,7 +31,6 @@ Nodig voor volledige overdracht beheer.
 
 #### Performance & good practice
 - Wegwerken dynamische menu's (enkel info nog variabel)
-- Open sourcing Github repo
 
 #### Nice to have
 - Wallet-implementatie
