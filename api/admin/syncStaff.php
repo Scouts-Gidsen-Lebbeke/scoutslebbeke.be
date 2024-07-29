@@ -31,6 +31,9 @@ try {
     if (!$connection->query("truncate table staff")) {
         throw new RuntimeException("Unable to clear staff table!");
     }
+    if (!$connection->query("truncate table staff_branch")) {
+        throw new RuntimeException("Unable to clear staff_branch table!");
+    }
     foreach ($staff_ids as $sgl_id) {
         $user = getUserBySglId($sgl_id);
         $kbijnaam = !empty($user->kbijnaam) ? "'$user->kbijnaam'" : "NULL";
