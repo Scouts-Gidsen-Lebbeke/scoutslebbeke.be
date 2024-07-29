@@ -36,7 +36,13 @@ try {
         $kbijnaam = !empty($user->kbijnaam) ? "'$user->kbijnaam'" : "NULL";
         $wbijnaam = !empty($user->wbijnaam) ? "'$user->wbijnaam'" : "NULL";
         $totem = !empty($user->totem) ? "'$user->totem'" : "NULL";
-        mysqli_query($connection, "insert into staff values ($user->id, $kbijnaam, $wbijnaam, $totem, $user->staff_branch, '$user->branch_head')");
+        mysqli_query($connection, "insert into staff values ($user->id, $kbijnaam, $wbijnaam, $totem, '$user->branch_head')");
+        foreach ($user->roles as $role) {
+            $branch = mysqli_fetch_object($connection->query("select * from branch where staff_role_id = '$role->id'"));
+            if (!empty($branch)) {
+                mysqli_query($connection, "insert into staff_branch values ($user->id, $branch->id)");
+            }
+        }
     }
     $result->success = true;
 } catch (Exception $e) {
