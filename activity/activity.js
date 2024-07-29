@@ -17,8 +17,8 @@ function initActivity(id) {
         $("#activity-when").text(periodToTitle(new Date(Date.parse(activity.start)), new Date(Date.parse(activity.end))))
         $("#activity-location").html(locationToTitle(activity.location, true))
         let branches = ""
-        activity.restrictions.forEach(branch =>
-            branches += `<img src="/images/branch/${branch.image}" alt="${branch.name}" title="${branch.name}" class="branch-icon"/>`
+        activity.restrictions.forEach(r =>
+            branches += `<img src="/images/branch/${r.image}" alt="${r.branch_name}" title="${r.branch_name}" class="branch-icon"/>`
         )
         $("#activity-branches").html(branches)
         $("#activity-info").html(activity.info);

@@ -49,6 +49,7 @@
                         Groepen:
                         <span id="activity-branches"></span>
                         <input type="button" onclick="editRestrictions()" value="Bewerk">
+                        <input type="text" id="activity-restrictions" name="restrictions" hidden>
                     </div>
                 </div>
                 <div id="activity-meta-wrapper-2">
@@ -87,5 +88,26 @@
     <footer-component></footer-component>
 </div>
 <location-dialog></location-dialog>
+<div id="restriction-dialog" class="dialog-wrapper">
+    <div class="dialog">
+        <h4>Bewerk groepen</h4>
+        <table id="restriction-overview">
+            <thead>
+            <tr>
+                <th>Groep</th>
+                <th>Naam</th>
+                <th>Startdatum</th>
+                <th>Einddatum</th>
+                <th>Prijs</th>
+                <th>+</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button class="close-btn" onclick="saveAndCloseRestrictions()">Sla op</button>
+        <button class="close-btn" onclick="closeRestrictionDialog()">Annuleer</button><br/>
+        <span class="form-feedback" id="restriction-form-feedback"></span>
+    </div>
+</div>
 </body>
 </html>

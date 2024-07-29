@@ -94,6 +94,7 @@ class LocationDialog extends HTMLElement {
     }
 
     connectedCallback() {
+        this.classList.add("dialog-wrapper")
         this.innerHTML = `
             <div class="dialog">
                 <h4>Voeg een locatie toe</h4>
@@ -107,7 +108,7 @@ class LocationDialog extends HTMLElement {
                 </form>
                 <button class="close-btn" onclick="saveAndClose()">Sla op</button>
                 <button class="close-btn" onclick="closeDialog()">Annuleer</button><br/>
-                <span id="location-form-feedback"></span>
+                <span class="form-feedback" id="location-form-feedback"></span>
             </div>
         `;
     }

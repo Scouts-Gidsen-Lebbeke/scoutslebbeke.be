@@ -24,10 +24,11 @@ tinymce.init({
     automatic_uploads: false,
 });
 
-let jsonEditor;
+let jsonEditor, branches;
 window.onload = function() {
     loadGlobal();
     retrieveLocations();
+    initBranches();
     jsonEditor = CodeMirror.fromTextArea(document.getElementById("activity-additional-pre-form"), {
         mode: { name: "javascript", json: true },
         theme: "idea",
@@ -44,6 +45,10 @@ function retrieveLocations() {
     fetch("/api/location/getAll.php").then((res) => res.json()).then((locations) => {
         locations.forEach(b => $('#activity-location').append(`<option value="${b.id}">${b.name}</option>`))
     });
+}
+
+function initBranches() {
+    fetch("/api/branch/getActive.php").then((res) => res.json()).then((result) => { branches = result; });
 }
 
 function retrieveActivity() {
@@ -67,10 +72,11 @@ function retrieveActivity() {
         $("#activity-sibling-reduction").val(a.sibling_reduction)
         $("#activity-location").val(ifNotNull(a.location_id, 0))
         let branches = ""
-        a.restrictions.forEach(branch =>
-            branches += `<img src="/images/branch/${branch.image}" alt="${branch.name}" title="${branch.name}" class="branch-icon"/>`
+        a.restrictions.forEach(r =>
+            branches += `<img src="/images/branch/${r.image}" alt="${r.branch_name}" title="${r.branch_name}" class="branch-icon"/>`
         )
         $("#activity-branches").html(branches)
+        $("#activity-restrictions").val(JSON.stringify(a.restrictions))
         tinymce.get("activity-pre-info").setContent(a.info)
         tinymce.get("activity-pre-practical").setContent(a.practical_info)
         if (a.additional_form) {
@@ -86,7 +92,37 @@ function retrieveActivity() {
 }
 
 function editRestrictions() {
+    $("#restriction-dialog").show()
+    let restrictions = JSON.parse($("#activity-restrictions").val())
+    restrictions.forEach(r => {
+        $('#restriction-overview tbody').append(`
+            <tr id="restriction-${r.id}">
+                <td>
+                    <select class="branch-list" id="restriction-branch-${r.id}">
+                        ${branches.map(b => `<option value="${b.id}">${b.name}</option>`).join('')}    
+                    </select>
+                </td>
+                <td><input type="text" id="restriction-name-${r.id}" value="${r.name}"></td>
+                <td><input type="date" id="restriction-start-${r.id}" value="${r.alter_start}"></td>
+                <td><input type="date" id="restriction-end-${r.id}" value="${r.alter_end}"></td>
+                <td><input type="number" id="restriction-price-${r.id}" value="${r.alter_price}"></td>
+                <td class="icon-column"><img src="/images/delete.png" class="subscription-icon" alt="delete" onclick="removeRestriction('${r.id}')"></td>
+            </tr>
+        `);
+        $(`#restriction-branch-${r.id}`).val(r.branch_id);
+    });
+}
 
+function saveAndCloseRestrictions() {
+
+}
+
+function closeRestrictionDialog() {
+    $("#restriction-dialog").hide()
+}
+
+function removeRestriction(id) {
+    $(`#restriction-${id}`).remove()
 }
 
 function postActivity() {
