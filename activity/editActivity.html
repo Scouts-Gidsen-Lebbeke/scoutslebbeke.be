@@ -83,7 +83,7 @@
             <input type="button" onclick="cancel()" value="Annuleer">
             <input type="button" onclick="postActivity()" value="Bewaar">
         </form>
-        <span id="form-feedback"></span>
+        <span class="form-feedback" id="activity-form-feedback"></span>
     </div>
     <footer-component></footer-component>
 </div>
@@ -91,7 +91,7 @@
 <div id="restriction-dialog" class="dialog-wrapper">
     <div class="dialog">
         <h4>Bewerk groepen</h4>
-        <table id="restriction-overview">
+        <table id="restriction-overview" class="table table-striped">
             <thead>
             <tr>
                 <th>Groep</th>
@@ -99,7 +99,7 @@
                 <th>Startdatum</th>
                 <th>Einddatum</th>
                 <th>Prijs</th>
-                <th>+</th>
+                <th class="icon-column"><img src="/images/edit-black.png" class="subscription-icon" alt="add" onclick="addRestriction()"></th>
             </tr>
             </thead>
             <tbody></tbody>

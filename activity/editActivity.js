@@ -71,12 +71,7 @@ function retrieveActivity() {
         $("#activity-price").val(a.price)
         $("#activity-sibling-reduction").val(a.sibling_reduction)
         $("#activity-location").val(ifNotNull(a.location_id, 0))
-        let branches = ""
-        a.restrictions.forEach(r =>
-            branches += `<img src="/images/branch/${r.image}" alt="${r.branch_name}" title="${r.branch_name}" class="branch-icon"/>`
-        )
-        $("#activity-branches").html(branches)
-        $("#activity-restrictions").val(JSON.stringify(a.restrictions))
+        handleRestrictions(a.branches, a.restrictions)
         tinymce.get("activity-pre-info").setContent(a.info)
         tinymce.get("activity-pre-practical").setContent(a.practical_info)
         if (a.additional_form) {
@@ -91,20 +86,25 @@ function retrieveActivity() {
     })
 }
 
+function handleRestrictions(branches, restrictions) {
+    $("#activity-branches").html(branches.map(b => `<img src="/images/branch/${b.image}" alt="${b.name}" title="${b.name}" class="branch-icon"/>`).join(""))
+    $("#activity-restrictions").val(JSON.stringify(restrictions))
+}
+
 function editRestrictions() {
     $("#restriction-dialog").show()
     let restrictions = JSON.parse($("#activity-restrictions").val())
     restrictions.forEach(r => {
         $('#restriction-overview tbody').append(`
-            <tr id="restriction-${r.id}">
+            <tr class=activity-restriction" id="restriction-${r.id}">
                 <td>
                     <select class="branch-list" id="restriction-branch-${r.id}">
                         ${branches.map(b => `<option value="${b.id}">${b.name}</option>`).join('')}    
                     </select>
                 </td>
-                <td><input type="text" id="restriction-name-${r.id}" value="${r.name}"></td>
-                <td><input type="date" id="restriction-start-${r.id}" value="${r.alter_start}"></td>
-                <td><input type="date" id="restriction-end-${r.id}" value="${r.alter_end}"></td>
+                <td><input type="text" id="restriction-name-${r.id}" value="${ifNotNull(r.name)}"></td>
+                <td><input type="datetime-local" id="restriction-start-${r.id}" value="${r.alter_start}"></td>
+                <td><input type="datetime-local" id="restriction-end-${r.id}" value="${r.alter_end}"></td>
                 <td><input type="number" id="restriction-price-${r.id}" value="${r.alter_price}"></td>
                 <td class="icon-column"><img src="/images/delete.png" class="subscription-icon" alt="delete" onclick="removeRestriction('${r.id}')"></td>
             </tr>
@@ -114,11 +114,41 @@ function editRestrictions() {
 }
 
 function saveAndCloseRestrictions() {
-
+    let data; // TODO translate table to json object
+    fetch("/api/activity/validateRestrictions.php", {
+        method: "POST",
+        body: data
+    }).then(r => r.json()).then(r => {
+        if (r.error != null) {
+            $("#restriction-form-feedback").html(r.error);
+        } else {
+            handleRestrictions(r.branches, r.restrictions);
+            closeRestrictionDialog();
+        }
+    });
 }
 
 function closeRestrictionDialog() {
     $("#restriction-dialog").hide()
+}
+
+function addRestriction() {
+    // TODO: generate id
+    let id = 0;
+    $('#restriction-overview tbody').append(`
+        <tr class=activity-restriction" id="restriction-${id}">
+            <td>
+                <select class="branch-list" id="restriction-branch-${id}">
+                    ${branches.map(b => `<option value="${b.id}">${b.name}</option>`).join('')}    
+                </select>
+            </td>
+            <td><input type="text" id="restriction-name-${id}"></td>
+            <td><input type="datetime-local" id="restriction-start-${id}"></td>
+            <td><input type="datetime-local" id="restriction-end-${id}"></td>
+            <td><input type="number" id="restriction-price-${id}"></td>
+            <td class="icon-column"><img src="/images/delete.png" class="subscription-icon" alt="delete" onclick="removeRestriction('${id}')"></td>
+        </tr>
+    `);
 }
 
 function removeRestriction(id) {
@@ -136,7 +166,7 @@ function postActivity() {
         body: formData
     }).then(data => data.json()).then(result => {
         if (result.error != null) {
-            $("#form-feedback").html(result.error)
+            $("#activity-form-feedback").html(result.error)
         } else {
             cancel()
         }

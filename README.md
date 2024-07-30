@@ -13,6 +13,7 @@ Kleine moeite, veel betere UX.
 - Controle medische fiche bij aanwezigheid
 - Medische fiche niet ingevuld = datum vandaag!
 - Schrap voorgaande annulaties/cancels bij eventregistratie
+- Gratis activiteiten & evenementen
 
 #### Overdracht leiding
 Nodig voor overdracht basisfunctionaliteit.
