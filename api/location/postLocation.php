@@ -12,7 +12,8 @@ try {
         throw new InvalidArgumentException("Een adres is verplicht!");
     }
     $url = mysqli_real_escape_string($connection, $_POST['url']);
-    $result->succes = mysqli_query($connection, "insert into location values (null, '$name', '$address', '$url')");
+    $url = !empty($url) ? "'$url'" : "NULL";
+    $result->succes = mysqli_query($connection, "insert into location values (null, '$name', '$address', $url)");
 } catch (Exception $e) {
     $result->error = $e->getMessage();
 } finally {
