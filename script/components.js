@@ -115,7 +115,7 @@ class LocationDialog extends HTMLElement {
 }
 
 function createLocation() {
-    $("location-dialog").show()
+    $("location-dialog").css("display", "flex")
 }
 
 function saveAndClose() {
@@ -129,6 +129,10 @@ function saveAndClose() {
         if (result.error != null) {
             $("#location-form-feedback").html(result.error);
         } else {
+            fetch("/api/location/getAll.php").then((res) => res.json()).then((locations) => {
+                $('.location-list').empty()
+                locations.forEach(b => $('.location-list').append(`<option value="${b.id}">${b.name}</option>`))
+            });
             closeDialog();
         }
     });

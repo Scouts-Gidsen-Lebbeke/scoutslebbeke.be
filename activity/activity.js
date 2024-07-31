@@ -16,13 +16,13 @@ function initActivity(id) {
         $("#activity-name").html(activity.name);
         $("#activity-when").text(periodToTitle(new Date(Date.parse(activity.start)), new Date(Date.parse(activity.end))))
         $("#activity-location").html(locationToTitle(activity.location, true))
-        let branches = ""
-        activity.restrictions.forEach(r =>
-            branches += `<img src="/images/branch/${r.image}" alt="${r.branch_name}" title="${r.branch_name}" class="branch-icon"/>`
-        )
-        $("#activity-branches").html(branches)
+        $("#activity-branches").html(activity.branches.map(b => `<img src="/images/branch/${b.image}" alt="${b.name}" title="${b.name}" class="branch-icon"/>`).join(""))
         $("#activity-info").html(activity.info);
-        $("#activity-practical-info").html(activity.practical_info);
+        if (activity.practical_info) {
+            $("#activity-practical-info").html(activity.practical_info);
+        } else {
+            $("#activity-practical-block").hide()
+        }
         $("#activity-subscription-deadline").text(printDeadline(activity.close_subscription));
     });
 }

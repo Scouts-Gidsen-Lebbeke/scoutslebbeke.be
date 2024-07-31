@@ -41,7 +41,7 @@
                     </div>
                     <div id="activity-location-wrapper">
                         <label for="activity-location">Locatie</label>
-                        <select id="activity-location" name="location" title="Waar vindt de activiteit plaats?" required>
+                        <select id="activity-location" class="location-list" name="location" title="Waar vindt de activiteit plaats?" required>
                         </select>
                         <input type="button" onclick="createLocation()" value="+">
                     </div>
@@ -57,7 +57,7 @@
                         <label for="activity-open">Van</label>
                         <input type="datetime-local" id="activity-open" name="open" title="Wanneer openen de inschrijvingen van de activiteit?" required>
                         <label for="activity-closed">tot</label>
-                        <input type="datetime-local" id="activity-closed" name="closed" title="Wanneer sluiten de inschrijvingen van de activiteit?" required>
+                        <input type="datetime-local" id="activity-closed" name="close" title="Wanneer sluiten de inschrijvingen van de activiteit?" required>
                     </div>
                     <div id="activity-price-wrapper">
                         <label for="activity-price">Basisprijs €</label>
@@ -74,10 +74,10 @@
                 <span>Praktische info van de activiteit:</span>
                 <div id="activity-pre-practical"></div>
                 <textarea id="activity-practical" rows="5" name="practical" required hidden></textarea>
-                <label for="activity-additional-form">JSON-opmaak van de extra data:</label>
+                <label for="activity-additional-form">JSON-opmaak van de extra data (in <a href="https://github.com/daffl/jquery.dform" target="_blank">dForm-syntax</a>):</label>
                 <textarea id="activity-additional-pre-form" name="additional"></textarea>
                 <textarea id="activity-additional-form" name="additional" hidden></textarea>
-                <label for="activity-additional-form-rule">JSONATA-regel voor de prijsberekening:</label>
+                <label for="activity-additional-form-rule"><a href="https://docs.jsonata.org/overview.html" target="_blank">JSONata</a>-regel voor de prijsberekening:</label>
                 <textarea id="activity-additional-form-rule" name="rule"></textarea>
             </div>
             <input type="button" onclick="cancel()" value="Annuleer">
