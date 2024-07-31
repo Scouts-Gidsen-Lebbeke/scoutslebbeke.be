@@ -10,7 +10,6 @@
     justify-content: center;
     z-index: 1000;
 }
-
 .dialog {
     background: #fff;
     padding: 20px;
@@ -19,7 +18,6 @@
     text-align: center;
     margin: 100px auto;
 }
-
 .close-btn {
     background: #181818;
     color: #fff;
@@ -28,6 +26,9 @@
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
+}
+.close-btn:hover {
+    background: dimgrey;
 }
 #location-form input {
     width: 300px;

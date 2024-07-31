@@ -60,7 +60,7 @@ a {
     flex: 1;
     text-align: center;
     background: white;
-    padding: 10px 40px 50px;
+    padding: 10px 40px;
     box-sizing: border-box;
 }
 #content p {
@@ -115,7 +115,7 @@ a {
     }
 }
 .loader {
-    margin: auto;
+    margin: 0 auto 1rem;;
     border: 8px solid #f3f3f3;
     border-top: 8px solid dimgray;
     border-radius: 50%;
@@ -142,6 +142,28 @@ th.sort-asc::after {
 th.sort-desc::after {
     content: " ▼";
 }
-location-dialog {
-    display: none;
+button, input[type=button] {
+    background: #181818;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.row-button {
+    padding: 10px 20px;
+    margin-bottom: 1rem;
+}
+button:hover, input[type=button]:hover {
+    background: dimgrey;
+}
+tfoot th:empty {
+    padding: 0;
+}
+.CodeMirror {
+    border: 1px solid black;
+    height: auto;
+    text-align: left;
+}
+.cm-scroller {
+    overflow: auto;
 }

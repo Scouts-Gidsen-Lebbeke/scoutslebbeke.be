@@ -45,3 +45,26 @@
 #checks div {
     margin: auto 10px;
 }
+#event-name-wrapper {
+     display: table;
+     width: 100%;
+     margin-bottom: 5px;
+ }
+#event-name-label {
+    display: table-cell;
+    width: 1px;
+    padding-right: 3px;
+}
+#event-name-input {
+    display: table-cell;
+    width: 100%;
+}
+#event-meta-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+#event-form textarea {
+    width: 100%;
+}

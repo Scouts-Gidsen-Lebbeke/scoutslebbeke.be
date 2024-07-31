@@ -30,9 +30,9 @@ function loadActivities() {
                     <td>${printActivityPeriod(a.start, a.end)}</td>
                     <td>${a.subscriptions}</td>
                     <td>${a.status}</td>
-                    <td class="icon-column"><img src="/images/edit.png" class="subscription-icon" alt="edit" onclick="editActivity('${a.id}')"></td>
-                    <td class="icon-column"><img src="/images/copy.png" class="subscription-icon" alt="duplicate" onclick="duplicateActivity('${a.id}')"></td>
-                    <td class="icon-column"><img src="/images/list.png" class="subscription-icon" alt="overview" onclick="showActivityOverview('${a.id}')"></td>
+                    <td class="icon-column"><img src="/images/edit.png" class="subscription-icon" alt="edit" title="Bewerk deze activiteit" onclick="editActivity('${a.id}')"></td>
+                    <td class="icon-column"><img src="/images/copy.png" class="subscription-icon" alt="duplicate" title="Dupliceer deze activiteit" onclick="duplicateActivity('${a.id}')"></td>
+                    <td class="icon-column"><img src="/images/list.png" class="subscription-icon" alt="overview" title="Ga naar het inschrijvingsoverzicht" onclick="showActivityOverview('${a.id}')"></td>
                 </tr>`
             )
         })
@@ -49,9 +49,9 @@ function loadEvents() {
                     <td>${printActivityPeriod(e.start, e.end)}</td>
                     <td>${e.registrations}</td>
                     <td>${e.status}</td>
-                    <td class="icon-column"><img src="/images/edit.png" class="subscription-icon" alt="edit" onclick="editEvent('${e.id}')"></td>
-                    <td class="icon-column"><img src="/images/copy.png" class="subscription-icon" alt="duplicate" onclick="duplicateEvent('${e.id}')"></td>
-                    <td class="icon-column"><img src="/images/list.png" class="subscription-icon" alt="overview" onclick="showEventOverview('${e.id}')"></td>
+                    <td class="icon-column"><img src="/images/edit.png" class="subscription-icon" alt="edit" title="Bewerk dit evenement" onclick="editEvent('${e.id}')"></td>
+                    <td class="icon-column"><img src="/images/copy.png" class="subscription-icon" alt="duplicate" title="Dupliceer dit evenement" onclick="duplicateEvent('${e.id}')"></td>
+                    <td class="icon-column"><img src="/images/list.png" class="subscription-icon" alt="overview" title="Ga naar het inschrijvingsoverzicht" onclick="showEventOverview('${e.id}')"></td>
                 </tr>`
             )
         })
@@ -84,7 +84,7 @@ function showActivityOverview(id) {
     window.location = `/activity/activityOverview.html?id=${id}&from=admin`
 }
 
-function createEvent() {
+function createNewEvent() {
     window.location = "/event/editEvent.html?from=admin"
 }
 

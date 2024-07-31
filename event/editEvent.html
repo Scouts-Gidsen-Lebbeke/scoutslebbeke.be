@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="module" src="/node_modules/keycloak-js/dist/keycloak.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="/script/components.js"></script>
+    <script src="/script/shared.js"></script>
+    <script src="https://cdn.tiny.cloud/1/3zke4762j1cnv5l70ctyfbpncqoc7ztulh9sri9haivlajkw/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="/event/editEvent.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/material.min.css">
+    <link rel="stylesheet" href="/style/shared.css">
+    <link rel="stylesheet" href="/event/event.css">
+    <link rel="icon" href="/images/favicon.ico">
+    <title>Scouts & Gidsen Lebbeke</title>
+</head>
+<body>
+<div id="body-wrapper">
+    <header-component></header-component>
+    <div id="content">
+        <h1>Bewerk evenement</h1>
+        <div class="loader"></div>
+        <form id="event-form" class="hidden">
+            <input type="number" id="event-id" name="id" hidden>
+            <div>
+                <div id="event-name-wrapper">
+                    <label for="event-name-input" id="event-name-label">Naam</label>
+                    <input type="text" id="event-name-input" name="name" title="Naam van het evenement" required><br/>
+                </div>
+                <div id="event-meta-wrapper">
+                    <div id="event-period-wrapper">
+                        <label for="event-from">Evenement loopt van</label>
+                        <input type="datetime-local" id="event-from" name="start" title="Wanneer start het evenement?" required>
+                        <label for="event-to">tot</label>
+                        <input type="datetime-local" id="event-to" name="end" title="Wanneer eindigt het evenement?" required>
+                    </div>
+                    <div id="event-location-wrapper">
+                        <label for="event-location">Locatie</label>
+                        <select id="event-location" class="location-list" name="location" title="Waar vindt het evenement plaats?" required>
+                        </select>
+                        <input type="button" onclick="createLocation()" value="+">
+                    </div>
+                    <div id="event-subscription-period-wrapper">
+                        <label for="event-open">Inschrijven kan van</label>
+                        <input type="datetime-local" id="event-open" name="open" title="Wanneer openen de inschrijvingen van het evenement?" required>
+                        <label for="event-closed">tot</label>
+                        <input type="datetime-local" id="event-closed" name="close" title="Wanneer sluiten de inschrijvingen van het evenement?" required>
+                    </div>
+                </div>
+                <span>Kort introductietekstje van het evenement:</span>
+                <div id="event-pre-info"></div>
+                <textarea id="event-info" rows="5" name="info" required hidden></textarea>
+                <label for="event-additional-form">JSON-opmaak van de extra data (in <a href="https://github.com/daffl/jquery.dform" target="_blank">dForm-syntax</a>):</label>
+                <textarea id="event-additional-pre-form" name="additional"></textarea>
+                <textarea id="event-additional-form" name="additional" hidden></textarea>
+                <label for="event-additional-form-rule"><a href="https://docs.jsonata.org/overview.html" target="_blank">JSONata</a>-regel voor de prijsberekening:</label>
+                <textarea id="event-additional-form-rule" name="rule"></textarea>
+            </div>
+            <input class="row-button" type="button" onclick="cancel()" value="Annuleer">
+            <input class="row-button" type="button" onclick="postEvent()" value="Bewaar">
+        </form>
+        <span class="form-feedback" id="event-form-feedback"></span>
+    </div>
+    <footer-component></footer-component>
+</div>
+<location-dialog></location-dialog>
+</body>
+</html>

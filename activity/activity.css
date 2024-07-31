@@ -58,22 +58,11 @@
     align-items: center;
     justify-content: space-around;
 }
-#activity-location {
-    width: 200px;
-}
 #form-feedback {
     color: red;
 }
 #activity-form textarea {
     width: 100%;
-}
-.CodeMirror {
-    border: 1px solid black;
-    height: auto;
-    text-align: left;
-}
-.cm-scroller {
-    overflow: auto;
 }
 input[type=number] {
     width: 50px;
