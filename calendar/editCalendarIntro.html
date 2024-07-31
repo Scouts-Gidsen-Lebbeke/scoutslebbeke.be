@@ -25,10 +25,10 @@
             <input type="number" id="id" name="id" hidden>
             <div id="pre-intro" title="Introductie voor deze kalender"></div>
             <textarea id="intro" rows="5" name="intro" required hidden></textarea>
-            <input type="button" onclick="cancel()" value="Annuleer">
-            <input type="button" onclick="postIntro()" value="Bewaar">
+            <input class="row-button" type="button" onclick="cancel()" value="Annuleer">
+            <input class="row-button" type="button" onclick="postIntro()" value="Bewaar">
         </form>
-        <span id="form-feedback"></span>
+        <span id="form-feedback" class="form-feedback"></span>
     </div>
     <footer-component></footer-component>
 </div>

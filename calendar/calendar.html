@@ -24,20 +24,25 @@
     <header-component></header-component>
     <div id="content">
         <h1>Kalender</h1>
-        <p>
+        <div>
             <label for="calendar-branches">Tak:</label>
             <select name="calendar-branches" id="calendar-branches" onchange="loadCalendar()">
                 <option value="0" selected>(geen)</option>
             </select>
-            <span class="staff">
-                <label for="calendar-periods">Periode:</label>
-                <select name="calendars" id="calendar-periods" onchange="loadCalendar()">
-                    <option value="0" selected>(geen)</option>
-                </select>
-                <label for="show-old">Toon afgelopen activiteiten</label>
-                <input type="checkbox" id="show-old" onclick="toggleHidden(this.checked)">
-            </span>
-        </p>
+            <div class="staff">
+                <div>
+                    <label for="calendar-periods">Periode:</label>
+                    <select name="calendars" id="calendar-periods" onchange="loadCalendar()">
+                        <option value="0" selected>(geen)</option>
+                    </select>
+                    <img src="/images/add.png" alt="add" class="edit-icon admin" onclick="addPeriod()" title="Voeg een periode toe">
+                </div>
+                <div>
+                    <label for="show-old">Toon afgelopen activiteiten</label>
+                    <input type="checkbox" id="show-old" onclick="toggleHidden(this.checked)">
+                </div>
+            </div>
+        </div>
         <div id="calendars">Selecteer hierboven een tak om te zien wat we de komende maanden voor jou in petto hebben!</div>
     </div>
     <footer-component></footer-component>

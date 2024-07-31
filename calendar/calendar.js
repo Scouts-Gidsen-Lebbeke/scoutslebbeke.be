@@ -10,8 +10,11 @@ window.onload = function() {
             let branch = d.staff_branch ? d.staff_branch : d.branch.id;
             $("#calendar-branches").val(branch).trigger('change')
         }
-        if (d.staff_branch) {
-            $(".staff").show()
+        if (d.level > 2) {
+            $(".staff").css("display", "flex")
+        }
+        if (d.level > 3) {
+            $(".admin").css("display", "inline")
         }
     });
 };
@@ -135,4 +138,8 @@ function toggleHidden(show) {
     } else {
         $(".passed").hide()
     }
+}
+
+function createPeriod() {
+    window.location = "/calendar/createPeriod.html"
 }

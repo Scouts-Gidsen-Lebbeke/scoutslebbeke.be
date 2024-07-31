@@ -49,7 +49,7 @@
                         <select id="item-location" name="location" class="location-list" title="Waar vindt de activiteit plaats?" required>
                             <option value="0">Scoutsterrein</option>
                         </select>
-                        <input type="button" onclick="" value="+">
+                        <input type="button" onclick="createLocation()" value="+">
                     </div>
                     <div id="item-closed-wrapper">
                         <label for="item-closed" title="Is dit een beschrijving van wanneer er geen scouts is?">Geen werking</label>
@@ -60,12 +60,13 @@
                 <textarea id="item-content" rows="5" name="content" required hidden></textarea>
             </div>
             </div>
-            <input type="button" onclick="cancel()" value="Annuleer">
-            <input type="button" onclick="postItem()" value="Bewaar">
+            <input class="row-button" type="button" onclick="cancel()" value="Annuleer">
+            <input class="row-button" type="button" onclick="postItem()" value="Bewaar">
         </form>
-        <span id="form-feedback"></span>
+        <span id="form-feedback" class="form-feedback"></span>
     </div>
     <footer-component></footer-component>
 </div>
+<location-dialog></location-dialog>
 </body>
 </html>

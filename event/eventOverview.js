@@ -48,7 +48,7 @@ function retrieveEvent(id) {
 }
 
 function toggleVisible(cb) {
-    if ($(`#${cb.id}`).is(":checked")) {
+    if (cb.checked) {
         $(`.${cb.id}`).css("display", "table-cell");
     } else {
         $(`.${cb.id}`).hide();

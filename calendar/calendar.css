@@ -80,14 +80,24 @@
     align-items: center;
     justify-content: space-around;
 }
+#item-meta-wrapper div {
+    margin: auto 10px;
+}
 #item-location {
     width: 200px;
 }
 #item-content, #intro, #outro {
     width: 100%
 }
-.passed, .staff {
+.passed, .staff, .admin {
     display: none;
+}
+.staff {
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.staff div {
+    margin: auto 10px;
 }
 #form-feedback {
     color: red;
