@@ -62,12 +62,14 @@
                     <input type="number" id="event-price-field" name="price" value="0" hidden>
                     <p>De totaalprijs bedraagt <b><span id="event-price">€ 0</span></b>.</p>
                 </div>
-                <button id="register-button">Registreer</button>
+                <button class="row-button" id="register-button">Registreer</button>
             </form>
         </div>
-        <p id="registration-feedback"></p>
+        <span id="registration-feedback"></span>
         <div id="event-admin">
-            <button id="overview-button">Overzicht registraties</button>
+            <h3>Admin</h3>
+            <button class="row-button" id="edit-button" hidden>Bewerk evenement</button>
+            <button class="row-button" id="overview-button">Overzicht registraties</button>
         </div>
     </div>
     <footer-component></footer-component>

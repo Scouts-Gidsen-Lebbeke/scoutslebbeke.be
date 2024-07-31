@@ -46,6 +46,12 @@ function checkAdmin(user, eventId) {
             window.location = "/event/eventOverview.html?id=" + eventId;
         });
     }
+    if (user.level > 3) {
+        $("#edit-button").removeAttr('hidden');
+        $("#edit-button").on("click", function(){
+            window.location = "/event/editEvent.html?id=" + eventId;
+        });
+    }
 }
 
 function register(id) {
