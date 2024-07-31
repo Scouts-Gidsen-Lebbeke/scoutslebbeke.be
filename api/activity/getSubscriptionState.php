@@ -1,7 +1,7 @@
 <?php
 require 'init_subscription.php';
 
-$user = getCurrentUser(false, true);
+$user = getCurrentUser(false);
 $member = $user;
 if ($_GET['memberId'] != $member->sgl_id) {
     guardStaff();

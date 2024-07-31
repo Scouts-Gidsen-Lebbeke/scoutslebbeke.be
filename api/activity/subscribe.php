@@ -46,15 +46,15 @@ try {
     }
     unset($_POST['price']);
     $data = json_encode($_POST);
-    if ($as_staff) {
-        $redirect = "/activity/staffSubscription.html?id=".$activity->id."&memberId=".$member->sgl_id."&payment_return=true";
-    } else {
-        $redirect = "/activity.html?id=".$activity->id."&payment_return=true";
-    }
     $start = $option->alter_start ?? $activity->start;
     $end = $option->alter_end ?? $activity->end;
     $connection->query("insert into activity_registration values (null, '$activity->id', '$member->id', now(), 'open', null, $price, '$data', false, '$start', '$end')");
     $order_id = $connection->insert_id;
+    if ($as_staff) {
+        $redirect = "/activity/staffSubscription.html?id=".$activity->id."&memberId=".$member->sgl_id."&payment_return=true";
+    } else {
+        $redirect = "/activity/confirmation.html?id=".$order_id;
+    }
     $payment = $mollie->payments->create([
         "amount" => [
             "currency" => "EUR",

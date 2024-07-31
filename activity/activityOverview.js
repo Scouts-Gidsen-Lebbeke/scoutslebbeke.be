@@ -106,10 +106,19 @@ function filterBranch(input) {
         return;
     }
     const filter = input.options[input.selectedIndex].text;
+    let visibleIndex = 1
     Array.from(rows).forEach((row, index) => {
         if (index === 0) return; // Skip header row
+        const cells = row.getElementsByTagName("td");
         const rowText = row.getElementsByClassName("branch-column")[0].textContent;
-        row.style.display = rowText.includes(filter) ? "" : "none";
+        if (rowText.includes(filter)) {
+            row.style.display = "";
+            if (cells.length > 0) {
+                cells[0].innerText = visibleIndex++
+            }
+        } else {
+            row.style.display = "none";
+        }
     });
 }
 

@@ -319,11 +319,18 @@ function filterTable(tableID, input) {
     const filter = input.value.toLowerCase();
     const table = document.getElementById(tableID);
     const rows = table.getElementsByTagName("tr");
-
+    let visibleIndex = 1
     Array.from(rows).forEach((row, index) => {
         if (index === 0) return; // Skip header row
         const cells = row.getElementsByTagName("td");
         const rowText = Array.from(cells).map(cell => cell.textContent.toLowerCase()).join(" ");
-        row.style.display = rowText.includes(filter) ? "" : "none";
+        if (rowText.includes(filter)) {
+            row.style.display = "";
+            if (cells.length > 0) {
+                cells[0].innerText = visibleIndex++
+            }
+        } else {
+            row.style.display = "none";
+        }
     });
 }

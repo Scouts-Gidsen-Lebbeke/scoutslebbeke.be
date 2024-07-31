@@ -17,5 +17,5 @@ function retrieveRegistration(orderId) {
 
 function returnToEvent() {
     const params = (new URL(document.location)).searchParams;
-    window.location = "/event.html?id=" + params.get('id');
+    window.location = "/event/event.html?id=" + params.get('id');
 }

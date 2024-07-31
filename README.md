@@ -8,19 +8,20 @@ Vlottere overgang naar Laravel-project (look & feel).
 
 #### Missing links
 Kleine moeite, veel betere UX.
-- Redirect activity-pagina
-- Bug redirect event-pagina (ook bevestigd bij cancel)
+- Bug redirect confirmatie-pagina's (ook bevestigd bij cancel)
 - Controle medische fiche bij aanwezigheid
 - Medische fiche niet ingevuld = datum vandaag!
 - Schrap voorgaande annulaties/cancels bij eventregistratie
 - Gratis activiteiten & evenementen
+- Activiteiten en events verwijderen en editeren conditioneel op status
+- Mailing deelnemers afwerken (bijlagen)
+- Attestcreatie in overzicht activiteiten
+- Annulatie activiteiten/evenementen
 
 #### Overdracht leiding
 Nodig voor overdracht basisfunctionaliteit.
 - Consistentie nieuwtjes (onzichtbaar != niet meer opgehaald)
 - Kalender template creatie
-- Activity edits: opslaan en restrictie-beheer
-- Event edits
 - Implementatie fiscale attesten
 - Aanvullen documentatie (deze + Drive)
 - Overzicht lidmaatschap
