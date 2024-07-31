@@ -34,7 +34,7 @@
                 </div>
                 <div id="activity-meta-wrapper">
                     <div id="activity-period-wrapper">
-                        <label for="activity-from">Van</label>
+                        <label for="activity-from">Activiteit loopt van</label>
                         <input type="datetime-local" id="activity-from" name="start" title="Wanneer start de activiteit?" required>
                         <label for="activity-to">tot</label>
                         <input type="datetime-local" id="activity-to" name="end" title="Wanneer eindigt de activiteit?" required>
@@ -46,7 +46,7 @@
                         <input type="button" onclick="createLocation()" value="+">
                     </div>
                     <div id="activity-restriction-wrapper">
-                        Groepen:
+                        Inschrijvingsopties:
                         <span id="activity-branches"></span>
                         <input type="button" onclick="editRestrictions()" value="Bewerk">
                         <input type="text" id="activity-restrictions" name="restrictions" hidden>
@@ -54,7 +54,7 @@
                 </div>
                 <div id="activity-meta-wrapper-2">
                     <div id="activity-subscription-period-wrapper">
-                        <label for="activity-open">Van</label>
+                        <label for="activity-open">Inschrijven kan van</label>
                         <input type="datetime-local" id="activity-open" name="open" title="Wanneer openen de inschrijvingen van de activiteit?" required>
                         <label for="activity-closed">tot</label>
                         <input type="datetime-local" id="activity-closed" name="close" title="Wanneer sluiten de inschrijvingen van de activiteit?" required>
@@ -90,15 +90,15 @@
 <location-dialog></location-dialog>
 <div id="restriction-dialog" class="dialog-wrapper">
     <div class="dialog">
-        <h4>Bewerk groepen</h4>
+        <h4>Bewerk inschrijvingsopties</h4>
         <table id="restriction-overview" class="table table-striped">
             <thead>
             <tr>
-                <th>Groep</th>
-                <th>Naam</th>
-                <th>Startdatum</th>
-                <th>Einddatum</th>
-                <th>Prijs</th>
+                <th title="Op welke tak is deze inschrijvingsoptie van toepassing?">Tak</th>
+                <th title="Indien er meerdere opties voor één tak zijn, wat is dan de unieke naam van deze optie?">Naam</th>
+                <th title="Is er een andere startdatum van toepassing bij deze optie?">Startdatum</th>
+                <th title="Is er een andere einddatum van toepassing bij deze optie?">Einddatum</th>
+                <th title="Is er een andere prijs van toepassing bij deze optie?">Prijs</th>
                 <th class="icon-column"><img src="/images/edit-black.png" class="subscription-icon" alt="add" onclick="addRestriction()"></th>
             </tr>
             </thead>
