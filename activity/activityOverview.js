@@ -74,7 +74,11 @@ function markPresent(present, activityId, memberId) {
 }
 
 function toggleVisible(cb) {
-    $(`.${cb.id}`).toggle()
+    if ($(`#${cb.id}`).is(":checked")) {
+        $(`.${cb.id}`).css("display", "table-cell");
+    } else {
+        $(`.${cb.id}`).hide();
+    }
 }
 
 function sumTableValues(id) {
