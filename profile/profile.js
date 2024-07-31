@@ -3,7 +3,6 @@ window.onload = function() {
     requireLogin((d) => {
         loadProfile(d);
         loadProfileData(d);
-        loadActivityOverview(d.id)
     });
 };
 
