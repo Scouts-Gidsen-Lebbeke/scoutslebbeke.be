@@ -12,7 +12,7 @@ try {
     if ((strtotime($activity->start) > time() || strtotime($activity->end) < time()) && !$user->level->isAdmin()) {
         throw new InvalidArgumentException("Een lid kan alleen als aanwezig worden geregistreerd tijdens de activiteit!");
     }
-    $result->success = mysqli_query($connection, "update activity_registration set present = '$present' where user_id = '$member_id' and activity_id = '$activity_id'");
+    $result->success = mysqli_query($connection, "update activity_registration set present = '$present' where user_id = '$member_id' and activity_id = '$activity_id' and status = 'paid'");
 } catch (Exception $e) {
     $result->error = $e->getMessage();
 } finally {
