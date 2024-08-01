@@ -21,6 +21,10 @@ if (!empty($user)) {
     }
     if ($user->level->isStaff()) {
         $user->pages[] = (object) [
+            "name" => "Mijn leden",
+            "path" => "staff/members.html"
+        ];
+        $user->pages[] = (object) [
             "name" => "Mijn portefeuille",
             "path" => "profile/wallet.html"
         ];
