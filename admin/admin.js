@@ -26,7 +26,7 @@ function loadActivities() {
         d.activities.forEach(a => {
             $('#activity-overview tbody').append(
                 `<tr>
-                    <td>${a.name}</td>
+                    <td><a href="/activity/activity.html?id=${a.id}">${a.name}</a></td>
                     <td>${printActivityPeriod(a.start, a.end)}</td>
                     <td>${a.subscriptions}</td>
                     <td>${a.status}</td>
@@ -45,7 +45,7 @@ function loadEvents() {
         d.events.forEach(e => {
             $('#event-overview tbody').append(
                 `<tr>
-                    <td>${e.name}</td>
+                    <td><a href="/event/event.html?id=${e.id}">${e.name}</a></td>
                     <td>${printActivityPeriod(e.start, e.end)}</td>
                     <td>${e.registrations}</td>
                     <td>${e.status}</td>
