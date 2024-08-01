@@ -15,7 +15,6 @@ Kleine moeite, veel betere UX.
 - Gratis activiteiten & evenementen
 - Activiteiten en events verwijderen en editeren conditioneel op status
 - Mailing deelnemers afwerken (bijlagen)
-- Attestcreatie in overzicht activiteiten
 - Annulatie activiteiten/evenementen
 
 #### Overdracht leiding

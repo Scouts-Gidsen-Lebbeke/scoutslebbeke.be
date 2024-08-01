@@ -31,8 +31,11 @@ function retrieveActivity(id) {
                     <td class="from-column hidden">${printDate(s.start)}</td>
                     <td class="until-column hidden">${printDate(s.end)}</td>
                     <td class="price-column hidden">€ ${s.price}</td>
-                    <td class="present-column hidden"><input id="${s.user.id}-present" type="checkbox" onclick="markPresent(this.checked, '${result.activity.id}', '${s.user.id}')" ${s.present === "1" ? "checked" : ""}></td>
+                    <td class="present-column hidden"><input id="${s.id}-present" type="checkbox" onclick="markPresent(this.checked, '${result.activity.id}', '${s.id}')" ${s.present === "1" ? "checked" : ""}></td>
                     ${parseAdditionalData(s.additional_data)}
+                    <td><img src="/images/${s.user.medical_attention ? 'pill-red' : 'pill'}.png" class="subscription-icon" alt="report" onclick="showMedicalOverview('${s.user.sgl_id}')"></td>
+                    <td><img src="/images/report.png" class="subscription-icon ${s.present === "1" ? "" : "hidden"}" alt="report" id="report-${s.id}" onclick="getCertificate('${s.id}')"></td>
+                    <td>${s.cancellable ? `<img src="/images/cancel.png" class="subscription-icon" alt="cancel" onclick="cancelSubscription('${s.id}')">` : ""}</td>
                 </tr>`
             )
         })
@@ -40,7 +43,7 @@ function retrieveActivity(id) {
             let data = result.registrations[0].additional_data;
             if (data) {
                 Object.keys(JSON.parse(data)).forEach(d => {
-                    $('#overview-table thead tr').append(`<th class="additional ${d}-column hidden">${capitalize(d)}</th>`)
+                    $('#overview-table thead tr:nth-last-child(3)').insertBefore(`<th class="additional ${d}-column hidden">${capitalize(d)}</th>`)
                     $("#checks").append(`
                         <div class="additional">
                             <input type="checkbox" id="${d}-column" onclick="toggleVisible(this)">
@@ -48,7 +51,7 @@ function retrieveActivity(id) {
                         </div>
                     `)
                     let sum = sumTableValues(`${d}-column`)
-                    $('#overview-table tfoot tr').append(`<th class="additional ${d}-column hidden">${sum !== -1 ? sum : ""}</th>`)
+                    $('#overview-table tfoot tr:nth-last-child(3)').insertBefore(`<th class="additional ${d}-column hidden">${sum !== -1 ? sum : ""}</th>`)
                 })
             }
             let sum = sumTableValues("price-column")
@@ -60,15 +63,21 @@ function retrieveActivity(id) {
     })
 }
 
+function showMedicalOverview(userId) {
+    window.open(`https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/frontend/lid/individuelesteekkaart/${userId}`, '_blank');
+}
+
 function printDate(date) {
     return new Date(Date.parse(date)).toLocaleDateString('nl-BE', { year: '2-digit', month: '2-digit', day: '2-digit' });
 }
 
-function markPresent(present, activityId, memberId) {
-    tokenized(`/api/activity/markPresent.php?activityId=${activityId}&memberId=${memberId}&present=${present}`).then(result => {
+function markPresent(present, activityId, id) {
+    tokenized(`/api/activity/markPresent.php?activityId=${activityId}&id=${id}&present=${present}`).then(result => {
         if (result.error) {
             alert(result.error)
-            $(`#${memberId}-present`).prop('checked', !present);
+            $(`#${id}-present`).prop('checked', !present);
+        } else {
+            $(`#report-${id}`).css('display', present ? "initial" : "none");
         }
     })
 }
