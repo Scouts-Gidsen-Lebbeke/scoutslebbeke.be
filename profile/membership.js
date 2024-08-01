@@ -21,6 +21,7 @@ function loadMemberships() {
                 <tr>
                     <td>${membership.id}</td>
                     <td>${printY(membership.start)} - ${printY(membership.end)}</td>
+                    <td>${membership.name}</td>
                     <td>${membership.date}</td>
                     <td>€ ${membership.price}</td>
                     <td class="icon-column"><img src="/images/report.png" class="subscription-icon" alt="report" onclick="getCertificate('${membership.id}')"></td>

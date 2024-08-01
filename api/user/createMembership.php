@@ -33,7 +33,8 @@ try {
     if ($member->som) {
         $price = ceil($price / 3);
     }
-    $connection->query("insert into membership values (null, '$member->id', '$active_period->id', now(), 'open', null, $price)");
+    $branch_id = $member->branch->id;
+    $connection->query("insert into membership values (null, '$member->id', '$active_period->id', $branch_id, now(), 'open', null, $price)");
     $membership_id = $connection->insert_id;
     $payment = $mollie->payments->create([
         "amount" => [
