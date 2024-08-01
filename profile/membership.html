@@ -21,7 +21,6 @@
     <div id="content">
         <h1>Mijn lidmaatschap</h1>
         <p>Hier kan je alle betalingsinfo en attesten over jouw lidmaatschap terugvinden.</p>
-        <p id="current-membership"></p>
         <div class="table-responsive">
             <table class="table table-striped" id="membership-overview">
                 <thead>
@@ -40,6 +39,11 @@
             </table>
         </div>
         <div class="loader"></div>
+        <span id="current-membership" class="hidden">Jouw inschrijving voor dit werkingsjaar is helemaal in orde!</span>
+        <span id="no-current-membership" class="hidden">
+            <p>Je bent nog niet ingeschreven voor dit werkingsjaar!</p>
+            <button class="row-button" onclick="createMembership()">Schrijf me in</button>
+        </span>
     </div>
     <footer-component></footer-component>
 </div>

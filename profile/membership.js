@@ -7,14 +7,11 @@ window.onload = function() {
 };
 
 function loadMemberships() {
-    $(".loader").show()
-    $("#current-membership").empty()
-    $('#membership-overview tbody').empty()
     tokenized("/api/user/getMemberships.php").then(result => {
         if (result.active) {
-            $("#current-membership").html("Jouw inschrijving voor dit werkingsjaar is helemaal in orde!")
+            $("#current-membership").show();
         } else {
-            $("#current-membership").html(`Je hebt je nog niet ingeschreven voor dit werkingsjaar, betaal je lidgeld <a onclick="createMembership()">hier</a>!`)
+            $("#no-current-membership").show();
         }
         result.history.forEach(membership =>
             $('#membership-overview tbody').append(`

@@ -16,6 +16,8 @@ Kleine moeite, veel betere UX.
 - Activiteiten en events verwijderen en editeren conditioneel op status
 - Mailing deelnemers afwerken (bijlagen)
 - Annulatie activiteiten/evenementen
+- Verwerkingspagina lidgeld na betaling (cfr event/activity confirmatie)
+- Controle lidmaatschap bij inschrijving
 
 #### Overdracht leiding
 Nodig voor overdracht basisfunctionaliteit.
@@ -23,7 +25,7 @@ Nodig voor overdracht basisfunctionaliteit.
 - Kalender template creatie
 - Implementatie fiscale attesten
 - Aanvullen documentatie (deze + Drive)
-- Overzicht lidmaatschap
+- Overzicht lidmaatschap: afwerking
 
 #### Admin
 Nodig voor volledige overdracht beheer.
