@@ -208,6 +208,11 @@ function printTime(date) {
     return date.toLocaleTimeString('nl-BE', { hour: '2-digit', minute: '2-digit' });
 }
 
+function printY(dateString) {
+    const date = new Date(Date.parse(dateString))
+    return date.toLocaleDateString('nl-BE', { year: 'numeric' });
+}
+
 function locationToTitle(location, full) {
     if (location == null) {
         return "Scoutsterrein";

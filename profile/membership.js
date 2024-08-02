@@ -76,11 +76,6 @@ function getCertificate(membershipId) {
     })
 }
 
-function printY(dateString) {
-    const date = new Date(Date.parse(dateString))
-    return date.toLocaleDateString('nl-BE', { year: 'numeric' });
-}
-
 function printDDMMYYYY(date) {
     return date.toLocaleDateString('nl-BE', { year: 'numeric', month: '2-digit', day: '2-digit' });
 }
