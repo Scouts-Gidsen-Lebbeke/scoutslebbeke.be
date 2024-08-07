@@ -12,8 +12,6 @@ if (!empty($user)) {
             "name" => "Mijn lidmaatschap",
             "path" => "profile/membership.html"
         ];
-    }
-    if ($user->level->isMember()) {
         $user->pages[] = (object) [
             "name" => "Mijn activiteiten",
             "path" => "profile/activities.html"
