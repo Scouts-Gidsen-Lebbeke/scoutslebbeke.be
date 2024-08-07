@@ -98,7 +98,7 @@ function translateUser($sgl_user): object {
     if (mysqli_num_rows($connection->query("select id from user where sgl_id = '$sgl_user->id'")) != 1) {
         $name = $sgl_user->vgagegevens->achternaam;
         $firstName = $sgl_user->vgagegevens->voornaam;
-        mysqli_query($connection, "insert into user values (null, '$sgl_user->id', null, '$name', '$firstName', null, null, null, null, null, null, 'default.png')");
+        mysqli_query($connection, "insert into user values (null, '$sgl_user->id', '$name', '$firstName', 'default.png')");
     }
     $user = mysqli_fetch_object($connection->query("select * from user where sgl_id = '$sgl_user->id'"));
     $user->email = $sgl_user->email;
