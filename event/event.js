@@ -31,11 +31,11 @@ function initEvent(id) {
         if (event.additional_form) {
             $("#registration-form").validate({
                 errorLabelContainer: "#registration-feedback",
-                wrapper: "span"
+                wrapper: "span",
+                ignore: ".ignore-validation"
             })
             $("#additional-form").dform(JSON.parse(event.additional_form));
-            console.log($("#team-name").rules())
-            $("#registration-form input").on("change", calculatePrice(event.additional_form_rule));
+            $("#registration-form input").on("change", function () { calculatePrice(event.additional_form_rule) });
         } else {
             $("#additional-form-title").hide()
         }
@@ -75,7 +75,7 @@ function register(id) {
         body: form
     }).then(response => response.json()).then(result => {
         if (result.error != null) {
-            $("#registration-feedback").text(result.error)
+            $("#contact-feedback").text(result.error)
             $("#register-button").prop("disabled", false);
         } else if (result.checkout != null) {
             location.href = result.checkout

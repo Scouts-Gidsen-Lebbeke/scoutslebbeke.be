@@ -47,15 +47,15 @@
                     <h4>Contactgegevens</h4>
                     <div class="event-field">
                         <label for="event-last-name">Naam:</label>
-                        <input type="text" id="event-last-name" name="last-name">
+                        <input type="text" id="event-last-name" name="last-name" class="ignore-validation">
                     </div>
                     <div class="event-field">
                         <label for="event-first-name">Voornaam:</label>
-                        <input type="text" id="event-first-name" name="first-name">
+                        <input type="text" id="event-first-name" name="first-name" class="ignore-validation">
                     </div>
                     <div class="event-field">
                         <label for="event-email">E-mail:</label>
-                        <input type="email" id="event-email" name="email">
+                        <input type="email" id="event-email" name="email" class="ignore-validation">
                     </div>
                 </div>
                 <h4 id="additional-form-title">Evenementsgegevens</h4>
@@ -67,7 +67,8 @@
                 <button class="row-button" id="register-button">Registreer</button>
             </form>
         </div>
-        <span id="registration-feedback"></span>
+        <span id="contact-feedback" class="form-feedback"></span>
+        <span id="registration-feedback" class="form-feedback"></span>
         <div id="event-admin">
             <h3>Admin</h3>
             <button class="row-button" id="edit-button" hidden>Bewerk evenement</button>
