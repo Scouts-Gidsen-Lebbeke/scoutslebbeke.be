@@ -10,6 +10,9 @@ try {
     if ($event == null) {
         throw new InvalidArgumentException("Er liep iets mis bij het vinden van het evenement, probeer later opnieuw!");
     }
+    if (strtotime($event->open_registration) > time()) {
+        throw new InvalidArgumentException("De inschrijvingen voor dit evenement zijn nog niet geopend!");
+    }
     if (strtotime($event->close_registration) < time()) { // && (empty($user) || !$user->level->isAdmin())
         throw new InvalidArgumentException("De inschrijvingen voor dit evenement zijn gesloten!");
     }
