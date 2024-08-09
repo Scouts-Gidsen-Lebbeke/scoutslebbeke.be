@@ -52,7 +52,7 @@ try {
         throw new InvalidArgumentException("De prijsregel is verplicht!");
     }
     if ($id) {
-        $result->succes = mysqli_query($connection, "update event set name = '$name', start = '$start', end = '$end', open_subscription = '$open', close_subscription = '$close', location_id = $location_id, info = '$info', additional_form = $form, additional_form_rule = $rule where id='$id'");
+        $result->succes = mysqli_query($connection, "update event set name = '$name', start = '$start', end = '$end', open_registration = '$open', close_registration = '$close', location_id = $location_id, info = '$info', additional_form = $form, additional_form_rule = $rule where id='$id'");
     } else {
         $result->succes = mysqli_query($connection, "insert into event values (null, '$name', '$start', '$end', '$open', '$close', '$location_id', '$info', $form, $rule)");
     }
