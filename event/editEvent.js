@@ -66,6 +66,7 @@ function retrieveEvent() {
 
 function postEvent() {
     $("#event-info").val(tinymce.get("event-pre-info").getContent());
+    $("#event-additional-form").val(jsonEditor.getValue());
     const form = document.querySelector("#event-form");
     const formData = new FormData(form);
     fetch("/api/event/updateEvent.php", {
