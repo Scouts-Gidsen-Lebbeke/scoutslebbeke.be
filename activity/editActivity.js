@@ -175,6 +175,7 @@ function removeRestriction(imgRef) {
 function postActivity() {
     $("#activity-info").val(tinymce.get("activity-pre-info").getContent());
     $("#activity-practical").val(tinymce.get("activity-pre-practical").getContent());
+    $("#activity-additional-form").val(jsonEditor.getValue());
     const form = document.querySelector("#activity-form");
     const formData = new FormData(form);
     fetch("/api/activity/updateActivity.php", {
