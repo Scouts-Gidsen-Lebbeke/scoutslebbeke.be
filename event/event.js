@@ -1,3 +1,7 @@
+jQuery.validator.setDefaults({
+    success: "valid"
+});
+
 window.onload = function() {
     loadGlobal();
     const params = (new URL(document.location)).searchParams;
@@ -25,18 +29,26 @@ function initEvent(id) {
             return
         }
         if (event.additional_form) {
+            $("#registration-form").validate({
+                errorLabelContainer: "#registration-feedback",
+                wrapper: "span"
+            })
             $("#additional-form").dform(JSON.parse(event.additional_form));
-            $("#registration-form input").on("change", async function () {
-                let formData = sanitizeData(new FormData(document.querySelector("#registration-form")));
-                let total_price = Number(await jsonata(event.additional_form_rule).evaluate(formData));
-                $("#event-price-field").val(total_price);
-                $("#event-price").text(`€ ${total_price}`);
-            });
+            console.log($("#team-name").rules())
+            $("#registration-form input").on("change", calculatePrice(event.additional_form_rule));
         } else {
             $("#additional-form-title").hide()
         }
+        calculatePrice(event.additional_form_rule)
         $("#register-button").click(() => register(event.id))
     });
+}
+
+async function calculatePrice(rule) {
+    let formData = sanitizeData(new FormData(document.querySelector("#registration-form")));
+    let total_price = Number(await jsonata(rule).evaluate(formData));
+    $("#event-price-field").val(total_price);
+    $("#event-price").text(`€ ${total_price}`);
 }
 
 function checkAdmin(user, eventId) {
@@ -55,34 +67,32 @@ function checkAdmin(user, eventId) {
 }
 
 function register(id) {
+    if (!$("#registration-form").valid()) return;
     $("#register-button").prop("disabled", true);
     const form = new FormData(document.querySelector("#registration-form"));
-    // fetch(`/api/event/register.php?id=${id}`, {
-    //     method: "POST",
-    //     body: form,
-    //     headers: {
-    //         'Content-Type': 'multipart/form-data; boundary=' + Math.random().toString().substring(2)
-    //     }
-    // }).then(response => response.json()).then(result => {
-    //     if (result.error != null) {
-    //         $("#registration-feedback").text(result.error)
-    //         $("#register-button").prop("disabled", false);
-    //     } else if (result.checkout != null) {
-    //         location.href = result.checkout
-    //     }
-    // })
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', `/api/event/register.php?id=${id}`, true);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            let result = JSON.parse(xhr.responseText);
-            if (xhr.status === 200) {
-                location.href = result.checkout
-            } else {
-                $("#registration-feedback").text(result.error)
-                $("#register-button").prop("disabled", false);
-            }
+    fetch(`/api/event/register.php?id=${id}`, {
+        method: "POST",
+        body: form
+    }).then(response => response.json()).then(result => {
+        if (result.error != null) {
+            $("#registration-feedback").text(result.error)
+            $("#register-button").prop("disabled", false);
+        } else if (result.checkout != null) {
+            location.href = result.checkout
         }
-    };
-    xhr.send(form);
+    })
+    // let xhr = new XMLHttpRequest();
+    // xhr.open('POST', `/api/event/register.php?id=${id}`, true);
+    // xhr.onreadystatechange = function () {
+    //     if (xhr.readyState === 4) {
+    //         let result = JSON.parse(xhr.responseText);
+    //         if (xhr.status === 200) {
+    //             location.href = result.checkout
+    //         } else {
+    //             $("#registration-feedback").text(result.error)
+    //             $("#register-button").prop("disabled", false);
+    //         }
+    //     }
+    // };
+    // xhr.send(form);
 }
