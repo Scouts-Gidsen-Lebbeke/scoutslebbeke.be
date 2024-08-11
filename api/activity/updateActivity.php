@@ -80,10 +80,10 @@ try {
         $id = $connection->insert_id;
     }
     foreach ($restrictions as $r) {
-        $r_name = !empty($r->name) ? "'$r->name'" : "NULL";
-        $alter_start = $r->alter_start && $r->alter_start != $start ? "'$r->alter_start'" : "NULL";
-        $alter_end = $r->alter_end && $r->alter_end != $end ? "'$r->alter_end'" : "NULL";
-        $alter_price = $r->alter_price && $r->alter_price != $price ? "'$r->alter_price'" : "NULL";
+        $r_name = !empty(@$r->name) ? "'$r->name'" : "NULL";
+        $alter_start = @$r->alter_start && $r->alter_start != $start ? "'$r->alter_start'" : "NULL";
+        $alter_end = @$r->alter_end && $r->alter_end != $end ? "'$r->alter_end'" : "NULL";
+        $alter_price = @$r->alter_price && $r->alter_price != $price ? "'$r->alter_price'" : "NULL";
         $result->succes = $result->succes && mysqli_query($connection, "insert into activity_restriction values (null, $id, '$r->branch_id', $r_name, $alter_start, $alter_end, $alter_price)");
     }
     if (!$result->succes) {

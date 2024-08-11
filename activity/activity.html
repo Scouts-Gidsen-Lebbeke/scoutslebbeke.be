@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-ui@1.14.0/dist/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.21.0/dist/jquery.validate.min.js"></script>
     <script type="module" src="../node_modules/keycloak-js/dist/keycloak.js"></script>
     <script src="/script/jquery.dform-1.1.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsonata/jsonata.min.js"></script>
@@ -53,19 +55,20 @@
                 De deadline voor de inschrijving is <b id="activity-subscription-deadline">undefined</b>.
             </p>
             <form id="subscription-form">
-                <input id="member-id" type="text" name="memberId" hidden>
+                <input id="member-id" type="text" name="memberId" hidden class="ignore-validation">
                 <div id="multiple-options">
                     <p>Er zijn meerdere opties mogelijk voor jou voor deze activiteit, kies er één:</p>
                     <div id="options"></div>
                 </div>
                 <div id="additional-form"></div>
                 <div id="price-data">
-                    <input type="number" id="activity-price-field" name="price" hidden>
+                    <input type="number" id="activity-price-field" name="price" hidden class="ignore-validation">
                     <p>De deelnameprijs voor jou bedraagt <b><span id="activity-price">undefined</span></b>.</p>
                 </div>
                 <button class="row-button" id="subscribe-button">Schrijf me in!</button>
             </form>
         </div>
+        <span id="subscription-form-feedback" class="form-feedback"></span>
         <div id="activity-admin">
             <h3>Admin</h3>
             <button class="row-button" id="edit-button" hidden>Bewerk activiteit</button>
