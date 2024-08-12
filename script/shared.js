@@ -339,3 +339,27 @@ function filterTable(tableID, input) {
         }
     });
 }
+
+function showMedicalOverview(userId) {
+    window.open(`https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/frontend/lid/individuelesteekkaart/${userId}`, '_blank');
+}
+
+function retrieveExtraIcons(user) {
+    let result = "";
+    if (user.no_picture) {
+        result += `<img src="/images/no-camera.png" class="subscription-icon" alt="no-picture" title="Deze persoon mag niet gefotografeerd worden!">`;
+    }
+    if (user.no_painkillers) {
+        result += `<img src="/images/no-painkillers.png" class="subscription-icon" alt="no-painkillers" title="Deze persoon mag geen pijnstillende en/of koortswerende medicatie krijgen!">`;
+    }
+    if (user.activity_restriction) {
+        result += `<img src="/images/activity-restriction.png" class="subscription-icon" alt="activity-restriction" title="Bij deze persoon is extra aandacht nodig bij bepaalde activiteiten!">`;
+    }
+    if (user.family_remarks) {
+        result += `<img src="/images/family.png" class="subscription-icon" alt="family" title="${user.family_remarks}">`;
+    }
+    if (user.food_anomalies) {
+        result += `<img src="/images/food-anomalies.png" class="subscription-icon" alt="food-anomalies" title="${user.food_anomalies}">`;
+    }
+    return result;
+}

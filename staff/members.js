@@ -25,11 +25,12 @@ function loadMembers() {
                 <tr>
                     <td>${member.first_name}</td>
                     <td>${member.name}</td>
-                    <td>${member.email}</td>
-                    <td>${member.mobile}</td>
+                    <td><a onclick="mailto:${member.email}">${member.email}</a></td>
+                    <td><a onclick="callto:${member.mobile}">${member.mobile}</td>
                     <td>${member.membership_date}</td>
-                    <td class="icon-column"></td>
-                    <td class="icon-column"><img src="/images/report.png" class="subscription-icon" alt="report" onclick="getCertificate('${member.id}')"></td>
+                    <td class="multi-icon-column">${retrieveExtraIcons(s.user)}</td>
+                    <td><img src="/images/${member.medical_attention ? 'cross-red' : 'cross'}.png" class="subscription-icon" alt="pill" onclick="showMedicalOverview('${member.sgl_id}')"></td>
+                    <td><img src="/images/report.png" class="subscription-icon" title="Download inschrijvingsbewijs" alt="report" onclick="getCertificate('${member.id}')"></td>
                 </tr>
             `)
         )

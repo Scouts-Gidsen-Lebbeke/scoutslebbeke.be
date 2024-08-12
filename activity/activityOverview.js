@@ -33,7 +33,8 @@ function retrieveActivity(id) {
                     <td class="price-column hidden">€ ${s.price}</td>
                     <td class="present-column hidden"><input id="${s.id}-present" type="checkbox" onclick="markPresent(this.checked, '${result.activity.id}', '${s.id}')" ${s.present === "1" ? "checked" : ""}></td>
                     ${parseAdditionalData(s.additional_data)}
-                    <td><img src="/images/${s.user.medical_attention ? 'pill-red' : 'pill'}.png" class="subscription-icon" alt="report" onclick="showMedicalOverview('${s.user.sgl_id}')"></td>
+                    <td class="multi-icon-column">${retrieveExtraIcons(s.user)}</td>
+                    <td><img src="/images/${s.user.medical_attention ? 'cross-red' : 'cross'}.png" class="subscription-icon" alt="pill" onclick="showMedicalOverview('${s.user.sgl_id}')"></td>
                     <td><img src="/images/report.png" class="subscription-icon ${s.present === "1" ? "" : "hidden"}" alt="report" id="report-${s.id}" onclick="getCertificate('${s.id}')"></td>
                     <td>${s.cancellable ? `<img src="/images/cancel.png" class="subscription-icon" alt="cancel" onclick="cancelSubscription('${s.id}')">` : ""}</td>
                 </tr>`
@@ -61,10 +62,6 @@ function retrieveActivity(id) {
         $("#export-button").prop('disabled', false);
         $("#mail-button").prop('disabled', false);
     })
-}
-
-function showMedicalOverview(userId) {
-    window.open(`https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/frontend/lid/individuelesteekkaart/${userId}`, '_blank');
 }
 
 function printDate(date) {

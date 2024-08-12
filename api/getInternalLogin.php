@@ -69,8 +69,24 @@ function fetchSglUserById($id): ?object {
     return callAPI("lid/".$id, true);
 }
 
-function fetchUserMedics($id): ?object {
-    return callAPI("lid/".$id."/steekkaart", true);
+function fetchUserMedics($user): object {
+    $medics = callAPI("lid/".$user->sgl_id."/steekkaart", true);
+    // SGL passes today when not filled in, sigh
+    if (empty(@$medics->gegevens->waarden->d5f75e1e463a56ef01463cec788d0002)) {
+        $user->med_date = null;
+    }
+    if ($user->med_date) {
+        $user->no_picture = @$medics->gegevens->waarden->d5f75e1e463384de014639190ebb00eb == "nee";
+        $user->no_painkillers = @$medics->gegevens->waarden->d5f75e1e463384de0146390e395900e2 == "nee";
+        $user->activity_restriction = @$medics->gegevens->waarden->GAVeld_202123_1236_35 == "ja";
+        $user->family_remarks = @$medics->gegevens->waarden->d5f75e1e4610ed0201461f026f8e0013;
+        $user->food_anomalies = @$medics->gegevens->waarden->d5f75e1e463384de0146391a3b4800ed;
+
+        $user->takes_medication = @$medics->gegevens->waarden->d5f75e1e463384de01463901e13c00dc != "nee";
+        $user->illnesses = @$medics->gegevens->waarden->d5f75e1e463384de01463905280100de;
+        $user->medical_attention = $user->takes_medication || !empty($user->illnesses);
+    }
+    return $user;
 }
 
 function fetchUserById($id): ?object {
@@ -105,10 +121,7 @@ function translateUser($sgl_user): object {
     $user->mobile = normalizeMobile(@$sgl_user->persoonsgegevens->gsm);
     $user->birth_date = $sgl_user->vgagegevens->geboortedatum;
     $user->med_date = $sgl_user->vgagegevens->individueleSteekkaartdatumaangepast;
-    // SGL passes today when not filled in, sigh
-    if (strtotime("$user->med_date+5 seconds") > time()) {
-        $user->medDate = null;
-    }
+    fetchUserMedics($user);
     $user->member_id = $sgl_user->verbondsgegevens->lidnummer;
     $user->som = $sgl_user->vgagegevens->verminderdlidgeld;
     $user->totem = getPrivateField($sgl_user->groepseigenVelden, $custom_fields->totem);
