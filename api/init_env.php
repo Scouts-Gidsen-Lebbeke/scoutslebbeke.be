@@ -27,3 +27,4 @@ $custom_fields = (object) array(
     "nis_nr" => $config["CUSTOM_NIS_NR"],
     "branch_head" => $config["CUSTOM_BRANCH_HEAD"]
 );
+$debug = filter_var($config["APP_DEBUG"], FILTER_VALIDATE_BOOLEAN);

@@ -34,12 +34,13 @@
                 <div id="email-pre-content" title="Inhoud van de mail"></div>
                 <textarea id="email-content" rows="5" name="content" required hidden></textarea>
                 <label id="mail-attachment-label" for="mail-attachment">Bijlage</label>
-                <input type="file" id="mail-attachment" name="attachment">
+                <input type="file" name="attachments[]" id="mail-attachment" multiple required>
             </div>
-            <input type="button" onclick="cancel()" value="Annuleer">
-            <input type="button" onclick="mail()" value="Verstuur">
+            <input class="row-button" type="button" onclick="cancel()" value="Annuleer">
+            <input id="send-button" class="row-button" type="button" onclick="mail()" value="Verstuur">
         </form>
-        <span id="form-feedback"></span>
+        <span id="email-feedback"></span>
+        <span id="email-error" class="form-feedback"></span>
     </div>
     <footer-component></footer-component>
 </div>

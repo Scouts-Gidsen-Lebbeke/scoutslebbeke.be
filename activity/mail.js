@@ -28,6 +28,9 @@ window.onload = function() {
 };
 
 function mail() {
+    $("#send-button").attr("disabled", true);
+    $("#email-error").hide();
+    $("#email-feedback").html("Bezig met versturen...")
     $("#email-content").val(tinymce.activeEditor.getContent());
     const form = document.querySelector("#email-form");
     const formData = new FormData(form);
@@ -36,8 +39,15 @@ function mail() {
         method: "POST",
         body: formData
     }).then(data => data.json()).then(result => {
-        console.log(result)
-        $("#form-feedback").html(result)
+        $("#send-button").attr("disabled", false);
+        if (result.error) {
+            console.log(result)
+            $("#email-feedback").empty();
+            $("#email-error").html(result.error);
+            $("#email-error").show();
+        } else {
+            $("#email-feedback").html(`Mails succesvol verstuurd naar ${result.amount} ontvangers!`);
+        }
     })
 }
 

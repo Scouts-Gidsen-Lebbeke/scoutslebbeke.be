@@ -1,19 +1,14 @@
 <?php
-//Import PHPMailer classes into the global namespace
-//These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
 
-//Load Composer's autoloader
 require_once 'init_env.php';
 require_once __DIR__ . "/../vendor/autoload.php";
 
-//Create an instance; passing `true` enables exceptions
 function createMail(): PHPMailer {
-    global $config;
+    global $config, $debug;
     $mail = new PHPMailer(true);
-    $mail->SMTPDebug = filter_var($config["APP_DEBUG"], FILTER_VALIDATE_BOOLEAN) ? SMTP::DEBUG_SERVER : SMTP::DEBUG_OFF;
+    $mail->SMTPDebug = $debug ? SMTP::DEBUG_SERVER : SMTP::DEBUG_OFF;
     $mail->isSMTP();
     $mail->SMTPDebug = false;
     $mail->Host = $config["MAIL_HOST"];
@@ -25,4 +20,45 @@ function createMail(): PHPMailer {
     $mail->setFrom($config["MAIL_FROM_ADDRESS"], $config["MAIL_FROM_NAME"]);
     $mail->addReplyTo($config["MAIL_FROM_ADDRESS"], $config["MAIL_FROM_NAME"]);
     return $mail;
+}
+
+function sendMail($recipients): stdClass {
+    global $config, $debug;
+    $result = new stdClass();
+    $attachments = $_FILES['attachments'];
+    try {
+        $mail = createMail();
+        if (!$debug) {
+            if ($_POST["cc"]) {
+                $mail->addCC($config["MAIL_FROM_ADDRESS"]);
+            }
+            foreach ($recipients as $r) {
+                $mail->addBCC($r);
+            }
+        } else {
+            $mail->addAddress($config["MAIL_FROM_ADDRESS"]);
+        }
+        $mail->isHTML();
+        if (empty($_POST["subject"])) {
+            throw new InvalidArgumentException("Het onderwerp mag niet leeg zijn!");
+        }
+        $mail->Subject = $_POST["subject"];
+        if (empty($_POST["content"])) {
+            throw new InvalidArgumentException("De inhoud mag niet leeg zijn!");
+        }
+        $mail->Body = $_POST["content"];
+        if (!empty($attachments['name'][0])) {
+            for ($i = 0; $i < count($attachments['name']); $i++) {
+                if (is_uploaded_file($attachments['tmp_name'][$i])) {
+                    $mail->addAttachment($attachments['tmp_name'][$i], $attachments['name'][$i]);
+                }
+            }
+        }
+        $mail->send();
+        $result->success = true;
+        $result->amount = count($recipients);
+    } catch (Exception $e) {
+        $result->error = $e->getMessage();
+    }
+    return $result;
 }

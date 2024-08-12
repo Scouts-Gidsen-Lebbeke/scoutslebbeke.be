@@ -109,7 +109,7 @@ function sumTableValues(id) {
 function mail() {
     const params = (new URL(document.location)).searchParams;
     const activityId = params.get('id');
-    window.location = `mail.html`;
+    window.location = `mail.html?id=${activityId}`;
 }
 
 function filterBranch(input) {
