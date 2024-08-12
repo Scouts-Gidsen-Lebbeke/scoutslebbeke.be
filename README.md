@@ -9,12 +9,10 @@ Vlottere overgang naar Laravel-project (look & feel).
 #### Missing links
 Kleine moeite, veel betere UX.
 - Bug redirect confirmatie-pagina's (ook bevestigd bij cancel)
-- Controle medische fiche bij aanwezigheid
-- Medische fiche niet ingevuld = datum vandaag!
 - Schrap voorgaande annulaties/cancels bij eventregistratie
 - Gratis activiteiten & evenementen
 - Activiteiten en events verwijderen en editeren conditioneel op status
-- Mailing deelnemers afwerken (bijlagen)
+- Mailing deelnemers voor events
 - Annulatie activiteiten/evenementen
 - Verwerkingspagina lidgeld na betaling (cfr event/activity confirmatie)
 - Controle lidmaatschap bij inschrijving
@@ -25,7 +23,7 @@ Nodig voor overdracht basisfunctionaliteit.
 - Kalender template creatie
 - Implementatie fiscale attesten
 - Aanvullen documentatie (deze + Drive)
-- Overzicht lidmaatschap: afwerking
+- Overzicht lidmaatschap: mailen leden
 
 #### Admin
 Nodig voor volledige overdracht beheer.
@@ -38,6 +36,5 @@ Nodig voor volledige overdracht beheer.
 #### Nice to have
 - Wallet-implementatie
 - Shop voor kledij
-- Vzw-tak
 - Privacyverklaring = pagina
 

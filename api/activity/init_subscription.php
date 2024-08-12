@@ -14,6 +14,15 @@ function getSubscriptionState($member, $user): stdClass {
                 throw new InvalidArgumentException("Je hebt geen actieve tak, kijk jouw inschrijvingsgeld na!");
             }
         }
+        if (empty($member->med_date)) {
+            if ($as_staff) {
+                throw new InvalidArgumentException("De medische fiche van ".$member->first_name." is nog niet ingevuld,
+                    update deze eerst in de <a href='https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/frontend/lid/individuelesteekkaart/$member->sgl_id' target='_blank' style='color: red'>Groepsadministratie</a>!");
+            } else {
+                throw new InvalidArgumentException("Jouw medische fiche is nog niet ingevuld, 
+                    update deze eerst in de <a href='https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/frontend/lid/individuelesteekkaart/$member->sgl_id' target='_blank' style='color: red'>Groepsadministratie</a>!");
+            }
+        }
         if (strtotime("$member->med_date+1 year") < time()) {
             if ($as_staff) {
                 throw new InvalidArgumentException("De medische fiche van ".$member->first_name." is al meer dan een jaar niet aangevuld,
