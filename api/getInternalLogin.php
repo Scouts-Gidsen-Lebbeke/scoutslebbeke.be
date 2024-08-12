@@ -79,14 +79,22 @@ function fetchUserMedics($user): object {
         $user->no_picture = @$medics->gegevens->waarden->d5f75e1e463384de014639190ebb00eb == "nee";
         $user->no_painkillers = @$medics->gegevens->waarden->d5f75e1e463384de0146390e395900e2 == "nee";
         $user->activity_restriction = @$medics->gegevens->waarden->GAVeld_202123_1236_35 == "ja";
-        $user->family_remarks = @$medics->gegevens->waarden->d5f75e1e4610ed0201461f026f8e0013;
-        $user->food_anomalies = @$medics->gegevens->waarden->d5f75e1e463384de0146391a3b4800ed;
+        $user->family_remarks = sanitizeMedical(@$medics->gegevens->waarden->d5f75e1e4610ed0201461f026f8e0013);
+        $user->food_anomalies = sanitizeMedical(@$medics->gegevens->waarden->d5f75e1e463384de0146391a3b4800ed);
 
         $user->takes_medication = @$medics->gegevens->waarden->d5f75e1e463384de01463901e13c00dc != "nee";
-        $user->illnesses = @$medics->gegevens->waarden->d5f75e1e463384de01463905280100de;
+        $user->illnesses = sanitizeMedical(@$medics->gegevens->waarden->d5f75e1e463384de01463905280100de);
         $user->medical_attention = $user->takes_medication || !empty($user->illnesses);
     }
     return $user;
+}
+
+function sanitizeMedical($text): ?string {
+    if (empty($text) || strcasecmp($text, "/") == 0 || strcasecmp($text, "nee") == 0 ||
+        strcasecmp($text, "geen") == 0 || strcasecmp($text, "nvt") == 0) {
+        return null;
+    }
+    return $text;
 }
 
 function fetchUserById($id): ?object {
