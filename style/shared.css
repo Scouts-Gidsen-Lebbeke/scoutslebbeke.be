@@ -170,3 +170,11 @@ tfoot th:empty {
 .cm-scroller {
     overflow: auto;
 }
+.multi-icon-column {
+    text-align: right;
+    max-width: 135px;
+}
+.multi-icon {
+    width: 20px;
+    margin: auto 2px;
+}
