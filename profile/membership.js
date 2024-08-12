@@ -75,7 +75,3 @@ function getCertificate(membershipId) {
         download(binary, `Inschrijvingsbewijs ${period} - ${d.member.name} ${d.member.first_name}`, "application/pdf");
     })
 }
-
-function printDDMMYYYY(date) {
-    return date.toLocaleDateString('nl-BE', { year: 'numeric', month: '2-digit', day: '2-digit' });
-}

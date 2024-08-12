@@ -363,3 +363,7 @@ function retrieveExtraIcons(user) {
     }
     return result;
 }
+
+function printDDMMYYYY(date) {
+    return date.toLocaleDateString('nl-BE', { year: 'numeric', month: '2-digit', day: '2-digit' });
+}
