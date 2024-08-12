@@ -91,7 +91,7 @@ function fetchUserMedics($user): object {
 
 function sanitizeMedical($text): ?string {
     if (empty($text) || strcasecmp($text, "/") == 0 || strcasecmp($text, "nee") == 0 ||
-        strcasecmp($text, "geen") == 0 || strcasecmp($text, "nvt") == 0) {
+        strcasecmp($text, "neen") == 0 ||strcasecmp($text, "geen") == 0 || strcasecmp($text, "nvt") == 0) {
         return null;
     }
     return $text;
