@@ -39,7 +39,7 @@ $connection->close();
 echo json_encode($calendar);
 
 function items_before($calendar, $date): int {
-    return sizeof(array_filter($calendar->items, fn($i) => $i->fromDate < $date));
+    return sizeof(array_filter($calendar->items, fn($i) => strtotime($i->fromDate) < $date->getTimestamp()));
 }
 
 function find_sundays($begin, $end): array {
