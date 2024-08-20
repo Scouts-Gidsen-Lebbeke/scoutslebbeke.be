@@ -37,7 +37,7 @@ function retrieveEvent() {
     const params = (new URL(document.location)).searchParams;
     const eventId = params.get('id')
     if (eventId == null) {
-        $(".loader").hide()
+        $("#event-loader").hide()
         $("#event-form").show()
         return
     }
@@ -59,7 +59,7 @@ function retrieveEvent() {
             jsonEditor.refresh();
         }, 1);
         $("#event-additional-form-rule").val(e.additional_form_rule)
-        $(".loader").hide()
+        $("#event-loader").hide()
         $("#event-form").show()
     })
 }

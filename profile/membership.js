@@ -25,7 +25,7 @@ function loadMemberships() {
                 </tr>
             `)
         )
-        $(".loader").hide()
+        $("#membership-loader").hide()
     });
 }
 

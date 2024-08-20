@@ -14,12 +14,9 @@ tinymce.init({
 window.onload = function() {
     loadGlobal();
     requireLogin(d => {
-        if (d.level > 2) {
-            loadProfile(d)
-            retrieveNews()
-        } else {
-            window.location = "/403.html";
-        }
+        guardStaff(d)
+        loadProfile(d)
+        retrieveNews()
     });
 };
 
@@ -28,7 +25,7 @@ function retrieveNews() {
     const id = params.get('id')
     if (id == null) {
         $("#news-visible").prop('checked', true)
-        $(".loader").hide()
+        $("#news-loader").hide()
         $("#news-form").show()
         return
     }
@@ -41,7 +38,7 @@ function retrieveNews() {
             $("#news-image-pic").attr("src", `/images/news/${news.image}`);
         }
         tinymce.get("news-pre-content").setContent(news.content)
-        $(".loader").hide()
+        $("#news-loader").hide()
         $("#news-form").show()
     })
 }

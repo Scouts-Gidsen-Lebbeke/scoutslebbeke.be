@@ -8,10 +8,17 @@ window.onload = function() {
 
 function retrieveRegistration(orderId) {
     fetch(`/api/event/getRegistration.php?id=${orderId}`).then(data => data.json()).then(r => {
-        $("#registration-id").text(r.id)
-        $("#registration-first-name").text(r.first_name)
-        $(".loader").hide()
-        $("#confirmation").show()
+        if (r.status === "paid") {
+            $("#registration-id").text(r.id)
+            $("#registration-first-name").text(r.first_name)
+            $("#confirmation").show()
+            $("#status-loader").hide()
+        } else if (r.status === "cancel") {
+            $("#cancel").show()
+            $("#status-loader").hide()
+        } else {
+            new Promise(r => setTimeout(r, 1000)).then(() => { retrieveRegistration(orderId) });
+        }
     });
 }
 

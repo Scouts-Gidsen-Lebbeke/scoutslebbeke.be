@@ -14,12 +14,9 @@ tinymce.init({
 window.onload = function() {
     loadGlobal();
     requireLogin(d => {
-        if (d.level > 2) {
-            loadProfile(d)
-            retrieveIntro()
-        } else {
-            window.location = "/403.html";
-        }
+        guardStaff(d)
+        loadProfile(d)
+        retrieveIntro()
     });
 };
 function retrieveIntro() {
@@ -29,7 +26,7 @@ function retrieveIntro() {
         if (item.intro) {
             tinymce.get("pre-intro").setContent(item.intro)
         }
-        $(".loader").hide()
+        $("#intro-loader").hide()
         $("#intro-form").show()
     })
 }

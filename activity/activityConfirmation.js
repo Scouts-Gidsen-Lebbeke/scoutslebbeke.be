@@ -8,10 +8,17 @@ window.onload = function() {
 
 function retrieveSubscription(orderId) {
     fetch(`/api/activity/getSubscription.php?id=${orderId}`).then(data => data.json()).then(r => {
-        $("#subscription-id").text(r.id)
-        $("#subscription-first-name").text(r.first_name)
-        $(".loader").hide()
-        $("#confirmation").show()
+        if (r.status === "paid") {
+            $("#subscription-id").text(r.id)
+            $("#subscription-first-name").text(r.first_name)
+            $("#confirmation").show()
+            $("#status-loader").hide()
+        } else if (r.status === "cancel") {
+            $("#cancel").show()
+            $("#status-loader").hide()
+        } else {
+            new Promise(r => setTimeout(r, 1000)).then(() => { retrieveSubscription(orderId) });
+        }
     });
 }
 

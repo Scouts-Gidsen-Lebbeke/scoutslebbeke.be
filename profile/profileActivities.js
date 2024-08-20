@@ -21,7 +21,7 @@ function loadActivityOverview() {
                 </tr>
             `)
         )
-        $(".loader").hide()
+        $("#activity-loader").hide()
     });
 }
 

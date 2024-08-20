@@ -48,7 +48,7 @@ function loadCalendar() {
         $("#calendars").html("Selecteer hierboven een tak om te zien wat we de komende maanden voor jou in petto hebben!");
         return;
     }
-    $("#calendars").html(`<div class="loader"></div>`)
+    $("#calendars").html(`<loader-component>Ophalen kalender...</loader-component>`)
     tokenized(`/api/calendar/getByBranch.php?branch=${branchId}&period=${periodId}`, true).then((calendar) => {
         if (!calendar) {
             $("#calendars").html("Er werd geen kalender gevonden voor deze periode!");

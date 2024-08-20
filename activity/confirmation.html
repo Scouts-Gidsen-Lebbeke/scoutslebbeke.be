@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script type="module" src="/node_modules/keycloak-js/dist/keycloak.js"></script>
-    <script src="/script/jquery.dform-1.1.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jsonata/jsonata.min.js"></script>
     <script src="/script/components.js"></script>
     <script src="/script/shared.js"></script>
     <script src="/activity/activityConfirmation.js"></script>
@@ -21,11 +19,14 @@
     <header-component></header-component>
     <div id="content">
         <h1>Bevestiging inschrijving</h1>
-        <div class="loader"></div>
+        <loader-component id="status-loader">Betaling wordt verwerkt...</loader-component>
         <p id="confirmation">
             Bedankt <span id="subscription-first-name">undefined</span>,
             we hebben jouw inschrijving met <b>inschrijvingsnummer <span id="subscription-id">undefined</span></b> goed ontvangen!
             Kijk zeker ook jouw mailbox na voor de bevestigingsmail.
+        </p>
+        <p id="cancel">
+            De betaling werd geannuleerd, ga terug om opnieuw in te schrijven!
         </p>
         <button class="row-button" onclick="returnToActivity()">Ga terug</button>
     </div>

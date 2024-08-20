@@ -8,7 +8,6 @@ Vlottere overgang naar Laravel-project (look & feel).
 
 #### Missing links
 Kleine moeite, veel betere UX.
-- Bug redirect confirmatie-pagina's (ook bevestigd bij cancel)
 - Schrap voorgaande annulaties/cancels bij eventregistratie
 - Gratis activiteiten & evenementen
 - Activiteiten en events verwijderen en editeren conditioneel op status

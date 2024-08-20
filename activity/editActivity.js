@@ -55,7 +55,7 @@ function retrieveActivity() {
     const params = (new URL(document.location)).searchParams;
     const activityId = params.get('id')
     if (activityId == null) {
-        $(".loader").hide()
+        $("#activity-loader").hide()
         $("#activity-form").show()
         return
     }
@@ -83,7 +83,7 @@ function retrieveActivity() {
             jsonEditor.refresh();
         },1);
         $("#activity-additional-form-rule").val(a.additional_form_rule)
-        $(".loader").hide()
+        $("#activity-loader").hide()
         $("#activity-form").show()
     })
 }

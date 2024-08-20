@@ -67,3 +67,8 @@
 input[type=number] {
     width: 50px;
 }
+#confirmation, #cancel {
+    display: none;
+}
+loader-component div {
+}

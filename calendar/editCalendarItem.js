@@ -15,12 +15,9 @@ window.onload = function() {
     loadGlobal();
     retrieveLocations()
     requireLogin(d => {
-        if (d.level > 2) {
-            loadProfile(d)
-            retrieveItem()
-        } else {
-            window.location = "/403.html";
-        }
+        guardStaff(d)
+        loadProfile(d)
+        retrieveItem()
     });
 };
 
@@ -37,7 +34,7 @@ function retrieveItem() {
         $("#calendar-id").val(params.get('calendarId'))
         $("#item-from").val(params.get('from'))
         $("#item-to").val(params.get('to'))
-        $(".loader").hide()
+        $("#item-loader").hide()
         $("#item-form").show()
         return
     }
@@ -55,7 +52,7 @@ function retrieveItem() {
             $("#item-image-pic").attr("src", `/images/calendar/${item.image}`);
         }
         tinymce.get("item-pre-content").setContent(item.content)
-        $(".loader").hide()
+        $("#item-loader").hide()
         $("#item-form").show()
     })
 }

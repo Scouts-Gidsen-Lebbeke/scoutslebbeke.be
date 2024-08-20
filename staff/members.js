@@ -15,7 +15,7 @@ async function initBranches() {
 }
 
 function loadMembers() {
-    $(".loader").show();
+    $("#member-loader").show();
     $('#member-overview tbody').empty();
     let branchId = $("#member-branches").val();
     tokenized(`/api/user/findActiveMembers.php?branch=${branchId}`).then(result => {
@@ -34,6 +34,6 @@ function loadMembers() {
                 </tr>
             `)
         )
-        $(".loader").hide();
+        $("#member-loader").hide();
     })
 }

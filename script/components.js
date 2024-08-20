@@ -28,7 +28,27 @@ class TitleWrapper extends HTMLElement {
             </div>
         `;
     }
+
+    insertAdjacentHTML(position, text) {
+        super.insertAdjacentHTML(position, text);
+    }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    class Loader extends HTMLElement {
+        constructor() {
+            super();
+        }
+
+        connectedCallback() {
+            this.innerHTML = `
+                <div class="loader"></div>
+                <div class="loader-message">${this.innerText}</div>
+            `;
+        }
+    }
+    customElements.define('loader-component', Loader);
+});
 
 class Header extends HTMLElement {
     constructor() {

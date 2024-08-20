@@ -21,13 +21,16 @@
     <header-component></header-component>
     <div id="content">
         <h1>Bevestiging registratie</h1>
-        <div class="loader"></div>
+        <loader-component id="status-loader">Betaling wordt verwerkt...</loader-component>
         <p id="confirmation">
             Bedankt <span id="registration-first-name">undefined</span>,
             we hebben jouw registratie met <b>ordernummer <span id="registration-id">undefined</span></b> goed ontvangen!
             Kijk zeker ook jouw mailbox na voor de bevestigingsmail.
         </p>
-        <button onclick="returnToEvent()" class="row-button">Ga terug</button>
+        <p id="cancel">
+            De betaling werd geannuleerd, ga terug om opnieuw te registreren!
+        </p>
+        <button class="row-button" onclick="returnToEvent()">Ga terug</button>
     </div>
     <footer-component></footer-component>
 </div>
