@@ -31,15 +31,20 @@
                 <input type="checkbox" id="price-column" onclick="toggleVisible(this)" checked>
                 <label for="price-column">Prijs</label>
             </div>
+            <div>
+                <input type="checkbox" id="email-column" onclick="toggleVisible(this)" checked>
+                <label for="email-column">E-mail</label>
+            </div>
         </div>
         <div class="table-responsive">
             <table class="table table-striped" id="overview-table">
                 <thead>
                     <tr>
-                        <th scope="col" onclick="sortTable('overview-table', 0)">#</th>
-                        <th scope="col" onclick="sortTable('overview-table', 1)">Voornaam</th>
-                        <th scope="col" onclick="sortTable('overview-table', 2)">Naam</th>
-                        <th scope="col" onclick="sortTable('overview-table', 3)" class="price-column">Prijs</th>
+                        <th onclick="sortTable('overview-table', 0)">#</th>
+                        <th onclick="sortTable('overview-table', 1)">Voornaam</th>
+                        <th onclick="sortTable('overview-table', 2)">Naam</th>
+                        <th onclick="sortTable('overview-table', 3)" class="email-column">E-mail</th>
+                        <th onclick="sortTable('overview-table', 4)" class="price-column">Prijs</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -48,6 +53,7 @@
                         <th></th>
                         <th></th>
                         <th></th>
+                        <th class="email-column"></th>
                         <th class="price-column" id="price-total"></th>
                     </tr>
                 </tfoot>
@@ -55,6 +61,7 @@
         </div>
         <loader-component id="overview-loader">Ophalen registraties...</loader-component>
         <button class="row-button" id="export-button" onclick="exportTableToExcel('overview-table', 'overzicht.xlsx')" disabled>Exporteer</button>
+        <button class="row-button" id="mail-button" onclick="mail()" disabled>Mail inschrijvers</button>
         <button class="row-button" onclick="goBack()">Ga terug</button>
     </div>
     <footer-component></footer-component>

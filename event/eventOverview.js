@@ -19,6 +19,7 @@ function retrieveEvent(id) {
                     <td>${i + 1}</td>
                     <td>${r.first_name}</td>
                     <td>${r.last_name}</td>
+                    <td class="email-column">${r.email}</td>
                     <td class="price-column">€ ${r.price}</td>
                     ${parseAdditionalData(r.additional_data)}
                 </tr>`
@@ -44,6 +45,7 @@ function retrieveEvent(id) {
         }
         $("#overview-loader").hide()
         $("#export-button").prop('disabled', false);
+        $("#mail-button").prop('disabled', false);
     })
 }
 
@@ -75,4 +77,10 @@ function goBack() {
     const params = (new URL(document.location)).searchParams;
     const eventId = params.get('id')
     window.location = params.get('from') === "admin" ? "/admin/admin.html" : `/event/event.html?id=${eventId}`;
+}
+
+function mail() {
+    const params = (new URL(document.location)).searchParams;
+    const eventId = params.get('id');
+    window.location = `mail.html?id=${eventId}`;
 }
