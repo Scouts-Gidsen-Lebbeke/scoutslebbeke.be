@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://unpkg.com/downloadjs@1.4.7"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="module" src="/node_modules/keycloak-js/dist/keycloak.js"></script>
+    <script src="/script/components.js"></script>
+    <script src="/script/shared.js"></script>
+    <script src="https://cdn.tiny.cloud/1/3zke4762j1cnv5l70ctyfbpncqoc7ztulh9sri9haivlajkw/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="/event/mail.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style/shared.css">
+    <link rel="stylesheet" href="/profile/profile.css">
+    <link rel="icon" href="/images/favicon.ico">
+    <title>Scouts & Gidsen Lebbeke</title>
+</head>
+<body>
+<div id="body-wrapper">
+    <header-component></header-component>
+    <div id="content">
+        <h1>Mail inschrijvers</h1>
+        <form id="email-form">
+            <input type="number" id="event-id" name="id" hidden>
+            <div>
+                <div id="mail-subject-wrapper">
+                    <label id="mail-subject-label" for="mail-subject">Onderwerp</label>
+                    <input type="text" id="mail-subject" name="subject" title="Onderwerp van de mail" required>
+                    <label for="cc" title="Moet er een kopie van deze mail verstuurd worden naar de groep?">Verstuur kopie</label>
+                    <input type="checkbox" id="cc" name="cc" required><br/>
+                </div>
+                <div id="email-pre-content" title="Inhoud van de mail"></div>
+                <textarea id="email-content" rows="5" name="content" required hidden></textarea>
+                <label id="mail-attachment-label" for="mail-attachment">Bijlage</label>
+                <input type="file" name="attachments[]" id="mail-attachment" multiple required>
+            </div>
+            <input class="row-button" type="button" onclick="cancel()" value="Annuleer">
+            <input id="send-button" class="row-button" type="button" onclick="mail()" value="Verstuur">
+        </form>
+        <span id="email-feedback"></span>
+        <span id="email-error" class="form-feedback"></span>
+    </div>
+    <footer-component></footer-component>
+</div>
+</body>
+</html>

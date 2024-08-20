@@ -8,17 +8,16 @@ Vlottere overgang naar Laravel-project (look & feel).
 
 #### Missing links
 Kleine moeite, veel betere UX.
-- Schrap voorgaande annulaties/cancels bij eventregistratie
+- Schrap voorgaande annulaties/cancels bij activiteitsregistratie
 - Gratis activiteiten & evenementen
 - Activiteiten en events verwijderen en editeren conditioneel op status
-- Mailing deelnemers voor events
+- Mailing ui: bredere titel, duidelijk bijlage-overzicht
 - Annulatie activiteiten/evenementen
 - Verwerkingspagina lidgeld na betaling (cfr event/activity confirmatie)
 - Controle lidmaatschap bij inschrijving
 
 #### Overdracht leiding
 Nodig voor overdracht basisfunctionaliteit.
-- Consistentie nieuwtjes (onzichtbaar != niet meer opgehaald)
 - Kalender template creatie
 - Implementatie fiscale attesten
 - Aanvullen documentatie (deze + Drive)
