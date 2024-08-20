@@ -8,7 +8,6 @@ try {
     if (empty($title)) {
         throw new InvalidArgumentException("Een titel is verplicht!");
     }
-    $visible = @$_POST['visible'] == 'on';
     $image = $_POST['image'];
     $image = !empty($image) ? "'$image'" : "NULL";
     $content = mysqli_real_escape_string($connection, $_POST['content']);
@@ -16,9 +15,9 @@ try {
         throw new InvalidArgumentException("De inhoud is verplicht!");
     }
     if ($id) {
-        $result->succes = mysqli_query($connection, "update news set title = '$title', content = '$content', visible = '$visible', image = $image where id='$id'");
+        $result->succes = mysqli_query($connection, "update news set title = '$title', content = '$content', image = $image where id='$id'");
     } else {
-        $result->succes = mysqli_query($connection, "insert into news values (null, '$user->id', '$title', '$content', $image, '$visible', now())");
+        $result->succes = mysqli_query($connection, "insert into news values (null, '$user->id', '$title', '$content', $image, true, now())");
     }
 } catch (Exception $e) {
     $result->error = $e->getMessage();

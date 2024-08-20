@@ -24,7 +24,6 @@ function retrieveNews() {
     const params = (new URL(document.location)).searchParams;
     const id = params.get('id')
     if (id == null) {
-        $("#news-visible").prop('checked', true)
         $("#news-loader").hide()
         $("#news-form").show()
         return
@@ -32,7 +31,6 @@ function retrieveNews() {
     tokenized(`/api/news/getById.php?id=${id}`).then(news => {
         $("#news-id").val(news.id)
         $("#news-title").val(news.title)
-        $("#news-visible").prop('checked', news.visible === "1")
         $("#news-image").val(news.image)
         if (news.image) {
             $("#news-image-pic").attr("src", `/images/news/${news.image}`);
