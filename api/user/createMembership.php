@@ -16,7 +16,7 @@ try {
     }
     $as_staff = $member->id != $user->id;
     $active_period = getActivePeriod();
-    $active_membership = mysqli_fetch_object($connection->query("select * from membership where period_id='$active_period->id' and status='paid'"));
+    $active_membership = mysqli_fetch_object($connection->query("select * from membership where user_id='$member->id' and period_id='$active_period->id' and status = 'paid'"));
     if (!empty($active_membership)) {
         if ($as_staff) {
             throw new InvalidArgumentException($member->first_name." is reeds ingeschreven voor dit werkingsjaar!");
