@@ -25,7 +25,7 @@ footer-component {
     width: 140px;
     overflow: hidden;
     height: 140px;
-    z-index: 9999;
+    z-index: 4;
 }
 #fork-repo a {
     background: #FFFFFF;
