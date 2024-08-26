@@ -94,7 +94,10 @@ function handleRestrictions(branches, restrictions) {
 }
 
 function editRestrictions() {
-    let restrictions = JSON.parse($("#activity-restrictions").val())
+    let restrictions = [];
+    if ($("#activity-restrictions").val()) {
+        restrictions = JSON.parse($("#activity-restrictions").val())
+    }
     $('#restriction-overview tbody').empty()
     restrictions.forEach(r => {
         $('#restriction-overview tbody').append(`
