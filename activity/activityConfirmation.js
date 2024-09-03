@@ -1,9 +1,8 @@
 window.onload = function() {
     loadGlobal();
     const params = (new URL(document.location)).searchParams;
-    const orderId = params.get('order_id');
     checkLogin(loadProfile);
-    retrieveSubscription(orderId);
+    retrieveSubscription(params.get('id'));
 };
 
 function retrieveSubscription(orderId) {
