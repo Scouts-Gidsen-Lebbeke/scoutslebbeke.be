@@ -37,9 +37,11 @@ function checkSubscriptionState(activityId, memberId) {
             }
             $("#subscription-form input").on("change", async function () {
                 let formData = sanitizeData(new FormData(document.querySelector("#subscription-form")));
-                let additional_price = Number(await jsonata(result.activity.additional_form_rule).evaluate(formData));
                 let chosen_option = $('input[name="option"]:checked').val()
                 let total_price = additional_price + Number(result.options.find(o => o.id === chosen_option).price);
+                if (result.activity.additional_form_rule) {
+                    total_price += Number(await jsonata(result.activity.additional_form_rule).evaluate(formData));
+                }
                 $("#activity-price-field").val(total_price);
                 $("#activity-price").text(`€ ${total_price}`);
             });
