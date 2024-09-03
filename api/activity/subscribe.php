@@ -53,7 +53,7 @@ try {
     if ($as_staff) {
         $redirect = "/activity/staffSubscription.html?id=".$activity->id."&memberId=".$member->sgl_id."&payment_return=true";
     } else {
-        $redirect = "/activity/confirmation.html?id=".$order_id;
+        $redirect = "/activity/confirmation.html?id=".$activity->id."&order_id=".$order_id;
     }
     $payment = $mollie->payments->create([
         "amount" => [

@@ -2,7 +2,7 @@ window.onload = function() {
     loadGlobal();
     const params = (new URL(document.location)).searchParams;
     checkLogin(loadProfile);
-    retrieveSubscription(params.get('id'));
+    retrieveSubscription(params.get('order_id'));
 };
 
 function retrieveSubscription(orderId) {
