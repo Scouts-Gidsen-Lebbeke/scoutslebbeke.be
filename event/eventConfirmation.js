@@ -13,7 +13,7 @@ function retrieveRegistration(orderId) {
             $("#registration-first-name").text(r.first_name)
             $("#confirmation").show()
             $("#status-loader").hide()
-        } else if (r.status === "cancel") {
+        } else if (r.status === "canceled" || r.status === "failed") {
             $("#cancel").show()
             $("#status-loader").hide()
         } else {
