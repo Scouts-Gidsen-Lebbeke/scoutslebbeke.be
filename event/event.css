@@ -19,7 +19,7 @@
 #subscribe-button {
     margin: auto 5px 10px;
 }
-#event-admin, #confirmation {
+#event-admin, #confirmation, #cancel {
     display: none;
 }
 #registration-form input, #registration-form textarea, #event-admin button {
