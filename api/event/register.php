@@ -16,24 +16,24 @@ try {
     if (strtotime($event->close_registration) < time()) { // && (empty($user) || !$user->level->isAdmin())
         throw new InvalidArgumentException("De inschrijvingen voor dit evenement zijn gesloten!");
     }
-    $first_name = $_POST['first-name'];
+    $first_name = mysqli_real_escape_string($connection, $_POST['first-name']);
     if ($first_name == null) {
         throw new InvalidArgumentException("Gelieve een geldige voornaam op te geven!");
     }
     unset($_POST['first-name']);
-    $last_name = $_POST['last-name'];
+    $last_name = mysqli_real_escape_string($connection, $_POST['last-name']);
     if ($last_name == null) {
         throw new InvalidArgumentException("Gelieve een geldige achternaam op te geven!");
     }
     unset($_POST['last-name']);
-    $email = $_POST['email'];
+    $email = mysqli_real_escape_string($connection, $_POST['email']);
     if ($email == null) {
         throw new InvalidArgumentException("Gelieve een geldig e-mailadres op te geven!");
     }
     unset($_POST['email']);
     $price = double($_POST['price']);
     unset($_POST['price']);
-    $data = json_encode($_POST);
+    $data = mysqli_real_escape_string($connection, json_encode($_POST));
     $connection->query("insert into event_registration values (null, '$event->id', '$first_name', '$last_name', '$email', now(), 'open', null, $price, '$data')");
     $order_id = $connection->insert_id;
     $payment = $mollie->payments->create([
