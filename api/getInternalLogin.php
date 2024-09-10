@@ -146,6 +146,12 @@ function translateUser($sgl_user, $ref_date = null): object {
     $user->level = highest_level(array_map(fn ($r): int => $r->level, $user->roles));
     // A user should at all time only have assigned a single valid branch
     $user->branch = getActiveBranch($user->id, $ref_date);
+    if (empty($user->branch)) {
+        foreach (array_filter($user->roles, fn($r) => $r->branch_id != null) as $role) {
+            $user->branch = mysqli_fetch_object($connection->query("select * from branch where id = '$role->branch_id' and status = 'PASSIVE'"));
+            if (!empty($user->branch)) break;
+        }
+    }
     $user->staff_branch = null;
     if ($user->level->isStaff()) {
         $user->staff_branch = array_values(array_filter($user->roles, fn($r) => $r->staff_branch_id != null))[0]->id;
