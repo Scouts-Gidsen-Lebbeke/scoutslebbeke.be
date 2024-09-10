@@ -13,13 +13,30 @@ try {
     if ($payment->isPaid() && !$payment->hasRefunds() && !$payment->hasChargebacks()) {
         $member_id = $payment->metadata->member_id;
         $member = mysqli_fetch_object($connection->query("select * from user where id = '$member_id'"));
+        $period_id = $payment->metadata->period_id;
+        $period = mysqli_fetch_object($connection->query("select * from membership_period where id = '$period_id'"));
+        $period_name = date("Y", strtotime($period->start)) . " - " . date("Y", strtotime($period->end));
+        $branch_id = $payment->metadata->branch_id;
+        $branch = mysqli_fetch_object($connection->query("select * from branch where id = $branch_id"));
+        $branch_name = strtolower($branch->name);
+        $amount = $payment->amount->value;
         $mail = createMail();
-        $mail->addAddress($member->email);
-        $mail->addCC($config["MAIL_FROM_ADDRESS"]);
+        $mail->addAddress($payment->metadata->email);
+        $mail->addCC($branch->email);
         $mail->isHTML();
         $mail->Subject = "Bevestiging inschrijving";
-        $mail->Body = "<p>Dag $member->first_name,</p><p>We hebben de betaling van jouw lidgeld voor dit werkingsjaar goed ontvangen, je bent nu volledig ingeschreven!</p><p>Stevige linker,<br/>De leiding</p>";
-        $mail->AltBody = "Dag $member->first_name, we hebben de betaling van jouw lidgeld voor dit werkingsjaar goed ontvangen, je bent nu volledig ingeschreven! Stevige linker, de leiding";
+        $mail->Body = "
+            <p>Dag $member->first_name,</p>
+            <p>
+                We hebben de betaling van jouw lidgeld (€ $amount) voor dit werkingsjaar ($period_name)
+                bij de $branch_name goed ontvangen, je bent nu volledig ingeschreven!
+                Indien je een inschrijvingsbewijs nodig hebt van deze inschrijving, kan je dat steeds terugvinden onder
+                <a href='https://www.scoutslebbeke.be/profile/membership.html'>mijn lidmaatschap</a> op onze website.
+            </p>
+            <p>
+                Stevige linker,<br/>
+                De leiding
+            </p>";
         $mail->send();
     }
 } catch (ApiException $e) {

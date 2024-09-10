@@ -1,6 +1,7 @@
 <?php
 require 'RoleLevel.php';
 require 'connect.php';
+require 'user/init_membership.php';
 
 function getAuthorizationHeader(): ?string {
     $headers = null;
@@ -132,9 +133,6 @@ function translateUser($sgl_user): object {
     fetchUserMedics($user);
     $user->member_id = $sgl_user->verbondsgegevens->lidnummer;
     $user->som = $sgl_user->vgagegevens->verminderdlidgeld;
-    $user->totem = getPrivateField($sgl_user->groepseigenVelden, $custom_fields->totem);
-    $user->kbijnaam = getPrivateField($sgl_user->groepseigenVelden, $custom_fields->kbijnaam);
-    $user->wbijnaam = getPrivateField($sgl_user->groepseigenVelden, $custom_fields->wbijnaam);
     $user->nis_nr = getPrivateField($sgl_user->groepseigenVelden, $custom_fields->nis_nr);
     $user->address = $sgl_user->adressen[0];
     $functions = array_filter($sgl_user->functies, fn($func): bool => $func->groep == $organization->id && is_null($func->einde ?? null));
@@ -147,18 +145,10 @@ function translateUser($sgl_user): object {
     }
     $user->level = highest_level(array_map(fn ($r): int => $r->level, $user->roles));
     // A user should at all time only have assigned a single valid branch
-    $branch_role = array_values(array_filter($user->roles, fn($r) => $r->branch_id != null));
-    $user->branch = null;
+    $user->branch = getActiveBranch($user->id);
     $user->staff_branch = null;
-    $user->branch_head = false;
-    if (!empty($branch_role)) {
-        $branch_id = $branch_role[0]->branch_id;
-        $user->branch = mysqli_fetch_object($connection->query("select * from branch where id = '$branch_id'"));
-        $role_id = $branch_role[0]->id;
-        $user->staff_branch = mysqli_fetch_column($connection->query("select * from branch where staff_role_id = '$role_id'"));
-        if (!empty($user->staff_branch)) {
-            $user->branch_head = !empty(array_filter($user->roles, fn($r) => $r->sgl_id == $custom_fields->branch_head));
-        }
+    if ($user->level->isStaff()) {
+        $user->staff_branch = array_values(array_filter($user->roles, fn($r) => $r->staff_branch_id != null))[0]->id;
     }
     return $user;
 }

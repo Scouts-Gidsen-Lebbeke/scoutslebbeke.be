@@ -1,5 +1,5 @@
 <?php
-include 'init_membership.php';
+include '../getInternalLogin.php';
 
 $result = new stdClass();
 try {

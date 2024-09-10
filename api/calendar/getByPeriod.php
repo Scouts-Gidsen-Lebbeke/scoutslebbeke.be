@@ -20,7 +20,7 @@ if (@$_GET["grouped"] == "true") {
 }
 $sql = $select." ".$sql." order by fromDate";
 $totalDiff = 0;
-$branchCount = mysqli_fetch_column($connection->query("select count(*) from branch where active"));
+$branchCount = mysqli_fetch_column($connection->query("select count(*) from branch where status != 'PASSIVE'"));
 if ($query = $connection->query($sql)) {
     while ($row = $query->fetch_array(MYSQLI_ASSOC)) {
         if (key_exists("sum", $row) && $row["sum"] != "1") {

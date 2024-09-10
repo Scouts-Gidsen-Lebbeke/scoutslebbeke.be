@@ -102,3 +102,6 @@
 tbody .subscription-icon {
     cursor: pointer;
 }
+#confirmation, #cancel {
+    display: none;
+}
