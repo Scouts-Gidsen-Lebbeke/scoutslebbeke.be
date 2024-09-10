@@ -13,8 +13,6 @@ Kleine moeite, veel betere UX.
 - Activiteiten en events verwijderen en editeren conditioneel op status
 - Mailing ui: bredere titel, duidelijk bijlage-overzicht
 - Annulatie activiteiten/evenementen
-- Verwerkingspagina lidgeld na betaling (cfr event/activity confirmatie)
-- Controle lidmaatschap bij inschrijving
 
 #### Overdracht leiding
 Nodig voor overdracht basisfunctionaliteit.
