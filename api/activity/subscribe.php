@@ -66,7 +66,8 @@ try {
         "metadata" => [
             "order_id" => $order_id,
             "member_id" => $member->id,
-            "user_id" => $user->id
+            "user_id" => $user->id,
+            "email" => $member->email
         ]
     ]);
     $connection->query("update activity_registration set payment_id = '$payment->id' where id = '$order_id'");
