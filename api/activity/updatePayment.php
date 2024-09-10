@@ -14,7 +14,7 @@ try {
         $member_id = $payment->metadata->member_id;
         $member = mysqli_fetch_object($connection->query("select * from user where id = '$member_id'"));
         $mail = createMail();
-        $mail->addAddress($member->email);
+        $mail->addAddress($payment->metadata->email);
         $mail->addCC($config["MAIL_FROM_ADDRESS"]);
         $mail->isHTML();
         $mail->Subject = "Inschrijvingsbevestiging $payment->description";
