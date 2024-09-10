@@ -30,7 +30,9 @@ try {
         $redirect = "/profile/membership.html";
     }
     $price = $active_period->price;
-    if ($member->som) {
+    if ($member->level->isStaff()) {
+        $price = 43.90;
+    } else if ($member->som) {
         $price = ceil($price / 3);
     }
     $branch_id = $member->branch->id;
@@ -62,4 +64,3 @@ echo json_encode($result);
 function double($d): string {
     return number_format($d, 2, '.', '');
 }
-
