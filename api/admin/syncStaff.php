@@ -4,16 +4,17 @@ include '../getInternalLogin.php';
 $result = new stdClass();
 try {
     guardAdmin();
-    $staff_functions = mysqli_all_columns($connection, "select sgl_id from branch left join role on branch.staff_role_id = role.id");
+    $staff_functions = mysqli_all_columns($connection, "select sgl_id from role inner join branch on branch.id = role.staff_branch_id");
     $data = array(
         "naam" => "(Oud)leiding",
         "type" => "groep",
-        "groep" => "O3401G",
+        "groep" => $organization->id,
         "kolommen" => [
             "be.vvksm.groepsadmin.model.column.VoornaamColumn" // doesn't comply with docs and should be present :(
         ],
         "criteria" => [
-            "functies" => $staff_functions
+            "functies" => $staff_functions,
+            "groepen" => [$organization->id],
         ],
         "delen" => false
     );
@@ -42,9 +43,8 @@ try {
         $mobile = !empty($user->mobile) ? "'".normalizeMobile($user->mobile)."'" : "NULL";
         mysqli_query($connection, "insert into staff values ($user->id, $kbijnaam, $wbijnaam, $totem, '$user->branch_head', $mobile)");
         foreach ($user->roles as $role) {
-            $branch = mysqli_fetch_object($connection->query("select * from branch where staff_role_id = '$role->id'"));
-            if (!empty($branch)) {
-                mysqli_query($connection, "insert into staff_branch values ($user->id, $branch->id)");
+            if (!empty($role->staff_branch_id)) {
+                mysqli_query($connection, "insert into staff_branch values ($user->id, $role->staff_branch_id)");
             }
         }
     }
