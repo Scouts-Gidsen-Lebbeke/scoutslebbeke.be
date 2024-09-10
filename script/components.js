@@ -108,6 +108,43 @@ class Footer extends HTMLElement {
     }
 }
 
+class LegendDialog extends HTMLElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback() {
+        this.classList.add("dialog-wrapper")
+        this.innerHTML = `
+            <div class="dialog">
+                <h4>Legende</h4>
+                <span>De kleur van het kruisje geeft aan of er relevante medische opmerkingen zijn:</span>
+                <div class="icon-list">
+                    <img src="/images/cross-red.png" class="subscription-icon" alt="pill"><span>Geen relevante info beschikbaar.</span><br/>
+                    <img src="/images/cross.png" class="subscription-icon" alt="pill"><span>Medicatie- of ziekte-info beschikbaar, klik om te openen.</span>
+                </div>
+                <span>Verder verschijnen er voor bepaalde andere velden in de medische fiche extra icoontjes:</span>
+                <div class="icon-list">
+                    <img src="/images/no-camera.png" class="subscription-icon" alt="no-picture"><span>Het lid mag niet gefotografeerd worden.</span><br/>
+                    <img src="/images/no-painkillers.png" class="subscription-icon" alt="no-painkillers"><span>Het lid mag geen pijnstillende en/of koortswerende medicatie krijgen.</span><br/>
+                    <img src="/images/activity-restriction.png" class="subscription-icon" alt="activity-restriction"><span>Het lid kan aan bepaalde activiteiten enkel met extra zorg deelnemen.</span><br/>
+                    <img src="/images/family.png" class="subscription-icon" alt="family"><span>Er zijn bepaalde familiale omstandigheden om mee rekening te houden.</span><br/>
+                    <img src="/images/food-anomalies.png" class="subscription-icon" alt="food-anomalies"><span>Het lid volgt een bepaald dieet of heeft een allergie.</span>
+                </div>
+                <button class="close-btn" onclick="closeLegend()">Sluit</button>
+            </div>
+        `;
+    }
+}
+
+function showLegend() {
+    $("legend-dialog").show()
+}
+
+function closeLegend() {
+    $("legend-dialog").hide()
+}
+
 class LocationDialog extends HTMLElement {
     constructor() {
         super();
@@ -167,3 +204,4 @@ customElements.define('title-wrapper', TitleWrapper);
 customElements.define('header-component', Header);
 customElements.define('footer-component', Footer);
 customElements.define('location-dialog', LocationDialog);
+customElements.define('legend-dialog', LegendDialog);

@@ -187,3 +187,12 @@ tfoot th:empty {
     width: 20px;
     margin: auto 2px;
 }
+legend-dialog .dialog {
+    width: 700px;
+}
+.icon-list {
+    margin: 5px auto 10px;
+}
+.icon-list .subscription-icon {
+    margin-right: 5px;
+}
