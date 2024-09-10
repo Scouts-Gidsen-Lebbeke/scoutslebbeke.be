@@ -98,12 +98,12 @@ function sanitizeMedical($text): ?string {
     return $text;
 }
 
-function fetchUserById($id): ?object {
+function fetchUserById($id, $ref_date = null): ?object {
     global $connection;
     $user = mysqli_fetch_object($connection->query("select * from user where id = '$id'"));
     $sgl_user = fetchSglUserById($user->sgl_id);
     if ($sgl_user == null) return null;
-    return translateUser($sgl_user);
+    return translateUser($sgl_user, $ref_date);
 }
 
 function getCurrentUser($withExit = false): ?object {
@@ -118,7 +118,7 @@ function getUserBySglId($id): ?object {
     return translateUser($sgl_user);
 }
 
-function translateUser($sgl_user): object {
+function translateUser($sgl_user, $ref_date = null): object {
     global $connection, $organization, $custom_fields;
     if (mysqli_num_rows($connection->query("select id from user where sgl_id = '$sgl_user->id'")) != 1) {
         $name = $sgl_user->vgagegevens->achternaam;
@@ -145,7 +145,7 @@ function translateUser($sgl_user): object {
     }
     $user->level = highest_level(array_map(fn ($r): int => $r->level, $user->roles));
     // A user should at all time only have assigned a single valid branch
-    $user->branch = getActiveBranch($user->id);
+    $user->branch = getActiveBranch($user->id, $ref_date);
     $user->staff_branch = null;
     if ($user->level->isStaff()) {
         $user->staff_branch = array_values(array_filter($user->roles, fn($r) => $r->staff_branch_id != null))[0]->id;

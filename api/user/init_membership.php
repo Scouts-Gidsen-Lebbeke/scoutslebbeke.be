@@ -17,17 +17,19 @@ function getActivePeriod() {
     return $active;
 }
 
-function getMembership($user_id, $period_id = null): ?object {
+function getMembership($user_id, $ref_date): ?object {
     global $connection;
-    if (empty($period_id)) {
+    if (empty($ref_date)) {
         $period_id = getActivePeriod()->id;
+    } else {
+        $period_id = mysqli_fetch_column($connection->query("select id from membership_period where '$ref_date' between start and end"));
     }
     return mysqli_fetch_object($connection->query("select * from membership where user_id='$user_id' and period_id='$period_id' and status = 'paid'"));
 }
 
-function getActiveBranch($user_id): ?object {
+function getActiveBranch($user_id, $ref_date): ?object {
     global $connection;
-    $membership = getMembership($user_id);
+    $membership = getMembership($user_id, $ref_date);
     if (!empty($membership)) {
         return mysqli_fetch_object($connection->query("select * from branch where id = '$membership->branch_id'"));
     }
