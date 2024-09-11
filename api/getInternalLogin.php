@@ -135,17 +135,24 @@ function translateUser($sgl_user, $ref_date = null): object {
     $user->som = $sgl_user->vgagegevens->verminderdlidgeld;
     $user->nis_nr = getPrivateField($sgl_user->groepseigenVelden, $custom_fields->nis_nr);
     $user->address = $sgl_user->adressen[0];
-    $functions = array_filter($sgl_user->functies, fn($func): bool => $func->groep == $organization->id && is_null($func->einde ?? null));
     $user->roles = array();
-    foreach ($functions as $sglf) {
-        $role = mysqli_fetch_object($connection->query("select * from role where sgl_id = '$sglf->functie'"));
+    foreach ($sgl_user->functies as $function) {
+        // Only functions from the configured organisation matter
+        if ($function->groep != $organization->id) continue;
+        // If no reference date is given, only check the currently active functions
+        if (empty($ref_date) && !empty(@$function->einde)) continue;
+        // If a reference date is given, only check the functions present at reference date
+        if (!empty($ref_date) && (strtotime($ref_date) < strtotime($function->begin) || (!empty(@$function->einde) && strtotime($ref_date) > strtotime(@$function->einde)))) continue;
+        $role = mysqli_fetch_object($connection->query("select * from role where sgl_id = '$function->functie'"));
+        // Only configured functions matter
         if (!is_null($role)) {
             $user->roles[] = $role;
         }
     }
     $user->level = highest_level(array_map(fn ($r): int => $r->level, $user->roles));
-    // A user should at all time only have assigned a single valid branch
+    // A user should at all time only have assigned a single valid membership
     $user->branch = getActiveBranch($user->id, $ref_date);
+    // If no membership is found (either active or at reference date), try matching a passive branch (not requiring a membership)
     if (empty($user->branch)) {
         foreach (array_filter($user->roles, fn($r) => $r->branch_id != null) as $role) {
             $user->branch = mysqli_fetch_object($connection->query("select * from branch where id = '$role->branch_id' and status = 'PASSIVE'"));
@@ -154,7 +161,7 @@ function translateUser($sgl_user, $ref_date = null): object {
     }
     $user->staff_branch = null;
     if ($user->level->isStaff()) {
-        $user->staff_branch = array_values(array_filter($user->roles, fn($r) => $r->staff_branch_id != null))[0]->id;
+        $user->staff_branch = array_values(array_filter($user->roles, fn($r) => $r->staff_branch_id != null))[0]->staff_branch_id;
     }
     return $user;
 }
