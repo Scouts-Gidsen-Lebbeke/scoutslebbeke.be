@@ -25,8 +25,8 @@ function loadMembers() {
                 <tr>
                     <td>${member.first_name}</td>
                     <td>${member.name}</td>
-                    <td><a onclick="mailto:${member.email}">${member.email}</a></td>
-                    <td><a onclick="callto:${member.mobile}">${member.mobile}</td>
+                    <td><a href="mailto:${member.email}">${member.email}</a></td>
+                    <td><a href="callto:${member.mobile}">${member.mobile}</td>
                     <td>${printDDMMYYYY(new Date(Date.parse(member.membership_date)))}</td>
                     <td class="multi-icon-column">${retrieveExtraIcons(member)}</td>
                     <td><img src="/images/${member.medical_attention ? 'cross-red' : 'cross'}.png" class="subscription-icon" alt="pill" onclick="showMedicalOverview('${member.sgl_id}')"></td>
