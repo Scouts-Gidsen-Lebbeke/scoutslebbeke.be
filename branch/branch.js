@@ -38,7 +38,9 @@ function getStaff(data) {
         const staffHead = staff.branch_head === "1" ? " (takleiding)" : '';
         $("#staff").append(
             `<div class='staff-item'>
-                    <img src="/images/profile/${staff.image}" alt="${data.name} staff" class="staffPicture"/><br>
+                    <div class="image-container">
+                        <img src="/images/profile/${staff.image}" alt="${data.name} staff" class="staffPicture"/>
+                    </div>
                     <b>Naam:</b> ${staff.first_name} ${staff.name}${nickname}${staffHead}<br>
                     <b>Totem:</b> ${staff.Totem ? staff.Totem : "(geen)"}<br>
                     ${staffHead ? `<b>Gsm:</b> ${staff.mobile}<br><b>E-mail:</b> ${data.email}<br>` : ""}
