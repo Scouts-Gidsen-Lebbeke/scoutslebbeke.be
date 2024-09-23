@@ -123,7 +123,6 @@ function saveAndCloseRestrictions() {
     let data = [];
     $('#restriction-overview tbody tr').each(function() {
         let rowData = {};
-        $(this).find('.branch-list').val();
         rowData['branch_id'] = $(this).find('.branch-list').val();
         rowData['name'] = $(this).find('.restriction-name').val();
         rowData['alter_start'] = $(this).find('.restriction-start').val();
@@ -197,5 +196,5 @@ function postActivity() {
 function cancel() {
     const params = (new URL(document.location)).searchParams;
     const activityId = params.get('id')
-    window.location = params.get('from') === "admin" ? "/admin/admin.html" : `/activity/activity.html?id=${activityId}`;
+    window.location = params.get('from') === "admin" ? "/admin/activity.html" : `/activity/activity.html?id=${activityId}`;
 }

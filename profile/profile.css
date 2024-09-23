@@ -95,15 +95,6 @@
     z-index: 5;
     background: #181818;
 }
-.icon-column {
-    width: 25px;
-}
-.subscription-icon {
-    width: 20px;
-}
-tbody .subscription-icon {
-    cursor: pointer;
-}
 #confirmation, #cancel {
     display: none;
 }

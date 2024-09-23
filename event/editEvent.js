@@ -85,5 +85,5 @@ function postEvent() {
 function cancel() {
     const params = (new URL(document.location)).searchParams;
     const eventId = params.get('id')
-    window.location = params.get('from') === "admin" ? "/admin/admin.html" : `/event/event.html?id=${eventId}`;
+    window.location = params.get('from') === "admin" ? "/admin/event.html" : `/event/event.html?id=${eventId}`;
 }

@@ -1,5 +1,6 @@
 window.onload = function() {
     loadGlobal();
+    addClickListener()
     const params = (new URL(document.location)).searchParams;
     const activityId = params.get('id')
     $("#member-id").on("change", () => {

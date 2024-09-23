@@ -22,14 +22,30 @@ if (!empty($user)) {
             "name" => "Mijn leden",
             "path" => "staff/members.html"
         ];
-        $user->pages[] = (object) [
-            "name" => "Mijn portefeuille",
-            "path" => "profile/wallet.html"
-        ];
+        //$user->pages[] = (object) [
+        //    "name" => "Mijn portefeuille",
+        //    "path" => "profile/wallet.html"
+        //];
     }
     if ($user->level->isAdmin()) {
         $user->pages[] = (object) [
-            "name" => "Beheer",
+            "name" => "Ledenbeheer",
+            "path" => "admin/member.html"
+        ];
+        $user->pages[] = (object) [
+            "name" => "Activiteitenbeheer",
+            "path" => "admin/activity.html"
+        ];
+        $user->pages[] = (object) [
+            "name" => "Evenementenbeheer",
+            "path" => "admin/event.html"
+        ];
+        $user->pages[] = (object) [
+            "name" => "Organisatiebeheer",
+            "path" => "admin/organisation.html"
+        ];
+        $user->pages[] = (object) [
+            "name" => "Sitebeheer",
             "path" => "admin/admin.html"
         ];
     }

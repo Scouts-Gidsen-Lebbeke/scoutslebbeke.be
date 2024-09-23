@@ -196,3 +196,12 @@ legend-dialog .dialog {
 .icon-list .subscription-icon {
     margin-right: 5px;
 }
+.subscription-icon {
+    width: 20px;
+}
+tbody .subscription-icon {
+    cursor: pointer;
+}
+.icon-column {
+    width: 25px;
+}

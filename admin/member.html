@@ -7,7 +7,8 @@
     <script type="module" src="/node_modules/keycloak-js/dist/keycloak.js"></script>
     <script src="/script/components.js"></script>
     <script src="/script/shared.js"></script>
-    <script src="/admin/admin.js"></script>
+    <script src="/script/autocomplete.js"></script>
+    <script src="/admin/memberAdmin.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/style/shared.css">
     <link rel="icon" href="/images/favicon.ico">
@@ -17,18 +18,27 @@
 <div id="body-wrapper">
     <header-component></header-component>
     <div id="content">
-        <h1>Sitebeheer</h1>
-        <h3>Omslagfoto's</h3>
+        <h1>Ledenbeheer</h1>
+        <h3>Koppeling leiding</h3>
+        <label for="sync-staff">Haal de leidingsgegevens van de Groepsadmin op:</label>
+        <button id="sync-staff" onclick="syncStaff()">Synchroniseer</button>
+        <span id="sync-staff-feedback"></span>
+        <h3>Lidmaatschapsperiodes</h3>
         <p>
-            Bewerk hieronder de omslagfoto's van de website.
+            Hieronder kan je de actieve en afgelopen lidmaatschapsperiodes beheren:
         </p>
-        <div id="background-wrapper" onclick="nextBackground()"></div>
-        <button class="row-button" onclick="deleteBackground()">Verwijder</button>
-        <button class="row-button" onclick="addBackground()">Voeg toe</button>
-        <h3>Extra pagina's</h3>
+        <h3>Synchronisatie lidmaatschap</h3>
         <p>
-            Bewerk hieronder de infopagina's van de website.
+            Voor onderstaande leden komt het lidmaatschap niet overeen met de informatie in de Groepsadmin:
         </p>
+        <h3>Ledendata</h3>
+        <form autocomplete="off">
+            <label for="member">Zoek een lid</label>
+            <div class="autocomplete">
+                <input id="member" type="text" oninput="loadMemberList(this)" onkeydown="toggleFocus(event);">
+                <div id="member-list" class="autocomplete-items"></div>
+            </div>
+        </form>
     </div>
     <footer-component></footer-component>
 </div>

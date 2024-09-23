@@ -28,6 +28,7 @@ Nodig voor volledige overdracht beheer.
 
 #### Performance & good practice
 - Wegwerken dynamische menu's (enkel info nog variabel)
+- Koppeling betalingen aan customer-API
 
 #### Nice to have
 - Wallet-implementatie
