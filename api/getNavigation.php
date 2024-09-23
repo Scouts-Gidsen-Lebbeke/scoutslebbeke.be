@@ -28,7 +28,7 @@ foreach ($groups as $group) {
         }
     } else if ($group->name == "Takken") {
         $group->items = array();
-        foreach (mysqli_all_objects($connection, "select * from branch where status != 'PASSIVE' order by minimum_age") as $branch) {
+        foreach (mysqli_all_objects($connection, "select * from branch where status != 'HIDDEN' order by minimum_age") as $branch) {
             $branch_page = (object) [
                 "name" => $branch->name,
                 "path" => "branch/branch.html?id=" . $branch->id,
