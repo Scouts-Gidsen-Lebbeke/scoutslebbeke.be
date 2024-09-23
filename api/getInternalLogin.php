@@ -133,6 +133,9 @@ function translateUser($sgl_user, $ref_date = null): object {
     fetchUserMedics($user);
     $user->member_id = $sgl_user->verbondsgegevens->lidnummer;
     $user->som = $sgl_user->vgagegevens->verminderdlidgeld;
+    $user->totem = getPrivateField($sgl_user->groepseigenVelden, $custom_fields->totem);
+    $user->kbijnaam = getPrivateField($sgl_user->groepseigenVelden, $custom_fields->kbijnaam);
+    $user->wbijnaam = getPrivateField($sgl_user->groepseigenVelden, $custom_fields->wbijnaam);
     $user->nis_nr = getPrivateField($sgl_user->groepseigenVelden, $custom_fields->nis_nr);
     $user->address = $sgl_user->adressen[0];
     $user->roles = array();
@@ -161,7 +164,11 @@ function translateUser($sgl_user, $ref_date = null): object {
     }
     $user->staff_branch = null;
     if ($user->level->isStaff()) {
-        $user->staff_branch = array_values(array_filter($user->roles, fn($r) => $r->staff_branch_id != null))[0]->staff_branch_id;
+        $staff_branches = array_values(array_filter($user->roles, fn($r) => $r->staff_branch_id != null));
+        if (!empty($staff_branches)) { // admins don't necessarily have a staff branch
+            $user->staff_branch = $staff_branches[0]->staff_branch_id;
+        }
+        $user->branch_head = !empty(array_filter($user->roles, fn($r) => $r->sgl_id == $custom_fields->branch_head));
     }
     return $user;
 }
