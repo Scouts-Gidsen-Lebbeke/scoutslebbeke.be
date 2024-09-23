@@ -11,8 +11,7 @@ try {
     // https://docs.mollie.com/payments/status-changes
     $connection->query("update membership set status = '$payment->status' where id = '$membership_id'");
     if ($payment->isPaid() && !$payment->hasRefunds() && !$payment->hasChargebacks()) {
-        $member_id = $payment->metadata->member_id;
-        $member = mysqli_fetch_object($connection->query("select * from user where id = '$member_id'"));
+        $customer = $mollie->customers->get($payment->customerId);
         $period_id = $payment->metadata->period_id;
         $period = mysqli_fetch_object($connection->query("select * from membership_period where id = '$period_id'"));
         $period_name = date("Y", strtotime($period->start)) . " - " . date("Y", strtotime($period->end));
@@ -21,12 +20,12 @@ try {
         $branch_name = strtolower($branch->name);
         $amount = $payment->amount->value;
         $mail = createMail();
-        $mail->addAddress($payment->metadata->email);
+        $mail->addAddress($customer->email);
         $mail->addCC($branch->email);
         $mail->isHTML();
         $mail->Subject = "Bevestiging inschrijving";
         $mail->Body = "
-            <p>Dag $member->first_name,</p>
+            <p>Dag $customer->name,</p>
             <p>
                 We hebben de betaling van jouw lidgeld (€ $amount) voor dit werkingsjaar ($period_name)
                 bij de $branch_name goed ontvangen, je bent nu volledig ingeschreven!

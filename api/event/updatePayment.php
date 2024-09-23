@@ -11,14 +11,21 @@ try {
     // https://docs.mollie.com/payments/status-changes
     $connection->query("update event_registration set status = '$payment->status' where id = '$order_id'");
     if ($payment->isPaid() && !$payment->hasRefunds() && !$payment->hasChargebacks()) {
-        $registration = mysqli_fetch_object($connection->query("select * from event_registration where id = '$order_id'"));
+        $customer = $mollie->customers->get($payment->customerId);
+        $amount = $payment->amount->value;
         $mail = createMail();
-        $mail->addAddress($registration->email);
+        $mail->addAddress($customer->email);
         $mail->addCC($config["MAIL_FROM_ADDRESS"]);
         $mail->isHTML();
         $mail->Subject = "Bevestiging registratie $payment->description";
-        $mail->Body = "<p>Dag $registration->first_name,</p><p>We hebben de betaling goed ontvangen, dus hierbij bevestigen we jouw registratie voor $payment->description. Tot dan!</p><p>Stevige linker,<br/>De leiding</p>";
-        $mail->AltBody = "Dag $registration->first_name, we hebben de betaling goed ontvangen, dus hierbij bevestigen we jouw registratie voor $payment->description. Tot dan! Stevige linker, de leiding";
+        $mail->Body = "
+            <p>Dag $customer->name,</p>
+            <p>
+                We hebben de betaling (€ $amount) goed ontvangen, dus hierbij bevestigen we jouw registratie voor $payment->description. 
+                Tot dan!
+            </p>
+            <p>Stevige linker,<br/>
+            De leiding</p>";
         $mail->send();
     }
 } catch (ApiException $e) {

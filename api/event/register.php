@@ -36,7 +36,11 @@ try {
     $data = mysqli_real_escape_string($connection, json_encode($_POST));
     $connection->query("insert into event_registration values (null, '$event->id', '$first_name', '$last_name', '$email', now(), 'open', null, $price, '$data')");
     $order_id = $connection->insert_id;
-    $payment = $mollie->payments->create([
+    $customer = $mollie->customers->create([
+        "name" => $first_name." ".$last_name,
+        "email" => $email,
+    ]);
+    $payment = $customer->createPayment([
         "amount" => [
             "currency" => "EUR",
             "value" => $price

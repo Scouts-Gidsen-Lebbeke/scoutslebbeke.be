@@ -55,7 +55,7 @@ try {
     } else {
         $redirect = "/activity/confirmation.html?id=".$activity->id."&order_id=".$order_id;
     }
-    $payment = $mollie->payments->create([
+    $payment = getOrCreateCustomer($member)->createPayment([
         "amount" => [
             "currency" => "EUR",
             "value" => $price
@@ -65,9 +65,6 @@ try {
         "webhookUrl" => $config["NGROK_URL"]."/api/activity/updatePayment.php",
         "metadata" => [
             "order_id" => $order_id,
-            "member_id" => $member->id,
-            "user_id" => $user->id,
-            "email" => $member->email
         ]
     ]);
     $connection->query("update activity_registration set payment_id = '$payment->id' where id = '$order_id'");

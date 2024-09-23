@@ -15,7 +15,7 @@ try {
         $member = $user;
     }
     $as_staff = $member->id != $user->id;
-    if (!empty($user->branch)) {
+    if (!empty($user->branch) && $user->branch->status != 'PASSIVE') {
         if ($as_staff) {
             throw new InvalidArgumentException($member->first_name." is reeds ingeschreven voor dit werkingsjaar!");
         } else {
@@ -37,7 +37,7 @@ try {
     } else {
         $redirect = "/profile/membershipConfirmation.html?id=".$membership_id;
     }
-    $payment = $mollie->payments->create([
+    $payment = getOrCreateCustomer($member)->createPayment([
         "amount" => [
             "currency" => "EUR",
             "value" => double($price)
@@ -48,10 +48,7 @@ try {
         "metadata" => [
             "period_id" => $active_period->id,
             "membership_id" => $membership_id,
-            "member_id" => $member->id,
-            "user_id" => $user->id,
             "branch_id" => $branch->id,
-            "email" => $member->email
         ]
     ]);
     $connection->query("update membership set payment_id = '$payment->id' where id = '$membership_id'");
