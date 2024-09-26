@@ -31,6 +31,22 @@
         <p>
             Voor onderstaande leden komt het lidmaatschap niet overeen met de informatie in de Groepsadmin:
         </p>
+        <div class="table-responsive">
+            <table class="table table-striped" id="unsynced-overview">
+                <thead>
+                <tr>
+                    <th scope="col" title="Voornaam van het foutief lid">Voornaam</th>
+                    <th scope="col" title="Achternaam van het foutief lid">Achternaam</th>
+                    <th scope="col" title="Fout">Fout</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <loader-component id="unsynced-overview-loader">Ophalen leden...</loader-component>
+        <button id="load-unsynced" class="row-button" onclick="loadMemberTasks()" disabled>Herlaad</button>
+        <span id="unsynced-feedback"></span>
         <h3>Ledendata</h3>
         <form autocomplete="off">
             <label for="member">Zoek een lid</label>

@@ -18,17 +18,7 @@ try {
         ],
         "delen" => false
     );
-    $result = postToAPI("/ledenlijst/filter", $data);
-    if ($result->id != null) {
-        callAPI("/ledenlijst/filter/".$result->id);
-    }
-    $staff_result = callAPI("/ledenlijst");
-    $staff_ids = array_values(array_map(fn($w) => $w->id, $staff_result->leden));
-    $offset = $staff_result->aantal + $staff_result->offset;
-    if ($offset < $staff_result->totaal) {
-        $staff_result = callAPI("/ledenlijst?offset=".$offset);
-        $staff_ids = array_merge($staff_ids, array_values(array_map(fn($w) => $w->id, $staff_result->leden)));
-    }
+    $staff_ids = fetchFilterResultIds($data);
     if (!$connection->query("truncate table staff")) {
         throw new RuntimeException("Unable to clear staff table!");
     }

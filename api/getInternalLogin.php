@@ -207,3 +207,23 @@ function guardAdmin(): object {
     }
     return $user;
 }
+
+function fetchFilterResult($filter): array {
+    $filter_result = postToAPI("/ledenlijst/filter", $filter);
+    if ($filter_result->id != null) {
+        callAPI("/ledenlijst/filter/".$filter_result->id);
+    }
+    $partial_external_result = callAPI("/ledenlijst");
+    $external_result = $partial_external_result->leden;
+    $offset = $partial_external_result->aantal;
+    while ($offset < $partial_external_result->totaal) {
+        $partial_external_result = callAPI("/ledenlijst?offset=".$offset);
+        $external_result = array_merge($external_result, $partial_external_result->leden);
+        $offset += $partial_external_result->aantal;
+    }
+    return $external_result;
+}
+
+function fetchFilterResultIds($filter): array {
+    return array_values(array_map(fn($w) => $w->id, fetchFilterResult($filter)));
+}
