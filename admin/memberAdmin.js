@@ -18,6 +18,7 @@ function syncStaff() {
 }
 
 function loadMemberTasks() {
+    $("#unsynced-overview tbody").empty()
     $("#unsynced-feedback").empty();
     $("#load-unsynced").prop('disabled', true);
     $("#unsynced-overview-loader").show();
@@ -25,13 +26,14 @@ function loadMemberTasks() {
         if (r.error) {
             $("#unsynced-feedback").html(r.error)
         } else if (r.unsynced) {
-            r.unsynced.forEach(m => {
-                $("#unsynced-overview").append(
+            r.unsynced.forEach((m, i) => {
+                $("#unsynced-overview tbody").append(
                     `<tr>
+                        <td>${i + 1}</td>
                         <td>${m.first_name}</td>
                         <td>${m.name}</td>
                         <td>${m.type}</td>
-                        <td class="icon-column"><img src="/images/edit.png" class="subscription-icon" alt="edit" title="Pas dit lid aan" onclick="editMember('${m.id}')"></td>
+                        <td class="icon-column"><img src="/images/edit.png" class="subscription-icon" alt="edit" title="Pas dit lid aan" onclick="editMember('${m.sgl_id}')"></td>
                     </tr>`
                 );
             })
