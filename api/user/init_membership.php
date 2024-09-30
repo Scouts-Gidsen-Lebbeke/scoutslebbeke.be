@@ -35,3 +35,12 @@ function getActiveBranch($user_id, $ref_date): ?object {
     }
     return null;
 }
+
+function findBranchForAge(DateTime $birth_date, string $period_end): object {
+    global $connection;
+    $lastDayOfPeriod = new DateTime($period_end);
+    $lastDayOfPeriod->modify('last day of December this year');
+    $lastDayOfPeriod->setTime(23, 59, 59);
+    $ageAtEndOfPeriod = $birth_date->diff($lastDayOfPeriod)->y;
+    return mysqli_fetch_object($connection->query("select * from branch where $ageAtEndOfPeriod >= minimum_age and (maximum_age is null or $ageAtEndOfPeriod <= maximum_age) and status != 'HIDDEN' order by status"));
+}
