@@ -42,10 +42,14 @@ function callAPI($path, $withExit = false) {
     return $result;
 }
 
-function postToAPI($path, $data): ?object {
+function postToAPI($path, $data, $patch = false): ?object {
     $jsonData = json_encode($data);
     $ch = curl_init("https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/".$path);
-    curl_setopt($ch, CURLOPT_POST, 1);
+    if ($patch) {
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
+    } else {
+        curl_setopt($ch, CURLOPT_POST, 1);
+    }
     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
         "Content-Type: application/json",
@@ -226,4 +230,13 @@ function fetchFilterResult($filter): array {
 
 function fetchFilterResultIds($filter): array {
     return array_values(array_map(fn($w) => $w->id, fetchFilterResult($filter)));
+}
+
+function findFirstMatching(array $arr, callable $predicate) {
+    foreach ($arr as $item) {
+        if ($predicate($item)) {
+            return $item;
+        }
+    }
+    return null;
 }
