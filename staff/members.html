@@ -27,11 +27,11 @@
             <table class="table table-striped" id="member-overview">
                 <thead>
                 <tr>
-                    <th>Voornaam</th>
-                    <th>Naam</th>
-                    <th title="Primair e-mailadres">E-mailadres</th>
-                    <th title="Primair gsm-nummer">Gsm</th>
-                    <th title="Datum van betaling lidgeld">Sinds</th>
+                    <th onclick="sortTable('member-overview', 0)">Voornaam</th>
+                    <th onclick="sortTable('member-overview', 1)">Naam</th>
+                    <th onclick="sortTable('member-overview', 2)" title="Primair e-mailadres">E-mailadres</th>
+                    <th onclick="sortTable('member-overview', 3)" title="Primair gsm-nummer">Gsm</th>
+                    <th onclick="sortTable('member-overview', 4)" title="Datum van betaling lidgeld">Sinds</th>
                     <th class="multi-icon-column"></th>
                     <th class="icon-column"><img class="subscription-icon" src="/images/info-black.png" onclick="showLegend()" alt="info" title="Toon legende"></th>
                     <th class="icon-column"></th>
