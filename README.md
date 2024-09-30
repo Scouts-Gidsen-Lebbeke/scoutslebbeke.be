@@ -13,25 +13,35 @@ Kleine moeite, veel betere UX.
 - Activiteiten en events verwijderen en editeren conditioneel op status
 - Mailing ui: bredere titel, duidelijk bijlage-overzicht
 - Annulatie activiteiten/evenementen
+- Mogelijkheid tot configuratie mailing cc
+- Enkel ledenoverzicht voor ingeschreven leiding
+- Takleiding op niveau van functie bijhouden, niet algemeen (grl nu persoonlijke nrs)
+- Geen tak bij calendar = (geen) ipv leeg
 
 #### Overdracht leiding
 Nodig voor overdracht basisfunctionaliteit.
 - Kalender template creatie
 - Implementatie fiscale attesten
 - Aanvullen documentatie (deze + Drive)
-- Overzicht lidmaatschap: mailen leden
+- Overzicht lidmaatschap: mailen leden en zoekfunctie + alle leden, sortering resetten bij takwissel
+- Variabel lidgeld
+- Afwerking ledensynchronisatie
 
 #### Admin
 Nodig voor volledige overdracht beheer.
 - Beheer lidmaatschapsperiode
 - Implementatie goedkeuring lidmaatschap
+- Bewerken banners
+- Implementatie takbeheer
+- Implementatie organisatiegegevens (via public endpoint op basis van O3401G?) en uitfiltering hardcoded info
 
 #### Performance & good practice
 - Wegwerken dynamische menu's (enkel info nog variabel)
-- Koppeling betalingen aan customer-API
 
 #### Nice to have
 - Wallet-implementatie
 - Shop voor kledij
 - Privacyverklaring = pagina
-
+- Locatiebeheer
+- Overzichtspagina individueel lid
+- Beheer infopagina's
