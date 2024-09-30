@@ -9,10 +9,12 @@ try {
         throw new InvalidArgumentException("Geen geldige functie opgegeven!");
     }
     $succes = false;
+    $branch_id = !empty($role->branch_id) ? "'$role->branch_id'" : "NULL";
+    $staff_branch_id = !empty($role->staff_branch_id) ? "'$role->staff_branch_id'" : "NULL";
     if ($role->id === "-1") {
-        $succes = $connection->query("insert into role values (null, '$role->external_id', '$role->name', '$role->branch_id', '$role->staff_branch_id', '$role->level')");
+        $succes = $connection->query("insert into role values (null, '$role->external_id', '$role->name', $branch_id, $staff_branch_id, '$role->level')");
     } else {
-        $succes = $connection->query("update role set name = '$role->name', sgl_id = '$role->external_id', branch_id = '$role->branch_id', staff_branch_id = '$role->staff_branch_id', level = '$role->level' where id = '$role->id'");
+        $succes = $connection->query("update role set name = '$role->name', sgl_id = '$role->external_id', branch_id = $branch_id, staff_branch_id = $staff_branch_id, level = '$role->level' where id = '$role->id'");
     }
     if (!$succes) {
         $result->error = "Er ging iets mis bij het verwijderen van de rol, probeer het opnieuw!";
