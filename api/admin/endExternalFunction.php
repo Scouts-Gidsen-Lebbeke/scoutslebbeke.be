@@ -32,8 +32,8 @@ try {
         $mail->addAddress($config["MAIL_FROM_ADDRESS"]);
     } else {
         $mail->addAddress($external_user->email);
+        $mail->addCC($config["MAIL_FROM_ADDRESS"]);
     }
-    $mail->addCC($config["MAIL_FROM_ADDRESS"]);
     $mail->isHTML();
     $mail->Subject = "Uitschrijving";
     $mail->Body = "
