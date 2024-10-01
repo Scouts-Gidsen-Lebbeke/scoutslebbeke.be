@@ -5,12 +5,13 @@ require '../init_mollie.php';
 $result = new stdClass();
 try {
     $user = getCurrentUser(true);
-    if (!empty($_GET['memberId'])) {
+    $member_id = $_GET['memberId'];
+    if (!empty($member_id)) {
         if (!$user->level->isStaff()) {
             header("HTTP/1.1 401 Unauthorized");
             exit;
         }
-        $member = getUserBySglId($_GET['memberId']);
+        $member = getUserBySglId($member_id);
     } else {
         $member = $user;
     }
@@ -32,10 +33,9 @@ try {
     $branch = findBranchForAge(new DateTime($member->birth_date), $active_period->end);
     $connection->query("insert into membership values (null, '$member->id', '$active_period->id', $branch->id, now(), 'open', null, $price)");
     $membership_id = $connection->insert_id;
+    $redirect = "/profile/membershipConfirmation.html?id=$membership_id&memberId=$member->sgl_id";
     if ($as_staff) {
-        $redirect = "/staff/staffMembership.html?memberId=".$member->sgl_id;
-    } else {
-        $redirect = "/profile/membershipConfirmation.html?id=".$membership_id;
+        $redirect = $redirect."&as_staff=true";
     }
     $payment = getOrCreateCustomer($member)->createPayment([
         "amount" => [

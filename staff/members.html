@@ -18,7 +18,7 @@
     <header-component></header-component>
     <div id="content">
         <h1>Mijn leden</h1>
-        <p>Hieronder kan je jouw leden zien voor de huidige lidmaatschapsperiode<span id="current-period"></span>.</p>
+        <p>Hieronder kan je jouw leden zien voor de huidige lidmaatschapsperiode <span id="current-period"></span>.</p>
         <label for="member-branches">Tak:</label>
         <select id="member-branches" onchange="loadMembers()">
             <option value="0" selected>(geen)</option>
@@ -41,6 +41,9 @@
             </table>
         </div>
         <loader-component id="member-loader" class="hidden">Ophalen leden...</loader-component>
+        <button id="mail-members" class="row-button" onclick="mailMembers()" disabled>Mail leden</button>
+        <button id="subscribe-member" class="row-button" onclick="subscribeMember()">Schrijf lid in</button>
+
     </div>
     <footer-component></footer-component>
 </div>

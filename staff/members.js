@@ -19,7 +19,7 @@ function loadMembers() {
     $('#member-overview tbody').empty();
     let branchId = $("#member-branches").val();
     tokenized(`/api/user/findActiveMembers.php?branch=${branchId}`).then(result => {
-        $("#current-period").html(` (${printY(result.period.start)} - ${printY(result.period.end)})`)
+        $("#current-period").html(`(${printY(result.period.start)} - ${printY(result.period.end)})`)
         result.members.forEach(member =>
             $('#member-overview tbody').append(`
                 <tr>
@@ -36,4 +36,12 @@ function loadMembers() {
         )
         $("#member-loader").hide();
     })
+}
+
+function mailMembers() {
+    alert("Dit werkt nog niet!")
+}
+
+function subscribeMember() {
+    window.location = "/staff/staffSubscription.html"
 }
