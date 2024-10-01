@@ -25,7 +25,7 @@ function loadMemberTasks() {
     tokenized(`/api/admin/findUnsyncedMembers.php`).then(r => {
         if (r.error) {
             $("#unsynced-feedback").html(r.error)
-        } else if (r.unsynced) {
+        } else if (r.unsynced.length) {
             r.unsynced.forEach(m => {
                 $("#unsynced-overview tbody").append(
                     `<tr id="unsynced-${m.sgl_id}">
@@ -41,6 +41,7 @@ function loadMemberTasks() {
             })
             $("#unsynced-count").html(`(${r.unsynced.length})`)
         } else {
+            $("#unsynced-count").empty()
             $("#unsynced-feedback").html("Alle leden zijn correct ingesteld!");
         }
         $("#unsynced-overview-loader").hide();
