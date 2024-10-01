@@ -41,8 +41,7 @@ function loadMemberTasks() {
             })
             $("#unsynced-count").html(`(${r.unsynced.length})`)
         } else {
-            $("#unsynced-count").empty()
-            $("#unsynced-feedback").html("Alle leden zijn correct ingesteld!");
+            $("#unsynced-count").html("(geen)")
         }
         $("#unsynced-overview-loader").hide();
         $("#load-unsynced").prop('disabled', false);
