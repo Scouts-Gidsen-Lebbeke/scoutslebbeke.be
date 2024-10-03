@@ -15,7 +15,6 @@ Kleine moeite, veel betere UX.
 - Annulatie activiteiten/evenementen
 - Mogelijkheid tot configuratie mailing cc
 - Enkel ledenoverzicht voor ingeschreven leiding
-- Takleiding op niveau van functie bijhouden, niet algemeen (grl nu persoonlijke nrs)
 - Geen tak bij calendar = (geen) ipv leeg
 
 #### Overdracht leiding
@@ -23,7 +22,7 @@ Nodig voor overdracht basisfunctionaliteit.
 - Kalender template creatie
 - Implementatie fiscale attesten
 - Aanvullen documentatie (deze + Drive)
-- Overzicht lidmaatschap: mailen leden en zoekfunctie + alle leden, sortering resetten bij takwissel
+- Overzicht lidmaatschap: mailen leden, sortering resetten bij takwissel
 - Variabel lidgeld
 - Afwerking ledensynchronisatie
 
