@@ -22,9 +22,11 @@
     <header-component></header-component>
     <div id="content">
         <h1>Overzicht registraties</h1>
-        <div id="overview-filters">
-            <label for="search">Zoek:</label>
-            <input type="text" id="search" oninput="filterTable('overview-table', this)">
+        <div class="overview-filters">
+            <div>
+                <label for="search">Zoek:</label>
+                <input type="text" id="search" oninput="filterTable('overview-table', this)">
+            </div>
         </div>
         <div id="checks">
             <div>

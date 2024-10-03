@@ -205,3 +205,20 @@ tbody .subscription-icon {
 .icon-column {
     width: 25px;
 }
+label {
+    margin-bottom: 5px;
+}
+input, select {
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.overview-filters {
+    display: flex;
+    margin: auto auto 10px;
+    justify-content: center;
+    align-items: center;
+}
+.overview-filters div {
+    margin: auto 3px;
+}

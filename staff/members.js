@@ -4,7 +4,10 @@ window.onload = function() {
     requireLogin(async d => {
         loadProfile(d)
         await branches
-        $("#member-branches").val(d.staff_branch).trigger('change')
+        if (d.staff_branch) {
+            $("#member-branches").val(d.staff_branch)
+        }
+        $("#member-branches").trigger('change')
     });
 };
 
@@ -20,9 +23,10 @@ function loadMembers() {
     let branchId = $("#member-branches").val();
     tokenized(`/api/user/findActiveMembers.php?branch=${branchId}`).then(result => {
         $("#current-period").html(`(${printY(result.period.start)} - ${printY(result.period.end)})`)
-        result.members.forEach(member =>
+        result.members.forEach((member, i) =>
             $('#member-overview tbody').append(`
                 <tr>
+                    <td>${i + 1}</td>
                     <td>${member.first_name}</td>
                     <td>${member.name}</td>
                     <td><a href="mailto:${member.email}">${member.email}</a></td>

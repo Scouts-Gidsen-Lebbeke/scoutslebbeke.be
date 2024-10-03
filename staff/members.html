@@ -19,19 +19,28 @@
     <div id="content">
         <h1>Mijn leden</h1>
         <p>Hieronder kan je jouw leden zien voor de huidige lidmaatschapsperiode <span id="current-period"></span>.</p>
-        <label for="member-branches">Tak:</label>
-        <select id="member-branches" onchange="loadMembers()">
-            <option value="0" selected>(geen)</option>
-        </select>
+        <div class="overview-filters">
+            <div>
+                <label for="search">Zoek:</label>
+                <input type="text" id="search" oninput="filterTable('member-overview', this)">
+            </div>
+            <div>
+                <label for="member-branches">Tak:</label>
+                <select id="member-branches" onchange="loadMembers()">
+                    <option value="0" selected>Alle</option>
+                </select>
+            </div>
+        </div>
         <div class="table-responsive">
             <table class="table table-striped" id="member-overview">
                 <thead>
                 <tr>
-                    <th onclick="sortTable('member-overview', 0)">Voornaam</th>
-                    <th onclick="sortTable('member-overview', 1)">Naam</th>
-                    <th onclick="sortTable('member-overview', 2)" title="Primair e-mailadres">E-mailadres</th>
-                    <th onclick="sortTable('member-overview', 3)" title="Primair gsm-nummer">Gsm</th>
-                    <th onclick="sortTable('member-overview', 4)" title="Datum van betaling lidgeld">Sinds</th>
+                    <th onclick="sortTable('member-overview', 0)">#</th>
+                    <th onclick="sortTable('member-overview', 1)">Voornaam</th>
+                    <th onclick="sortTable('member-overview', 2)">Naam</th>
+                    <th onclick="sortTable('member-overview', 3)" title="Primair e-mailadres">E-mailadres</th>
+                    <th onclick="sortTable('member-overview', 4)" title="Primair gsm-nummer">Gsm</th>
+                    <th onclick="sortTable('member-overview', 5)" title="Datum van betaling lidgeld">Sinds</th>
                     <th class="multi-icon-column"></th>
                     <th class="icon-column"><img class="subscription-icon" src="/images/info-black.png" onclick="showLegend()" alt="info" title="Toon legende"></th>
                     <th class="icon-column"></th>
@@ -42,7 +51,7 @@
         </div>
         <loader-component id="member-loader" class="hidden">Ophalen leden...</loader-component>
         <button id="mail-members" class="row-button" onclick="mailMembers()" disabled>Mail leden</button>
-        <button id="subscribe-member" class="row-button" onclick="subscribeMember()">Schrijf lid in</button>
+        <button id="subscribe-member" class="row-button" onclick="subscribeMember()">Schrijf een lid in</button>
 
     </div>
     <footer-component></footer-component>

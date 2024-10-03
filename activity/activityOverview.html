@@ -23,13 +23,17 @@
     <header-component></header-component>
     <div id="content">
         <h1>Overzicht inschrijvingen</h1>
-        <div id="overview-filters">
-            <label for="search">Zoek:</label>
-            <input type="text" id="search" oninput="filterTable('overview-table', this)">
-            <label for="branches">Filter op tak:</label>
-            <select id="branches" onchange="filterBranch(this)">
-                <option value="0" selected>Alle</option>
-            </select>
+        <div class="overview-filters">
+            <div>
+                <label for="search">Zoek:</label>
+                <input type="text" id="search" oninput="filterTable('overview-table', this)">
+            </div>
+            <div>
+                <label for="branches">Filter op tak:</label>
+                <select id="branches" onchange="filterBranch(this)">
+                    <option value="0" selected>Alle</option>
+                </select>
+            </div>
         </div>
         <div id="checks">
             <div>
