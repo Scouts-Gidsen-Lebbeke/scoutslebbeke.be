@@ -172,7 +172,6 @@ function translateUser($sgl_user, $ref_date = null): object {
         if (!empty($staff_branches)) { // admins don't necessarily have a staff branch
             $user->staff_branch = $staff_branches[0]->staff_branch_id;
         }
-        $user->branch_head = !empty(array_filter($user->roles, fn($r) => $r->sgl_id == $custom_fields->branch_head));
     }
     return $user;
 }

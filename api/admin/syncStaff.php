@@ -31,10 +31,13 @@ try {
         $wbijnaam = !empty($user->wbijnaam) ? "'$user->wbijnaam'" : "NULL";
         $totem = !empty($user->totem) ? "'$user->totem'" : "NULL";
         $mobile = !empty($user->mobile) ? "'".normalizeMobile($user->mobile)."'" : "NULL";
-        mysqli_query($connection, "insert into staff values ($user->id, $kbijnaam, $wbijnaam, $totem, '$user->branch_head', $mobile)");
+        $global_branch_head = !empty(array_filter($user->roles, fn($r) => $r->sgl_id == $custom_fields->branch_head));
+        mysqli_query($connection, "insert into staff values ($user->id, $kbijnaam, $wbijnaam, $totem, $mobile)");
         foreach ($user->roles as $role) {
             if (!empty($role->staff_branch_id)) {
-                mysqli_query($connection, "insert into staff_branch values ($user->id, $role->staff_branch_id)");
+                $branch = mysqli_fetch_object($connection->query("select * from branch where id = '$role->staff_branch_id'"));
+                $branch_head = $global_branch_head && $branch->status === 'ACTIVE' ? 1 : 0;
+                mysqli_query($connection, "insert into staff_branch values ($user->id, $role->staff_branch_id, $branch_head)");
             }
         }
     }
