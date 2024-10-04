@@ -15,7 +15,6 @@ Kleine moeite, veel betere UX.
 - Annulatie activiteiten/evenementen
 - Mogelijkheid tot configuratie mailing cc
 - Enkel ledenoverzicht voor ingeschreven leiding
-- Geen tak bij calendar = (geen) ipv leeg
 
 #### Overdracht leiding
 Nodig voor overdracht basisfunctionaliteit.

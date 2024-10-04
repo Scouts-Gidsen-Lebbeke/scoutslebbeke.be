@@ -8,7 +8,9 @@ window.onload = function() {
         await branches
         if (d.staff_branch || d.branch != null) {
             let branch = d.staff_branch ? d.staff_branch : d.branch.id;
-            $("#calendar-branches").val(branch).trigger('change')
+            if ($("#calendar-branches").find(`option[value="${branch}"]`).length > 0) {
+                $("#calendar-branches").val(branch).trigger('change')
+            }
         }
         if (d.level > 2) {
             $(".staff").css("display", "flex")
