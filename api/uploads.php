@@ -27,3 +27,8 @@ function upload($file, $target_dir, $name = null): stdClass {
     }
     return $result;
 }
+
+function delete($target_dir, $name): bool {
+    $imagePath = $_SERVER['DOCUMENT_ROOT'] . "/images/$target_dir/$name";
+    return file_exists($imagePath) && unlink($imagePath);
+}
