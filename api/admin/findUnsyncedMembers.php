@@ -25,7 +25,7 @@ try {
     );
     $external_members = fetchFilterResult($data);
     $active_period = getActivePeriod();
-    $members = mysqli_all_objects($connection, "select u.*, m.branch_id, b.name as branch_name, b.status as branch_status from membership m left join user u on m.user_id = u.id left join branch b on b.id = m.branch_id where m.period_id = $active_period->id and b.status = 'paid'");
+    $members = mysqli_all_objects($connection, "select u.*, m.branch_id, b.name as branch_name, b.status as branch_status from membership m left join user u on m.user_id = u.id left join branch b on b.id = m.branch_id where m.period_id = $active_period->id and m.status = 'paid'");
     $member_external_ids = array_values(array_map(fn($w) => $w->sgl_id, $members));
     foreach ($members as $member) {
         if (empty($member->sgl_id)) {
