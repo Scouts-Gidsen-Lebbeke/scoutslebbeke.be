@@ -41,7 +41,7 @@ function translatePlace($place_id): object {
     curl_close($curl);
     $placeDetails = json_decode($response, true);
     $addressData = new stdClass();
-    $addressData->addition = "";
+    $addressData->addition = null;
     $addressData->number = 0;
     if (isset($placeDetails['result']['address_components'])) {
         foreach ($placeDetails['result']['address_components'] as $component) {

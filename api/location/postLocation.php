@@ -10,13 +10,12 @@ try {
     }
     $address = translatePlace($address);
     $name = mysqli_real_escape_string($connection, $_POST['name']);
-    if (empty($name)) {
-        throw new InvalidArgumentException("Een naam is verplicht!");
-    }
+    $name = empty($name) ? $address->name : $name;
+    $name = !empty($name) ? "'$name'" : "NULL";
     $url = mysqli_real_escape_string($connection, $_POST['url']);
     $url = empty($url) ? $address->url : $url;
     $url = !empty($url) ? "'$url'" : "NULL";
-    $result->succes = mysqli_query($connection, "insert into location values (null, '$name', '$address->street', '$address->number', '$address->addition', '$address->zip', '$address->town', '$address->country', $url)");
+    $result->succes = mysqli_query($connection, "insert into location values (null, $name, '$address->street', '$address->number', '$address->addition', '$address->zip', '$address->town', '$address->country', $url)");
 } catch (Exception $e) {
     $result->error = $e->getMessage();
 } finally {

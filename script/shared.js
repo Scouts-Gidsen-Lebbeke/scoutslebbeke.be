@@ -257,9 +257,14 @@ function locationToTitle(location, full) {
     if (location == null) {
         return "Scoutsterrein";
     }
-    let title = location.name;
-    if (full) {
-        title = `${title} (${location.street} ${location.number}${ifNotNull(location.addition)}, ${location.zip} ${location.town})`;
+    let title = ""
+    let address = `${location.street} ${location.number}${ifNotNull(location.addition)}, ${location.zip} ${location.town}${location.country !== "BE" ? ` (${location.country})` : ""}`
+    if (location.name && full) {
+        title = `${location.name} (${address})`;
+    } else if (location.name) {
+        title = location.name;
+    } else {
+        title = address;
     }
     if (location.url != null) {
         return `<a href="${location.url}" target="_blank">${title}</a>`;
