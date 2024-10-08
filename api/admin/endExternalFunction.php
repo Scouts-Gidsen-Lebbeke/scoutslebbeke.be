@@ -45,7 +45,7 @@ try {
             </p>
             <p>
                 Wil je je toch nog opnieuw aansluiten, dan kan dit altijd door op onze website in te loggen
-                en naar <a href='https://scoutslebbeke.be/profile/membership.html' target='_blank'>Mijn lidmaatschap</a>
+                en naar <a href='{$config["APP_URL"]}/profile/membership.html' target='_blank'>Mijn lidmaatschap</a>
                 te gaan. Onderaan deze pagina vind je een knop 'Schrijf me in' die je bij de betaalpagina brengt. 
                 Hierna ontvang je nog een bevestigingsmail.
             </p>
