@@ -46,12 +46,7 @@ function toggleUpload() {
 }
 
 function postImage() {
-    const form = new FormData(document.querySelector('#news-form'));
-    fetch("/api/postImage.php?dir=news", {
-        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
-        method: "POST",
-        body: form
-    }).then(response => response.json()).then(data => {
+    postForm("/api/postImage.php?dir=news", "news-form").then(data => {
         if (data.succes) {
             $("#news-image").val(data.name)
             $("#news-image-pic").attr("src", data.location);
@@ -67,13 +62,7 @@ function cancel() {
 
 function postNews() {
     $("#news-content").val(tinymce.activeEditor.getContent());
-    const form = document.querySelector("#news-form");
-    const formData = new FormData(form);
-    fetch("/api/news/updateNews.php", {
-        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
-        method: "POST",
-        body: formData
-    }).then(data => data.json()).then(result => {
+    postForm("/api/news/updateNews.php", "news-form").then(result => {
         if (result.error != null) {
             $("#form-feedback").html(result.error)
         } else {

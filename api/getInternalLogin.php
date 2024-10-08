@@ -29,7 +29,8 @@ function getBearerToken(): ?string {
 }
 
 function callAPI($path, $withExit = false) {
-    $ch = curl_init("https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/".$path);
+    global $GA_API;
+    $ch = curl_init($GA_API.$path);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array("Authorization: Bearer ".getBearerToken()));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $result = json_decode(curl_exec($ch));
@@ -42,19 +43,26 @@ function callAPI($path, $withExit = false) {
     return $result;
 }
 
-function postToAPI($path, $data, $patch = false): ?object {
+function postToAPI($path, $data, $patch = false, $token = true): ?object {
+    global $GA_API;
     $jsonData = json_encode($data);
-    $ch = curl_init("https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/".$path);
+    $ch = curl_init($GA_API.$path);
     if ($patch) {
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
     } else {
         curl_setopt($ch, CURLOPT_POST, 1);
     }
     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-        "Content-Type: application/json",
-        "Authorization: Bearer ".getBearerToken()
-    ));
+    if ($token) {
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Content-Type: application/json",
+            "Authorization: Bearer ".getBearerToken()
+        ));
+    } else {
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Content-Type: application/json"
+        ));
+    }
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $result = json_decode(curl_exec($ch));
     $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);

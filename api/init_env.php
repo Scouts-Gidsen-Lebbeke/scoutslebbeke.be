@@ -28,3 +28,8 @@ $custom_fields = (object) array(
     "branch_head" => $config["CUSTOM_BRANCH_HEAD"]
 );
 $debug = filter_var($config["APP_DEBUG"], FILTER_VALIDATE_BOOLEAN);
+$APP_ENV = $config["APP_ENV"];
+$GA_API = $config["EXPLICIT_GA_API"] ?? match ($APP_ENV) {
+    "production" => "https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/",
+    default => "https://ga-staging.scoutsengidsenvlaanderen.be/groepsadmin/rest-ga/",
+};

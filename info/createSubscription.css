@@ -1,0 +1,45 @@
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    margin: auto;
+}
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 250px;
+    margin-bottom: auto;
+}
+.checkbox-group {
+    margin: auto;
+}
+input[type="text"], input[type="email"], input[type="tel"], input[type="date"] {
+    width: 100%;
+}
+input:focus {
+    outline: none;
+    border-color: black;
+}
+#postal-code-group, #birth-date-group {
+    min-width: auto;
+    max-width: 150px;
+}
+#number-group, #extra-group {
+    min-width: auto;
+    max-width: 100px;
+}
+@media only screen and (max-width: 800px) {
+    #postal-code-group, #birth-date-group {
+        max-width: 100%;
+    }
+    #number-group, #extra-group {
+        max-width: 100%;
+    }
+}

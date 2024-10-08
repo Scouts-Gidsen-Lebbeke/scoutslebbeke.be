@@ -135,6 +135,17 @@ async function tokenized(url, optional = false, abort = null) {
     return null;
 }
 
+function postForm(path, formId, method = "POST") {
+    const form = new FormData(document.querySelector(`#${formId}`));
+    return fetch(path, {
+        headers: new Headers({
+            'Authorization': `Bearer ${kc.token}`
+        }),
+        method: method,
+        body: form
+    }).then(response => response.json())
+}
+
 function toggleLogin() {
     kc.login({ redirectUri: document.location });
 }
@@ -155,6 +166,7 @@ async function loadKeycloak() {
 
 async function checkLogin(onFulfilled) {
     const authenticated = await loadKeycloak();
+    console.log(authenticated)
     if (authenticated) {
         tokenized("/api/getLogin.php").then(onFulfilled);
     }
