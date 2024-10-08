@@ -10,7 +10,7 @@ tinymce.init({
     content_css: '/style/editor.css',
     automatic_uploads: false,
 });
-
+window.addEventListener("load", initAutocomplete);
 let jsonEditor;
 window.onload = function() {
     loadGlobal();

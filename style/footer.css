@@ -9,12 +9,18 @@ footer-component {
 }
 #sgv-icon {
     height: 100px;
-    float: left;
-    margin-right: 5px;
 }
 .link-icon {
     display: inline;
     height: 20px;
+}
+.organization-contacts .link-icon {
+    margin: auto 2px;
+}
+#footer-contact {
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 #footer-tech {
     margin-right: 40px;

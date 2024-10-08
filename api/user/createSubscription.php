@@ -36,7 +36,7 @@ try {
             "gemeente" => $address->town,
             "straat" => $address->street,
             "nummer" => $address->number,
-            "bus" => $address->box,
+            "bus" => $address->addition,
             "postadres" => true,
             "status" => "normaal"
         ],
@@ -59,60 +59,4 @@ function validate($name, $translation): string {
         throw new InvalidArgumentException("Een $translation is verplicht!");
     }
     return $param;
-}
-
-function translatePlace($place_id): object {
-    global $config;
-    $key = $config['MAPS_API_KEY'];
-    $url = "https://maps.googleapis.com/maps/api/place/details/json?place_id=$place_id&key=$key";
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $placeDetails = json_decode($response, true);
-    $addressData = new stdClass();
-    if (isset($placeDetails['result']['address_components'])) {
-        foreach ($placeDetails['result']['address_components'] as $component) {
-            $types = $component['types'];
-            if (in_array('route', $types)) {
-                $addressData->street = $component['long_name'];
-            }
-            if (in_array('street_number', $types)) {
-                $addressData->number = $component['long_name'];
-            }
-            if (in_array('subpremise', $types)) {
-                $addressData->box = $component['long_name'];
-            } else {
-                $addressData->box = "";
-            }
-            if (in_array('locality', $types)) {
-                $addressData->town = $component['long_name'];
-            }
-            if (in_array('postal_code', $types)) {
-                $addressData->zip = $component['long_name'];
-            }
-            if (in_array('country', $types)) {
-                $addressData->country = strtoupper($component['short_name']);
-            }
-        }
-    } else {
-        throw new InvalidArgumentException("Geen geldig adres!");
-    }
-    if (empty($addressData->street)) {
-        throw new InvalidArgumentException("Een straatnaam is verplicht!");
-    }
-    if (empty($addressData->number)) {
-        throw new InvalidArgumentException("Een huisnummer is verplicht!");
-    }
-    if (empty($addressData->town)) {
-        throw new InvalidArgumentException("Een gemeente is verplicht!");
-    }
-    if (empty($addressData->zip)) {
-        throw new InvalidArgumentException("Een postcode is verplicht!");
-    }
-    if (empty($addressData->country)) {
-        throw new InvalidArgumentException("Een land is verplicht!");
-    }
-    return $addressData;
 }

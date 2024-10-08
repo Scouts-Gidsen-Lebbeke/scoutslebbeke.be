@@ -34,15 +34,6 @@ window.onload = function() {
     });
 };
 
-async function initAutocomplete() {
-    const autocomplete = new google.maps.places.Autocomplete(document.getElementById('address'));
-    autocomplete.setTypes(['address']);
-    autocomplete.addListener('place_changed', function() {
-        let place = autocomplete.getPlace();
-        $("#place_id").val(place["place_id"]);
-    });
-}
-
 function postSubscription() {
     if (!$("#subscribe-form").valid()) return;
     postForm("/api/user/createSubscription.php", "subscribe-form").then(result => {

@@ -24,7 +24,7 @@ class TitleWrapper extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
             <div id="title-wrapper" onclick="resetAndChangeImage()">
-                <div id="title" class="organisation-name">Scouts & Gidsen Lebbeke</div>
+                <div id="title" class="organization-name"></div>
             </div>
         `;
     }
@@ -86,20 +86,18 @@ class Footer extends HTMLElement {
 
     connectedCallback() {
         this.innerHTML = `
-            <div>
-                <a href="https://www.scoutsengidsenvlaanderen.be" target="_blank"><img id="sgv-icon" src="/images/s&gv.png" alt="Scouts & Gidsen Vlaanderen"></a>
-                Scouts & Gidsen Lebbeke<br/>
-                Lange Minnestraat 65<br/>
-                9280 Lebbeke<br/>
-                <a href="https://goo.gl/maps/7UEjJM1XQagH2y9NA" target="_blank"><img class="link-icon" src="/images/maps.png" alt="maps"></a>
-                <a onclick="mailto('info')"><img class="link-icon" src="/images/email.ico" alt="email"></a>
-                <a href="callto:32469237995"><img class="link-icon" src="/images/phone.png" alt="phone"></a>
-                <a href="https://www.facebook.com/ScoustenGidsenLebbeke/" target="_blank"><img class="link-icon" src="/images/facebook.png" alt="facebook"></a>
-                <a href="https://www.instagram.com/scoutsengidsenlebbeke/" target="_blank"><img class="link-icon" src="/images/instagram.png" alt="instagram"></a>
-                <a href="https://wa.me/32469237995" target="_blank"><img class="link-icon" src="/images/whatsapp.png" alt="whatsapp"></a>
+            <div id="footer-contact">
+                <div>
+                    <a href="https://www.scoutsengidsenvlaanderen.be" target="_blank"><img id="sgv-icon" src="/images/s&gv.png" alt="Scouts & Gidsen Vlaanderen"></a>
+                </div>
+                <div>
+                    <span class="organization-name"></span><br/>
+                    <span class="organization-address"></span><br/>
+                    <span class="organization-contacts"></span>
+                </div>
             </div>
             <div id="footer-tech">
-                v 2.3.5<br/>
+                v <span id="app-version">2.4.0</span><br/>
                 © <span id="current-year"></span> Robin Keppens<br/>
                 Made with ❤️ (and lots of ☕)
             </div>
@@ -158,8 +156,9 @@ class LocationDialog extends HTMLElement {
                 <form id="location-form">
                     <label for="location-name">Naam</label>
                     <input type="text" id="location-name" name="name"><br/>
-                    <label for="location-address">Adres</label>
-                    <input type="text" id="location-address" name="address"><br/>
+                    <label for="address">Adres</label>
+                    <input type="text" id="address" name="address" required>
+                    <input type="text" id="place_id" name="place_id" hidden><br/>
                     <label for="location-url">Link</label>
                     <input type="url" id="location-url" name="url">
                 </form>

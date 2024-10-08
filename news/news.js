@@ -5,7 +5,6 @@ window.onload = function() {
         toggleEdit(d.level > 2)
     });
     getNews()
-    $('#min-year').text(new Date().getFullYear() - (new Date().getMonth() > 6 ? 6 : 7))
 };
 
 function getNews() {

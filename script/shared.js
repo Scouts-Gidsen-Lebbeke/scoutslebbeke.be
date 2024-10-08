@@ -7,6 +7,37 @@ function loadGlobal() {
         $("#mobile-navigation").html(getMobileNav(data));
     });
     $("#current-year").text(new Date().getFullYear());
+    fetch("/api/organization/getOrganization.php").then((res) => res.json()).then(org => {
+        $(".organization-name").html(org.name);
+        document.title = org.name;
+        let addressComponent = $(".organization-address");
+        let addressComponent2 = $(".organization-address-nowrap");
+        if (org.address.url) {
+            addressComponent.css('cursor', 'pointer');
+            addressComponent2.css('cursor', 'pointer');
+            addressComponent.on('click', function () {
+                window.open(org.address.url, '_blank');
+            });
+            addressComponent2.on('click', function () {
+                window.open(org.address.url, '_blank');
+            });
+        }
+        addressComponent.html(`${org.address.street} ${org.address.number}${ifNotNull(org.address.addition)}<br/>${org.address.zip} ${org.address.town}`);
+        addressComponent2.html(`${org.address.street} ${org.address.number}${ifNotNull(org.address.addition)}, ${org.address.zip} ${org.address.town}`);
+        org.contacts.forEach(c => $(".organization-contacts").append(translateType(c)));
+        $("#organization-description").html(org.description);
+        $('#min-year').text(new Date().getFullYear() - (new Date().getMonth() > 6 ? 6 : 7))
+    });
+}
+
+function translateType(contact) {
+    switch (contact.type) {
+        case "WHATSAPP": return `<a href="${contact.value}" target="_blank"><img class="link-icon" src="/images/whatsapp.png" alt="WhatsApp"></a>`
+        case "MOBILE": return `<a href="callto:${contact.value}"><img class="link-icon" src="/images/phone.png" alt="mobile"></a>`
+        case "EMAIL": return `<a href="mailto:${contact.value}"><img class="link-icon" src="/images/email.ico" alt="e-mail"></a>`
+        case "FACEBOOK": return `<a href="${contact.value}" target="_blank"><img class="link-icon" src="/images/facebook.png" alt="Facebook"></a>`
+        case "INSTAGRAM": return `<a href="${contact.value}" target="_blank"><img class="link-icon" src="/images/instagram.png" alt="Instagram"></a>`
+    }
 }
 
 function load(page) {
@@ -94,9 +125,6 @@ function mailto(location) {
     switch (location) {
         case "webmaster":
             window.location.href = atob("bWFpbHRvOndlYm1hc3RlckBzY291dHNsZWJiZWtlLmJl");
-            break;
-        case "info":
-            window.location.href = atob("bWFpbHRvOmluZm9Ac2NvdXRzbGViYmVrZS5iZQ==");
             break;
         case "vzw":
             window.location.href = atob("bWFpbHRvOnZ6d0BzY291dHNsZWJiZWtlLmJl");
@@ -231,7 +259,7 @@ function locationToTitle(location, full) {
     }
     let title = location.name;
     if (full) {
-        title = `${title} (${location.address})`;
+        title = `${title} (${location.street} ${location.number}${ifNotNull(location.addition)}, ${location.zip} ${location.town})`;
     }
     if (location.url != null) {
         return `<a href="${location.url}" target="_blank">${title}</a>`;
@@ -378,4 +406,13 @@ function retrieveExtraIcons(user) {
 
 function printDDMMYYYY(date) {
     return date.toLocaleDateString('nl-BE', { year: 'numeric', month: '2-digit', day: '2-digit' });
+}
+
+async function initAutocomplete() {
+    const autocomplete = new google.maps.places.Autocomplete(document.getElementById('address'));
+    autocomplete.setTypes(['address']);
+    autocomplete.addListener('place_changed', function() {
+        let place = autocomplete.getPlace();
+        $("#place_id").val(place["place_id"]);
+    });
 }
