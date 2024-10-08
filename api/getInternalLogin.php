@@ -28,10 +28,12 @@ function getBearerToken(): ?string {
     return null;
 }
 
-function callAPI($path, $withExit = false) {
+function callAPI($path, $withExit = false, $token = true) {
     global $GA_API;
     $ch = curl_init($GA_API.$path);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array("Authorization: Bearer ".getBearerToken()));
+    if ($token) {
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Authorization: Bearer ".getBearerToken()));
+    }
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $result = json_decode(curl_exec($ch));
     $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);

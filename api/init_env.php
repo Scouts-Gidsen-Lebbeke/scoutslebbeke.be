@@ -12,6 +12,7 @@ $organization = (object) array(
     "signatory_role" => $config["ORGANIZATION_SIGNATORY_ROLE"],
     "id" => $config["ORGANIZATION_ID"]
 );
+$EXTERNAL_ORGANIZATION_ID = $config["ORGANIZATION_ID"];
 $certifier = (object) array(
     "name" => $config["CERTIFIER_NAME"],
     "street" => $config["CERTIFIER_STREET"],
