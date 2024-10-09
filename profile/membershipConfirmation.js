@@ -1,7 +1,6 @@
 window.onload = function() {
     loadGlobal();
-    const params = (new URL(document.location)).searchParams;
-    const id = params.get('id');
+    const id = (new URL(document.location)).searchParams.get('id');
     checkLogin(loadProfile);
     retrieveMembership(id);
 };
@@ -23,5 +22,10 @@ function retrieveMembership(id) {
 }
 
 function returnToMembershipOverview() {
-    window.location = "/profile/membership.html";
+    const external_id = (new URL(document.location)).searchParams.get('memberId');
+    if (external_id === "") {
+        window.location = "/info/subscribe.html";
+    } else {
+        window.location = "/profile/membership.html";
+    }
 }
