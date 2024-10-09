@@ -1,8 +1,7 @@
 <?php
 require 'RoleLevel.php';
-require 'connect.php';
-require 'user/init_membership.php';
 require 'settings.php';
+require 'init_membership.php';
 
 function getAuthorizationHeader(): ?string {
     $headers = null;

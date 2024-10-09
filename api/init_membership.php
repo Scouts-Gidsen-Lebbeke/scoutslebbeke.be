@@ -1,6 +1,6 @@
 <?php
 use Mollie\Api\Exceptions\ApiException;
-require '../init_mollie.php';
+require_once 'init_mollie.php';
 
 function getActivePeriod() {
     global $connection;
