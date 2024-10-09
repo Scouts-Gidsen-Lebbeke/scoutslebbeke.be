@@ -194,7 +194,6 @@ async function loadKeycloak() {
 
 async function checkLogin(onFulfilled) {
     const authenticated = await loadKeycloak();
-    console.log(authenticated)
     if (authenticated) {
         tokenized("/api/getLogin.php").then(onFulfilled);
     }
@@ -258,7 +257,7 @@ function locationToTitle(location, full) {
         return "Scoutsterrein";
     }
     let title = ""
-    let address = `${location.street} ${location.number}${ifNotNull(location.addition)}, ${location.zip} ${location.town}${location.country !== "BE" ? ` (${location.country})` : ""}`
+    let address = printAddress(location)
     if (location.name && full) {
         title = `${location.name} (${address})`;
     } else if (location.name) {
@@ -270,6 +269,10 @@ function locationToTitle(location, full) {
         return `<a href="${location.url}" target="_blank">${title}</a>`;
     }
     return title;
+}
+
+function printAddress(address) {
+    return `${address.street} ${address.number}${ifNotNull(address.addition)}, ${address.zip} ${address.town}${address.country !== "BE" ? ` (${address.country})` : ""}`
 }
 
 function capitalize(s) {
