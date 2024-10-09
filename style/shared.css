@@ -143,7 +143,7 @@ loader-component div {
     cursor: pointer;
 }
 .http-status-image {
-    max-width: 100%;
+    max-width: 500px;
 }
 th.sort-asc::after {
     content: " ▲";
