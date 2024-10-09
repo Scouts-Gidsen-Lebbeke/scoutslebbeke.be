@@ -31,7 +31,7 @@ Nodig voor volledige overdracht beheer.
 - Implementatie goedkeuring lidmaatschap
 - Bewerken banners
 - Implementatie takbeheer
-- Implementatie organisatiegegevens (via public endpoint op basis van O3401G?) en uitfiltering hardcoded info
+- Bewerken organisatiegegevens
 
 #### Performance & good practice
 - Wegwerken dynamische menu's (enkel info nog variabel)

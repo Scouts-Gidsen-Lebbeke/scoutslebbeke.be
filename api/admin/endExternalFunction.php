@@ -17,7 +17,7 @@ try {
     $data->functies = array();
     foreach ($functions_to_end as $function) {
         $data->functies[] = [
-            "groep" => $organization->id,
+            "groep" => $EXTERNAL_ORGANIZATION_ID,
             "functie" => $function->functie,
             "begin" => $function->begin,
             "einde" => date('Y-m-d')

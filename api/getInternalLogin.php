@@ -2,6 +2,7 @@
 require 'RoleLevel.php';
 require 'connect.php';
 require 'user/init_membership.php';
+require 'settings.php';
 
 function getAuthorizationHeader(): ?string {
     $headers = null;
@@ -133,7 +134,7 @@ function getUserBySglId($id): ?object {
 }
 
 function translateUser($sgl_user, $ref_date = null): object {
-    global $connection, $organization, $custom_fields;
+    global $connection, $EXTERNAL_ORGANIZATION_ID;
     if (mysqli_num_rows($connection->query("select id from user where sgl_id = '$sgl_user->id'")) != 1) {
         $name = $sgl_user->vgagegevens->achternaam;
         $firstName = $sgl_user->vgagegevens->voornaam;
@@ -147,15 +148,15 @@ function translateUser($sgl_user, $ref_date = null): object {
     fetchUserMedics($user);
     $user->member_id = $sgl_user->verbondsgegevens->lidnummer;
     $user->som = $sgl_user->vgagegevens->verminderdlidgeld;
-    $user->totem = getPrivateField($sgl_user->groepseigenVelden, $custom_fields->totem);
-    $user->kbijnaam = getPrivateField($sgl_user->groepseigenVelden, $custom_fields->kbijnaam);
-    $user->wbijnaam = getPrivateField($sgl_user->groepseigenVelden, $custom_fields->wbijnaam);
-    $user->nis_nr = getPrivateField($sgl_user->groepseigenVelden, $custom_fields->nis_nr);
+    $user->totem = getPrivateField($sgl_user->groepseigenVelden, SettingId::CUSTOM_TOTEM->getValue());
+    $user->kbijnaam = getPrivateField($sgl_user->groepseigenVelden, SettingId::CUSTOM_KBIJNAAM->getValue());
+    $user->wbijnaam = getPrivateField($sgl_user->groepseigenVelden, SettingId::CUSTOM_WBIJNAAM->getValue());
+    $user->nis_nr = getPrivateField($sgl_user->groepseigenVelden, SettingId::CUSTOM_NIS_NR->getValue());
     $user->address = $sgl_user->adressen[0];
     $user->roles = array();
     foreach ($sgl_user->functies as $function) {
         // Only functions from the configured organisation matter
-        if ($function->groep != $organization->id) continue;
+        if ($function->groep != $EXTERNAL_ORGANIZATION_ID) continue;
         // If no reference date is given, only check the currently active functions
         if (empty($ref_date) && !empty(@$function->einde)) continue;
         // If a reference date is given, only check the functions present at reference date
@@ -187,8 +188,8 @@ function translateUser($sgl_user, $ref_date = null): object {
 }
 
 function getPrivateField($list, $id): ?string {
-    global $organization;
-    return @get_object_vars(get_object_vars($list)[$organization->id]->waarden)[$id];
+    global $EXTERNAL_ORGANIZATION_ID;
+    return @get_object_vars(get_object_vars($list)[$EXTERNAL_ORGANIZATION_ID]->waarden)[$id];
 }
 
 function normalizeMobile($mobile): ?string {
@@ -248,4 +249,52 @@ function findFirstMatching(array $arr, callable $predicate) {
         }
     }
     return null;
+}
+
+function fetchOrCreateOwner() {
+    global $connection, $EXTERNAL_ORGANIZATION_ID;
+    $organization = fetchOwner();
+    if (empty($organization)) {
+        $external = callAPI("groep/$EXTERNAL_ORGANIZATION_ID", false, false);
+        $description = $external->vrijeInfo;
+        $address = $external->adressen[0];
+        $address_description = $address->omschrijving ?? "lokaal";
+        $addition = empty($address->bus) ? 'NULL' : "'$address->bus'";
+        $zip = $address->postcode;
+        $connection->query("insert into location values (null, '$address_description', '', '$address->straat', '$address->nummer', $addition, '$zip', '$address->gemeente', '$address->land', null)");
+        $connection->query("insert into organization values (null, '$EXTERNAL_ORGANIZATION_ID', '$external->naam', 'OWNER', null, $connection->insert_id, 'scouting.png', '$description')");
+        $id = $connection->insert_id;
+        $email = $external->email;
+        if (!empty($email)) {
+            $connection->query("insert into organization_contact values ($id, 'EMAIL', '$email')");
+        }
+        $mobile = $address->telefoon;
+        if (!empty($mobile)) {
+            $connection->query("insert into organization_contact values ($id, 'MOBILE', '$mobile')");
+        }
+        $organization = fetchOwner();
+    }
+    return $organization;
+}
+
+function fetchOrganization(string $type): ?object {
+    global $connection;
+    $organization = mysqli_fetch_object($connection->query("select * from organization where type = '$type'"));
+    if (!empty($organization)) {
+        $organization->address = mysqli_fetch_object($connection->query("select * from location where id = $organization->location_id"));
+        $organization->contacts = mysqli_all_objects($connection, "select * from organization_contact where organization_id = $organization->id");
+        $email_contacts = array_filter($organization->contacts, fn($c) => $c->type === "EMAIL");
+        $organization->email = reset($email_contacts)->value;
+        $delegate_id = SettingId::DELEGATE_ID->getValue();
+        if (!empty($delegate_id)) {
+            $delegate_id = intval($delegate_id);
+            $organization->delegate = mysqli_fetch_object($connection->query("select * from user where id = $delegate_id"));
+            $organization->delegate->role = SettingId::DELEGATE_ROLE->getValue();
+        }
+    }
+    return $organization;
+}
+
+function fetchOwner(): ?object {
+    return fetchOrganization('OWNER');
 }

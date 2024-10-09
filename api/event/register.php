@@ -46,8 +46,8 @@ try {
             "value" => $price
         ],
         "description" => $event->name,
-        "redirectUrl" => $config["SERVER_URL"]."/event/confirmation.html?id=".$event->id."&order_id=".$order_id,
-        "webhookUrl" => $config["NGROK_URL"]."/api/event/updatePayment.php",
+        "redirectUrl" => $config["APP_URL"]."/event/confirmation.html?id=".$event->id."&order_id=".$order_id,
+        "webhookUrl" => $config["APP_REMOTE_URL"]."/api/event/updatePayment.php",
         "metadata" => [
             "order_id" => $order_id,
         ]

@@ -8,13 +8,13 @@ try {
     $data = array(
         "naam" => "(Oud)leiding",
         "type" => "groep",
-        "groep" => $organization->id,
+        "groep" => $EXTERNAL_ORGANIZATION_ID,
         "kolommen" => [
             "be.vvksm.groepsadmin.model.column.VoornaamColumn" // doesn't comply with docs and should be present :(
         ],
         "criteria" => [
             "functies" => $staff_functions,
-            "groepen" => [$organization->id],
+            "groepen" => [$EXTERNAL_ORGANIZATION_ID],
         ],
         "delen" => false
     );
@@ -31,7 +31,7 @@ try {
         $wbijnaam = !empty($user->wbijnaam) ? "'$user->wbijnaam'" : "NULL";
         $totem = !empty($user->totem) ? "'$user->totem'" : "NULL";
         $mobile = !empty($user->mobile) ? "'".normalizeMobile($user->mobile)."'" : "NULL";
-        $global_branch_head = !empty(array_filter($user->roles, fn($r) => $r->sgl_id == $custom_fields->branch_head));
+        $global_branch_head = !empty(array_filter($user->roles, fn($r) => $r->sgl_id == SettingId::CUSTOM_BRANCH_HEAD->getValue()));
         mysqli_query($connection, "insert into staff values ($user->id, $kbijnaam, $wbijnaam, $totem, $mobile)");
         foreach ($user->roles as $role) {
             if (!empty($role->staff_branch_id)) {

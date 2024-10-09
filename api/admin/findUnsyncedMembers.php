@@ -8,7 +8,7 @@ try {
     $data = array(
         "naam" => "Ingeschreven leden",
         "type" => "groep",
-        "groep" => $organization->id,
+        "groep" => $EXTERNAL_ORGANIZATION_ID,
         "kolommen" => [
             "be.vvksm.groepsadmin.model.column.VoornaamColumn",
             "be.vvksm.groepsadmin.model.column.AchternaamColumn",
@@ -19,7 +19,7 @@ try {
         ],
         "criteria" => [
             "functies" => $relevant_functions,
-            "groepen" => [$organization->id],
+            "groepen" => [$EXTERNAL_ORGANIZATION_ID],
         ],
         "delen" => false
     );

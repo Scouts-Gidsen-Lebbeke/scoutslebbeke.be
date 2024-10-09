@@ -61,8 +61,8 @@ try {
             "value" => $price
         ],
         "description" => $activity->name,
-        "redirectUrl" => $config["SERVER_URL"].$redirect,
-        "webhookUrl" => $config["NGROK_URL"]."/api/activity/updatePayment.php",
+        "redirectUrl" => $config["APP_URL"].$redirect,
+        "webhookUrl" => $config["APP_REMOTE_URL"]."/api/activity/updatePayment.php",
         "metadata" => [
             "order_id" => $order_id,
         ]

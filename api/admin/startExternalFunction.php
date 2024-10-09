@@ -14,7 +14,7 @@ try {
     $data = [
         "functies" => [
             [
-                "groep" => $organization->id,
+                "groep" => $EXTERNAL_ORGANIZATION_ID,
                 "functie" => $function_id,
                 "begin" => date('Y-m-d'),
             ]
