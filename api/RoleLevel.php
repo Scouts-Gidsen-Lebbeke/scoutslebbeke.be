@@ -33,7 +33,7 @@ enum RoleLevel: int {
 
 function highest_level($params): RoleLevel {
     if (empty($params)) {
-        return RoleLevel::GUEST;
+        return RoleLevel::SCOUT;
     }
-    return RoleLevel::from(max(array_map(fn ($p) => (RoleLevel::tryFrom($p) ?? RoleLevel::GUEST)->value, $params)));
+    return RoleLevel::from(max(array_map(fn ($p) => (RoleLevel::tryFrom($p) ?? RoleLevel::SCOUT)->value, $params)));
 }
