@@ -20,6 +20,7 @@ function retrieveEvent(id) {
                     <td>${r.first_name}</td>
                     <td>${r.last_name}</td>
                     <td class="email-column">${r.email}</td>
+                    <td class="mobile-column">${r.mobile}</td>
                     <td class="price-column">€ ${r.price}</td>
                     ${parseAdditionalData(r.additional_data)}
                 </tr>`
