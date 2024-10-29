@@ -54,7 +54,7 @@ async function calculatePrice(rule) {
     let formData = sanitizeData(new FormData(document.querySelector("#registration-form")));
     let total_price = Number(await jsonata(rule).evaluate(formData));
     $("#event-price-field").val(total_price);
-    $("#event-price").text(`€ ${total_price}`);
+    $("#event-price").text(`€ ${total_price.toFixed(2).replace('.', ',')}`);
 }
 
 function checkAdmin(user, eventId) {
