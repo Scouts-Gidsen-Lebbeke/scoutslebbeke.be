@@ -9,7 +9,7 @@
 }
 #branch-logo {
     max-height: 300px;
-    max-width: 100%;
+    max-width: 300px;
 }
 #staff {
     display: flex;
@@ -40,5 +40,8 @@
     .image-container {
         width: 90vw;
         height: calc(90vw * 0.675);
+    }
+    #branch-logo {
+        max-width: 100%;
     }
 }
