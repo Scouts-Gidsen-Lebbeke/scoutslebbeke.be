@@ -11,6 +11,7 @@ window.onload = function() {
         $("#event-last-name").val(d.name);
         $("#event-first-name").val(d.first_name);
         $("#event-email").val(d.email);
+        $("#event-mobile").val(d.mobile);
         checkAdmin(d, eventId);
     });
     initEvent(eventId);
@@ -22,7 +23,7 @@ function initEvent(id) {
         $("#event-when").text(periodToTitle(new Date(Date.parse(event.start)), new Date(Date.parse(event.end))))
         $("#event-location").html(locationToTitle(event.location, true))
         $("#event-info").html(event.info);
-        $("#event-registration-deadline").text(printDeadline(event.close_registration));
+        $(".event-registration-deadline").text(printDeadline(event.close_registration));
         if (new Date(Date.parse(event.close_registration)) < new Date()) {
             $("#registration-block").hide()
             $("#registration-feedback").text("De inschrijvingen voor dit evenement zijn afgesloten!")
@@ -39,6 +40,11 @@ function initEvent(id) {
         } else {
             $("#additional-form-title").hide()
         }
+        let isEvent = event.eventType === "EVENT"
+        $("#additional-form-title").html(isEvent ? "Evenementsgegevens" : "Bestelgegevens")
+        $("#register-button").html(isEvent ? "Registreer" : "Bestel")
+        $("#registration-title").html(isEvent ? "Inschrijving" : "Bestelling")
+        $(isEvent ? "#registration-info" : "#order-info").show()
         calculatePrice(event.additional_form_rule)
         $("#register-button").click(() => register(event.id))
     });

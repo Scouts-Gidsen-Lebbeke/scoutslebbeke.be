@@ -30,12 +30,17 @@
             <span id="event-location"></span>
         </span>
         <p id="event-info"></p>
-        <h3>Inschrijving</h3>
+        <h3 id="registration-title"></h3>
         <div id="registration-block">
-            <p id="default-registration-info">
+            <p id="registration-info" class="hidden">
                 Inschrijven kan je hieronder doen. Wanneer je op de knop "Registreer" klikt, zal je doorverwezen worden naar de betaalpagina.
                 Nadat we jouw betaling hebben ontvangen, krijg je een bevestigingsmail.
-                De registraties sluiten op <b id="event-registration-deadline">undefined</b>.
+                De registraties sluiten op <b class="event-registration-deadline">undefined</b>.
+            </p>
+            <p id="order-info" class="hidden">
+                Bestellen kan je hieronder doen. Wanneer je op de knop "Bestel" klikt, zal je doorverwezen worden naar de betaalpagina.
+                Nadat we jouw betaling hebben ontvangen, krijg je een bevestigingsmail.
+                De bestellingen sluiten op <b class="event-registration-deadline">undefined</b>.
             </p>
             <form id="registration-form">
                 <div id="contact-info">
@@ -53,21 +58,21 @@
                         <input type="email" id="event-email" name="email" class="ignore-validation">
                     </div>
                 </div>
-                <h4 id="additional-form-title">Evenementsgegevens</h4>
+                <h4 id="additional-form-title"></h4>
                 <div id="additional-form"></div>
                 <div id="price-data">
                     <input type="number" id="event-price-field" name="price" value="0" hidden>
                     <p>De totaalprijs bedraagt <b><span id="event-price">€ 0</span></b>.</p>
                 </div>
-                <button class="row-button" id="register-button">Registreer</button>
+                <button class="row-button" id="register-button"></button>
             </form>
         </div>
         <span id="contact-feedback" class="form-feedback"></span>
         <span id="registration-feedback" class="form-feedback"></span>
         <div id="event-admin">
             <h3>Admin</h3>
-            <button class="row-button" id="edit-button" hidden>Bewerk evenement</button>
-            <button class="row-button" id="overview-button">Overzicht registraties</button>
+            <button class="row-button" id="edit-button" hidden>Bewerk</button>
+            <button class="row-button" id="overview-button">Overzicht</button>
         </div>
     </div>
     <footer-component></footer-component>
