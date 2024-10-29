@@ -49,9 +49,9 @@ function initEvent(id) {
         if (event.needsMobile === "1") {
             $("#mobile-block").css("display", "inline-block")
         }
-        if (event.needsAddress === "1") {
-            $("#address-block").css("display", "inline-block")
-        }
+        // if (event.needsAddress === "1") {
+        //    $("#address-block").css("display", "inline-block")
+        //}
         calculatePrice(event.additional_form_rule)
         $("#register-button").click(() => register(event.id))
     });
@@ -94,18 +94,4 @@ function register(id) {
             location.href = result.checkout
         }
     })
-    // let xhr = new XMLHttpRequest();
-    // xhr.open('POST', `/api/event/register.php?id=${id}`, true);
-    // xhr.onreadystatechange = function () {
-    //     if (xhr.readyState === 4) {
-    //         let result = JSON.parse(xhr.responseText);
-    //         if (xhr.status === 200) {
-    //             location.href = result.checkout
-    //         } else {
-    //             $("#registration-feedback").text(result.error)
-    //             $("#register-button").prop("disabled", false);
-    //         }
-    //     }
-    // };
-    // xhr.send(form);
 }
