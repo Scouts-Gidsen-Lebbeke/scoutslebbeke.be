@@ -21,6 +21,7 @@ function getBranch(branchId) {
         } else {
             $("#law-div").hide()
         }
+        $("#branch-staff-title").html(d.staffTitle)
         getStaff(d)
         $("#content").show()
     });
