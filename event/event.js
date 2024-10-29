@@ -1,6 +1,10 @@
 jQuery.validator.setDefaults({
     success: "valid"
 });
+jQuery.validator.addMethod("requiredIfFieldEquals", function(value, element, params) {
+    const [fieldSelector, expectedValue] = params;
+    return $(fieldSelector).val() !== expectedValue || value.trim() !== "";
+}, "Dit veld is verplicht!");
 
 window.onload = function() {
     loadGlobal();
