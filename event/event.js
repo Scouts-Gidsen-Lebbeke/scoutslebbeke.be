@@ -12,6 +12,7 @@ window.onload = function() {
         $("#event-first-name").val(d.first_name);
         $("#event-email").val(d.email);
         $("#event-mobile").val(d.mobile);
+        //$("#event-address").val(d.address);
         checkAdmin(d, eventId);
     });
     initEvent(eventId);
@@ -45,6 +46,12 @@ function initEvent(id) {
         $("#register-button").html(isEvent ? "Registreer" : "Bestel")
         $("#registration-title").html(isEvent ? "Inschrijving" : "Bestelling")
         $(isEvent ? "#registration-info" : "#order-info").show()
+        if (event.needsMobile === "1") {
+            $("#mobile-block").css("display", "inline-block")
+        }
+        if (event.needsAddress === "1") {
+            $("#address-block").css("display", "inline-block")
+        }
         calculatePrice(event.additional_form_rule)
         $("#register-button").click(() => register(event.id))
     });

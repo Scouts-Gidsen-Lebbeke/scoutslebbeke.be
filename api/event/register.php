@@ -1,6 +1,6 @@
 <?php
 require '../init_mollie.php';
-require '../connect.php';
+require '../getInternalLogin.php';
 
 $result = new stdClass();
 try {
@@ -31,10 +31,20 @@ try {
         throw new InvalidArgumentException("Gelieve een geldig e-mailadres op te geven!");
     }
     unset($_POST['email']);
+    $mobile = mysqli_real_escape_string($connection, $_POST['mobile']);
+    if ($mobile == null) {
+        if ($event->needsMobile) {
+            throw new InvalidArgumentException("Gelieve een geldig telefoonnummer op te geven!");
+        }
+        $mobile = "NULL";
+    } else {
+        $mobile = "'".normalizeMobile($mobile)."'";
+    }
+    unset($_POST['mobile']);
     $price = double($_POST['price']);
     unset($_POST['price']);
     $data = mysqli_real_escape_string($connection, json_encode($_POST));
-    $connection->query("insert into event_registration values (null, '$event->id', '$first_name', '$last_name', '$email', now(), 'open', null, $price, '$data')");
+    $connection->query("insert into event_registration values (null, '$event->id', '$first_name', '$last_name', '$email', $mobile, now(), 'open', null, $price, '$data')");
     $order_id = $connection->insert_id;
     $customer = $mollie->customers->create([
         "name" => $first_name." ".$last_name,
@@ -60,8 +70,4 @@ try {
     $connection->close();
 }
 echo json_encode($result);
-
-function double($d): string {
-    return number_format($d, 2, '.', '');
-}
 
