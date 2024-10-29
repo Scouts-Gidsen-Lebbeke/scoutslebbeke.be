@@ -37,7 +37,7 @@ function initEvent(id) {
                 ignore: ".ignore-validation"
             })
             $("#additional-form").dform(JSON.parse(event.additional_form));
-            $("#registration-form input").on("change", function () { calculatePrice(event.additional_form_rule) });
+            $("#registration-form input, select").on("change", function () { calculatePrice(event.additional_form_rule) });
         } else {
             $("#additional-form-title").hide()
         }
