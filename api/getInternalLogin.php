@@ -143,10 +143,10 @@ function translateUser($sgl_user, $ref_date = null): object {
     $user->email = $sgl_user->email;
     $user->mobile = normalizeMobile(@$sgl_user->persoonsgegevens->gsm);
     $user->birth_date = $sgl_user->vgagegevens->geboortedatum;
-    $user->med_date = $sgl_user->vgagegevens->individueleSteekkaartdatumaangepast;
+    $user->med_date = $sgl_user->vgagegevens->individueleSteekkaartDatumAangepast;
     fetchUserMedics($user);
     $user->member_id = $sgl_user->verbondsgegevens->lidnummer;
-    $user->som = $sgl_user->vgagegevens->verminderdlidgeld;
+    $user->som = $sgl_user->vgagegevens->verminderdLidgeld;
     $user->totem = getPrivateField($sgl_user->groepseigenVelden, SettingId::CUSTOM_TOTEM->getValue());
     $user->kbijnaam = getPrivateField($sgl_user->groepseigenVelden, SettingId::CUSTOM_KBIJNAAM->getValue());
     $user->wbijnaam = getPrivateField($sgl_user->groepseigenVelden, SettingId::CUSTOM_WBIJNAAM->getValue());
@@ -296,4 +296,18 @@ function fetchOrganization(string $type): ?object {
 
 function fetchOwner(): ?object {
     return fetchOrganization('OWNER');
+}
+
+function getUserByName(string $first_name, string $name): ?object {
+    global $connection;
+    return mysqli_fetch_object($connection->query("select * from user where lower(name) = lower('$name') and lower(first_name) = lower('$first_name')"));
+}
+
+enum ExternalFieldId : string {
+    case FIRST_NAME = "be.vvksm.groepsadmin.model.column.VoornaamColumn";
+    case NAME = "be.vvksm.groepsadmin.model.column.AchternaamColumn";
+    case BIRTHDATE = "be.vvksm.groepsadmin.model.column.GeboorteDatumColumn";
+    case FUNCTIONS = "be.vvksm.groepsadmin.model.column.VVKSMFunktiesColumn";
+    case MEMBER_ID = "TODO";
+
 }
