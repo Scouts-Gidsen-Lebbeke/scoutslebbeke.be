@@ -28,7 +28,7 @@ async function initPeriods() {
         if (active) {
             $("#calendar-periods").val(active.id)
         } else {
-            $("#calendars").html("Momenteel hebben we geen werking, we zien je graag in september terug!");
+            $("#calendars").html("Momenteel hebben we geen werking, we zien je graag na de vakantie terug!");
         }
     });
 }
