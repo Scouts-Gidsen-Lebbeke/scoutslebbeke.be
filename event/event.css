@@ -22,7 +22,7 @@
 #event-admin, #confirmation, #cancel {
     display: none;
 }
-#registration-form input, #registration-form textarea, #event-admin button {
+#registration-form input, #registration-form textarea, #registration-form select, #event-admin button {
     margin: auto 10px auto 4px;
 }
 #registration-feedback {
