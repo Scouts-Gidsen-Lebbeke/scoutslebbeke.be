@@ -24,6 +24,7 @@ window.onload = function() {
 
 function initEvent(id) {
     fetch(`/api/event/getEvent.php?id=${id}`).then(data => data.json()).then(event => {
+        let isEvent = event.eventType === "EVENT"
         $("#event-name").html(event.name);
         $("#event-when").text(periodToTitle(new Date(Date.parse(event.start)), new Date(Date.parse(event.end))))
         $("#event-location").html(locationToTitle(event.location, true))
@@ -31,7 +32,7 @@ function initEvent(id) {
         $(".event-registration-deadline").text(printDeadline(event.close_registration));
         if (new Date(Date.parse(event.close_registration)) < new Date()) {
             $("#registration-block").hide()
-            $("#registration-feedback").text("De inschrijvingen voor dit evenement zijn afgesloten!")
+            $("#registration-feedback").text(isEvent ? "De inschrijvingen zijn afgesloten!" : "De bestellingen zijn afgesloten!");
             return
         }
         if (event.additional_form) {
@@ -45,7 +46,6 @@ function initEvent(id) {
         } else {
             $("#additional-form-title").hide()
         }
-        let isEvent = event.eventType === "EVENT"
         $("#additional-form-title").html(isEvent ? "Evenementsgegevens" : "Bestelgegevens")
         $("#register-button").html(isEvent ? "Registreer" : "Bestel")
         $("#registration-title").html(isEvent ? "Inschrijving" : "Bestelling")
