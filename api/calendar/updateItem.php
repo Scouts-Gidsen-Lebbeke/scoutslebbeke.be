@@ -32,7 +32,7 @@ try {
     if ($id) {
         $result->succes = mysqli_query($connection, "update calendar_item set fromDate = '$from', toDate = '$to', title = '$title', content = '$content', closed = '$closed', location_id = $location, image = $image where id='$id'");
     } else {
-        $result->succes = mysqli_query($connection, "insert into calendar_item values (null, '$from', '$to', '$title', '$content', null, null, '$calendar_id', '$closed', $image, $location)");
+        $result->succes = mysqli_query($connection, "insert into calendar_item values (null, '$from', '$to', '$title', '$content', $image, null, '$calendar_id', '$closed', null, $location)");
     }
 } catch (Exception $e) {
     $result->error = $e->getMessage();
