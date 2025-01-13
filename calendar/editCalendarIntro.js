@@ -39,7 +39,7 @@ function postIntro() {
     $("#intro").val(tinymce.activeEditor.getContent());
     const form = document.querySelector("#intro-form");
     const formData = new FormData(form);
-    fetch("/api/calendar/updateIntro.php", {
+    fetch(`${baseApiUrl}/api/calendar/updateIntro.php`, {
         headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
         method: "POST",
         body: formData

@@ -13,7 +13,7 @@ window.onload = function() {
 };
 
 function loadBranches() {
-    return fetch("/api/branch/getAll.php").then(r => r.json()).then(branches => {
+    return fetch(`${baseApiUrl}/api/branch/getAll.php`).then(r => r.json()).then(branches => {
         branches.forEach(b => {
             $('#branch-overview tbody').append(
                 `<tr>
@@ -37,7 +37,7 @@ function printPeriod(branch) {
 }
 
 function loadRoles() {
-    fetch("/api/admin/getAllRoles.php").then(r => r.json()).then(roles => {
+    fetch(`${baseApiUrl}/api/admin/getAllRoles.php`).then(r => r.json()).then(roles => {
         roles.forEach(addRole)
         $("#role-overview-loader").hide()
     });
@@ -103,7 +103,7 @@ function saveRole(imgRef) {
     role['staff_branch_id'] = row.find('.staff-branch-list').val();
     role['level'] = row.find('.level-list').val();
     let data = JSON.stringify(role);
-    fetch("/api/admin/saveRole.php", {
+    fetch(`${baseApiUrl}/api/admin/saveRole.php`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',

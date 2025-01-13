@@ -43,13 +43,13 @@ window.onload = function() {
 };
 
 function retrieveLocations() {
-    fetch("/api/location/getAll.php").then((res) => res.json()).then((locations) => {
+    fetch(`${baseApiUrl}/api/location/getAll.php`).then((res) => res.json()).then((locations) => {
         locations.forEach(b => $('#activity-location').append(`<option value="${b.id}">${b.name}</option>`))
     });
 }
 
 function initBranches() {
-    fetch("/api/branch/getActive.php").then((res) => res.json()).then((result) => { branches = result; });
+    fetch(`${baseApiUrl}/api/branch/getActive.php`).then((res) => res.json()).then((result) => { branches = result; });
 }
 
 function retrieveActivity() {
@@ -132,7 +132,7 @@ function saveAndCloseRestrictions() {
         data.push(rowData);
     });
     data = JSON.stringify(data);
-    fetch("/api/activity/validateRestrictions.php", {
+    fetch(`${baseApiUrl}/api/activity/validateRestrictions.php`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -181,7 +181,7 @@ function postActivity() {
     $("#activity-additional-form").val(jsonEditor.getValue());
     const form = document.querySelector("#activity-form");
     const formData = new FormData(form);
-    fetch("/api/activity/updateActivity.php", {
+    fetch(`${baseApiUrl}/api/activity/updateActivity.php`, {
         headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
         method: "POST",
         body: formData

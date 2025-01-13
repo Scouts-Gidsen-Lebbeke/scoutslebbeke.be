@@ -23,7 +23,7 @@ window.onload = function() {
 };
 
 function initEvent(id) {
-    fetch(`/api/event/getEvent.php?id=${id}`).then(data => data.json()).then(event => {
+    fetch(`${baseApiUrl}/api/event/getEvent.php?id=${id}`).then(data => data.json()).then(event => {
         let isEvent = event.eventType === "EVENT"
         $("#event-name").html(event.name);
         $("#event-when").text(periodToTitle(new Date(Date.parse(event.start)), new Date(Date.parse(event.end))))
@@ -87,7 +87,7 @@ function register(id) {
     if (!$("#registration-form").valid()) return;
     $("#register-button").prop("disabled", true);
     const form = new FormData(document.querySelector("#registration-form"));
-    fetch(`/api/event/register.php?id=${id}`, {
+    fetch(`${baseApiUrl}/api/event/register.php?id=${id}`, {
         method: "POST",
         body: form
     }).then(response => response.json()).then(result => {

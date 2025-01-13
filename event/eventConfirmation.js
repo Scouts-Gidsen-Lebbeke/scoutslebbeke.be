@@ -7,7 +7,7 @@ window.onload = function() {
 };
 
 function retrieveRegistration(orderId) {
-    fetch(`/api/event/getRegistration.php?id=${orderId}`).then(data => data.json()).then(r => {
+    fetch(`${baseApiUrl}/api/event/getRegistration.php?id=${orderId}`).then(data => data.json()).then(r => {
         if (r.status === "paid") {
             $("#registration-id").text(r.id)
             $("#registration-first-name").text(r.first_name)

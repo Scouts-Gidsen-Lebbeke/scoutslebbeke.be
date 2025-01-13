@@ -39,7 +39,7 @@ function postOutro() {
     $("#outro").val(tinymce.activeEditor.getContent());
     const form = document.querySelector("#outro-form");
     const formData = new FormData(form);
-    fetch("/api/calendar/updateOutro.php", {
+    fetch(`${baseApiUrl}/api/calendar/updateOutro.php`, {
         headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
         method: "POST",
         body: formData

@@ -28,7 +28,7 @@ window.onload = function() {
 };
 
 function retrieveLocations() {
-    fetch("/api/location/getAll.php").then((res) => res.json()).then((locations) => {
+    fetch(`${baseApiUrl}/api/location/getAll.php`).then((res) => res.json()).then((locations) => {
         locations.forEach(b => $('#event-location').append(`<option value="${b.id}">${b.name}</option>`))
     });
 }
@@ -69,7 +69,7 @@ function postEvent() {
     $("#event-additional-form").val(jsonEditor.getValue());
     const form = document.querySelector("#event-form");
     const formData = new FormData(form);
-    fetch("/api/event/updateEvent.php", {
+    fetch(`${baseApiUrl}/api/event/updateEvent.php`, {
         headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
         method: "POST",
         body: formData

@@ -2,12 +2,12 @@ let currentIndex = 0, intervalID, backgrounds = [], kc;
 
 function loadGlobal() {
     getImages();
-    fetch("/api/getNavigation.php").then((res) => res.json()).then((data) => {
+    fetch(`${baseApiUrl}/api/getNavigation.php`).then((res) => res.json()).then((data) => {
         $("#navigation").html(getBrowserNav(data));
         $("#mobile-navigation").html(getMobileNav(data));
     });
     $("#current-year").text(new Date().getFullYear());
-    fetch("/api/organization/getOrganization.php").then((res) => res.json()).then(org => {
+    fetch(`${baseApiUrl}/api/organization/getOrganization.php`).then((res) => res.json()).then(org => {
         $(".organization-name").html(org.name);
         document.title = org.name;
         let addressComponent = $(".organization-address");
@@ -45,7 +45,7 @@ function load(page) {
 }
 
 function getImages() {
-    fetch("/api/getBackgrounds.php").then(response => response.json()).then(data => {
+    fetch(`${baseApiUrl}/api/getBackgrounds.php`).then(response => response.json()).then(data => {
         backgrounds = Object.values(data);
         backgrounds.forEach(url => {
             const img = new Image();
@@ -135,29 +135,29 @@ function mailto(location) {
 async function tokenized(url, optional = false, abort = null) {
     if (!kc.token && optional) {
         if (abort) {
-            return fetch(url, { signal: abort.signal }).then(data => data.json());
+            return fetch(baseApiUrl + url, { signal: abort.signal }).then(data => data.json());
         } else {
-            return fetch(url).then(data => data.json());
+            return fetch(baseApiUrl + url).then(data => data.json());
         }
     }
     await kc.updateToken(30);
     if (kc.token) {
         if (abort) {
-            return fetch(url, {
+            return fetch(baseApiUrl + url, {
                 headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
                 signal: abort.signal
             }).then(data => data.json());
         } else {
-            return fetch(url, {
+            return fetch(baseApiUrl + url, {
                 headers: new Headers({ 'Authorization': `Bearer ${kc.token}` })
             }).then(data => data.json());
         }
     }
     if (optional) {
         if (abort) {
-            return fetch(url, { signal: abort.signal }).then(data => data.json());
+            return fetch(baseApiUrl + url, { signal: abort.signal }).then(data => data.json());
         } else {
-            return fetch(url).then(data => data.json());
+            return fetch(baseApiUrl + url).then(data => data.json());
         }
     }
     return null;
@@ -165,7 +165,7 @@ async function tokenized(url, optional = false, abort = null) {
 
 function postForm(path, formId, method = "POST") {
     const form = new FormData(document.querySelector(`#${formId}`));
-    return fetch(path, {
+    return fetch(baseApiUrl + path, {
         headers: new Headers({
             'Authorization': `Bearer ${kc.token}`
         }),

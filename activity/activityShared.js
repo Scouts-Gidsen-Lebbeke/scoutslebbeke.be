@@ -53,7 +53,7 @@ function checkSubscriptionState(activityId, memberId) {
 }
 
 function finishPayment(id) {
-    fetch('/api/getCheckout.php?id=' + id).then(result => result.json()).then(result => {
+    fetch(`${baseApiUrl}/api/getCheckout.php?id=` + id).then(result => result.json()).then(result => {
         if (result.error != null) {
             alert(result.error)
         } else if (result.feedback != null) {
@@ -68,7 +68,7 @@ function subscribe(id) {
     if (!$("#subscription-form").valid()) return;
     $("#subscribe-button").prop("disabled", true);
     const form = new FormData(document.querySelector("#subscription-form"));
-    fetch(`/api/activity/subscribe.php?id=${id}`, {
+    fetch(`${baseApiUrl}/api/activity/subscribe.php?id=${id}`, {
         headers: new Headers({
             'Authorization': `Bearer ${kc.token}`,
         }),

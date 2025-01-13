@@ -21,7 +21,7 @@ function toggleUpload() {
 
 function postImage() {
     const form = new FormData(document.querySelector('#profile-form'));
-    fetch("/api/user/uploadProfilePicture.php", {
+    fetch(`${baseApiUrl}/api/user/uploadProfilePicture.php`, {
         headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
         method: "POST",
         body: form

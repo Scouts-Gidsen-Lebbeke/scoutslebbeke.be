@@ -8,7 +8,7 @@ window.onload = function() {
 };
 
 function getNews() {
-    fetch("/api/news/getAll.php").then((res) => res.json()).then((data) => {
+    fetch(`${baseApiUrl}/api/news/getAll.php`).then((res) => res.json()).then((data) => {
         Object.values(data.news).forEach((n) => {
             $("#news-items").append(
                 `<div class="news-item" id="news-item-${n.id}">

@@ -12,7 +12,7 @@ window.onload = function() {
 };
 
 async function initBranches() {
-    return fetch("/api/branch/getActive.php").then((res) => res.json()).then((branches) => {
+    return fetch(`${baseApiUrl}/api/branch/getActive.php`).then((res) => res.json()).then((branches) => {
         branches.forEach(b => $('#member-branches').append(`<option value="${b.id}">${b.name}</option>`))
     });
 }

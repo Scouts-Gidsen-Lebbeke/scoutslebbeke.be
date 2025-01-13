@@ -21,7 +21,7 @@ window.onload = function() {
 };
 
 function initActivity(id) {
-    fetch(`/api/activity/getActivity.php?id=${id}`).then(data => data.json()).then(activity => {
+    fetch(`${baseApiUrl}/api/activity/getActivity.php?id=${id}`).then(data => data.json()).then(activity => {
         $("#activity-name").text(activity.name);
     });
 }

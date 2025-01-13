@@ -1,3 +1,5 @@
+let baseApiUrl = "";
+
 class Burger extends HTMLElement {
     constructor() {
         super();
@@ -177,7 +179,7 @@ function createLocation() {
 function saveAndClose() {
     const form = document.querySelector("#location-form");
     const formData = new FormData(form);
-    fetch("/api/location/postLocation.php", {
+    fetch(`${baseApiUrl}/api/location/postLocation.php`, {
         headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
         method: "POST",
         body: formData
@@ -185,7 +187,7 @@ function saveAndClose() {
         if (result.error != null) {
             $("#location-form-feedback").html(result.error);
         } else {
-            fetch("/api/location/getAll.php").then((res) => res.json()).then((locations) => {
+            fetch(`${baseApiUrl}/api/location/getAll.php`).then((res) => res.json()).then((locations) => {
                 $('.location-list').empty()
                 locations.forEach(b => $('.location-list').append(`<option value="${b.id}">${b.name}</option>`))
             });

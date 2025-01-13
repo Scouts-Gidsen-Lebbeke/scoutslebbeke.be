@@ -22,7 +22,7 @@ window.onload = function() {
 };
 
 async function initPeriods() {
-    return fetch("/api/calendar/getAll.php").then((res) => res.json()).then((periods) => {
+    return fetch(`${baseApiUrl}/api/calendar/getAll.php`).then((res) => res.json()).then((periods) => {
         periods.forEach(p => $('#calendar-periods').append(`<option value="${p.id}">${p.name}</option>`))
         let active = periods.find(p => p.active === "1")
         if (active) {
@@ -34,7 +34,7 @@ async function initPeriods() {
 }
 
 async function initBranches() {
-    return fetch("/api/branch/getActiveWithRole.php").then((res) => res.json()).then((branches) => {
+    return fetch(`${baseApiUrl}/api/branch/getActiveWithRole.php`).then((res) => res.json()).then((branches) => {
         branches.forEach(b => $('#calendar-branches').append(`<option value="${b.id}">${b.name}</option>`))
     });
 }

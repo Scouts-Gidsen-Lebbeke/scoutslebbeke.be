@@ -12,7 +12,7 @@ window.onload = function() {
 };
 
 function initActivity(id) {
-    fetch(`/api/activity/getActivity.php?id=${id}`).then(data => data.json()).then(activity => {
+    fetch(`${baseApiUrl}/api/activity/getActivity.php?id=${id}`).then(data => data.json()).then(activity => {
         $("#activity-name").html(activity.name);
         $("#activity-when").text(periodToTitle(new Date(Date.parse(activity.start)), new Date(Date.parse(activity.end))))
         $("#activity-location").html(locationToTitle(activity.location, true))

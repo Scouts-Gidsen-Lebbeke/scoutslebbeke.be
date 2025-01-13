@@ -31,7 +31,7 @@ function mail() {
     $("#email-content").val(tinymce.activeEditor.getContent());
     const form = document.querySelector("#email-form");
     const formData = new FormData(form);
-    fetch(`/api/event/mailRegistrations.php`, {
+    fetch(`${baseApiUrl}/api/event/mailRegistrations.php`, {
         headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
         method: "POST",
         body: formData

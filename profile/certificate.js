@@ -1,6 +1,6 @@
 async function getCertificate(subscriptionId) {
     // Fetch an existing PDF document
-    const template = fetch('/profile/certificates/participation.pdf').then(res => res.arrayBuffer())
+    const template = fetch(`/profile/certificates/participation.pdf`).then(res => res.arrayBuffer())
     const signature = fetch('/profile/certificates/signature.png').then(res => res.arrayBuffer())
     tokenized(`/api/activity/getCertificateData.php?id=${subscriptionId}`).then(async d => {
         if (!d) {

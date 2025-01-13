@@ -6,7 +6,7 @@ window.onload = function() {
 };
 
 function retrieveSubscription(orderId) {
-    fetch(`/api/activity/getSubscription.php?id=${orderId}`).then(data => data.json()).then(r => {
+    fetch(`${baseApiUrl}/api/activity/getSubscription.php?id=${orderId}`).then(data => data.json()).then(r => {
         if (r.status === "paid") {
             $("#subscription-id").text(r.id)
             $("#subscription-first-name").text(r.first_name)

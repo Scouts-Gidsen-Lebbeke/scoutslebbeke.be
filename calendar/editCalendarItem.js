@@ -22,7 +22,7 @@ window.onload = function() {
 };
 
 function retrieveLocations() {
-    fetch("/api/location/getAll.php").then((res) => res.json()).then((locations) => {
+    fetch(`${baseApiUrl}/api/location/getAll.php`).then((res) => res.json()).then((locations) => {
         locations.forEach(b => $('#item-location').append(`<option value="${b.id}">${b.name}</option>`))
     });
 }

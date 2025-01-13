@@ -7,7 +7,7 @@ window.onload = function() {
 
 function getBranch(branchId) {
     $("#content").hide()
-    fetch(`/api/branch/getBranch.php?id=${branchId}`).then((res) => res.json()).then((d) => {
+    fetch(`${baseApiUrl}/api/branch/getBranch.php?id=${branchId}`).then((res) => res.json()).then((d) => {
         $("#branch-name").text(d.name)
         $("#branch-logo").attr("src", "/images/branch/" + d.image);
         if (d.minimum_age === d.maximum_age) {
