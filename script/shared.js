@@ -45,11 +45,11 @@ function load(page) {
 }
 
 function getImages() {
-    fetch(`${baseApiUrl}/api/getBackgrounds.php`).then(response => response.json()).then(data => {
+    fetch(`/api/backgrounds.json`).then(response => response.json()).then(data => {
         backgrounds = Object.values(data);
         backgrounds.forEach(url => {
             const img = new Image();
-            img.src = url;
+            img.src = "/images/background/" + url;
         })
         resetAndChangeImage();
     })
@@ -63,7 +63,7 @@ function resetAndChangeImage() {
 
 function changeImage() {
     currentIndex = (currentIndex + 1) % backgrounds.length;
-    $("#title-wrapper").css("background-image", `url(${backgrounds[currentIndex]})`);
+    $("#title-wrapper").css("background-image", `url(/images/background/${backgrounds[currentIndex]})`);
 }
 
 function toggleNav() {
