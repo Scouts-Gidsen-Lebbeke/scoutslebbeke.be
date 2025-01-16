@@ -143,7 +143,7 @@ function translateUser($sgl_user, $ref_date = null): object {
     $user->email = $sgl_user->email;
     $user->mobile = normalizeMobile(@$sgl_user->persoonsgegevens->gsm);
     $user->birth_date = $sgl_user->vgagegevens->geboortedatum;
-    $user->med_date = $sgl_user->vgagegevens->individueleSteekkaartDatumAangepast;
+    $user->med_date = @$sgl_user->vgagegevens->individueleSteekkaartDatumAangepast;
     fetchUserMedics($user);
     $user->member_id = $sgl_user->verbondsgegevens->lidnummer;
     $user->som = $sgl_user->vgagegevens->verminderdlidgeld;
