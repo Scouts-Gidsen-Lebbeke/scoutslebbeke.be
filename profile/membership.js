@@ -7,7 +7,7 @@ window.onload = function() {
 };
 
 function loadMemberships() {
-    tokenized("/api/user/getMemberships.php").then(result => {
+    tokenized("/user/getMemberships.php").then(result => {
         if (result.active) {
             $("#current-membership").show();
         } else {
@@ -30,7 +30,7 @@ function loadMemberships() {
 }
 
 function createMembership() {
-    tokenized("/api/user/createMembership.php").then(result => {
+    tokenized("/user/createMembership.php").then(result => {
         if (result.error) {
             alert(result.error)
         } else {
@@ -40,9 +40,9 @@ function createMembership() {
 }
 
 function getCertificate(membershipId) {
-    const template = fetch('certificates/membership.pdf').then(res => res.arrayBuffer())
-    const signature = fetch('certificates/signature.png').then(res => res.arrayBuffer())
-    tokenized(`/api/user/getCertificateData.php?id=${membershipId}`).then(async d => {
+    const template = fetch('/profile/certificates/membership.pdf').then(res => res.arrayBuffer())
+    const signature = fetch('/profile/certificates/signature.png').then(res => res.arrayBuffer())
+    tokenized(`/user/getCertificateData.php?id=${membershipId}`).then(async d => {
         const pdfDoc = await PDFLib.PDFDocument.load(await template)
         const form = pdfDoc.getForm()
         form.getTextField('name').setText(d.member.name)
