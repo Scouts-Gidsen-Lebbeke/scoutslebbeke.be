@@ -146,7 +146,7 @@ function translateUser($sgl_user, $ref_date = null): object {
     $user->med_date = $sgl_user->vgagegevens->individueleSteekkaartDatumAangepast;
     fetchUserMedics($user);
     $user->member_id = $sgl_user->verbondsgegevens->lidnummer;
-    $user->som = $sgl_user->vgagegevens->verminderdLidgeld;
+    $user->som = $sgl_user->vgagegevens->verminderdlidgeld;
     $user->totem = getPrivateField($sgl_user->groepseigenVelden, SettingId::CUSTOM_TOTEM->getValue());
     $user->kbijnaam = getPrivateField($sgl_user->groepseigenVelden, SettingId::CUSTOM_KBIJNAAM->getValue());
     $user->wbijnaam = getPrivateField($sgl_user->groepseigenVelden, SettingId::CUSTOM_WBIJNAAM->getValue());
