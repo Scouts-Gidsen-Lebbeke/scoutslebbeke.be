@@ -4,6 +4,6 @@ services:
   website:
     build: .
     ports:
-      - "80:80"
+      - "9292:80"
     volumes:
       - .:/usr/local/apache2/htdocs/
