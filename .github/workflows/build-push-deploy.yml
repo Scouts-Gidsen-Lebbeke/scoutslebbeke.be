@@ -56,6 +56,9 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }} << 'EOF'
             cd scoutslebbeke
+            
+            podman login ghcr.io -u "${{ github.actor }}" -p "${{ secrets.GITHUB_TOKEN }}"
+
             podman pull ghcr.io/${{ env.OWNER_LC }}/frontend:latest
             if podman ps -a --format '{{.Names}}' | grep -q '^frontend$'; then
               podman stop frontend || true
