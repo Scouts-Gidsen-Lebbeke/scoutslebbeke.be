@@ -25,13 +25,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Docker Image
+      - name: Build and Push Multi-Platform Docker Image
         run: |
-          docker build -t ghcr.io/${{ env.OWNER_LC }}/frontend:latest .
-
-      - name: Push Docker Image
-        run: |
-          docker push ghcr.io/${{ env.OWNER_LC }}/frontend:latest
+          docker buildx build \
+            --platform linux/amd64,linux/arm64 \
+            --tag ghcr.io/${{ env.OWNER_LC }}/frontend:latest \
+            --push .
 
   deploy:
     needs: build-and-push
@@ -60,7 +59,7 @@ jobs:
             podman login ghcr.io -u "${{ github.actor }}" -p "${{ secrets.GITHUB_TOKEN }}"
 
             podman pull ghcr.io/${{ env.OWNER_LC }}/frontend:latest
-            if podman ps -a --format '{{.Names}}' | grep -q '^frontend$'; then
+            if podman ps -a --format '{{.Names}}' | grep '^frontend$'; then
               podman stop frontend || true
               podman rm frontend || true
             fi
