@@ -64,5 +64,5 @@ jobs:
               podman stop frontend || true
               podman rm frontend || true
             fi
-            podman run -d --name frontend -p 80:80 ghcr.io/${{ env.OWNER_LC }}/frontend:latest
+            podman run -d --name frontend -p 9292:80 ghcr.io/${{ env.OWNER_LC }}/frontend:latest
           EOF
