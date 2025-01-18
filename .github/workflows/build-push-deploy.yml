@@ -51,7 +51,9 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }} << 'EOF'
             cd scoutslebbeke
             docker pull ghcr.io/${{ env.OWNER_LC }}/frontend:latest
-            docker stop frontend || true
-            docker rm frontend || true
+            if docker ps -a --format '{{.Names}}' | grep -q '^frontend$'; then
+              docker stop frontend || true
+              docker rm frontend || true
+            fi
             docker run -d --name frontend -p 80:80 ghcr.io/${{ env.OWNER_LC }}/frontend:latest
           EOF
