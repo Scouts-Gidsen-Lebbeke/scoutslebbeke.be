@@ -13,7 +13,7 @@ window.onload = function() {
 };
 
 function loadBranches() {
-    return fetch(`${baseApiUrl}/api/branch/getAll.php`).then(r => r.json()).then(branches => {
+    return fetch(`${baseApiUrl}/branch/getAll.php`).then(r => r.json()).then(branches => {
         branches.forEach(b => {
             $('#branch-overview tbody').append(
                 `<tr>
@@ -37,7 +37,7 @@ function printPeriod(branch) {
 }
 
 function loadRoles() {
-    fetch(`${baseApiUrl}/api/admin/getAllRoles.php`).then(r => r.json()).then(roles => {
+    fetch(`${baseApiUrl}/admin/getAllRoles.php`).then(r => r.json()).then(roles => {
         roles.forEach(addRole)
         $("#role-overview-loader").hide()
     });
@@ -103,7 +103,7 @@ function saveRole(imgRef) {
     role['staff_branch_id'] = row.find('.staff-branch-list').val();
     role['level'] = row.find('.level-list').val();
     let data = JSON.stringify(role);
-    fetch(`${baseApiUrl}/api/admin/saveRole.php`, {
+    fetch(`${baseApiUrl}/admin/saveRole.php`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ function deleteRole(imgRef) {
         row.remove();
         return;
     }
-    tokenized(`/api/admin/deleteRole.php?id=${row.id}`).then(r => {
+    tokenized(`/admin/deleteRole.php?id=${row.id}`).then(r => {
         if (r.error) {
             alert(r.error)
         } else {

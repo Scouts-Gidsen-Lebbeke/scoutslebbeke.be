@@ -22,7 +22,7 @@ window.onload = function() {
 };
 
 function retrieveLocations() {
-    fetch(`${baseApiUrl}/api/location/getAll.php`).then((res) => res.json()).then((locations) => {
+    fetch(`${baseApiUrl}/location/getAll.php`).then((res) => res.json()).then((locations) => {
         locations.forEach(b => $('#item-location').append(`<option value="${b.id}">${b.name}</option>`))
     });
 }
@@ -38,7 +38,7 @@ function retrieveItem() {
         $("#item-form").show()
         return
     }
-    tokenized(`/api/calendar/getItem.php?id=${itemId}`).then(item => {
+    tokenized(`/calendar/getItem.php?id=${itemId}`).then(item => {
         $("#item-id").val(item.id)
         $("#period-id").val(item.calendar_period_id)
         $("#calendar-id").val(item.calendar_id)
@@ -62,12 +62,7 @@ function toggleUpload() {
 }
 
 function postImage() {
-    const form = new FormData(document.querySelector('#item-form'));
-    fetch("/api/postImage.php?dir=calendar", {
-        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
-        method: "POST",
-        body: form
-    }).then(response => response.json()).then(data => {
+    postForm(`/postImage.php?dir=calendar`, "item-form").then(data => {
         if (data.succes) {
             $("#item-image").val(data.name)
             $("#item-image-pic").attr("src", data.location);
@@ -83,13 +78,7 @@ function cancel() {
 
 function postItem() {
     $("#item-content").val(tinymce.activeEditor.getContent());
-    const form = document.querySelector("#item-form");
-    const formData = new FormData(form);
-    fetch("/api/calendar/updateItem.php", {
-        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
-        method: "POST",
-        body: formData
-    }).then(data => data.json()).then(result => {
+    postForm("/calendar/updateItem.php", "item-form").then(result => {
         if (result.error != null) {
             $("#form-feedback").html(result.error)
         } else {

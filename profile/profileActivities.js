@@ -7,7 +7,7 @@ window.onload = function() {
 };
 
 function loadActivityOverview() {
-    tokenized("/api/activity/getUserActivities.php").then(activities => {
+    tokenized("/activity/getUserActivities.php").then(activities => {
         activities.forEach(activity =>
             $('#activity-overview tbody').append(`
                 <tr>

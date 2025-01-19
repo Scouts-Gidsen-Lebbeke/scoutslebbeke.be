@@ -28,7 +28,7 @@ window.onload = function() {
 };
 
 function retrieveLocations() {
-    fetch(`${baseApiUrl}/api/location/getAll.php`).then((res) => res.json()).then((locations) => {
+    fetch(`${baseApiUrl}/location/getAll.php`).then((res) => res.json()).then((locations) => {
         locations.forEach(b => $('#event-location').append(`<option value="${b.id}">${b.name}</option>`))
     });
 }
@@ -41,7 +41,7 @@ function retrieveEvent() {
         $("#event-form").show()
         return
     }
-    tokenized(`/api/event/getEvent.php?id=${eventId}`).then(e => {
+    tokenized(`/event/getEvent.php?id=${eventId}`).then(e => {
         if (!params.get('duplicate')) {
             $("#event-id").val(e.id)
         }
@@ -67,13 +67,7 @@ function retrieveEvent() {
 function postEvent() {
     $("#event-info").val(tinymce.get("event-pre-info").getContent());
     $("#event-additional-form").val(jsonEditor.getValue());
-    const form = document.querySelector("#event-form");
-    const formData = new FormData(form);
-    fetch(`${baseApiUrl}/api/event/updateEvent.php`, {
-        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
-        method: "POST",
-        body: formData
-    }).then(data => data.json()).then(result => {
+    postForm(`/event/updateEvent.php`, "event-form").then(result => {
         if (result.error != null) {
             $("#event-form-feedback").html(result.error)
         } else {

@@ -13,13 +13,13 @@ window.onload = function() {
 };
 
 async function initBranches() {
-    return fetch(`${baseApiUrl}/api/branch/getActive.php`).then((res) => res.json()).then((branches) => {
+    return fetch(`${baseApiUrl}/branch/getActive.php`).then((res) => res.json()).then((branches) => {
         branches.forEach(b => $('#branches').append(`<option value="${b.id}">${b.name}</option>`))
     });
 }
 
 function retrieveActivity(id) {
-    tokenized(`/api/activity/getActivityOverview.php?id=${id}`).then(result => {
+    tokenized(`/activity/getActivityOverview.php?id=${id}`).then(result => {
         result.registrations.forEach((s, i) => {
             $('#overview-table tbody').append(
                 `<tr>
@@ -69,7 +69,7 @@ function printDate(date) {
 }
 
 function markPresent(present, activityId, id) {
-    tokenized(`/api/activity/markPresent.php?activityId=${activityId}&id=${id}&present=${present}`).then(result => {
+    tokenized(`/activity/markPresent.php?activityId=${activityId}&id=${id}&present=${present}`).then(result => {
         if (result.error) {
             alert(result.error)
             $(`#${id}-present`).prop('checked', !present);

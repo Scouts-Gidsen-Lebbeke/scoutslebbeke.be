@@ -29,13 +29,7 @@ function mail() {
     $("#email-error").hide();
     $("#email-feedback").html("Bezig met versturen...");
     $("#email-content").val(tinymce.activeEditor.getContent());
-    const form = document.querySelector("#email-form");
-    const formData = new FormData(form);
-    fetch(`${baseApiUrl}/api/event/mailRegistrations.php`, {
-        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
-        method: "POST",
-        body: formData
-    }).then(data => data.json()).then(result => {
+    postForm(`/event/mailRegistrations.php`, "email-form").then(result => {
         $("#send-button").attr("disabled", false);
         if (result.error) {
             $("#email-feedback").empty();

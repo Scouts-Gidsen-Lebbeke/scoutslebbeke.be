@@ -1,4 +1,11 @@
-let baseApiUrl = "";
+const phpServer = false;
+let baseApiUrl;
+if (phpServer) {
+    baseApiUrl = "/api";
+} else {
+    baseApiUrl = "http://localhost:8080"
+    // baseApiUrl = "https://dev.scoutslebbeke.be"
+}
 
 class Burger extends HTMLElement {
     constructor() {
@@ -61,7 +68,33 @@ class Header extends HTMLElement {
         this.innerHTML = `
             <div id="header">
                 <burger-component></burger-component>
-                <div id="navigation"></div>
+                <div id="navigation">
+                    <div class="navigation-item" onclick="load('index')">Home</div>
+                    <div class="dropdown-block">
+                        <div class="navigation-item">Info <i class="down"></i></div>
+                        <div class="dropdown">
+                            <div class="dropdown-item" onclick="load('info/uniform')">Uniform</div>
+                            <div class="dropdown-item" onclick="load('info/subscribe')">Inschrijven</div>
+                            <div class="dropdown-item" onclick="load('info/rules')">Leefregels</div>
+                            <div class="dropdown-item" onclick="load('info/rent')">Verhuur</div>
+                            <div class="dropdown-item" onclick="load('info/links')">Nuttige links</div>
+                        </div>
+                    </div>
+                    <div class="dropdown-block" id="branch-menu">
+                        <div class="navigation-item">Takken <i class="down"></i></div>
+                        <div class="dropdown"></div>
+                    </div>        
+                    <div class="navigation-item" onclick="load('calendar/calendar')">Kalender</div>
+                    <div class="dropdown-block" id="activity-menu">
+                        <div class="navigation-item">Activiteiten <i class="down"></i></div>
+                        <div class="dropdown"></div>
+                    </div>
+                    <div class="dropdown-block" id="event-menu">
+                        <div class="navigation-item">Evenementen <i class="down"></i></div>
+                        <div class="dropdown"></div>
+                    </div>
+                    <div class="navigation-item" onclick="load('contact/contact')">Contact</div>
+                </div>
                 <div id="profile" class="dropdown-block">
                     <div class="navigation-item">
                         <span id="profile-name">Niet ingelogd</span>
@@ -72,7 +105,28 @@ class Header extends HTMLElement {
                     </div>
                 </div>
             </div>
-            <div id="mobile-navigation"></div>
+            <div id="mobile-navigation">
+                <div class="mobile-menu" id="main-mobile-menu">
+                    <a onclick="load('index')">Home</a>
+                    <a onclick="toggleSub('info')">Info</a>
+                    <a onclick="toggleSub('branch')" id="main-branch-menu">Takken</a>
+                    <a onclick="load('calendar/calendar')">Kalender</a>
+                    <a onclick="toggleSub('activity')" id="main-activity-menu">Activiteiten</a>
+                    <a onclick="toggleSub('event')" id="main-event-menu">Evenementen</a>
+                    <a onclick="load('contact/contact')">Contact</a>
+                </div>    
+                <div class="mobile-menu" id="info-mobile-menu">
+                    <a onclick="load('info/uniform')">Uniform</a>
+                    <a onclick="load('info/subscribe')">Inschrijven</a>
+                    <a onclick="load('info/rules')">Leefregels</a>
+                    <a onclick="load('info/rent')">Verhuur</a>
+                    <a onclick="load('info/links')">Nuttige links</a>
+                    <a onclick="toggleSub('info')">←</a>
+                </div>
+                <div class="mobile-menu" id="branch-mobile-menu"></div>
+                <div class="mobile-menu" id="activity-mobile-menu"></div>
+                <div class="mobile-menu" id="event-mobile-menu"></div>
+            </div>
             <div id="mobile-profile" class="mobile-menu">
                 <a class="login-item" onclick="toggleLogin()">Log in</a>
             </div>
@@ -177,17 +231,11 @@ function createLocation() {
 }
 
 function saveAndClose() {
-    const form = document.querySelector("#location-form");
-    const formData = new FormData(form);
-    fetch(`${baseApiUrl}/api/location/postLocation.php`, {
-        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
-        method: "POST",
-        body: formData
-    }).then(data => data.json()).then(result => {
+    postForm(`/location/postLocation.php`, "location-form").then(result => {
         if (result.error != null) {
             $("#location-form-feedback").html(result.error);
         } else {
-            fetch(`${baseApiUrl}/api/location/getAll.php`).then((res) => res.json()).then((locations) => {
+            fetch(`${baseApiUrl}/location/getAll.php`).then((res) => res.json()).then((locations) => {
                 $('.location-list').empty()
                 locations.forEach(b => $('.location-list').append(`<option value="${b.id}">${b.name}</option>`))
             });

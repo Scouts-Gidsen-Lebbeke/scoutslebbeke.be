@@ -2,29 +2,47 @@ let currentIndex = 0, intervalID, backgrounds = [], kc;
 
 function loadGlobal() {
     getImages();
-    fetch(`${baseApiUrl}/api/getNavigation.php`).then((res) => res.json()).then((data) => {
-        $("#navigation").html(getBrowserNav(data));
-        $("#mobile-navigation").html(getMobileNav(data));
+    const branchUrl = phpServer ? "/branch/getActive.php" : "/branches"
+    fetch(`${baseApiUrl}${branchUrl}`).then((res) => res.json()).then(branches => {
+        if (branches.length > 0) {
+            $("#branch-menu").css("display", "inline-block");
+            $("#main-branch-menu").toggle();
+            Object.values(branches).forEach(b => {
+                $("#branch-menu .dropdown").append(`<div class="dropdown-item" onclick="load('branch/branch.html?id=${b.id}')">${b.name}</div>`)
+                $("#branch-mobile-menu").append(`<a onclick="load('branch/branch.html?id=${b.id}')">${b.name}</div>`)
+            })
+        }
+    });
+    const activityUrl = phpServer ? "/activity/getActive.php" : "/activities/visible"
+    fetch(`${baseApiUrl}${activityUrl}`).then((res) => res.json()).then(activities => {
+        if (activities.length > 0) {
+            $("#activity-menu").css("display", "inline-block");
+            $("#main-activity-menu").toggle();
+            Object.values(activities).forEach(a => {
+                $("#activity-menu .dropdown").append(`<div class="dropdown-item" onclick="load('activity/activity.html?id=${a.id}')">${a.name}</div>`)
+                $("#activity-mobile-menu").append(`<a onclick="load('activity/activity.html?id=${a.id}')">${a.name}</div>`)
+            })
+        }
+    });
+    const eventUrl = phpServer ? "/event/getActive.php" : "/events/visible"
+    fetch(`${baseApiUrl}${eventUrl}`).then((res) => res.json()).then(events => {
+        if (events.length > 0) {
+            $("#event-menu").css("display", "inline-block");
+            $("#main-event-menu").toggle();
+            Object.values(events).forEach(e => {
+                $("#event-menu .dropdown").append(`<div class="dropdown-item" onclick="load('event/event.html?id=${e.id}')">${e.name}</div>`)
+                $("#event-mobile-menu").append(`<a onclick="load('event/event.html?id=${e.id}')">${e.name}</div>`)
+            })
+        }
     });
     $("#current-year").text(new Date().getFullYear());
-    fetch(`${baseApiUrl}/api/organization/getOrganization.php`).then((res) => res.json()).then(org => {
+    const orgUrl = phpServer ? "/organization/getOrganization.php" : "/organizations/owner"
+    fetch(`${baseApiUrl}${orgUrl}`).then((res) => res.json()).then(org => {
         $(".organization-name").html(org.name);
         document.title = org.name;
-        let addressComponent = $(".organization-address");
-        let addressComponent2 = $(".organization-address-nowrap");
-        if (org.address.url) {
-            addressComponent.css('cursor', 'pointer');
-            addressComponent2.css('cursor', 'pointer');
-            addressComponent.on('click', function () {
-                window.open(org.address.url, '_blank');
-            });
-            addressComponent2.on('click', function () {
-                window.open(org.address.url, '_blank');
-            });
-        }
-        addressComponent.html(`${org.address.street} ${org.address.number}${ifNotNull(org.address.addition)}<br/>${org.address.zip} ${org.address.town}`);
-        addressComponent2.html(`${org.address.street} ${org.address.number}${ifNotNull(org.address.addition)}, ${org.address.zip} ${org.address.town}`);
-        org.contacts.forEach(c => $(".organization-contacts").append(translateType(c)));
+        $(".organization-address").html(`${org.address.street} ${org.address.number}${ifNotNull(org.address.subPremise)}<br/>${org.address.zipcode} ${org.address.town}`);
+        $(".organization-address-nowrap").html(`${org.address.street} ${org.address.number}${ifNotNull(org.address.subPremise)}, ${org.address.zipcode} ${org.address.town}`);
+        org.contactMethods.forEach(c => $(".organization-contacts").append(translateType(c)));
         $("#organization-description").html(org.description);
         $('#min-year').text(new Date().getFullYear() - (new Date().getMonth() > 6 ? 6 : 7))
     });
@@ -86,41 +104,6 @@ function toggleSub(sub) {
     $("#main-mobile-menu").toggle();
 }
 
-function getBrowserNav(groups) {
-    let result = [], menuitem;
-    groups.forEach((group) => {
-        menuitem = "";
-        if (group.items.length === 1 && group.items[0].name === group.name) {
-            menuitem += `<div class="navigation-item" onclick="load('${group.items[0].path}')">${group.name}</div>`;
-        } else if (group.items.length > 0) {
-            menuitem += `<div class="dropdown-block"><div class="navigation-item">${group.name} <i class="down"></i></div><div class="dropdown">`;
-            group.items.forEach((item) => {
-                menuitem += `<div class="dropdown-item" onclick="load('${item.path}')">${item.name}</div>`;
-            });
-            menuitem += "</div></div>";
-        }
-        result.push(menuitem);
-    });
-    return result.join("");
-}
-
-function getMobileNav(groups) {
-    let subitems = '', result = '';
-    groups.forEach((group) => {
-        if (group.items.length === 1 && group.items[0].name === group.name) {
-            subitems += `<a onclick="load('${group.items[0].path}')">${group.name}</a>`;
-        } else if (group.items.length > 0) {
-            subitems += `<a onclick="toggleSub('${group.id}')">${group.name}</a>`;
-            result += `<div class="mobile-menu" id="${group.id}-mobile-menu">`;
-            group.items.forEach((item) => {
-                result += `<a onclick="load('${item.path}')">${item.name}</a>`;
-            });
-            result += `<a onclick="toggleSub('${group.id}')">←</a></div>`;
-        }
-    });
-    return `<div class="mobile-menu" id="main-mobile-menu">${subitems}</div>${result}`;
-}
-
 function mailto(location) {
     switch (location) {
         case "webmaster":
@@ -132,12 +115,17 @@ function mailto(location) {
     }
 }
 
-async function tokenized(url, optional = false, abort = null) {
+async function tokenized(url, optional = false, abort = null, method = "GET") {
     if (!kc.token && optional) {
         if (abort) {
-            return fetch(baseApiUrl + url, { signal: abort.signal }).then(data => data.json());
+            return fetch(baseApiUrl + url, {
+                signal: abort.signal,
+                method: method
+            }).then(data => data.json());
         } else {
-            return fetch(baseApiUrl + url).then(data => data.json());
+            return fetch(baseApiUrl + url, {
+                method: method
+            }).then(data => data.json());
         }
     }
     await kc.updateToken(30);
@@ -145,19 +133,26 @@ async function tokenized(url, optional = false, abort = null) {
         if (abort) {
             return fetch(baseApiUrl + url, {
                 headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
-                signal: abort.signal
+                signal: abort.signal,
+                method: method
             }).then(data => data.json());
         } else {
             return fetch(baseApiUrl + url, {
-                headers: new Headers({ 'Authorization': `Bearer ${kc.token}` })
+                headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
+                method: method
             }).then(data => data.json());
         }
     }
     if (optional) {
         if (abort) {
-            return fetch(baseApiUrl + url, { signal: abort.signal }).then(data => data.json());
+            return fetch(baseApiUrl + url, {
+                signal: abort.signal,
+                method: method
+            }).then(data => data.json());
         } else {
-            return fetch(baseApiUrl + url).then(data => data.json());
+            return fetch(baseApiUrl + url, {
+                method: method
+            }).then(data => data.json());
         }
     }
     return null;
@@ -195,39 +190,67 @@ async function loadKeycloak() {
 async function checkLogin(onFulfilled) {
     const authenticated = await loadKeycloak();
     if (authenticated) {
-        tokenized("/api/getLogin.php").then(onFulfilled);
+        const url = phpServer ? "/getLogin.php" : "/users/profile";
+        tokenized(url).then(onFulfilled);
     }
 }
 
 async function requireLogin(onFulfilled) {
     const authenticated = await loadKeycloak();
     if (authenticated) {
-        tokenized("/api/getLogin.php").then(onFulfilled);
+        const url = phpServer ? "/getLogin.php" : "/users/profile";
+        tokenized(url).then(onFulfilled);
     } else {
         toggleLogin();
     }
 }
 
 function loadProfile(d) {
-    $("#profile-name").text(d.first_name);
-    $("#profile-pic").css("background-image", `url(/images/profile/${d.image})`);
+    $("#profile-name").text(d.firstName);
+    $("#profile-pic").css("background-image", `url(/images/profile/${d.image ? d.image : 'default.png'})`);
     $(".login-item").remove()
-    d.pages.forEach(p => {
-        $("#profile-dropdown").append(`<div class="dropdown-item" onclick="load('${p.path}')">${p.name}</div>`)
-        $("#mobile-profile").append(`<a onclick="load('${p.path}')">${p.name}</a>`)
-    })
+    $("#profile-dropdown").append(`<div class="dropdown-item" onclick="load('profile/profile.html')">Profiel</div>`)
+    $("#mobile-profile").append(`<a onclick="load('profile/profile.html')">Profiel</a>`)
+    $("#profile-dropdown").append(`<div class="dropdown-item" onclick="load('profile/membership.html')">Mijn lidmaatschap</div>`)
+    $("#mobile-profile").append(`<a onclick="load('profile/membership.html')">Mijn lidmaatschap</a>`)
+    $("#profile-dropdown").append(`<div class="dropdown-item" onclick="load('profile/activities.html')">Mijn activiteiten</div>`)
+    $("#mobile-profile").append(`<a onclick="load('profile/activities.html')">Mijn activiteiten</a>`)
+    if (isStaff(d)) {
+        $("#profile-dropdown").append(`<div class="dropdown-item" onclick="load('staff/members.html')">Mijn leden</div>`)
+        $("#mobile-profile").append(`<a onclick="load('staff/members.html')">Mijn leden</a>`)
+    }
+    if (isAdmin(d)) {
+        $("#profile-dropdown").append(`<div class="dropdown-item" onclick="load('admin/member.html')">Ledenbeheer</div>`)
+        $("#mobile-profile").append(`<a onclick="load('admin/member.html')">Ledenbeheer</a>`)
+        $("#profile-dropdown").append(`<div class="dropdown-item" onclick="load('admin/activity.html')">Activiteitenbeheer</div>`)
+        $("#mobile-profile").append(`<a onclick="load('admin/activity.html')">Activiteitenbeheer</a>`)
+        $("#profile-dropdown").append(`<div class="dropdown-item" onclick="load('admin/event.html')">Evenementenbeheer</div>`)
+        $("#mobile-profile").append(`<a onclick="load('admin/event.html')">Evenementenbeheer</a>`)
+        $("#profile-dropdown").append(`<div class="dropdown-item" onclick="load('admin/organisation.html')">Organisatiebeheer</div>`)
+        $("#mobile-profile").append(`<a onclick="load('admin/organisation.html')">Organisatiebeheer</a>`)
+        $("#profile-dropdown").append(`<div class="dropdown-item" onclick="load('admin/admin.html')">Sitebeheer</div>`)
+        $("#mobile-profile").append(`<a onclick="load('admin/admin.html')">Sitebeheer</a>`)
+    }
     $("#profile-dropdown").append(`<div class="dropdown-item" onclick="toggleLogout()">Log uit</div>`)
     $("#mobile-profile").append(`<a onclick="toggleLogout()">Log uit</a>`)
 }
 
+function isAdmin(d) {
+    return d.level === "ADMIN" || d.level === 4
+}
+
 function guardAdmin(d) {
-    if (d.level < 4) {
+    if (!isAdmin(d)) {
         window.location = "/403.html";
     }
 }
 
+function isStaff(d) {
+    return isAdmin(d) || d.level === "STAFF" || d.level === 3
+}
+
 function guardStaff(d) {
-    if (d.level < 3) {
+    if (!isStaff(d)) {
         window.location = "/403.html";
     }
 }
@@ -256,7 +279,7 @@ function locationToTitle(location, full) {
     if (location == null) {
         return "Scoutsterrein";
     }
-    let title = ""
+    let title
     let address = printAddress(location)
     if (location.name && full) {
         title = `${location.name} (${address})`;

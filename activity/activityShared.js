@@ -9,7 +9,7 @@ function checkSubscriptionState(activityId, memberId) {
     $("#options").empty()
     $("#additional-form").empty()
     if (!memberId) return
-    tokenized(`/api/activity/getSubscriptionState.php?id=${activityId}&memberId=${memberId}`).then(result => {
+    tokenized(`/activity/getSubscriptionState.php?id=${activityId}&memberId=${memberId}`).then(result => {
         if (result == null) return; // user is not logged in, keep original feedback
         $("#subscription-disabled").hide();
         if (result.error != null) {
@@ -53,7 +53,7 @@ function checkSubscriptionState(activityId, memberId) {
 }
 
 function finishPayment(id) {
-    fetch(`${baseApiUrl}/api/getCheckout.php?id=` + id).then(result => result.json()).then(result => {
+    fetch(`${baseApiUrl}/getCheckout.php?id=` + id).then(result => result.json()).then(result => {
         if (result.error != null) {
             alert(result.error)
         } else if (result.feedback != null) {
@@ -67,14 +67,7 @@ function finishPayment(id) {
 function subscribe(id) {
     if (!$("#subscription-form").valid()) return;
     $("#subscribe-button").prop("disabled", true);
-    const form = new FormData(document.querySelector("#subscription-form"));
-    fetch(`${baseApiUrl}/api/activity/subscribe.php?id=${id}`, {
-        headers: new Headers({
-            'Authorization': `Bearer ${kc.token}`,
-        }),
-        method: "POST",
-        body: form
-    }).then(response => response.json()).then(result => {
+    postForm(`/activity/subscribe.php?id=${id}`, "subscription-form").then(result => {
         if (result.error != null) {
             alert(result.error)
             $("#subscribe-button").prop("disabled", false);

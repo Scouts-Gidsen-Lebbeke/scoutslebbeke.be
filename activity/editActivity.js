@@ -43,13 +43,13 @@ window.onload = function() {
 };
 
 function retrieveLocations() {
-    fetch(`${baseApiUrl}/api/location/getAll.php`).then((res) => res.json()).then((locations) => {
+    fetch(`${baseApiUrl}/location/getAll.php`).then((res) => res.json()).then((locations) => {
         locations.forEach(b => $('#activity-location').append(`<option value="${b.id}">${b.name}</option>`))
     });
 }
 
 function initBranches() {
-    fetch(`${baseApiUrl}/api/branch/getActive.php`).then((res) => res.json()).then((result) => { branches = result; });
+    fetch(`${baseApiUrl}/branch/getActive.php`).then((res) => res.json()).then((result) => { branches = result; });
 }
 
 function retrieveActivity() {
@@ -60,7 +60,7 @@ function retrieveActivity() {
         $("#activity-form").show()
         return
     }
-    tokenized(`/api/activity/getActivity.php?id=${activityId}`).then(a => {
+    tokenized(`/activity/getActivity.php?id=${activityId}`).then(a => {
         if (!params.get('duplicate')) {
             $("#activity-id").val(a.id)
         }
@@ -132,7 +132,7 @@ function saveAndCloseRestrictions() {
         data.push(rowData);
     });
     data = JSON.stringify(data);
-    fetch(`${baseApiUrl}/api/activity/validateRestrictions.php`, {
+    fetch(`${baseApiUrl}/activity/validateRestrictions.php`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -179,13 +179,7 @@ function postActivity() {
     $("#activity-info").val(tinymce.get("activity-pre-info").getContent());
     $("#activity-practical").val(tinymce.get("activity-pre-practical").getContent());
     $("#activity-additional-form").val(jsonEditor.getValue());
-    const form = document.querySelector("#activity-form");
-    const formData = new FormData(form);
-    fetch(`${baseApiUrl}/api/activity/updateActivity.php`, {
-        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
-        method: "POST",
-        body: formData
-    }).then(data => data.json()).then(result => {
+    postForm(`/activity/updateActivity.php`, "activity-form").then(result => {
         if (result.error != null) {
             $("#activity-form-feedback").html(result.error)
         } else {

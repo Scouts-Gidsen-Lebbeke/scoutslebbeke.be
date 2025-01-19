@@ -21,7 +21,7 @@ window.onload = function() {
 };
 function retrieveOutro() {
     const id = (new URL(document.location)).searchParams.get('id')
-    tokenized(`/api/calendar/getById.php?id=${id}`).then(item => {
+    tokenized(`/calendar/getById.php?id=${id}`).then(item => {
         $("#id").val(item.id)
         if (item.outro) {
             tinymce.get("pre-outro").setContent(item.outro)
@@ -37,13 +37,7 @@ function cancel() {
 
 function postOutro() {
     $("#outro").val(tinymce.activeEditor.getContent());
-    const form = document.querySelector("#outro-form");
-    const formData = new FormData(form);
-    fetch(`${baseApiUrl}/api/calendar/updateOutro.php`, {
-        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
-        method: "POST",
-        body: formData
-    }).then(data => data.json()).then(result => {
+    postForm(`/calendar/updateOutro.php`, "outro-form").then(result => {
         if (result.error != null) {
             $("#form-feedback").html(result.error)
         } else {

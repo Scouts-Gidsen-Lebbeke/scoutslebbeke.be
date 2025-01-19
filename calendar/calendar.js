@@ -22,7 +22,7 @@ window.onload = function() {
 };
 
 async function initPeriods() {
-    return fetch(`${baseApiUrl}/api/calendar/getAll.php`).then((res) => res.json()).then((periods) => {
+    return fetch(`${baseApiUrl}/calendar/getAll.php`).then((res) => res.json()).then((periods) => {
         periods.forEach(p => $('#calendar-periods').append(`<option value="${p.id}">${p.name}</option>`))
         let active = periods.find(p => p.active === "1")
         if (active) {
@@ -34,7 +34,7 @@ async function initPeriods() {
 }
 
 async function initBranches() {
-    return fetch(`${baseApiUrl}/api/branch/getActiveWithRole.php`).then((res) => res.json()).then((branches) => {
+    return fetch(`${baseApiUrl}/branch/getActiveWithRole.php`).then((res) => res.json()).then((branches) => {
         branches.forEach(b => $('#calendar-branches').append(`<option value="${b.id}">${b.name}</option>`))
     });
 }
@@ -51,7 +51,7 @@ function loadCalendar() {
         return;
     }
     $("#calendars").html(`<loader-component>Ophalen kalender...</loader-component>`)
-    tokenized(`/api/calendar/getByBranch.php?branch=${branchId}&period=${periodId}`, true).then((calendar) => {
+    tokenized(`/calendar/getByBranch.php?branch=${branchId}&period=${periodId}`, true).then((calendar) => {
         if (!calendar) {
             $("#calendars").html("Er werd geen kalender gevonden voor deze periode!");
             return;
@@ -124,7 +124,7 @@ function addItem(calendarId) {
 
 function deleteItem(itemId) {
     if (confirm("Ben je zeker dat je dit item wil verwijderen?")) {
-        tokenized(`/api/calendar/deleteItem.php?id=${itemId}`).then(succes => {
+        tokenized(`/calendar/deleteItem.php?id=${itemId}`).then(succes => {
             if (succes) {
                 $(`#calendar-item-${itemId}`).remove()
             } else {

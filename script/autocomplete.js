@@ -3,7 +3,7 @@ let currentFocus = -1, controller = new AbortController();
 function loadMemberList(e) {
     controller.abort()
     controller = new AbortController()
-    tokenized(`/api/user/findMember.php?query=${e.value}`, false, controller).then(d => {
+    tokenized(`/user/findMember.php?query=${e.value}`, false, controller).then(d => {
         $("#member-list").empty();
         $("#member-id").val("").change();
         currentFocus = -1;
@@ -23,7 +23,7 @@ function loadFunctionList(e) {
     controller.abort();
     controller = new AbortController();
     let searchField = $(e.target)
-    tokenized(`/api/admin/findUnlinkedFunctions.php?query=${searchField.val()}`, false, controller).then(d => {
+    tokenized(`/admin/findUnlinkedFunctions.php?query=${searchField.val()}`, false, controller).then(d => {
         let list = searchField.parent().find(`.function-list`)
         list.empty();
         let idField = searchField.parent().find(`.function-id`)

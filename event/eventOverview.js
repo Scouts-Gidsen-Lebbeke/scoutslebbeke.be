@@ -12,7 +12,7 @@ window.onload = function() {
 };
 
 function retrieveEvent(id) {
-    tokenized(`/api/event/getEventOverview.php?id=${id}`).then(result => {
+    tokenized(`/event/getEventOverview.php?id=${id}`).then(result => {
         result.forEach((r, i) => {
             $('#overview-table tbody').append(
                 `<tr>

@@ -69,3 +69,6 @@
     display: block;
     cursor: pointer;
 }
+#branch-menu, #activity-menu, #event-menu, #main-branch-menu, #main-activity-menu, #main-event-menu {
+    display: none;
+}

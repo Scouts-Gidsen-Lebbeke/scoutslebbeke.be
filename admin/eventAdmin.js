@@ -8,7 +8,7 @@ window.onload = function() {
 };
 
 function loadEvents() {
-    tokenized("/api/event/getAllEvents.php").then(d => {
+    tokenized("/event/getAllEvents.php").then(d => {
         d.events.forEach(e => {
             $('#event-overview tbody').append(
                 `<tr>

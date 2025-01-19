@@ -12,7 +12,8 @@ window.onload = function() {
 };
 
 async function initBranches() {
-    return fetch(`${baseApiUrl}/api/branch/getActive.php`).then((res) => res.json()).then((branches) => {
+    const branchUrl = phpServer ? "/branch/getActive.php" : "/branches"
+    return fetch(`${baseApiUrl}${branchUrl}`).then((res) => res.json()).then((branches) => {
         branches.forEach(b => $('#member-branches').append(`<option value="${b.id}">${b.name}</option>`))
     });
 }
@@ -21,7 +22,8 @@ function loadMembers() {
     $("#member-loader").show();
     $('#member-overview tbody').empty();
     let branchId = $("#member-branches").val();
-    tokenized(`/api/user/findActiveMembers.php?branch=${branchId}`).then(result => {
+    const url = phpServer ? `/user/findActiveMembers.php?branch=${branchId}` : `/memberships/branch/${branchId}`
+    tokenized(url).then(result => {
         $("#current-period").html(`(${printY(result.period.start)} - ${printY(result.period.end)})`)
         result.members.forEach((member, i) =>
             $('#member-overview tbody').append(`

@@ -28,7 +28,7 @@ function retrieveNews() {
         $("#news-form").show()
         return
     }
-    tokenized(`/api/news/getById.php?id=${id}`).then(news => {
+    tokenized(`/news/getById.php?id=${id}`).then(news => {
         $("#news-id").val(news.id)
         $("#news-title").val(news.title)
         $("#news-image").val(news.image)
@@ -46,7 +46,7 @@ function toggleUpload() {
 }
 
 function postImage() {
-    postForm("/api/postImage.php?dir=news", "news-form").then(data => {
+    postForm("/postImage.php?dir=news", "news-form").then(data => {
         if (data.succes) {
             $("#news-image").val(data.name)
             $("#news-image-pic").attr("src", data.location);
@@ -62,7 +62,7 @@ function cancel() {
 
 function postNews() {
     $("#news-content").val(tinymce.activeEditor.getContent());
-    postForm("/api/news/updateNews.php", "news-form").then(result => {
+    postForm("/news/updateNews.php", "news-form").then(result => {
         if (result.error != null) {
             $("#form-feedback").html(result.error)
         } else {

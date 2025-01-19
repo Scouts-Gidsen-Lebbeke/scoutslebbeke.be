@@ -8,7 +8,7 @@ window.onload = function() {
 };
 
 function loadActivities() {
-    tokenized("/api/activity/getAllActivities.php").then(d => {
+    tokenized("/activity/getAllActivities.php").then(d => {
         d.activities.forEach(a => {
             $('#activity-overview tbody').append(
                 `<tr>

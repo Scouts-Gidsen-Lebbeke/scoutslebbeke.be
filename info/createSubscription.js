@@ -36,7 +36,7 @@ window.onload = function() {
 
 function postSubscription() {
     if (!$("#subscribe-form").valid()) return;
-    postForm("/api/user/createSubscription.php", "subscribe-form").then(result => {
+    postForm("/user/createSubscription.php", "subscribe-form").then(result => {
         if (result.error != null) {
             $("#subscribe-feedback").html(result.error)
         } else if (result.checkout != null) {

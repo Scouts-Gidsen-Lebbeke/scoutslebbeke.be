@@ -11,7 +11,7 @@ window.onload = function() {
 function syncStaff() {
     $("#sync-staff").prop("disabled", true);
     $("#sync-staff-feedback").html("Bezig met ophalen data...");
-    tokenized("/api/admin/syncStaff.php").then(d => {
+    tokenized("/admin/syncStaff.php").then(d => {
         $("#sync-staff-feedback").html(d.success ? "Synchronisatie gelukt!" : d.message)
         $("#sync-staff").prop("disabled", false);
     });
@@ -22,7 +22,7 @@ function loadMemberTasks() {
     $("#unsynced-feedback").empty();
     $("#load-unsynced").prop('disabled', true);
     $("#unsynced-overview-loader").show();
-    tokenized(`/api/admin/findUnsyncedMembers.php`).then(r => {
+    tokenized(`/admin/findUnsyncedMembers.php`).then(r => {
         if (r.error) {
             $("#unsynced-feedback").html(r.error)
         } else if (r.unsynced.length) {
@@ -50,7 +50,7 @@ function loadMemberTasks() {
 
 function fixMember(external_id, confirm_message, fix) {
     if (!confirm(confirm_message)) return;
-    tokenized(`/api/admin/${fix}.php?external_id=${external_id}`).then(r => {
+    tokenized(`/admin/${fix}.php?external_id=${external_id}`).then(r => {
         if (r.error) {
             alert(r.error)
         } else {

@@ -20,12 +20,7 @@ function toggleUpload() {
 }
 
 function postImage() {
-    const form = new FormData(document.querySelector('#profile-form'));
-    fetch(`${baseApiUrl}/api/user/uploadProfilePicture.php`, {
-        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
-        method: "POST",
-        body: form
-    }).then(response => response.json()).then(data => {
+    postForm(`/user/uploadProfilePicture.php`, "profile-form").then(data => {
         if (data.succes) {
             $("#profile-image-pic").attr("src", data.location);
         } else {

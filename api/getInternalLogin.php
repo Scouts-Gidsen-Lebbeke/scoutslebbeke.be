@@ -140,6 +140,7 @@ function translateUser($sgl_user, $ref_date = null): object {
         mysqli_query($connection, "insert into user values (null, '$sgl_user->id', '$name', '$firstName', 'default.png', null)");
     }
     $user = mysqli_fetch_object($connection->query("select * from user where sgl_id = '$sgl_user->id'"));
+    $user->firstName = $user->first_name;
     $user->email = $sgl_user->email;
     $user->mobile = normalizeMobile(@$sgl_user->persoonsgegevens->gsm);
     $user->birth_date = $sgl_user->vgagegevens->geboortedatum;
@@ -281,7 +282,10 @@ function fetchOrganization(string $type): ?object {
     $organization = mysqli_fetch_object($connection->query("select * from organization where type = '$type'"));
     if (!empty($organization)) {
         $organization->address = mysqli_fetch_object($connection->query("select * from location where id = $organization->location_id"));
+        $organization->address->subPremise = $organization->address->addition;
+        $organization->address->zipcode = $organization->address->zip;
         $organization->contacts = mysqli_all_objects($connection, "select * from organization_contact where organization_id = $organization->id");
+        $organization->contactMethods = $organization->contacts;
         $email_contacts = array_filter($organization->contacts, fn($c) => $c->type === "EMAIL");
         $organization->email = reset($email_contacts)->value;
         $delegate_id = SettingId::DELEGATE_ID->getValue();

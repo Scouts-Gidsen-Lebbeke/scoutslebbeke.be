@@ -16,7 +16,8 @@ function checkMembershipState(memberId) {
         $("#no-current-membership").hide();
         return
     }
-    tokenized(`/api/user/getActiveMembership.php?memberId=${memberId}`).then(result => {
+    const url = phpServer ? `/user/getActiveMembership.php?memberId=${memberId}` : `/memberships/user/${memberId}/current`
+    tokenized(url).then(result => {
         $("#subscription-disabled").hide();
         if (result) {
             $("#current-membership").show();
@@ -29,7 +30,8 @@ function checkMembershipState(memberId) {
 function createMembership() {
     let memberId = $("#member-id").val()
     if (!memberId) return;
-    tokenized(`/api/user/createMembership.php?memberId=${memberId}`).then(result => {
+    const url = phpServer ? `/user/createMembership.php?memberId=${memberId}` : `/memberships/user/${memberId}`
+    tokenized(url, false, null, "POST").then(result => {
         if (result.error) {
             alert(result.error)
         } else {

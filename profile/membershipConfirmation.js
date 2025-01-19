@@ -6,7 +6,7 @@ window.onload = function() {
 };
 
 function retrieveMembership(id) {
-    fetch(`${baseApiUrl}/api/user/getMembership.php?id=${id}`).then(data => data.json()).then(r => {
+    fetch(`${baseApiUrl}/user/getMembership.php?id=${id}`).then(data => data.json()).then(r => {
         if (r.status === "paid") {
             $("#membership-period").text(`${printY(r.start)} - ${printY(r.end)}`)
             $("#membership-first-name").text(r.user.first_name)

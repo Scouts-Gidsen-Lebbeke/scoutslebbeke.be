@@ -21,7 +21,7 @@ window.onload = function() {
 };
 function retrieveIntro() {
     const id = (new URL(document.location)).searchParams.get('id')
-    tokenized(`/api/calendar/getById.php?id=${id}`).then(item => {
+    tokenized(`/calendar/getById.php?id=${id}`).then(item => {
         $("#id").val(item.id)
         if (item.intro) {
             tinymce.get("pre-intro").setContent(item.intro)
@@ -37,13 +37,7 @@ function cancel() {
 
 function postIntro() {
     $("#intro").val(tinymce.activeEditor.getContent());
-    const form = document.querySelector("#intro-form");
-    const formData = new FormData(form);
-    fetch(`${baseApiUrl}/api/calendar/updateIntro.php`, {
-        headers: new Headers({ 'Authorization': `Bearer ${kc.token}` }),
-        method: "POST",
-        body: formData
-    }).then(data => data.json()).then(result => {
+    postForm(`/calendar/updateIntro.php`, "intro-form").then(result => {
         if (result.error != null) {
             $("#form-feedback").html(result.error)
         } else {
